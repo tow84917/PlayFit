@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+Home Page Here!
+
+<div th:each="obj : ${objs}">
+    <p th:if="${obj.avatar}" th:utext="'userId = '+ ${obj.id} 
+     + '-----userFullName = ' + ${obj.fullName}
+     + '-----userEmail = ' + ${obj.email} 
+     + '-----avatarFileName = '+ ${obj.avatar.fileName}
+     "> 
+     </p>
+<!--      <a th:href="@{/showFormforUpdate/{id}(id=${obj.id})}">Update</a> -->
+     <p th:unless="${obj.avatar}" th:text="'userId = '+ ${obj.id} 
+     + '-----userFullName = ' + ${obj.fullName}
+     + '-----userEmail = ' + ${obj.email} 
+     + '-----avatarFileName = no avatar'
+     "> 
+
+     </p>
+	<a th:href="@{/showFormForUpdate/{id}(id=${obj.id})}">Update</a>
+</div>
+
+</body>
+</html>
