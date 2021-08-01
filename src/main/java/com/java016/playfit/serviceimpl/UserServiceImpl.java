@@ -1,5 +1,7 @@
 package com.java016.playfit.serviceimpl;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +30,12 @@ public class UserServiceImpl implements UserService{
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
-		user.setAccount(user.getEmail());
+//		user.setAccount(user.getEmail());
 		user.setGender("Male");
-		user.setPhone("0900000000");	     
+		user.setPhone("0900000000");	
+		user.setBirthday(new Date());
+		user.setCreatedAt(new Timestamp(1627833600));
+		user.setCertificationStatus(0);
 		userRepo.save(user);
 		
 	}

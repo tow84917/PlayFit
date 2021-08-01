@@ -26,10 +26,10 @@ public class User {
 	@Column(name="full_name")
 	private String fullName;
 	
-	private String account;
+//	private String account;
 	
 	private String password;
-	
+	@Column(name = "nickname")
 	private String name;
 	
 	private String gender;
@@ -72,13 +72,13 @@ public class User {
 		this.fullName = fullName;
 	}
 
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
+//	public String getAccount() {
+//		return account;
+//	}
+//
+//	public void setAccount(String account) {
+//		this.account = account;
+//	}
 
 	public String getPassword() {
 		return password;

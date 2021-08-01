@@ -10,5 +10,11 @@ public class PlayfitApplication {
 		SpringApplication.run(PlayfitApplication.class, args);
 		System.out.println("PlayFit Start!!");
 	}
-	// test~
 }
+
+
+
+
+
+
+
