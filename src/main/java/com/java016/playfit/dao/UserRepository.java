@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.java016.playfit.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-	User findByEmail(String email);
 	
-	@Transactional
+	public User findByEmail(String email);
+	
+	@Transactional(rollbackFor = RuntimeException.class)
 	@Modifying
 	@Query(value = "update users u set u.full_name = :fullName where u.id = :id", nativeQuery=true)
-	void updateUserName(@Param(value = "id") int id,@Param(value="fullName") String fullName);
+	public void updateUserName(@Param(value = "id") int id,@Param(value="fullName") String fullName);
 }

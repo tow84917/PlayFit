@@ -27,8 +27,6 @@ public class HomeController {
 	@ResponseBody
 	public ModelAndView Users() {
 		ModelAndView mv = new ModelAndView();
-		
-		
 		List<User> listUser = userService.getAllUsers();
 	
 		mv.addObject("objs",listUser);
@@ -36,7 +34,8 @@ public class HomeController {
 		return mv;
 	}
 	
-	@RequestMapping("index")
+	// 首頁
+	@RequestMapping("/")
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("index");
@@ -58,7 +57,6 @@ public class HomeController {
 		mv.setViewName("register_success");
 		return mv;
 	}
-	
 	
 	@GetMapping("/login")
 	public String login() {

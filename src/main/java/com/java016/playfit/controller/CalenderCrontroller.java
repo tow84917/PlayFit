@@ -40,9 +40,7 @@ public class CalenderCrontroller {
 		String date = (String)paramsMap.get("day");
 		date = date.replaceAll("\\.", "/");
 		
-		
-		
-		
+			
 		return date; 
 	}
 	
