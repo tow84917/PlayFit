@@ -142,17 +142,9 @@ public class CalendarCrontroller {
 	@RequestMapping("/calendar")
 	public ModelAndView calendar(@AuthenticationPrincipal User user) {
 
-		/**
-		 * 獲取使用者id
-		 */
 		System.out.println("calender**********");
 		int userId = userService.getUserId();
 		System.out.println(userId);
-		System.out.println("calender**********");
-
-
-
-
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/calendar/calendar copy.html");
