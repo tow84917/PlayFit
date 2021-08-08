@@ -38,10 +38,8 @@
   --font-weight-blod: 700;
 }
 
-
 div {
   /* box-shadow: 0 0 0px 2px black inset; */
-
 }
 
 .header {
@@ -63,7 +61,6 @@ div {
   align-self: flex-end;
   height: var(--btn-l-height);
 }
-
 
 .container-fluid,
 .container-xxl,
@@ -117,30 +114,20 @@ div {
 
 .info-col {
   height: 200px;
-
 }
 
-.info {
-  box-shadow: 0 0 0px 1px blue inset;
-  width: 100%;
-  /* height: 200px; */
-  height: 100%;
-
-
-}
-
-.calender-col {
+.calendar-col {
   /* height: 400px; */
   height: calc(100% - 200px);
 }
 
-.calender-inter {
+.calendar-inter {
   box-shadow: 0 0 0px 1px blue inset;
   width: 100%;
   /* height: 800px; */
   height: 100%;
 
-background-color: var(--purple2);
+  background-color: var(--purple2);
 
   display: flex;
   justify-content: center;
@@ -172,39 +159,34 @@ background-color: var(--purple2);
   overflow-y: scroll;
 }
 
-
-
 /* 當日 健身項目 -------------------------------------------------- */
-.today-card{
-
+.today-card {
   width: 100%;
-  height: auto;
+  height: fit-content;
   background-color: var(--purple1);
-  margin-bottom: 1.5rem ;
+  margin-bottom: 1.5rem;
   /* 取消 btn 陰影 */
   filter: none;
 
-    /* 固定 */
-    position: relative;
+  /* 固定 */
+  position: relative;
 }
 /* 當日 健身項目內的圖片 */
-.today-fit{
+.today-fit {
   width: 100%;
   opacity: 0.5;
 }
 /* 當日 健身項目內的文字 */
-.today-fit-name{
+.today-fit-name {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-blod);
   color: var(--white);
-  
+
   /* 固定在右下 */
   position: absolute;
   right: var(--padding-hef);
   bottom: var(--padding-hef);
 }
-
-
 
 .btn-l {
   width: 100%;
@@ -231,4 +213,42 @@ background-color: var(--purple2);
   height: 100px;
   margin-bottom: var(--margin-horizon);
   margin-left: 10px;
+}
+
+/* 月達成 */
+.info {
+  box-shadow: 0 0 0px 1px blue inset;
+  width: 100%;
+  /* height: 200px; */
+  height: 100%;
+  padding: 20px 40px;
+  font-weight: var(--font-weight-blod);
+}
+
+.monthly_record {
+  font-size: var(--font-size-xl);
+  height: inherit;
+}
+
+/* 達成的值  */
+.monthly_value {
+  font-size: var(--font-size-l);
+  display: flex;
+  align-items: center;
+}
+
+.monthly_icon {
+  width: 25px;
+}
+.value_inter {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.value_inter h3 {
+}
+/* 數字 */
+.num_value {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-blod);
 }

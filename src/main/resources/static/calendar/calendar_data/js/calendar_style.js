@@ -1,43 +1,107 @@
 function dofirst() {
+    date = new Date();
+    
+    let schedulet = getMonthlyFitDays(date);
+    renderCalender(schedulet);
 
+    getMonthlyRecord(date);
 
-    renderCalender(scheduled);
     day = document.querySelector(".days")
-    console.log('day: ', day);
+    
 
     btnDay = document.getElementsByClassName('btn-day');
-    console.log('btnDay', btnDay);
-
+    
     // get 月份
 }
 
-const date = new Date();
+window.addEventListener('load', dofirst);
 
-scheduled = [10, 20];  // 測試
+// scheduled = [10, 20];  // 測試
+// scheduled = [];
 
-// 傳入 月份
+/**
+ * 請求 查詢當月有排成的日期 
+ * @param {*} date 
+ * @returns 日期陣列
+ */
+function getMonthlyFitDays(date) {
+    let scheduled = [];
+    let month =  date.getMonth();
+    let year = date.getFullYear();
+      $.ajax({
+        url:"findFitDays" , 
+        type: "POST" , 
+        async:false ,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json", 
+        data: JSON.stringify({"month":month , "year":year}),
+        // data: json,
+        success: function (data) {
+            scheduled = data;
+            console.log('scheduled: ', scheduled);
+            
+        },
+        error: function () {
+        },
+    })
+    
+
+    return scheduled;
+}
+
+//查詢月紀錄
+function getMonthlyRecord(date) {
+    let month =  date.getMonth();
+    let year = date.getFullYear();
+      $.ajax({
+        url:"findMonthlyRecord" , 
+        type: "POST" , 
+        async:false ,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json", 
+        data: JSON.stringify({"month":month , "year":year}),
+        // data: json,
+        success: function (data) {
+            console.log('data: ', data);
+            console.log(data.finish);
+            console.log(data.monthly_kcal);
+            console.log(data.monthly_time);
+
+            $('#finish').text(data.finish);
+            $('#kcal').text(data.monthly_kcal);
+            $('#min').text(data.monthly_time);
+        
+        },
+        error: function () {
+        },
+    })
+}
+
+// 傳入 有排程的日期陣列
 const renderCalender = (daysArray) => {
+    
+
     // date.setFullYear(2020);
     // date.setMonth(6);
-    console.log('date: ', date);
+    
 
     // 前一個月有幾天
-    console.log(date.getMonth());
-    console.log(new Date(date.getFullYear(), date.getMonth(), 0));
+    
+    
     const prevLastDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
-    console.log('prevLastDate: ', prevLastDate);
+    
 
     // 當月第一天為星期幾
     date.setDate(1);
     const firstDateIndex = date.getDay();
-    console.log('firstDateIndex: ', firstDateIndex);
+    
 
     const monthColl = date.getMonth();
     // 年
     const year = date.getFullYear();
 
-    console.log('monthColl: ', monthColl);
-    console.log('year: ', year);
+    
+    
     let months = [
         "January",
         "Feburary",
@@ -67,7 +131,7 @@ const renderCalender = (daysArray) => {
         "12"
     ];
     const month = months[monthColl];
-    console.log('month: ', month);
+    
 
     document.querySelector('.date h1').innerHTML = months[monthColl] + ' ' + year;
     // document.querySelector('.date p').innerHTML = new Date().toDateString();
@@ -75,31 +139,28 @@ const renderCalender = (daysArray) => {
     monthDays = document.querySelector('.days');
     // 當月有幾天
     const lastDays = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-    console.log('lastDays: ', lastDays);
+    
     const lastDaysIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
-    console.log('lastDaysIndex: ', lastDaysIndex);
+    
 
     // 加最後7天
     let nextDays = 7 - lastDaysIndex - 1;
     // if(nextDays == 0 ){
     //     nextDays = 7;
     // }
-    console.log('nextDays: ', nextDays);
-
+    
 
     // 新增日期
     let days = "";
 
-
-
     let seven = 1;
 
     for (let x = firstDateIndex; x > 0; x--) {
-        // console.log('x: ', x);
-        // console.log('seven:  ', seven);
+        // 
+        // 
 
         days += `<div class="prev-date">${prevLastDate - x + 1}</div>`;
-        // console.log('prevLastDate - x + 1: ', prevLastDate - x + 1);
+        // 
 
         if (seven % 7 === 0) {
             sevendays = document.createElement('div');
@@ -107,7 +168,7 @@ const renderCalender = (daysArray) => {
             // sevendays.innerHTML  = 'AAAAAAAA';
             // monthDays.appendChild(sevendays);
             // days += `<div class="prev-date">${prevLastDate - x + 1}</div>`;
-            // console.log('prevLastDate - x + 1: ', prevLastDate - x + 1);
+            // 
             sevendays.innerHTML = days;
             days = '';
             seven = 0;
@@ -118,9 +179,9 @@ const renderCalender = (daysArray) => {
 
 
     for (let i = 1; i <= lastDays; i++) {
-        // console.log('i: ', i);
-        // console.log('lastDays: ', lastDays);
-        // console.log('seven: ++++ ', seven);
+        // 
+        // 
+        // 
 
         if (i === new Date().getDate() && date.getMonth() === new Date().getMonth()) {
             // days += `<div class="today">${i}</div>`;
@@ -128,21 +189,25 @@ const renderCalender = (daysArray) => {
 
         } else {
             // days += `<div>${i}</div>`;
+            let flag = true;
             for (const iterator of daysArray) {
-                console.log('iterator: ', iterator);
+                // 
                 if (iterator == i) {
                     // 如果已有排程 增加 scheduled css
                     days += `<button class="btn-day scheduled" type="button" value="${year},${month},${i}" name="day">${i}</button>`;
+                    flag = false;
                     break;
                 } else {
                     continue;
                 }
             }
-            // 沒排程，也不是當天
-            // days += `<div>${i}</div>`;
-            days += `<button class="btn-day" type="button" value="${month}.${i}.${year}" name="day">${i}</button>`;
+
+            if (flag) {
+                days += `<button class="btn-day" type="button" value="${month}.${i}.${year}" name="day">${i}</button>`;
+
+            }
         }
-        // console.log('days: ', days);
+        // 
 
         if (seven % 7 === 0) {
             sevendays = document.createElement('div');
@@ -150,7 +215,7 @@ const renderCalender = (daysArray) => {
             // sevendays.innerHTML  = 'AAAAAAAA';
             if (seven != 0) {
                 monthDays.appendChild(sevendays);
-                // console.log('*******************************************');
+                // 
             }
 
             sevendays.innerHTML = days;
@@ -168,7 +233,7 @@ const renderCalender = (daysArray) => {
     // days = '';
 
     for (let j = 1; j <= nextDays; j++) {
-        // console.log('seven: >> ', seven);
+        // 
         days += `<div class="next-date">${j}</div>`;
         // sevendays.innerHTML = days;
         if (seven % 7 === 0) {
@@ -188,19 +253,26 @@ const renderCalender = (daysArray) => {
     }
 }
 
-window.addEventListener('load', dofirst);
 
 // 上一月
 document.querySelector(".prev").addEventListener("click", () => {
     date.setMonth(date.getMonth() - 1);
     monthDays.innerHTML = '';
-    renderCalender();
+    
+    
+    let schedulet = getMonthlyFitDays(date);
+    renderCalender(schedulet);
+    getMonthlyRecord(date);
 });
 // 下一月
 document.querySelector(".next").addEventListener("click", () => {
     date.setMonth(date.getMonth() + 1);
     monthDays.innerHTML = '';
-    renderCalender();
+    
+    
+    let schedulet = getMonthlyFitDays(date);
+    renderCalender(schedulet);
+    getMonthlyRecord(date);
 });
 
 // 403 錯誤
@@ -215,20 +287,10 @@ let day = document.querySelector(".days");
 day.addEventListener("click", (e) => {
 
     const target = e.target;
-    console.log('target: ', target);
+    
     const day = target.value;
-    $.post("calender_controller", { day: day }, function (data) {
-        //判断userExsit键的值是否是true
-        console.log('day: ', data);
+    $.post("/calender/findToday", { day: day }, function (data) {
         document.getElementById('day').innerText = data;
-
-    });
-
-    $.post("calender_image", {}, function (data) {
-        //判断userExsit键的值是否是true
-        console.log('img: ', data);
-        document.getElementById('today-img').src = data;
-
     });
 
     // $.ajax({
@@ -242,10 +304,10 @@ day.addEventListener("click", (e) => {
     //     success: function (data) {
     //         if (data.userExsit) {
     //         //用户名存在
-    //         console.log(data.msg);
+    //         
     //         } else {
     //             //用户名不存在
-    //             console.log(data.msg);
+    //             
     //         }
 
     //     },//响应成功后的回调函数

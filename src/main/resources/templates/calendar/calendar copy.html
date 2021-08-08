@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calender</title>
+    <title>calendar</title>
 
     <meta name="_csrf" th:content="${_csrf.token}" />
     <meta name="_csrf_header" th:content="${_csrf.headerName}" />
@@ -17,22 +17,21 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!-- 主要css -->
-    <link rel="stylesheet" th:href="@{style.css}" href="../../static/style.css">
+    <link rel="stylesheet" th:href="@{/style.css}" href="../../static/style.css">
     <!-- <link rel="stylesheet" th:href="@{style.css}" href="../../static/style.css"> -->
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- 日曆 部分的 -->
-    <link rel="stylesheet" th:href="@{./calender_data/css/calender_style.css}"
-        href="../../static/css/calender_style.css">
-    <!-- <link rel="stylesheet" th:href="@{./css/calender_style.css}" href="../../static/css/calender_style.css"> -->
+    <link rel="stylesheet" th:href="@{./calendar_data/css/calendar_style.css}">
+    <!-- <link rel="stylesheet" href="../../static/calendar_data/css/calendar_style.css"> -->
 
     <style>
 
     </style>
 
     <!-- 其他佈局 css -->
-    <link rel="stylesheet" th:href="@{./calender_data/calender.css}" href="../../static/calender_data/calender.css">
+    <link rel="stylesheet" th:href="@{./calendar_data/calendar.css}" href="../../static/calendar_data/calendar.css">
 </head>
 
 <body>
@@ -46,20 +45,49 @@
                     <div class="col-12 my-col-m info-col">
                         <div class="info div row">
                             <!-- 月達成 -->
-                            <div class="col-4">
+                            <div class="col-3 monthly_record">
                                 <p>Monthly record</p>
                             </div>
-                            <div class="col-8">
-                                <p>Monthly record</p>
+                            <div class="col-9 monthly_value">
+                                <!-- finish -->
+                                <div class="value_inter row">
+                                    <div class="icon col-2">
+                                        <img class="monthly_icon" th:src="@{./calendar_data/images/finish.png}" alt="">
+                                    </div>
+                                    <div class="col-10">
+                                        <span class="num_value" id="finish">2</span>
+                                        <span>&nbsp finish</span>
+                                    </div>
+                                </div>
+                                <!-- Kcal -->
+                                <div class="value_inter row">
+                                    <div class="icon col-2">
+                                        <img class="monthly_icon" th:src="@{./calendar_data/images/kcal.png}" alt="">
+                                    </div>
+                                    <div class="col-10">
+                                        <span class="num_value" id="kcal">2000</span>
+                                        <span>&nbsp Kcal</span>
+                                    </div>
+                                </div>
+                                <!-- m -->
+                                <div class="value_inter row">
+                                    <div class="icon col-2">
+                                        <img class="monthly_icon" th:src="@{./calendar_data/images/min.png}" alt="">
+                                    </div>
+                                    <div class="col-10">
+                                        <span class="num_value" id="min">2000</span>
+                                        <span>&nbsp min</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 my-col-m calender-col">
-                        <div class="calender-inter div">
+                    <div class="col-12 my-col-m calendar-col">
+                        <div class="calendar-inter div">
                             <i class="fas fa-angle-left 
                                     prev"></i>
                             <!-- 日曆 -->
-                            <div class="calender">
+                            <div class="calendar">
                                 <div class="month">
                                     <div class="date">
                                         <h1></h1>
@@ -98,21 +126,21 @@
                             <div class="scroll">
 
                                 <!-- 側邊欄 -->
-                                <a href="calender.html">
+                                <a href="calendar.html">
                                     <button class="today-card div btn">
-                                        <img class="today-fit" th:src="@{./calender_data/images/Group 3.png}" alt="">
+                                        <img class="today-fit" th:src="@{./calendar_data/images/Group 3.png}" alt="">
                                         <span class="today-fit-name">Push-Up</span>
                                     </button>
                                 </a>
 
                                 <img class="today-card div" id="today-img"
-                                    th:src="@{./calender_data/images/Group 3.png}" alt="">
+                                    th:src="@{./calendar_data/images/Group 3.png}" alt="">
                                 <img class="today-card div" id="today-img"
-                                    th:src="@{./calender_data/images/Group 3.png}" alt="">
+                                    th:src="@{./calendar_data/images/Group 3.png}" alt="">
                                 <img class="today-card div" id="today-img"
-                                    th:src="@{./calender_data/images/Group 3.png}" alt="">
+                                    th:src="@{./calendar_data/images/Group 3.png}" alt="">
                                 <img class="today-card div" id="today-img"
-                                    th:src="@{./calender_data/images/Group 3.png}" alt="">
+                                    th:src="@{./calendar_data/images/Group 3.png}" alt="">
                             </div>
                             <!-- 加號 -->
                             <div class=" align-r">
@@ -142,16 +170,15 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
         integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-    <script th:src="@{select.js}"></script>
+    <script th:src="@{/select.js}"></script>
     <!-- <script th:href="@{select.js}" src="../../static/select.js"></script> -->
 
     <!-- ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- 日曆 -->
-    <script th:src="@{./calender_data/js/calender_style.js}"></script>
-    <!-- <script th:href="@{./calender/js/calender_style.js}" src="../../static/js/calender_style.js"></script> -->
-    <!-- test -->
-    sc
+    <script th:src="@{./calendar_data/js/calendar_style.js}"></script>
+    <!-- <script th:href="@{./calendar/js/calendar_style.js}" src="../../static/js/calendar_style.js"></script> -->
+
 </body>
 
 </html>

@@ -2,17 +2,9 @@ package com.java016.playfit.model;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+import javax.persistence.*;
 
 
 @Entity
@@ -55,6 +47,21 @@ public class User {
 	//bi-directional many-to-one association to Avatar
 	@ManyToOne
 	private  Avatar avatar;
+
+	@OneToMany(mappedBy = "user_id")
+	private Set<Daily_Record> daily_records;
+
+	@OneToMany(mappedBy = "user")
+	private Set<Monthly_record> monthly_records;
+
+
+	public Set<Daily_Record> getDaily_records() {
+		return daily_records;
+	}
+
+	public void setDaily_records(Set<Daily_Record> daily_records) {
+		this.daily_records = daily_records;
+	}
 
 	public int getId() {
 		return id;
