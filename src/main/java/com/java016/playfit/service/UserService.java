@@ -10,4 +10,6 @@ public interface UserService {
 	void saveUser(User user);
 	User getUserById(int id);
 	void updateUserName(int id,String fullName);
+	public int getUserId();
+	public String getUserName();
 }

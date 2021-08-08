@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java016.playfit.model.Monthly_record;
+import com.java016.playfit.model.User;
+import com.java016.playfit.service.UserService;
 import com.java016.playfit.tool.CalendarTool;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -25,7 +28,8 @@ import com.java016.playfit.service.CalendarService;
 @Controller
 @RequestMapping(value = "/calendar")
 public class CalendarCrontroller {
-	
+	@Autowired
+	UserService userService;
 	@Autowired
 	CalendarService calenderService;
 	@Autowired
@@ -98,7 +102,7 @@ public class CalendarCrontroller {
 		System.out.println(paramsMap);
 		
 		String date = (String)paramsMap.get("day");
-		date = date.replaceAll("\\.", "/");
+		date = date.replaceAll(",", "/");
 
 		return date; 
 	}
@@ -136,17 +140,19 @@ public class CalendarCrontroller {
 	 * @return
 	 */
 	@RequestMapping("/calendar")
-	public ModelAndView calendar() {
-		Object principal = 
-				SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof UserDetails) {
-		    username = ((UserDetails)principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		System.out.println(username);
+	public ModelAndView calendar(@AuthenticationPrincipal User user) {
+
+		/**
+		 * 獲取使用者id
+		 */
+		System.out.println("calender**********");
+		int userId = userService.getUserId();
+		System.out.println(userId);
+		System.out.println("calender**********");
+
+
+
+
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/calendar/calendar copy.html");

@@ -185,7 +185,7 @@ const renderCalender = (daysArray) => {
 
         if (i === new Date().getDate() && date.getMonth() === new Date().getMonth()) {
             // days += `<div class="today">${i}</div>`;
-            days += `<button class="today" type="button" value="${month},${i},${year}" name="day">${i}</button>`;
+            days += `<button class="today" type="button" value="${year},${month},${i}" name="day">${i}</button>`;
 
         } else {
             // days += `<div>${i}</div>`;
@@ -203,7 +203,7 @@ const renderCalender = (daysArray) => {
             }
 
             if (flag) {
-                days += `<button class="btn-day" type="button" value="${month}.${i}.${year}" name="day">${i}</button>`;
+                days += `<button class="btn-day" type="button" value="${year},${month},${i}" name="day">${i}</button>`;
 
             }
         }
@@ -288,9 +288,15 @@ day.addEventListener("click", (e) => {
 
     const target = e.target;
     
-    const day = target.value;
-    $.post("/calender/findToday", { day: day }, function (data) {
-        document.getElementById('day').innerText = data;
+    let day = target.value;
+    day =  day.replace(/,/g,'/');
+    console.log('day: ', day);
+    document.getElementById('day').innerText = day;
+
+    $.post("findToday", { day: day }, function (data) {
+        console.log('data: ', data);
+
+        // document.getElementById('day').innerText = data;
     });
 
     // $.ajax({
