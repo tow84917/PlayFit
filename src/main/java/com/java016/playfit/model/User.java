@@ -12,23 +12,24 @@ import javax.persistence.*;
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 	
 	@Column(name="full_name")
 	private String fullName;
 	
-//	private String account;
-	
 	private String password;
-	@Column(name = "nickname")
-	private String name;
+	
+	@Column(name="nickname")
+	private String nickName;
 	
 	private String gender;
 	
 	private String email;
 	
 	private String phone;
+	
+	private String address;
 	
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
@@ -37,16 +38,16 @@ public class User {
 			nullable=false, 
 			updatable=false, 
 			insertable=false, 
-			columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	
+			columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")	
 	private Timestamp createdAt;
 	
 	@Column(name="certification_status")
 	private int certificationStatus;
 	
-	//bi-directional many-to-one association to Avatar
-	@ManyToOne
-	private  Avatar avatar;
+	//bi
+	@OneToOne
+	@JoinColumn(name = "avatar_id", referencedColumnName = "id")
+	private Avatar avatar;
 
 	@OneToMany(mappedBy = "user_id")
 	private Set<Daily_Record> daily_records;
@@ -67,25 +68,9 @@ public class User {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-//	public String getAccount() {
-//		return account;
-//	}
-//
-//	public void setAccount(String account) {
-//		this.account = account;
-//	}
 
 	public String getPassword() {
 		return password;
@@ -93,14 +78,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getGender() {
@@ -135,6 +112,14 @@ public class User {
 		this.birthday = birthday;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
@@ -151,6 +136,22 @@ public class User {
 		this.certificationStatus = certificationStatus;
 	}
 
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	public Avatar getAvatar() {
 		return avatar;
 	}
@@ -158,6 +159,54 @@ public class User {
 	public void setAvatar(Avatar avatar) {
 		this.avatar = avatar;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("User [id=");
+		builder.append(id);
+		builder.append(", fullName=");
+		builder.append(fullName);
+		builder.append(", password=");
+		builder.append(password);
+		builder.append(", nickName=");
+		builder.append(nickName);
+		builder.append(", gender=");
+		builder.append(gender);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", phone=");
+		builder.append(phone);
+		builder.append(", address=");
+		builder.append(address);
+		builder.append(", birthday=");
+		builder.append(birthday);
+		builder.append(", createdAt=");
+		builder.append(createdAt);
+		builder.append(", certificationStatus=");
+		builder.append(certificationStatus);
+		builder.append(", avatar=");
+		builder.append(avatar);
+		builder.append("]");
+		return builder.toString();
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
