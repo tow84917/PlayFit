@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日歷右側</title>
+
+  <script type="text/javascript" src="java.js"></script>
+  <!-- jquery , bootsrtap導入 -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/jquery/jquery-1.11.1.min.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
+  </style>
+
+
+  <!-- 主要css -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- 自定css -->
+  <link rel="stylesheet" href="test.css">
+
+  <!-- 點擊生成圖片方法 -->
+  <script src="/jquery/jquery-1.11.1.min.js">
+  </script>
+  <script>
+    $(document).ready(function () {
+      $("#btn1").click(function () {
+        $("ol").append('<li><a><img src="https://thumbs.dreamstime.com/b/cosmos-beauty-deep-space-elements-image-furnished-nasa-science-fiction-art-102581846.jpg" width="200" height="100"></a></li>');
+      });
+    });
+  </script>
+
+  <!-- click後顯示下層圖片方法 -->
+  <script>
+    function changePicture1() {
+      document.getElementById("picture1").src = "/calender/images/standup.png";
+      document.getElementById("picture2").src = "/calender/images/pushups.png";
+      document.getElementById("picture3").src = "/calender/images/situps.png";
+    }
+  </script>
+
+  <script>
+    function changePicture2() {
+      document.getElementById("picture1").src = "/calender/images/situps.png";
+      document.getElementById("picture2").src = "/calender/images/pushups.png";
+      document.getElementById("picture3").src = "/calender/images/standup.png";
+    }
+  </script>
+
+  <script>
+    function changePicture3() {
+      document.getElementById("picture1").src = "/calender/images/pushups.png";
+      document.getElementById("picture2").src = "/calender/images/standup.png";
+      document.getElementById("picture3").src = "/calender/images/situps.png";
+    }
+  </script>
+
+  <script>
+    function changePicture4() {
+      document.getElementById("picture1").src = "/calender/images/pushups.png";
+      document.getElementById("picture2").src = "/calender/images/standup.png";
+      document.getElementById("picture3").src = "/calender/images/pushups.png";
+    }
+  </script>
+
+
+
+  <!-- modal-body樣式調整 -->
+  <style>
+    .modal-body {
+      background-color: #ccccff;
+      ;
+      overflow-x: auto;
+      overflow-y: hidden;
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- 按鈕 -->
+    <div class="div">
+      <div class="div-sec">
+        <!-- <table > -->
+        <!--日期 -->
+        <!-- 正確的應從後端抓取資料或從日曆上點選 -->
+        <element class=" checkbox-span">
+          <script language="javascript">
+
+            var Today = new Date();
+            document.write(Today.getFullYear() + " 年 " + (Today.getMonth() + 1) + " 月 " + Today.getDate() + " 日");
+          </script>
+        </element>
+        <!-- 此處以下為需從資料庫導入modal內選取之圖片 -->
+
+        <!-- </table> -->
+        <br>
+        <button class="btn rounded-pill" onclick="javascript:location.href='連結前往的網址'">開始健身</button>
+
+      </div>
+
+
+      <!-- 按鈕觸發框 -->
+      <div class="div">
+        <button class="plus btn div-sec" data-toggle="modal" data-target="#myModal">
+          <span class="line-1"></span>
+          <span class="line-2"></span>
+        </button>
+
+        <!-- Modal -->
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+          aria-hidden="true" class="container">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: #ccccff;">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  &times;
+                </button>
+                <!-- modal內抬頭 -->
+                <h4 class="modal-title" id="myModalLabel">
+                  選擇部位
+                </h4>
+              </div>
+
+              <div class="modal-body">
+
+
+                <table style="border:20px" cellpadding="10">
+                  <tr>
+                    <div>
+                      <td>
+                        <img src="/calender/images/fullbody.png" style="padding:5px;" width="200px" height="100px"
+                          onclick="changePicture1()">
+                      </td>
+                      <td>
+                        <img src="/calender/images/belly.png" style="padding:5px;" width="200px" height="100px"
+                          onclick="changePicture2()">
+                      </td>
+                      <td>
+                        <img src="/calender/images/butt.png" style="padding:5px;" width="200px" height="100px"
+                          onclick="changePicture3()">
+                      </td>
+                      <td>
+                        <img src="/calender/images/belly.png" style="padding:5px;" width="200px" height="100px"
+                          onclick="changePicture4()">
+                      </td>
+                    </div>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <img src="/calender/images/background.png" style="padding:5px;" width="200" height="100"
+                        onclick="choosePicture1()" id="picture1">
+                    </td>
+                    <td>
+                      <img src="/calender/images/background.png" style="padding:5px;" width="200" height="100"
+                        onclick="choosePicture2()" id="picture2">
+                    </td>
+                    <td>
+                      <img src="/calender/images/background.png" style="padding:5px;" width="200" height="100"
+                        onclick="choosePicture3()" id="picture3">
+                    </td>
+                    <td>
+                      <img src="/calender/images/background.png" style="padding:5px;" width="200" height="100"
+                        onclick="choosePicture4()" id="picture4">
+                    </td>
+              </div>
+              </tr>
+              </table>
+
+            </div>
+            <div class="modal-footer">
+              <form action="">
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                <!-- 確認選擇後送出選取的圖片到資料庫 -->
+                <button id="btn1" class="btn btn-primary" data-dismiss="modal">確認選擇</button>
+              </form>
+            </div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+  </div>
+
+
+
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
+    integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+  <script src="select.js"></script> -->
+</body>
+
+</html>
