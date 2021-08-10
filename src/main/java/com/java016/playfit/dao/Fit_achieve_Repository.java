@@ -19,7 +19,7 @@ public interface Fit_achieve_Repository extends JpaRepository<Fit_achieve, Integ
             "where daily_record_id in ( select id from Daily_Record " +
                                     "where user_id = :id and  month(created_date) = :month and year(created_date) = :year ) " +
             "group by r.created_date;;" , nativeQuery=true)
-    List<Date> findByMonthAndYearGroup(int month, int year);
+    List<Date> findByMonthAndYearGroup(int id ,int month, int year);
 
     @Query(value = "SELECT * FROM Fit_achieve where month(execution_date) = :month and year(execution_date) = :year" , nativeQuery=true)
     Set<Fit_achieve> findByMonthAndYear(int month, int year);

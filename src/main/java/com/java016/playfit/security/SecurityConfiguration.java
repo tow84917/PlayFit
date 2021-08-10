@@ -42,8 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 //				.antMatchers("/","/index","/register","/process_register").permitAll()
-				.antMatchers("/*").permitAll() // 之後再加,全關
-				.anyRequest().authenticated()
+				.antMatchers("/**").permitAll() // 不需登入的頁面 之後再加,全關
+				.anyRequest().authenticated() // 需要登入的頁面
 				.and()
 				.formLogin()
 					.usernameParameter("email")

@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(name="full_name")
@@ -64,7 +64,7 @@ public class User {
 		this.daily_records = daily_records;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

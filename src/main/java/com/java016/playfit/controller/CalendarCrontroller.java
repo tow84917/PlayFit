@@ -146,8 +146,8 @@ public class CalendarCrontroller {
 	public ModelAndView calendar(@AuthenticationPrincipal User user) {
 
 		System.out.println("calender**********");
-		int userId = userService.getUserId();
-		System.out.println(userId);
+//		int userId = userService.getUserId();
+//		System.out.println(userId);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/calendar/calendar copy.html");

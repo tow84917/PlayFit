@@ -9,6 +9,7 @@ import com.java016.playfit.dao.Monthly_record_Repository;
 import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.Monthly_record;
 import com.java016.playfit.model.User;
+import com.java016.playfit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,8 @@ public class CalendarServiceImpl implements CalendarService {
 	UserRepository userRepository;
 	@Autowired
 	LocalDateCalendarAttributeConverter converter;
+	@Autowired
+	UserService userService;
 
 	public Monthly_record findByUser_idAndMonthly(int user_id, int monthly , int year){
 		Monthly_record monthlyRecord = monthlyRecordRepository.findByUser_idAndMonthly(user_id,  monthly , year);
@@ -48,7 +51,8 @@ public class CalendarServiceImpl implements CalendarService {
 		int[] ints = new int[] {};
 		List<Integer> list = new ArrayList<>();
 		System.out.println("findMonthlyFitDays--------");
-		List<Date> monthlyDays = achieve_repository.findByMonthAndYearGroup(month, year);
+//		int userId = userService.getUserId();				// 為登入測試時關閉
+		List<Date> monthlyDays = achieve_repository.findByMonthAndYearGroup(41, month, year);
 		System.out.println(monthlyDays);
 		for (Date c :
 				monthlyDays) {
