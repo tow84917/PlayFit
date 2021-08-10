@@ -68,8 +68,10 @@ public class UserServiceImpl implements UserService{
 	public int getUserId() {
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
 		int id = userDetails.getUser().getId();
-//		System.out.println(id);  // get user id
+
+		//		System.out.println(id);  // get user id
 		return id;
 	}
 

@@ -3,6 +3,7 @@ package com.java016.playfit.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java016.playfit.model.Monthly_record;
 import com.java016.playfit.model.User;
+import com.java016.playfit.security.CustomUserDetails;
 import com.java016.playfit.service.UserService;
 import com.java016.playfit.tool.CalendarTool;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -39,7 +41,8 @@ public class CalendarCrontroller {
 
 	@RequestMapping(value = "/findMonthlyRecord")
 	@ResponseBody
-	public String findMonthlyRecord(@RequestBody Map<String, Object> monthYear){
+	public String findMonthlyRecord(@RequestBody Map<String, Object> monthYear, Principal principal){
+
 		System.out.println("findMonthlyRecord---------");
 		Integer month = tool.monthYearMapGetMonth(monthYear);
 		Integer year = tool.monthYearMapGetYear(monthYear);
