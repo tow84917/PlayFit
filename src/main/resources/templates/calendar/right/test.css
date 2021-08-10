@@ -1,0 +1,39 @@
+:root {
+    --purple1: #2e1ed3;
+    --purple2: #6460ff;
+    --purple3: #ccccff;
+    --red1: #ff353b;
+    --red2: #ff9398;
+    --green: #00baba;
+    --orange: #ff9a00;
+    --white: #fff;
+    --Gy1: #eeeeee;
+    --Gy2: #c5c9d8;
+    --Gy3: #8a919b;
+    --gradient-blue: linear-gradient(135deg, #2484c6 4.69%, #2e1ed3 77.62%);
+    --light-blur: #0075ff;
+    --default-filter: drop-shadow(3px 6px 6px rgba(0, 0, 0, 0.25));
+    --active-filter: drop-shadow(1px 3px 3px rgba(0, 0, 0, 0.25));
+    --background: #f6f5f2;
+    --background: #ebeef8;
+  
+    --btn-border-radius: 1.5rem;
+    --input-border-radius: 10px;
+    --div-border-radius: 15px;
+    --border-def: 3px solid var(--purple1);
+  
+    --margin-list: 2px;
+    --margin-horizon: 1rem;
+  
+    --btn-width-height: 3rem;
+  
+    --font-size-d: 1.25rem;
+    --font-size-l: 1.5rem;
+    --font-weight-blod: 700;
+  }
+  
+  /* è¼¸å…¥æ¡† åœ¨rulè£¡æ›´æ”¹åœ–ç‰‡ */
+  .input {
+    width: 40rem;
+  }
+  
