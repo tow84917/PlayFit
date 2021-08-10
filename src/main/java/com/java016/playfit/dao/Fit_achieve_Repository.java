@@ -14,7 +14,11 @@ import java.util.Set;
 
 public interface Fit_achieve_Repository extends JpaRepository<Fit_achieve, Integer> {
 
-    @Query(value = "SELECT  execution_date FROM Fit_achieve where month(execution_date) = :month and year(execution_date) = :year group by execution_date" , nativeQuery=true)
+//    @Query(value = "SELECT  execution_date FROM Fit_achieve where month(execution_date) = :month and year(execution_date) = :year group by execution_date" , nativeQuery=true)
+    @Query(value = "SELECT r.created_date FROM playfit.Fit_achieve a join Daily_Record r on a.daily_record_id = r.id " +
+            "where daily_record_id in ( select id from Daily_Record " +
+                                    "where user_id = :id and  month(created_date) = :month and year(created_date) = :year ) " +
+            "group by r.created_date;;" , nativeQuery=true)
     List<Date> findByMonthAndYearGroup(int month, int year);
 
     @Query(value = "SELECT * FROM Fit_achieve where month(execution_date) = :month and year(execution_date) = :year" , nativeQuery=true)
