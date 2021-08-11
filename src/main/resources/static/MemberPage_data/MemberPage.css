@@ -1,0 +1,470 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight :bold;
+}
+
+.header {
+  width: 100%;
+  min-width: 1150px;
+  height: 80px;
+  background-color: #6460ff;
+}
+
+.main {
+  width: 100%;
+  height: 740px;
+  background-color: white;
+}
+
+.footer {
+  width: 100%;
+  min-width: 1150px;
+  height: 80px;
+  background-color: #6460ff;
+}
+
+/* 顯示範圍 */
+.range {
+  width: 1200px;
+  height: 730px;
+  /* background-color: brown; */
+  border: 1px red solid;
+  margin: 20px auto ;
+
+  display: flex;
+
+}
+
+/* 左方資訊 */
+.left{
+  width: 28%;
+  border: 1px red solid;
+
+  align-items: center;
+
+  display: flex;
+  flex-direction: column;
+
+}
+/* 右方資訊 */
+.right{
+  width: 72%;
+  border: 1px red solid;
+
+  align-items: center;
+
+}
+/* 右方上 */
+.top{
+  border: 1px red solid;
+  height: 20%;
+}
+
+/* 右方下 */
+.down{
+  border: 1px red solid;
+  height: 77.5%;
+  
+  margin-top: 2.3%;
+
+  display: flex;
+}
+/* 右下左 */
+.dl{
+  border: 1px red solid;
+  
+  width: 65%;
+
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+/* 右下右 */
+.dr{
+  border: 1px red solid;
+  
+  width: 35%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* 頭貼 */
+.head {
+  width: 270px;
+  height: 260px;
+  background-color: rgb(235, 238, 248);
+
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+/* 名子 小貼圖 */
+.name{
+
+  width: 270px;
+  margin-top: 4px;
+
+  background-color: white;
+  border: 1px red solid;
+
+  font-size: 32px;
+  display: flex;
+  justify-content: space-around;
+  /* text-align: center; */
+}
+
+/* 個人資訊  */
+.personInfo{ 
+
+  width: 270px;
+  height: 360px;
+
+  background-color: rgb(235, 238, 248);
+
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+/* 簡單資訊 */
+.simpleInfo{
+  width: 270px;
+  height: 22%;
+
+  padding: 10px;
+
+  border: 1px red solid;
+  display: flex;
+}
+/* 生日 & 信箱 */
+.dateMail{
+  width: 70%;
+  border: 1px red solid;
+  font-size: 16px;
+  word-wrap:break-word;
+}
+
+/* 小圖 */
+.dailypic{
+  width: 30%;
+  border: 1px red solid;
+  
+  padding: 5px;
+  text-align: center;
+}
+
+/* 身體資訊 */
+.bodyInfo{
+  width: 270px;
+  height: 85%;
+  border: 1px red solid;
+}
+
+/* 登出 */
+.logOut{
+  background-color: white;
+  height: 45px;
+  width: 120px;
+  font-size: 13px;
+
+  padding: 9px;
+  margin-top: 8px;
+
+  border-radius: 20px;
+  border: 3px solid #6460ff;
+
+}
+/* 修改會員資料 */
+.editProfile{
+  background-color: white;
+  height: 45px;
+  width: 120px;
+  font-size: 13px;
+
+  padding: 9px;
+  margin-left: 12px;
+
+  border-radius: 20px;
+  border: 3px solid #6460ff;
+}
+
+/* 任務 + 勳章  */
+.task{
+
+  width: 858px ;
+  height: 142px ;
+
+  background-color: rgb(235, 238, 248);
+  border-radius: 20px;
+
+  display: flex;
+}
+
+.taskL{
+  width: 65%;
+  border: 1px red solid;
+  display: flex;
+  flex-direction: column;
+}
+
+.today{
+  height: 50%;
+  border: 1px red solid;
+  font-size: 36px;
+  padding: 18px 25px;
+}
+
+.progressBar{
+  height: 50%;
+  border: 1px red solid;
+  padding: 10px 25px;
+}
+
+.taskR{
+  width: 35%;
+  border: 1px red solid;
+  padding: 15px;
+  
+  font-size: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.taskR div{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+}
+
+.displyTask{
+  background-color: white;
+  width: 55%;
+  height: 50px;
+
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: center;
+  color: #6460ff;
+}
+
+
+/* 目標 */
+.goal{
+
+  width: 540px;
+  height: 310px;
+
+  background-color: rgb(235, 238, 248);
+  border-radius: 20px;
+  
+}
+/* 目標欄上 */
+.goalUp{
+  font-size: 38px;
+  
+  height: 18%;
+  border: 1px red solid;
+  margin: 10px 25px 0px 25px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.addPersonGoal{
+  font-size: 38px;
+  color: #6460ff;
+  text-align: center;
+
+  background-color: rgb(235, 238, 248);
+  
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+  border: none;
+  box-shadow:2px 2px 1.5px 1.5px rgb(0, 0, 0, 0.15);
+}
+/* 目標欄中 */
+.goalMid{
+  height: 45%;
+  border: 1px red solid;
+  
+  display: flex;
+  flex-direction: column;
+  margin: 0px 25px 0px 25px;
+  font-size: 27px;
+  font-weight: bold;
+}
+/* 體重資訊 */
+.weightBox{
+
+  height: 100%;
+  background-color: white;
+  border: 1px red solid;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+  text-align: center;
+  line-height: 23px;
+  color: #6460ff;
+
+  box-shadow:3.5px 3.5px 0px 0px rgb(0, 0, 0, 0.1);
+}
+/* 中間體重 */
+#centerFocus{
+  font-size: 38px;
+  font-weight: bold;
+}
+/* 體重標記 */
+#weightAnnotation{
+  font-size: 18px;
+  color: black;
+  line-height: 10px;
+}
+/* 目標欄下 */
+.goalDown{
+  height: 26%;
+  border: 1px red solid;
+  
+  margin: 10px 25px;
+  display: flex;
+  
+  font-size: 22px;
+}
+/* startDate、.totalLost 顯示欄位 */
+.startDate{
+  width: 50%;
+  height: 100%;
+  border: 1px red solid;
+}
+.totalLost{
+  width: 50%;
+  height: 100%;
+  border: 1px red solid;
+  margin-left: 6%; 
+}
+
+.displyGoal{
+  background-color: white;
+  height: 50px;
+  width: 100%;
+  color: #6460ff;
+  border-radius: 12px;
+
+  font-size: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* 長條圖 */
+.canvasBox{
+
+  width: 540px;
+  height: 235px;
+
+  margin-top: 20px;
+
+  background-color: rgb(235, 238, 248);
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+/* canvas draw range */
+#canvas {
+  /* border: 1px solid red; */
+  background-color: rgb(235, 238, 248);
+  margin: 0 auto;
+  transform: translate(0, 15%);
+}
+
+/* Exercise per week */
+#canvasTitle {
+  font-family: "Montserrat", sans-serif;
+  color: #ff353b;
+  position: absolute;
+  transform: translate(0, 8%);
+}
+
+/* 訓練菜單 */
+.train{
+
+  left: 1%;
+
+  width: 280px;
+  height: 560px;
+
+  background-color: rgb(235, 238, 248);
+  border-radius: 20px;
+}
+
+/* bodyTable */
+table{
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  border-spacing : 12px 22px;
+  font-size: 20px;
+}
+
+td{
+  width: 100px;
+  height: 60px;
+  background-color:white ;
+  border-radius: 20px;
+}
+
+table strong{
+  margin: 10px;
+  color: #6460ff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

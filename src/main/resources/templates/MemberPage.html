@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
+    </style>
+    <link rel="stylesheet" href="/MemberPage_data/MemberPage.css">
+    <title>MemberPage</title>
+</head>
+<body>
+    <div class="header"></div>
+    <div class="main">
+        <!-- 顯示範圍 -->
+        <div class="range">
+            <!-- 左方資訊 -->
+            <div class="left">
+                <!-- 大頭貼 -->
+                <div class="head">
+                    <img src="/yeabaQU.gif" width="240px" alt="headpic">
+                </div>
+                <div class="name">
+                    <p th:if= "${user.nickName}" th:text ="${user.nickName}"/>
+                    <p th:if= "${user.nickName.empty}" th:text ="${user.fullName}"/>
+                    <a href="">
+                        <img src="mm.png" width="40px" alt="smallName_pic">
+                    </a>
+                </div>
+                <!-- 個人資訊 -->
+                <div class="personInfo">
+                    <div class="simpleInfo">
+                        <div class="dateMail">
+                            <p th:text ="${user.birthday}"/>
+                            <p th:text ="${user.email}"/>
+                        </div>
+                        <div class="dailypic">
+                            <img src="PngItem_1145674.png" width="42px" height="40px" alt="smallDaily_pic">
+                        </div>
+                    </div>
+                    <!-- 身體資訊 -->
+                    <div class="bodyInfo">
+                        <table>
+                            <tr>
+                                <td>
+                                    <strong>Height</strong>
+                                    <p th:text ="${healthRecord.height}"/>
+                                </td>
+                                <td>
+                                    <strong>TDEE</strong>
+                                    <p th:text ="${healthRecord.TDEE}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>BMI</strong>
+                                    <p th:text ="${healthRecord.BMI}"/>
+                                </td>
+                                <td>
+                                    <strong>BMR</strong>
+                                    <p th:text ="${healthRecord.BMR}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>BFP</strong>
+                                    <p th:text ="${healthRecord.BFP}"/>
+                                </td>
+                                <td>
+                                    <strong>FFMI</strong>
+                                     <p th:text ="${healthRecord.FFMI}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="twiceBtn">
+                    <button class="logOut">LOG OUT</button>
+                    <button class="editProfile">EDIT PROFILE</button>
+                </div>
+            </div>
+            <!-- 右方資訊 -->
+            <div class="right">
+                <!-- 右上 -->
+                <div class="top">
+                    <div class="task">
+                        <div class="taskL">
+                            <div class="today"> 
+                                2021/07/15 Thur.
+                            </div>
+                            <div class="progressBar">
+                                這裡要放進度條
+                            </div>
+                        </div>
+                        <div class="taskR">
+                            <div>
+                                <div class="displyTask">
+                                    <p>1568</p>
+                                </div>
+                                <label>CAL GAIN</label>
+                            </div>
+                            <div>
+                                <div class="displyTask">
+                                    <p>654</p>
+                                </div>
+                                <label>CAL LOST</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 右下 -->
+                <div class="down">
+                    <!-- 右下左 -->
+                    <div class="dl">
+                        <!-- 目標欄 -->
+                        <div class="goal">
+                            <!-- 目標欄上 -->
+                            <div class="goalUp">
+                                <Label>Personal Goal</Label>
+                                <button class="addPersonGoal">&#43;</button>
+                            </div>
+                             <!-- 目標欄中 -->
+                            <div class="goalMid">
+                                <div class="weightBox">
+                                    <p>75 Kg<br>
+                                        <span id="weightAnnotation">Start</span>
+                                    </p>
+                                    <p id="centerFocus">63.4 Kg<br>
+                                        <span id="weightAnnotation">
+                                            Current<br>Weight
+                                        </span>
+                                    </p>
+                                    <p>50 Kg<br>
+                                        <span id="weightAnnotation">
+                                            Goal
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                             <!-- 目標欄下 -->
+                            <div class="goalDown">
+                                <div class="startDate">
+                                    <strong>Start Date</strong>
+                                    <div class="displyGoal">
+                                        <p>2021-08-09</p>
+                                    </div>
+                                </div>
+                                <div class="totalLost">
+                                    <strong>Total Lost</strong>
+                                    <div class="displyGoal">
+                                        <p>9825.56</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Canvas -->
+                        <div class="canvasBox">
+                            <strong id="canvasTitle">Exercise per week</strong>
+                            <canvas id="canvas" width="525" height="200">
+                                hopefully you can't see this. If you do, get Google Chrome.
+                              </canvas>
+                        </div>
+                    </div>
+                     <!-- 右下右 -->
+                    <div class="dr">
+                        <div class="train"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer"></div>
+    <script src="bodyCanves.js"></script>
+</body>
+</html>
