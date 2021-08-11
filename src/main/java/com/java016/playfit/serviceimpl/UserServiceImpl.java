@@ -5,7 +5,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.java016.playfit.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +40,7 @@ public class UserServiceImpl implements UserService{
 		user.setBirthday(new Date());
 		user.setCreatedAt(new Timestamp(1627833600));
 		user.setCertificationStatus(0);
+		System.out.println(user);
 		userRepo.save(user);
 		
 	}
@@ -56,6 +61,36 @@ public class UserServiceImpl implements UserService{
 	public void updateUserName(int id, String fullName) {
 		userRepo.updateUserName(id, fullName);
 	}
-	
+
+	/**
+	 * 獲取登入id
+	 * @return user id
+	 */
+	public int getUserId() {
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
+		int id = userDetails.getUser().getId();
+
+		//		System.out.println(id);  // get user id
+		return id;
+	}
+
+	/**
+	 * 獲取登入名
+	 * @return username
+	 */
+	public String getUserName(){
+		Object principal =
+				SecurityContextHolder.getContext()
+						.getAuthentication().getPrincipal();
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		return username;
+	}
 	
 }

@@ -2,24 +2,17 @@ package com.java016.playfit.model;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+
 
 @Entity
 @Table(name="users")
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(name="full_name")
@@ -55,7 +48,22 @@ public class User {
 	@OneToOne
 	@JoinColumn(name = "avatar_id", referencedColumnName = "id")
 	private Avatar avatar;
-	
+
+	@OneToMany(mappedBy = "user_id")
+	private Set<Daily_Record> daily_records;
+
+	@OneToMany(mappedBy = "user")
+	private Set<Monthly_record> monthly_records;
+
+
+	public Set<Daily_Record> getDaily_records() {
+		return daily_records;
+	}
+
+	public void setDaily_records(Set<Daily_Record> daily_records) {
+		this.daily_records = daily_records;
+	}
+
 	public Integer getId() {
 		return id;
 	}

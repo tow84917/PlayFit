@@ -1,0 +1,166 @@
+:root {
+  --purple1: #2e1ed3;
+  --purple2: #6460ff;
+  --purple3: #ccccff;
+  --red1: #ff353b;
+  --red2: #ff9398;
+  --green: #00baba;
+  --orange: #ff9a00;
+  --white: #fff;
+  --Gy1: #eeeeee;
+  --Gy2: #c5c9d8;
+  --Gy3: #8a919b;
+  --gradient-blue: linear-gradient(135deg, #2484c6 4.69%, #2e1ed3 77.62%);
+  --light-blur: #0075ff;
+  --default-filter: drop-shadow(3px 6px 6px rgba(0, 0, 0, 0.25));
+  --active-filter: drop-shadow(1px 3px 3px rgba(0, 0, 0, 0.25));
+  --background: #f6f5f2;
+  --background2: #ebeef8;
+
+  --div-border-radius: 30px;
+  --btn-border-radius: 1.5rem;
+  --input-border-radius: 10px;
+  --border-def: 1px solid var(--purple1);
+
+  --margin-list: 10px;
+  --margin-horizon: 1rem;
+  --padding-def: 40px;
+
+  --btn-width-height: 3rem;
+
+  --font-size-d: 1.25rem;
+  --font-size-l: 1.5rem;
+  --font-weight-blod: 700;
+}
+
+.container {
+  /* width: 100%; */
+  /* height: 120vh; */
+  /* background: #12121f;
+  color: white; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.calendar {
+  width: 600px;
+  /* height: 50rem; */
+  height: calc(40.2rem / 7 * 6 + 5);
+  /* background-color: #2b2b37; */
+}
+
+.month {
+  width: 100%;
+  height: inherit;
+  /* background-color: rgb(46, 179, 135); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 0 2rem; */
+  text-align: center;
+  /* text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5); */
+}
+
+.month i {
+  font-size: 2, 5rem;
+  cursor: pointer;
+}
+
+.month h1 {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-blod);
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+  /* margin-bottom: 1rem; */
+}
+
+.weekdays {
+  width: 100%;
+  height: 5rem;
+  padding: 0 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.weekdays div {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-blod);
+  letter-spacing: 0.1rem;
+  color: var(--white);
+  /*  */
+  width: calc(44.2rem / 7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5); */
+}
+
+.days {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  /* padding: 0.2rem; */
+  justify-content: space-around;
+}
+
+.sevendays {
+  width: 100%;
+  /* 每週的高度 */
+  height: 100px;
+  /* background: #00baba; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.sevendays div,
+.days button {
+  border: 0;
+  /* background-color: #2b2b37; */
+  /* background-color: rgba(255, 255, 255, 0); */
+  border-radius: 100%;
+  font-size: 2rem;
+  color: white;
+  margin: 0.3rem;
+  /* width: calc(40.2rem / 7);
+  height: calc(40.2rem / 7); */
+  width: calc(600px / 7);
+  height: calc(600px / 7);
+  width: 60px;
+  height: 60px;
+
+  /* flex: 1; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+/* .days div:hover:not(.today), */
+.days button:hover:not(.today) {
+  background-color: rgb(46, 179, 135);
+  border: 0.2rem solid #777;
+  cursor: pointer;
+}
+
+.prev-date,
+.next-date {
+  opacity: 0.5;
+}
+
+.days button.today {
+  background-color: rgb(46, 179, 135);
+}
+
+/* 箭頭 */
+.fas {
+  font-size: 6rem;
+}
+
+/* 已完成 */
+.scheduled {
+  background-color: var(--red2);
+}

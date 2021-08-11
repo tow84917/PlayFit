@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- 主要css -->
+    <link rel="stylesheet" href="../../static/style.css">
+
+    <!-- 自定css -->
+    <link rel="stylesheet" href="test.css">
+</head>
+
+<body>
+    <!-- 按鈕 -->
+    <div class="div">
+        <div class="div-sec">
+            <button class="btn rounded-pill">Start free btn3</button>
+            <button class="btn second rounded-pill">Start free btn</button>
+        </div>
+        <!-- 加號 -->
+        <div class="div">
+            <button class="plus btn div-sec">
+                <span class="line-1"></span>
+                <span class="line-2"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 表單 -->
+    <div class="div">
+        <form action="">
+
+            <!-- 輸入 -->
+            <div class="div-sec">
+                <input type="text" class="input " name="eid" id="">
+            </div>
+
+            <!-- 下拉選單 -->
+            <div class="custom-select div-sec">
+                <select name="cars">
+                    <option class="select-items " value="">Select car:</option>
+                    <option class="select-items" value="1">Audi</option>
+                    <option class="select-items" value="2">BMW</option>
+                    <option class="select-items" value="3">Citroen</option>
+                </select>
+            </div>
+
+            <div class="div-sec">
+                <input class="btn rounded-pill" type="submit" value="submit">
+            </div>
+
+            <!-- checkbox -->
+            <div class="checkbox-div div-sec">
+                <div class="checkbox-inter">
+                    <input id="checkbox" type="checkbox" name="toys" value="A" />
+                    <label for="checkbox"></label>
+                    <span class="checkbox-span">AAAAAAAA</span>
+                </div>
+                <div class="checkbox-inter">
+                    <input id="checkbox1" type="checkbox" name="toys" value="B" />
+                    <label for="checkbox1"></label>
+                    <span class="checkbox-span">BBBBBBBB</span>
+                </div>
+            </div>
+
+            <!-- radio -->
+            <div class="checkbox-div div-sec">
+                <div class="checkbox-inter">
+                    <input id="r1" type="radio" name="gender" value="boy" />
+                    <label for="r1"></label>
+                    <span class="checkbox-span">BOY</span>
+                </div>
+                <div class="checkbox-inter">
+                    <input id="r2" type="radio" name="gender" value="girl" />
+                    <label for="r2"></label>
+                    <span class="checkbox-span">GIRL</span>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+    <!-- 分頁 -->
+    <div class="div">
+        <div class="div-sec">
+            <nav aria-label="Page  example">
+                <ul class="pagination page-ul">
+                    <li class="page-item page-li">
+                        <a class="page-link page-del" href="#" aria-label="Previous">
+                            <svg width="11" height="18" viewBox="0 0 15 20" fill="none" transform="rotate(180)"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M1.49902 1.21179L9.268 7.22049C10.5166 8.19113 10.5166 9.80886 9.268 10.7795L1.49902 16.7882"
+                                    stroke="#2E1ED3" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="page-item page-li"><a class="page-link page-del" href="#">1</a></li>
+                    <li class="page-item page-li"><a class="page-link page-del" href="#">2</a></li>
+                    <li class="page-item page-li active"><a class="page-link page-del" href="#">3</a></li>
+                    <li class="page-item page-li">
+                        <a class="page-link page-del" href="#" aria-label="Next">
+                            <svg width="11" height="18" viewBox="0 0 15 20" fill="none" transform="rotate(0)"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M1.49902 1.21179L9.268 7.22049C10.5166 8.19113 10.5166 9.80886 9.268 10.7795L1.49902 16.7882"
+                                    stroke="#2E1ED3" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="div">
+        <div class="div-sec">
+            <div class="progressbar-my ">
+                <div class="progress-bar bar-my" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                    aria-valuemax="100" style="width: 60%;">
+                </div>
+                <span class=""></span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
+        integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    <script src="../../static/select.js"></script>
+
+</body>
+
+</html>
