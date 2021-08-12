@@ -103,6 +103,11 @@
   align-items: center;
   overflow: hidden;
 }
+/* 頭貼 Size*/
+.head img{
+  width: auto;
+}
+
 /* 名子 小貼圖 */
 .name{
 
@@ -204,33 +209,54 @@
 
   display: flex;
 }
-
+/* 任務欄左 */
 .taskL{
-  width: 65%;
+  width: 63%;
   border: 1px red solid;
   display: flex;
   flex-direction: column;
 }
 
 .today{
-  height: 50%;
+  height: 47%;
   border: 1px red solid;
-  font-size: 36px;
-  padding: 18px 25px;
+  font-size: 38px;
+  padding: 16px 22px;
 }
 
+/* 進度條相關 */
 .progressBar{
-  height: 50%;
+  height: 53%;
   border: 1px red solid;
-  padding: 10px 25px;
+  padding: 8px 24px;
+
+  font-size: 21px;
+  display: flex;
+  flex-direction: column;
 }
 
+.taskInfo{
+  display: flex;
+  justify-content: space-between;
+}
+
+#taskProgressBar{
+  border-radius: 20px;
+
+  margin-top: 4px;
+  border: 1px red solid;
+
+  overflow: hidden;
+}
+
+/* 任務欄右 */
 .taskR{
   width: 35%;
   border: 1px red solid;
-  padding: 15px;
+  padding: 15px 13px;
+  margin-left: 2%;
   
-  font-size: 20px;
+  font-size: 21px;
 
   display: flex;
   flex-direction: column;
@@ -286,8 +312,8 @@
 
   background-color: rgb(235, 238, 248);
   
-  width: 48px;
-  height: 48px;
+  width:48px;
+  height:48px;
 
   border-radius: 50%;
   border: none;
@@ -404,14 +430,124 @@
 
 /* 訓練菜單 */
 .train{
-
   left: 1%;
+  /* border: 1px red solid; */
 
   width: 280px;
   height: 560px;
+  padding: 12px 23px;
 
   background-color: rgb(235, 238, 248);
   border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Training of today title */
+.train strong{
+  font-size: 36px;
+  word-wrap:break-word;
+  line-height: 38px;
+}
+/* 今日訓練菜單 */
+.activityBox{
+  width: 100%;
+  height: 65%;
+  border: 1px red solid;
+
+  margin-top: 3%;
+
+  /* display: flex;
+  flex-direction: column; */
+  align-items: center;
+
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+/* 靠近顯示滾輪 */
+.activityBox:hover{
+  overflow-y: visible;
+}
+
+/* 滾輪樣式設定 */
+#scrollbarStyle::-webkit-scrollbar-track{
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+#scrollbarStyle::-webkit-scrollbar{
+  width: 10px;
+	background-color: #F5F5F5;
+}
+
+#scrollbarStyle::-webkit-scrollbar-thumb{
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0.5, #00baba),
+									   color-stop(1.5, #6460ff));
+}
+
+/* 活動項目 */
+.activity{
+  width: 232px;
+  height: 90px;
+  
+  margin-top: 4%;
+
+  border: 1px red solid;
+  border-radius: 20px;
+
+  position: relative;
+}
+
+/* 圖片 */
+.activity img{
+  width: 230px;
+  height: 85px;
+  opacity: 0.65;
+}
+
+/* 說明文字 */
+#activityName{
+  position: absolute;
+  right: 6%;
+  bottom: 3%;
+
+  font-size: 24px;
+  color: white;
+}
+
+
+/* 日曆連結 */
+.goCalendar{
+  font-size: 38px;
+  color: #6460ff;
+
+  display: flex;
+  margin: auto 0px;
+
+  background-color: rgb(235, 238, 248);
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+  border: none;
+  box-shadow:2px 2px 1.5px 1.5px rgb(0, 0, 0, 0.15);
+
+  /* 調整位置 */
+  position: relative;
+  left: 80%;
+}
+
+.goCalendar p{
+  /* 調整位置 */
+  position: absolute;
+  transform: translateY(-18%);
 }
 
 /* bodyTable */
@@ -435,6 +571,13 @@ table strong{
   color: #6460ff;
 }
 
+/* a config */
+a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
 
 
 
