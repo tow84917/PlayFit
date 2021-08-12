@@ -21,7 +21,7 @@ public class Fit_achieve {
 
     @ManyToOne
     @JoinColumn(name = "daily_record_id")
-    private Daily_Record daily_record;
+    private DailyRecord daily_record;
 
     private int number_groups;
 
@@ -45,7 +45,7 @@ public class Fit_achieve {
 
     private String status; // 直接執行  按計畫執行  未執行
 
-    public Fit_achieve( Fit_activity fit_activity, Daily_Record daily_record, int number_groups, int total_kcal, Calendar execution_date, Date end_time, Timestamp created_at, String status) {
+    public Fit_achieve( Fit_activity fit_activity, DailyRecord daily_record, int number_groups, int total_kcal, Calendar execution_date, Date end_time, Timestamp created_at, String status) {
 
         this.fit_activity = fit_activity;
         this.daily_record = daily_record;
@@ -76,11 +76,11 @@ public class Fit_achieve {
         this.fit_activity = fit_activity;
     }
 
-    public Daily_Record getDaily_record() {
+    public DailyRecord getDaily_record() {
         return daily_record;
     }
 
-    public void setDaily_record(Daily_Record daily_record) {
+    public void setDaily_record(DailyRecord daily_record) {
         this.daily_record = daily_record;
     }
 
@@ -131,4 +131,30 @@ public class Fit_achieve {
     public void setStatus(String status) {
         this.status = status;
     }
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Fit_achieve [id=");
+		builder.append(id);
+		builder.append(", fit_activity=");
+		builder.append(fit_activity.getName());
+		builder.append(", daily_record=");
+		builder.append(daily_record.getId());
+		builder.append(", number_groups=");
+		builder.append(number_groups);
+		builder.append(", total_kcal=");
+		builder.append(total_kcal);
+		builder.append(", execution_date=");
+		builder.append(execution_date);
+		builder.append(", end_time=");
+		builder.append(end_time);
+		builder.append(", created_at=");
+		builder.append(created_at);
+		builder.append(", status=");
+		builder.append(status);
+		builder.append("]");
+		return builder.toString();
+	}
+    
 }

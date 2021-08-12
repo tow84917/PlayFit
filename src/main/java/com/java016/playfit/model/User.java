@@ -1,16 +1,32 @@
 package com.java016.playfit.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name="users")
-public class User {
+public class User implements UserDetails, Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -45,25 +61,16 @@ public class User {
 	private int certificationStatus;
 	
 	//bi
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "avatar_id", referencedColumnName = "id")
 	private Avatar avatar;
-
-	@OneToMany(mappedBy = "user_id")
-	private Set<Daily_Record> daily_records;
+	
+	@OneToMany(mappedBy = "userId")
+	private Set<DailyRecord> daily_records;
 
 	@OneToMany(mappedBy = "user")
 	private Set<Monthly_record> monthly_records;
-
-
-	public Set<Daily_Record> getDaily_records() {
-		return daily_records;
-	}
-
-	public void setDaily_records(Set<Daily_Record> daily_records) {
-		this.daily_records = daily_records;
-	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -71,7 +78,8 @@ public class User {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -160,6 +168,22 @@ public class User {
 		this.avatar = avatar;
 	}
 
+	public Set<DailyRecord> getDaily_records() {
+		return daily_records;
+	}
+
+	public void setDaily_records(Set<DailyRecord> daily_records) {
+		this.daily_records = daily_records;
+	}
+
+	public Set<Monthly_record> getMonthly_records() {
+		return monthly_records;
+	}
+
+	public void setMonthly_records(Set<Monthly_record> monthly_records) {
+		this.monthly_records = monthly_records;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -187,26 +211,42 @@ public class User {
 		builder.append(certificationStatus);
 		builder.append(", avatar=");
 		builder.append(avatar);
+		builder.append(", daily_records=");
+		builder.append(daily_records);
+		builder.append(", monthly_records=");
+		builder.append(monthly_records);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	// 以下為 UserDetails
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null; // 未設	
+	}
+	
+	@Override
+	public String getUsername() {
+		return this.fullName; // 用戶全名
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true; // 帳號是否未過期
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true; // 用戶是否未被鎖
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true; // 憑證是否未過期
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true; // 用戶是否啟用
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

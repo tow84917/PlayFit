@@ -4,28 +4,32 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.java016.playfit.model.Monthly_record;
-import com.java016.playfit.model.User;
-import com.java016.playfit.security.CustomUserDetails;
-import com.java016.playfit.service.UserService;
-import com.java016.playfit.tool.CalendarTool;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.java016.playfit.model.Monthly_record;
+import com.java016.playfit.model.User;
 import com.java016.playfit.service.CalendarService;
+import com.java016.playfit.service.UserService;
+import com.java016.playfit.tool.CalendarTool;
 
 @Controller
 @RequestMapping(value = "/calendar")
@@ -36,8 +40,6 @@ public class CalendarCrontroller {
 	CalendarService calenderService;
 	@Autowired
 	CalendarTool tool;
-
-
 
 	@RequestMapping(value = "/findMonthlyRecord")
 	@ResponseBody

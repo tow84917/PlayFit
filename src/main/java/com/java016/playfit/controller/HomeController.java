@@ -3,7 +3,6 @@ package com.java016.playfit.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.UserService;
 
@@ -27,7 +25,7 @@ public class HomeController {
 	@ResponseBody
 	public ModelAndView Users() {
 		ModelAndView mv = new ModelAndView();
-		List<User> listUser = userService.getAllUsers();
+		List<User> listUser = userService.findAll();
 	
 		mv.addObject("objs",listUser);
 		mv.setViewName("home");
@@ -75,7 +73,7 @@ public class HomeController {
 	public ModelAndView processUserUpdate(User user) {
 		ModelAndView mv = new ModelAndView();
 		userService.updateUserName(user.getId(), user.getFullName());
-		List<User> listUser = userService.getAllUsers();
+		List<User> listUser = userService.findAll();
 		
 		mv.addObject("objs",listUser);
 		mv.setViewName("home");

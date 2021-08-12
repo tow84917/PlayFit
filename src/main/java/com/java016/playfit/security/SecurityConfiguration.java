@@ -41,20 +41,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-//				.antMatchers("/","/index","/register","/process_register").permitAll()
-				.antMatchers("/**").permitAll() // 不需登入的頁面 之後再加,全關
-				.anyRequest().authenticated() // 需要登入的頁面
+				.antMatchers("/").permitAll() // 不需登入的頁面 
+				.anyRequest().authenticated() // 除了首頁皆要登入
 				.and()
 				.formLogin()
-					.usernameParameter("email")
+				.usernameParameter("email")
 				.loginPage("/login")
 				.failureUrl("/login?error=true") // 回傳有誤
+				.defaultSuccessUrl("/") // 回到首頁 或 跳轉原拜訪頁
 				.permitAll()
 				.and()
 				.logout()
-					.permitAll();
+				.logoutSuccessUrl("/") // 登出跳轉
+				.permitAll();
 	}
-	
-	
-	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

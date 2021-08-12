@@ -1,6 +1,7 @@
 package com.java016.playfit.model;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -37,8 +38,8 @@ public class Avatar {
 	private String mimeType;
 	
 	// bi
-	@OneToOne(mappedBy="avatar")
-	private User user;
+	@OneToMany(mappedBy="avatar")
+	private List<User> users;
 
 	public Integer getId() {
 		return id;
@@ -96,12 +97,12 @@ public class Avatar {
 		this.mimeType = mimeType;
 	}
 
-	public User getUser() {
-		return user;
+	public List<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	@Override
@@ -121,8 +122,8 @@ public class Avatar {
 		builder.append(fileName);
 		builder.append(", mimeType=");
 		builder.append(mimeType);
-		builder.append(", user=");
-		builder.append(user.getFullName() + " : " + user.getNickName()); // cut stackOverFlow
+		builder.append(", users=");
+		builder.append(users);
 		builder.append("]");
 		return builder.toString();
 	}

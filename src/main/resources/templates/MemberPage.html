@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
+    <!-- jquery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <!-- 字型 -->
+   <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
     </style>
-    <link rel="stylesheet" href="/MemberPage_data/MemberPage.css">
+    <!-- 會員Css -->
+    <link rel="stylesheet" th:href="@{/memberPage/MemberPage.css}">
     <title>MemberPage</title>
 </head>
 <body>
@@ -19,14 +23,13 @@
             <div class="left">
                 <!-- 大頭貼 -->
                 <div class="head">
-                    <img src="/yeabaQU.gif" width="240px" alt="headpic">
+                    <img src="/Member.gif" alt="headpic">
                 </div>
                 <div class="name">
                     <p th:if= "${user.nickName}" th:text ="${user.nickName}"/>
                     <p th:if= "${user.nickName.empty}" th:text ="${user.fullName}"/>
-                    <a href="">
-                        <img src="mm.png" width="40px" alt="smallName_pic">
-                    </a>
+                    <!-- 名字旁帽子 -->
+                    <img src="mm.png" width="40px" alt="smallName_pic">
                 </div>
                 <!-- 個人資訊 -->
                 <div class="personInfo">
@@ -35,9 +38,10 @@
                             <p th:text ="${user.birthday}"/>
                             <p th:text ="${user.email}"/>
                         </div>
-                        <div class="dailypic">
+                        <!-- 日記連結 -->
+                        <a href="" class="dailypic">
                             <img src="PngItem_1145674.png" width="42px" height="40px" alt="smallDaily_pic">
-                        </div>
+                        </a>
                     </div>
                     <!-- 身體資訊 -->
                     <div class="bodyInfo">
@@ -85,14 +89,23 @@
                 <!-- 右上 -->
                 <div class="top">
                     <div class="task">
+                         <!-- 右上左 -->
                         <div class="taskL">
                             <div class="today"> 
                                 2021/07/15 Thur.
                             </div>
                             <div class="progressBar">
-                                這裡要放進度條
+                                <div class="taskInfo">
+                                    <p>Tasks to do</p> 
+                                    <p id="progressNumber"></p>
+                                </div>
+                                <canvas id="taskProgressBar" width="490" height="15">
+                                    <!-- Js catch progress data -->
+                                    75
+                                </canvas>
                             </div>
                         </div>
+                         <!-- 右上右 -->
                         <div class="taskR">
                             <div>
                                 <div class="displyTask">
@@ -164,13 +177,48 @@
                     </div>
                      <!-- 右下右 -->
                     <div class="dr">
-                        <div class="train"></div>
+                        <div class="train">
+                            <strong>Training Of Today</strong>
+                            <!-- Thymeleaf will foreach here ; 
+                                assign background-color、src、activityName-->
+                            <div class="activityBox" id="scrollbarStyle">
+                                <div class="activity" style="background-color: #2e1ed3;">
+                                    <img src="/10_min_BLIT.png" alt="activity_name">
+                                    <p id="activityName">PSIT</p>
+                                </div>
+                                
+                                <div class="activity" style="background-color: #2e1ed3;">
+                                    <img src="/10_min_BLIT.png" alt="activity_name">
+                                    <p id="activityName">LIPT</p>
+                                </div>
+
+                                <div class="activity" style="background-color: #6460ff;">
+                                    <img src="/10_min_BLIT.png" alt="activity_name">
+                                    <p id="activityName">STE</p>
+                                </div>
+
+                                <div class="activity" style="background-color: #6460ff;">
+                                    <img src="/10_min_BLIT.png" alt="activity_name">
+                                    <p id="activityName">BLIT</p>
+                                </div>
+
+                                <div class="activity" style="background-color: #6460ff;">
+                                    <img src="/10_min_BLIT.png" alt="activity_name">
+                                    <p id="activityName">LIPT</p>
+                                </div>                            
+                            </div>
+                            <!-- 日曆連結 -->
+                            <a href="" class="goCalendar">
+                                <p>...</p> 
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="footer"></div>
-    <script src="bodyCanves.js"></script>
+    <script th:src="@{/memberPage/taskCanvas.js}"></script>
+    <script th:src="@{/memberPage/bodyCanvas.js}"></script>   
 </body>
 </html>
