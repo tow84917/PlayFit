@@ -17,43 +17,39 @@ public class FitAchieve {
 
     @ManyToOne
     @JoinColumn(name = "fit_activity_id")
-    private FitActivity fit_activity;
+    private FitActivity fitActivity;
 
     @ManyToOne
     @JoinColumn(name = "daily_record_id")
-    private DailyRecord daily_record;
+    private DailyRecord dailyRecord;
 
-    private int number_groups;
+    @Column(name = "number_groups")
+    private int numberGroups;
 
-    private int total_kcal;
+    @Column(name = "total_kcal")
+    private int totalKcal;
 
-//    @Column(name = "execution_date",  nullable = false)
-//    @Basic
-//    @Column
-//    @Temporal(TemporalType.DATE)
+    @Column(name = "execution_date")
     @Convert(converter = LocalDateCalendarAttributeConverter.class)
-    private Calendar execution_date;
+    private Calendar executionDate;
 
-//    @Column(name = "local_date", columnDefinition = "DATE")
-//    private LocalDate execution_date;
+    @Column(name = "end_time")
+    private Date endTime;
 
-//    private Date execution_date;
-
-    private Date end_time;
-
-    private Timestamp created_at;
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
     private String status; // 直接執行  按計畫執行  未執行
 
-    public FitAchieve(FitActivity fit_activity, DailyRecord daily_record, int number_groups, int total_kcal, Calendar execution_date, Date end_time, Timestamp created_at, String status) {
+    public FitAchieve(FitActivity fitActivity, DailyRecord dailyRecord, int numberGroups, int totalKcal, Calendar executionDate, Date endTime, Timestamp createdAt, String status) {
 
-        this.fit_activity = fit_activity;
-        this.daily_record = daily_record;
-        this.number_groups = number_groups;
-        this.total_kcal = total_kcal;
-        this.execution_date = execution_date;
-        this.end_time = end_time;
-        this.created_at = created_at;
+        this.fitActivity = fitActivity;
+        this.dailyRecord = dailyRecord;
+        this.numberGroups = numberGroups;
+        this.totalKcal = totalKcal;
+        this.executionDate = executionDate;
+        this.endTime = endTime;
+        this.createdAt = createdAt;
         this.status = status;
     }
 
@@ -68,60 +64,60 @@ public class FitAchieve {
         this.id = id;
     }
 
-    public FitActivity getFit_activity() {
-        return fit_activity;
+    public FitActivity getFitActivity() {
+        return fitActivity;
     }
 
-    public void setFit_activity(FitActivity fit_activity) {
-        this.fit_activity = fit_activity;
+    public void setFitActivity(FitActivity fit_activity) {
+        this.fitActivity = fit_activity;
     }
 
-    public DailyRecord getDaily_record() {
-        return daily_record;
+    public DailyRecord getDailyRecord() {
+        return dailyRecord;
     }
 
-    public void setDaily_record(DailyRecord daily_record) {
-        this.daily_record = daily_record;
+    public void setDailyRecord(DailyRecord daily_record) {
+        this.dailyRecord = daily_record;
     }
 
-    public int getNumber_groups() {
-        return number_groups;
+    public int getNumberGroups() {
+        return numberGroups;
     }
 
-    public void setNumber_groups(int number_groups) {
-        this.number_groups = number_groups;
+    public void setNumberGroups(int number_groups) {
+        this.numberGroups = number_groups;
     }
 
-    public int getTotal_kcal() {
-        return total_kcal;
+    public int getTotalKcal() {
+        return totalKcal;
     }
 
-    public void setTotal_kcal(int total_kcal) {
-        this.total_kcal = total_kcal;
+    public void setTotalKcal(int total_kcal) {
+        this.totalKcal = total_kcal;
     }
 
-    public Calendar getExecution_date() {
-        return execution_date;
+    public Calendar getExecutionDate() {
+        return executionDate;
     }
 
-    public void setExecution_date(Calendar execution_date) {
-        this.execution_date = execution_date;
+    public void setExecutionDate(Calendar execution_date) {
+        this.executionDate = execution_date;
     }
 
-    public Date getEnd_time() {
-        return end_time;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setEnd_time(Date end_time) {
-        this.end_time = end_time;
+    public void setEndTime(Date end_time) {
+        this.endTime = end_time;
     }
 
-    public Timestamp getCreated_at() {
-        return created_at;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(Timestamp created_at) {
+        this.createdAt = created_at;
     }
 
     public String getStatus() {
@@ -138,19 +134,19 @@ public class FitAchieve {
 		builder.append("Fit_achieve [id=");
 		builder.append(id);
 		builder.append(", fit_activity=");
-		builder.append(fit_activity.getName());
+		builder.append(fitActivity.getName());
 		builder.append(", daily_record=");
-		builder.append(daily_record.getId());
+		builder.append(dailyRecord.getId());
 		builder.append(", number_groups=");
-		builder.append(number_groups);
+		builder.append(numberGroups);
 		builder.append(", total_kcal=");
-		builder.append(total_kcal);
+		builder.append(totalKcal);
 		builder.append(", execution_date=");
-		builder.append(execution_date);
+		builder.append(executionDate);
 		builder.append(", end_time=");
-		builder.append(end_time);
+		builder.append(endTime);
 		builder.append(", created_at=");
-		builder.append(created_at);
+		builder.append(createdAt);
 		builder.append(", status=");
 		builder.append(status);
 		builder.append("]");

@@ -5,28 +5,31 @@ import java.sql.Time;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "Fit_activity")
 public class FitActivity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "fit_activity")
-    private Set<FitAchieve> fit_achieve;
+    @Column(name = "fit_achieve")
+    @OneToMany(mappedBy = "fitActivity")
+    private Set<FitAchieve> fitAchieve;
 
     private String name;
-
-    private String body_part;
+    @Column(name = "body_part")
+    private String bodyPart;
 
     private String description;
 
-    private double kcal_burn;
+    @Column(name = "kcal_burn")
+    private double kcalBurn;
 
-    private String image_path;
+    @Column(name = "image_path")
+    private String imagePath;
 
     @OneToOne()
     @JoinColumn(name = "video_id")
-    private FitActivityVideo video_id;
+    private FitActivityVideo videoId;
 
     private Time time; //運動時間長度
 
@@ -38,12 +41,12 @@ public class FitActivity {
         this.id = id;
     }
 
-    public Set<FitAchieve> getFit_achieve() {
-        return fit_achieve;
+    public Set<FitAchieve> getFitAchieve() {
+        return fitAchieve;
     }
 
-    public void setFit_achieve(Set<FitAchieve> fit_achieve) {
-        this.fit_achieve = fit_achieve;
+    public void setFitAchieve(Set<FitAchieve> fit_achieve) {
+        this.fitAchieve = fit_achieve;
     }
 
     public String getName() {
@@ -54,12 +57,12 @@ public class FitActivity {
         this.name = name;
     }
 
-    public String getBody_part() {
-        return body_part;
+    public String getBodyPart() {
+        return bodyPart;
     }
 
-    public void setBody_part(String body_part) {
-        this.body_part = body_part;
+    public void setBodyPart(String body_part) {
+        this.bodyPart = body_part;
     }
 
     public String getDescription() {
@@ -70,28 +73,28 @@ public class FitActivity {
         this.description = description;
     }
 
-    public double getKcal_burn() {
-        return kcal_burn;
+    public double getKcalBurn() {
+        return kcalBurn;
     }
 
-    public void setKcal_burn(double kcal_burn) {
-        this.kcal_burn = kcal_burn;
+    public void setKcalBurn(double kcal_burn) {
+        this.kcalBurn = kcal_burn;
     }
 
-    public String getImage_path() {
-        return image_path;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage_path(String image_path) {
-        this.image_path = image_path;
+    public void setImagePath(String image_path) {
+        this.imagePath = image_path;
     }
 
-    public FitActivityVideo getVideo_id() {
-        return video_id;
+    public FitActivityVideo getVideoId() {
+        return videoId;
     }
 
-    public void setVideo_id(FitActivityVideo video_id) {
-        this.video_id = video_id;
+    public void setVideoId(FitActivityVideo video_id) {
+        this.videoId = video_id;
     }
 
     public Time getTime() {

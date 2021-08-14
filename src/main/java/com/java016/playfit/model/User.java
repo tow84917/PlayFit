@@ -66,10 +66,12 @@ public class User implements UserDetails, Serializable{
 	private Avatar avatar;
 	
 	@OneToMany(mappedBy = "userId")
-	private Set<DailyRecord> daily_records;
+	@Column(name = "daily_records")
+	private Set<DailyRecord> dailyRecords;
 
 	@OneToMany(mappedBy = "user")
-	private Set<MonthlyRecord> monthly_records;
+	@Column(name = "monthly_records")
+	private Set<MonthlyRecord> monthlyRecords;
 	
 	public Integer getId() {
 		return id;
@@ -168,20 +170,20 @@ public class User implements UserDetails, Serializable{
 		this.avatar = avatar;
 	}
 
-	public Set<DailyRecord> getDaily_records() {
-		return daily_records;
+	public Set<DailyRecord> getDailyRecords() {
+		return dailyRecords;
 	}
 
-	public void setDaily_records(Set<DailyRecord> daily_records) {
-		this.daily_records = daily_records;
+	public void setDailyRecords(Set<DailyRecord> daily_records) {
+		this.dailyRecords = daily_records;
 	}
 
-	public Set<MonthlyRecord> getMonthly_records() {
-		return monthly_records;
+	public Set<MonthlyRecord> getMonthlyRecords() {
+		return monthlyRecords;
 	}
 
-	public void setMonthly_records(Set<MonthlyRecord> monthly_records) {
-		this.monthly_records = monthly_records;
+	public void setMonthlyRecords(Set<MonthlyRecord> monthly_records) {
+		this.monthlyRecords = monthly_records;
 	}
 	
 	@Override
@@ -212,9 +214,9 @@ public class User implements UserDetails, Serializable{
 		builder.append(", avatar=");
 		builder.append(avatar);
 		builder.append(", daily_records=");
-		builder.append(daily_records);
+		builder.append(dailyRecords);
 		builder.append(", monthly_records=");
-		builder.append(monthly_records);
+		builder.append(monthlyRecords);
 		builder.append("]");
 		return builder.toString();
 	}

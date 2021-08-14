@@ -17,17 +17,19 @@ public class MonthlyRecord {
 
     private int finish;
 
-    private int monthly_kcal;
+    @Column(name = "monthly_kcal")
+    private int monthlyKcal;
 
-    private int monthly_time;
+    @Column(name = "monthly_time")
+    private int monthlyTime;
 
-    public MonthlyRecord(User user, Calendar monthly, int finish, int monthly_kcal, int monthly_time) {
+    public MonthlyRecord(User user, Calendar monthly, int finish, int monthlyKcal, int monthlyTime) {
 
         this.user = user;
         this.monthly = monthly;
         this.finish = finish;
-        this.monthly_kcal = monthly_kcal;
-        this.monthly_time = monthly_time;
+        this.monthlyKcal = monthlyKcal;
+        this.monthlyTime = monthlyTime;
     }
 
     public MonthlyRecord() {
@@ -65,20 +67,20 @@ public class MonthlyRecord {
         this.finish = finish;
     }
 
-    public int getMonthly_kcal() {
-        return monthly_kcal;
+    public int getMonthlyKcal() {
+        return monthlyKcal;
     }
 
-    public void setMonthly_kcal(int monthly_kcal) {
-        this.monthly_kcal = monthly_kcal;
+    public void setMonthlyKcal(int monthly_kcal) {
+        this.monthlyKcal = monthly_kcal;
     }
 
-    public int getMonthly_time() {
-        return monthly_time;
+    public int getMonthlyTime() {
+        return monthlyTime;
     }
 
-    public void setMonthly_time(int monthly_time) {
-        this.monthly_time = monthly_time;
+    public void setMonthlyTime(int monthly_time) {
+        this.monthlyTime = monthly_time;
     }
 
     @Override
@@ -88,8 +90,8 @@ public class MonthlyRecord {
         sb.append(", user=").append(user.getId());
         sb.append(", monthly=").append(monthly);
         sb.append(", finish=").append(finish);
-        sb.append(", monthly_kcal=").append(monthly_kcal);
-        sb.append(", monthly_time=").append(monthly_time);
+        sb.append(", monthly_kcal=").append(monthlyKcal);
+        sb.append(", monthly_time=").append(monthlyTime);
         sb.append('}');
         return sb.toString();
     }

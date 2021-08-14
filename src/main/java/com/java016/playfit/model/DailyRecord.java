@@ -45,7 +45,7 @@ public class DailyRecord {
 	@Column(name="created_date")
     private Date date;
 
-    @OneToMany(mappedBy = "daily_record")
+    @OneToMany(mappedBy = "dailyRecord")
     private Set<FitAchieve> fit_achieves;
 
     public int getId() {

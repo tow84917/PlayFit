@@ -55,8 +55,8 @@ public class CalendarCrontroller {
 //		System.out.println(record);
 		Map<String, Object> map = new HashMap<>();
 		map.put("finish", record.getFinish());				// null
-		map.put("monthly_kcal", record.getMonthly_kcal());
-		map.put("monthly_time", record.getMonthly_time());
+		map.put("monthly_kcal", record.getMonthlyKcal());
+		map.put("monthly_time", record.getMonthlyTime());
 //		轉換成json字串
 		ObjectMapper mapper = new ObjectMapper();
 		String s;

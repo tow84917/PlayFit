@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Time;
 
 @Entity
-@Table
+@Table(name = "Fit_activity_video")
 public class FitActivityVideo {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -12,16 +12,20 @@ public class FitActivityVideo {
 
     private String name;
 
-    private String video_path; //影片路徑
+    @Column(name = "video_path")
+    private String videoPath; //影片路徑
 
-    private String file_name; //檔名
+    @Column(name = "file_name")
+    private String fileName; //檔名
 
-    private String mime_type; //檔案類型
+    @Column(name = "mime_type")
+    private String mimeType; //檔案類型
 
     private Time time; //影片時間長度
 
-    @OneToOne(mappedBy = "video_id")
-    private FitActivity fit_activity;
+    @OneToOne(mappedBy = "videoId")
+//    @Column(name = "fit_activity")
+    private FitActivity fitActivity;
 
     public int getId() {
         return id;
@@ -39,28 +43,28 @@ public class FitActivityVideo {
         this.name = name;
     }
 
-    public String getVideo_path() {
-        return video_path;
+    public String getVideoPath() {
+        return videoPath;
     }
 
-    public void setVideo_path(String video_path) {
-        this.video_path = video_path;
+    public void setVideoPath(String video_path) {
+        this.videoPath = video_path;
     }
 
-    public String getFile_name() {
-        return file_name;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFile_name(String file_name) {
-        this.file_name = file_name;
+    public void setFileName(String file_name) {
+        this.fileName = file_name;
     }
 
-    public String getMime_type() {
-        return mime_type;
+    public String getMimeType() {
+        return mimeType;
     }
 
-    public void setMime_type(String mime_type) {
-        this.mime_type = mime_type;
+    public void setMimeType(String mime_type) {
+        this.mimeType = mime_type;
     }
 
     public Time getTime() {
@@ -71,11 +75,11 @@ public class FitActivityVideo {
         this.time = time;
     }
 
-    public FitActivity getFit_activity() {
-        return fit_activity;
+    public FitActivity getFitActivity() {
+        return fitActivity;
     }
 
-    public void setFit_activity(FitActivity fit_activity) {
-        this.fit_activity = fit_activity;
+    public void setFitActivity(FitActivity fit_activity) {
+        this.fitActivity = fit_activity;
     }
 }
