@@ -1,7 +1,7 @@
 package com.java016.playfit.dao;
 
-import java.sql.Date;
 import java.util.List;
+import java.sql.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,7 +31,9 @@ public interface DailyRecordRepository extends JpaRepository<DailyRecord, Intege
 			@Param("userId")Integer userId,
 			@Param("startDate") Date startDate, 
 			@Param("endDate") Date endDate);
-	
+
+	@Query(value = "SELECT * FROM Daily_Record where created_date = :createdDate" , nativeQuery = true)
+	public List<DailyRecord> findByCreatedDate(Date createdDate);
 }
 
 

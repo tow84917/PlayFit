@@ -1,22 +1,14 @@
 package com.java016.playfit.serviceimpl;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+import com.java016.playfit.dao.*;
+import com.java016.playfit.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java016.playfit.converter.LocalDateCalendarAttributeConverter;
-import com.java016.playfit.dao.AvatarRepository;
-import com.java016.playfit.dao.Fit_achieve_Repository;
-import com.java016.playfit.dao.Monthly_record_Repository;
-import com.java016.playfit.dao.UserRepository;
-import com.java016.playfit.model.Avatar;
-import com.java016.playfit.model.MonthlyRecord;
-import com.java016.playfit.model.User;
 import com.java016.playfit.service.CalendarService;
 import com.java016.playfit.service.UserService;
 
@@ -29,10 +21,13 @@ public class CalendarServiceImpl implements CalendarService {
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
+	DailyRecordRepository dailyRecordRepository;
+	@Autowired
 	LocalDateCalendarAttributeConverter converter;
 	@Autowired
 	UserService userService;
 
+	@Override
 	public MonthlyRecord findByUser_idAndMonthly(int user_id, int monthly , int year){
 		MonthlyRecord monthlyRecord = monthlyRecordRepository.findByUserIdAndMonthly(user_id,  monthly , year);
 		System.out.println("CalendarServiceImpl---");
@@ -50,6 +45,27 @@ public class CalendarServiceImpl implements CalendarService {
 		return monthlyRecord;
 	}
 
+	@Override
+	public List<FitAchieve> findByCreatedDate(Date date) {
+		System.out.println("findByCreatedDate");
+		List<DailyRecord> byCreatedDate = dailyRecordRepository.findByCreatedDate(date);
+		List<FitAchieve> fitAchieveList = new ArrayList<>();
+		for (DailyRecord d :
+				byCreatedDate) {
+//			System.out.println(d.getFitAchieves());
+			Set<FitAchieve> fitAchieves = d.getFitAchieves();
+			for (FitAchieve fitAchieve :
+					fitAchieves) {
+				fitAchieveList.add(fitAchieve);
+			}
+		}
+		System.out.println(byCreatedDate);
+		System.out.println("------------");
+		System.out.println(fitAchieveList);
+		return fitAchieveList;
+	}
+
+	@Override
 	public List<Integer> findMonthlyFitDays(int month, int year){
 		int[] ints = new int[] {};
 		List<Integer> list = new ArrayList<>();

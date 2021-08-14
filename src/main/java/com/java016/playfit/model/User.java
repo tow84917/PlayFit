@@ -214,7 +214,7 @@ public class User implements UserDetails, Serializable{
 		builder.append(", avatar=");
 		builder.append(avatar);
 		builder.append(", daily_records=");
-		builder.append(dailyRecords);
+		builder.append(dailyRecords.hashCode());
 		builder.append(", monthly_records=");
 		builder.append(monthlyRecords);
 		builder.append("]");

@@ -1,5 +1,7 @@
 package com.java016.playfit.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -23,6 +25,7 @@ public class DailyRecord {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User userId;
@@ -45,17 +48,18 @@ public class DailyRecord {
 	@Column(name="created_date")
     private Date date;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "dailyRecord")
-    private Set<FitAchieve> fit_achieves;
+    private Set<FitAchieve> fitAchieves;
 
     public int getId() {
         return id;
     }
-
+    @JsonIgnore
     public void setId(int id) {
         this.id = id;
     }
-
+    @JsonIgnore
     public User getUserId() {
         return userId;
     }
@@ -111,13 +115,13 @@ public class DailyRecord {
     public void setDate(Date created_date) {
         this.date = created_date;
     }
-
-    public Set<FitAchieve> getFit_achieves() {
-        return fit_achieves;
+    @JsonIgnore
+    public Set<FitAchieve> getFitAchieves() {
+        return fitAchieves;
     }
-
-    public void setFit_achieves(Set<FitAchieve> fit_achieves) {
-        this.fit_achieves = fit_achieves;
+    @JsonIgnore
+    public void setFitAchieves(Set<FitAchieve> fit_achieves) {
+        this.fitAchieves = fit_achieves;
     }
 
 	@Override
@@ -140,7 +144,7 @@ public class DailyRecord {
 		builder.append(", created_date=");
 		builder.append(date);
 		builder.append(", fit_achieves=");
-		builder.append(fit_achieves);
+		builder.append(fitAchieves.hashCode());
 		builder.append("]");
 		return builder.toString();
 	}

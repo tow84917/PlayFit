@@ -1,5 +1,6 @@
 package com.java016.playfit.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.java016.playfit.converter.LocalDateCalendarAttributeConverter;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class FitAchieve {
     @JoinColumn(name = "fit_activity_id")
     private FitActivity fitActivity;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "daily_record_id")
     private DailyRecord dailyRecord;
@@ -71,11 +73,11 @@ public class FitAchieve {
     public void setFitActivity(FitActivity fit_activity) {
         this.fitActivity = fit_activity;
     }
-
+    @JsonIgnore
     public DailyRecord getDailyRecord() {
         return dailyRecord;
     }
-
+    @JsonIgnore
     public void setDailyRecord(DailyRecord daily_record) {
         this.dailyRecord = daily_record;
     }

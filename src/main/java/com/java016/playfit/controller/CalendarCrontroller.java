@@ -4,13 +4,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Date;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.java016.playfit.model.DailyRecord;
+import com.java016.playfit.model.FitAchieve;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -91,7 +92,7 @@ public class CalendarCrontroller {
 
 
 	/**
-	 * 顯示 點選的日期
+	 * 顯示 點選的日期所排程的動作
 	 * @param paramsMap
 	 * @param request
 	 * @param response
@@ -106,10 +107,18 @@ public class CalendarCrontroller {
 		System.out.println(request.getParameter("day"));
 		System.out.println(paramsMap);
 		
-		String date = (String)paramsMap.get("day");
-		date = date.replaceAll(",", "/");
+//		String date = (String)paramsMap.get("day");
+//		date = date.replaceAll(",", "/");
+		Calendar c = new Calendar.Builder().build();
+		c.set(2021,7,22);
+		java.sql.Date date = new Date(c.getTimeInMillis());
 
-		return date; 
+		List<FitAchieve> dailyRecords = calenderService.findByCreatedDate(date);
+		System.out.println("dailyRecords");
+		ObjectMapper mapper = new ObjectMapper();
+		String s = mapper.writeValueAsString(dailyRecords);
+
+		return s;
 	}
 
 	

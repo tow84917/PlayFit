@@ -1,5 +1,7 @@
 package com.java016.playfit.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Set;
@@ -11,6 +13,7 @@ public class FitActivity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
+    @JsonIgnore
     @Column(name = "fit_achieve")
     @OneToMany(mappedBy = "fitActivity")
     private Set<FitAchieve> fitAchieve;
@@ -27,6 +30,7 @@ public class FitActivity {
     @Column(name = "image_path")
     private String imagePath;
 
+    @JsonIgnore
     @OneToOne()
     @JoinColumn(name = "video_id")
     private FitActivityVideo videoId;
@@ -40,11 +44,11 @@ public class FitActivity {
     public void setId(int id) {
         this.id = id;
     }
-
+    @JsonIgnore
     public Set<FitAchieve> getFitAchieve() {
         return fitAchieve;
     }
-
+    @JsonIgnore
     public void setFitAchieve(Set<FitAchieve> fit_achieve) {
         this.fitAchieve = fit_achieve;
     }
@@ -88,11 +92,11 @@ public class FitActivity {
     public void setImagePath(String image_path) {
         this.imagePath = image_path;
     }
-
+    @JsonIgnore
     public FitActivityVideo getVideoId() {
         return videoId;
     }
-
+    @JsonIgnore
     public void setVideoId(FitActivityVideo video_id) {
         this.videoId = video_id;
     }

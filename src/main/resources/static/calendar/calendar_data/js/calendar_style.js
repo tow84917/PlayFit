@@ -295,9 +295,21 @@ day.addEventListener("click", (e) => {
 
     $.post("findToday", { day: day }, function (data) {
         console.log('data: ', data);
+        console.log("--");
+
+        console.log(data.length);
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            console.log('element: ', element);
+            // const path = element.fitActivity;
+            // console.log('path: ', path);
+            // const status = element.status;
+            // console.log('status: ', status);
+            
+        }
 
         // document.getElementById('day').innerText = data;
-    });
+    },'json');
 
     // $.ajax({
     //     url: "calender_controller", // 请求路径
