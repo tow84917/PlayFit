@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Fit_achieve")
-public class Fit_achieve {
+public class FitAchieve {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class Fit_achieve {
 
     @ManyToOne
     @JoinColumn(name = "fit_activity_id")
-    private Fit_activity fit_activity;
+    private FitActivity fit_activity;
 
     @ManyToOne
     @JoinColumn(name = "daily_record_id")
@@ -45,7 +45,7 @@ public class Fit_achieve {
 
     private String status; // 直接執行  按計畫執行  未執行
 
-    public Fit_achieve( Fit_activity fit_activity, DailyRecord daily_record, int number_groups, int total_kcal, Calendar execution_date, Date end_time, Timestamp created_at, String status) {
+    public FitAchieve(FitActivity fit_activity, DailyRecord daily_record, int number_groups, int total_kcal, Calendar execution_date, Date end_time, Timestamp created_at, String status) {
 
         this.fit_activity = fit_activity;
         this.daily_record = daily_record;
@@ -57,7 +57,7 @@ public class Fit_achieve {
         this.status = status;
     }
 
-    public Fit_achieve() {
+    public FitAchieve() {
     }
 
     public int getId() {
@@ -68,11 +68,11 @@ public class Fit_achieve {
         this.id = id;
     }
 
-    public Fit_activity getFit_activity() {
+    public FitActivity getFit_activity() {
         return fit_activity;
     }
 
-    public void setFit_activity(Fit_activity fit_activity) {
+    public void setFit_activity(FitActivity fit_activity) {
         this.fit_activity = fit_activity;
     }
 

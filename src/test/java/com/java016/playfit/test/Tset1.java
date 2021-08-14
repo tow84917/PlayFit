@@ -3,9 +3,8 @@ package com.java016.playfit.test;
 import com.java016.playfit.dao.Fit_achieve_Repository;
 import com.java016.playfit.dao.Monthly_record_Repository;
 import com.java016.playfit.dao.UserRepository;
-import com.java016.playfit.model.Fit_achieve;
-import com.java016.playfit.model.Monthly_record;
-import com.java016.playfit.model.User;
+import com.java016.playfit.model.FitAchieve;
+import com.java016.playfit.model.MonthlyRecord;
 import com.java016.playfit.service.CalendarService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class Tset1 {
 
     @Test
     public void test2(){
-        Monthly_record monthlyRecord = calenderService.findByUser_idAndMonthly(41, 8, 2021);
+        MonthlyRecord monthlyRecord = calenderService.findByUser_idAndMonthly(41, 8, 2021);
         /*if( monthlyRecord == null) {
 			Calendar c = new Calendar.Builder().build();
 			c.set(2021, 7, 1);
@@ -50,7 +49,7 @@ public class Tset1 {
 
         Timestamp timestamp = new Timestamp(date1.getTime());
 
-        Fit_achieve achieve = new Fit_achieve( null,null, 1, 1000, date, null , timestamp,"1");
+        FitAchieve achieve = new FitAchieve( null,null, 1, 1000, date, null , timestamp,"1");
 
         achieveRepository.save(achieve);
 

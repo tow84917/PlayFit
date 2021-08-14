@@ -5,7 +5,7 @@ import java.sql.Time;
 
 @Entity
 @Table
-public class Fit_activity_video {
+public class FitActivityVideo {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
@@ -21,7 +21,7 @@ public class Fit_activity_video {
     private Time time; //影片時間長度
 
     @OneToOne(mappedBy = "video_id")
-    private Fit_activity fit_activity;
+    private FitActivity fit_activity;
 
     public int getId() {
         return id;
@@ -71,11 +71,11 @@ public class Fit_activity_video {
         this.time = time;
     }
 
-    public Fit_activity getFit_activity() {
+    public FitActivity getFit_activity() {
         return fit_activity;
     }
 
-    public void setFit_activity(Fit_activity fit_activity) {
+    public void setFit_activity(FitActivity fit_activity) {
         this.fit_activity = fit_activity;
     }
 }

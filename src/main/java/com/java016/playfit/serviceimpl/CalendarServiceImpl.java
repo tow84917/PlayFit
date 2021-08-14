@@ -15,7 +15,7 @@ import com.java016.playfit.dao.Fit_achieve_Repository;
 import com.java016.playfit.dao.Monthly_record_Repository;
 import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.Avatar;
-import com.java016.playfit.model.Monthly_record;
+import com.java016.playfit.model.MonthlyRecord;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.CalendarService;
 import com.java016.playfit.service.UserService;
@@ -33,8 +33,8 @@ public class CalendarServiceImpl implements CalendarService {
 	@Autowired
 	UserService userService;
 
-	public Monthly_record findByUser_idAndMonthly(int user_id, int monthly , int year){
-		Monthly_record monthlyRecord = monthlyRecordRepository.findByUserIdAndMonthly(user_id,  monthly , year);
+	public MonthlyRecord findByUser_idAndMonthly(int user_id, int monthly , int year){
+		MonthlyRecord monthlyRecord = monthlyRecordRepository.findByUserIdAndMonthly(user_id,  monthly , year);
 		System.out.println("CalendarServiceImpl---");
 
 
@@ -42,7 +42,7 @@ public class CalendarServiceImpl implements CalendarService {
 			Calendar c = new Calendar.Builder().build();
 			c.set(year, monthly-1, 1);
 			User user = userRepository.getById(41);
-			monthlyRecord = new Monthly_record( user, c, 0, 0, 0);
+			monthlyRecord = new MonthlyRecord( user, c, 0, 0, 0);
 			monthlyRecordRepository.save(monthlyRecord);
 		}
 		System.out.println(monthlyRecord);

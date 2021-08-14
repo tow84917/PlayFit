@@ -6,13 +6,13 @@ import java.util.Set;
 
 @Entity
 @Table
-public class Fit_activity {
+public class FitActivity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     @OneToMany(mappedBy = "fit_activity")
-    private Set<Fit_achieve> fit_achieve;
+    private Set<FitAchieve> fit_achieve;
 
     private String name;
 
@@ -26,7 +26,7 @@ public class Fit_activity {
 
     @OneToOne()
     @JoinColumn(name = "video_id")
-    private Fit_activity_video video_id;
+    private FitActivityVideo video_id;
 
     private Time time; //運動時間長度
 
@@ -38,11 +38,11 @@ public class Fit_activity {
         this.id = id;
     }
 
-    public Set<Fit_achieve> getFit_achieve() {
+    public Set<FitAchieve> getFit_achieve() {
         return fit_achieve;
     }
 
-    public void setFit_achieve(Set<Fit_achieve> fit_achieve) {
+    public void setFit_achieve(Set<FitAchieve> fit_achieve) {
         this.fit_achieve = fit_achieve;
     }
 
@@ -86,11 +86,11 @@ public class Fit_activity {
         this.image_path = image_path;
     }
 
-    public Fit_activity_video getVideo_id() {
+    public FitActivityVideo getVideo_id() {
         return video_id;
     }
 
-    public void setVideo_id(Fit_activity_video video_id) {
+    public void setVideo_id(FitActivityVideo video_id) {
         this.video_id = video_id;
     }
 

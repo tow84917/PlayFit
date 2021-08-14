@@ -69,7 +69,7 @@ public class User implements UserDetails, Serializable{
 	private Set<DailyRecord> daily_records;
 
 	@OneToMany(mappedBy = "user")
-	private Set<Monthly_record> monthly_records;
+	private Set<MonthlyRecord> monthly_records;
 	
 	public Integer getId() {
 		return id;
@@ -176,11 +176,11 @@ public class User implements UserDetails, Serializable{
 		this.daily_records = daily_records;
 	}
 
-	public Set<Monthly_record> getMonthly_records() {
+	public Set<MonthlyRecord> getMonthly_records() {
 		return monthly_records;
 	}
 
-	public void setMonthly_records(Set<Monthly_record> monthly_records) {
+	public void setMonthly_records(Set<MonthlyRecord> monthly_records) {
 		this.monthly_records = monthly_records;
 	}
 	

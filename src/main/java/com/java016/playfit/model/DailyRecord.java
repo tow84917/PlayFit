@@ -46,7 +46,7 @@ public class DailyRecord {
     private Date date;
 
     @OneToMany(mappedBy = "daily_record")
-    private Set<Fit_achieve> fit_achieves;
+    private Set<FitAchieve> fit_achieves;
 
     public int getId() {
         return id;
@@ -112,11 +112,11 @@ public class DailyRecord {
         this.date = created_date;
     }
 
-    public Set<Fit_achieve> getFit_achieves() {
+    public Set<FitAchieve> getFit_achieves() {
         return fit_achieves;
     }
 
-    public void setFit_achieves(Set<Fit_achieve> fit_achieves) {
+    public void setFit_achieves(Set<FitAchieve> fit_achieves) {
         this.fit_achieves = fit_achieves;
     }
 

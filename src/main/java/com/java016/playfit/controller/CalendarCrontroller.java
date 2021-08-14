@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.java016.playfit.model.Monthly_record;
+import com.java016.playfit.model.MonthlyRecord;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.CalendarService;
 import com.java016.playfit.service.UserService;
@@ -50,7 +50,7 @@ public class CalendarCrontroller {
 		Integer year = tool.monthYearMapGetYear(monthYear);
 		System.out.println("month:  " + month + ",  year:  " + year);
 
-		Monthly_record record = calenderService.findByUser_idAndMonthly(41, month, year);
+		MonthlyRecord record = calenderService.findByUser_idAndMonthly(41, month, year);
 		System.out.println("findMonthlyRecord==========");
 //		System.out.println(record);
 		Map<String, Object> map = new HashMap<>();

@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 @Entity
 @Table(name = "monthly_record")
-public class Monthly_record {
+public class MonthlyRecord {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
@@ -21,7 +21,7 @@ public class Monthly_record {
 
     private int monthly_time;
 
-    public Monthly_record( User user, Calendar monthly, int finish, int monthly_kcal, int monthly_time) {
+    public MonthlyRecord(User user, Calendar monthly, int finish, int monthly_kcal, int monthly_time) {
 
         this.user = user;
         this.monthly = monthly;
@@ -30,7 +30,7 @@ public class Monthly_record {
         this.monthly_time = monthly_time;
     }
 
-    public Monthly_record() {
+    public MonthlyRecord() {
     }
 
     public int getId() {
