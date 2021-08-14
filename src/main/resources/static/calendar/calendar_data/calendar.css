@@ -6,6 +6,7 @@
   --purple1: #2e1ed3;
   --purple2: #6460ff;
   --purple3: #ccccff;
+  --purplebg: #ebeef8;
   --red1: #ff353b;
   --red2: #ff9398;
   --green: #00baba;
@@ -171,11 +172,30 @@ div {
   /* 固定 */
   position: relative;
 }
+/* 完成的動作 */
+.today-card-finish {
+  background-color: var(--purple3);
+  pointer-events: none;
+}
+/* 完成的icon */
+.finish-icon {
+  width: 35px;
+  position: absolute;
+  left: var(--padding-hef);
+  top: var(--padding-hef);
+}
+
 /* 當日 健身項目內的圖片 */
+/* 未執行 */
 .today-fit {
   width: 100%;
-  opacity: 0.5;
+  opacity: 0.7;
 }
+/* 已執行 */
+.today-fit-finish {
+  opacity: 0.3;
+}
+
 /* 當日 健身項目內的文字 */
 .today-fit-name {
   font-size: var(--font-size-xl);

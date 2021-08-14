@@ -150,9 +150,9 @@
 .next-date {
   opacity: 0.5;
 }
-
+/* 當天 */
 .days button.today {
-  background-color: rgb(46, 179, 135);
+  background-color: var(--purple1);
 }
 
 /* 箭頭 */

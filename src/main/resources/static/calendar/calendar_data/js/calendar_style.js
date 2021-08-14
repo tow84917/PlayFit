@@ -1,6 +1,10 @@
 function dofirst() {
     date = new Date();
-    
+    console.log('date: ', date);
+    const today = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    console.log('day: ', today);
+    findToday(today);
+
     let schedulet = getMonthlyFitDays(date);
     renderCalender(schedulet);
 
@@ -288,51 +292,66 @@ day.addEventListener("click", (e) => {
 
     const target = e.target;
     
-    let day = target.value;
-    day =  day.replace(/,/g,'/');
-    console.log('day: ', day);
-    document.getElementById('day').innerText = day;
+    let today = target.value;
+    today =  today.replace(/,/g,'/');
+    console.log('day: ', today);
+    document.getElementById('day').innerText = today;
 
-    $.post("findToday", { day: day }, function (data) {
-        console.log('data: ', data);
-        console.log("--");
+    findToday(today);
+
+});
+
+const todayFits = document.getElementById('today-fits');
+
+function findToday(today) {
+    $.post("findToday", { day: today }, function (data) {
 
         console.log(data.length);
         for (let i = 0; i < data.length; i++) {
             const element = data[i];
             console.log('element: ', element);
-            // const path = element.fitActivity;
-            // console.log('path: ', path);
-            // const status = element.status;
-            // console.log('status: ', status);
+            const path = element.fitActivity.imagePath;
+            console.log('path: ', path);
+            const fitName = element.fitActivity.name;
+            const status = element.status;
+            console.log('status: ', status);
+
+            if (status == '直接執行') {
+            } else {
+                let todayCard = document.createElement('button');    
+                let todayFitImg = document.createElement('img');
+                let a ;
+                let finishIcon;
+                if (status == '未執行') {
+                    a = document.createElement('a');
+                    a.href = 'calendar';
+                    todayCard.setAttribute('class', 'today-card div btn');
+                    todayFitImg.setAttribute('class' , 'today-fit');
+                } else {
+                    a = document.createElement('div');
+                    todayCard.setAttribute('class', 'today-card today-card-finish div btn')
+                    todayFitImg.setAttribute('class' , 'today-fit today-fit-finish');
+                    finishIcon = document.createElement('img');
+                    finishIcon.setAttribute('class', 'finish-icon');
+                    finishIcon.src = '/images/finishl.svg';
+                    todayCard.appendChild(finishIcon);
+                }
+
+                todayFitImg.src = path;
+    
+                let todayFitName = document.createElement('span');
+                todayFitName.setAttribute('class', 'today-fit-name');
+                todayFitName.innerText = fitName;
+    
+                todayCard.appendChild(todayFitImg);
+                todayCard.appendChild(todayFitName);
+
+                a.appendChild(todayCard);
+    
+                todayFits.appendChild(a);
+            }
             
         }
-
-        // document.getElementById('day').innerText = data;
     },'json');
-
-    // $.ajax({
-    //     url: "calender_controller", // 请求路径
-    //     // url:"ajaxServlet",
-    //     type: "POST", //请求方式
-    //     // data: "username=jack&age=23&day=" + day,//请求参数
-    //     contentType: "application/json; charset=utf-8",
-    //     data: JSON.stringify({'day': day }) ,
-    //     dataType: "json", //设置接受到的响应数据的格式
-    //     success: function (data) {
-    //         if (data.userExsit) {
-    //         //用户名存在
-    //         
-    //         } else {
-    //             //用户名不存在
-    //             
-    //         }
-
-    //     },//响应成功后的回调函数
-    //     error: function () {
-    //         alert("出错啦...")
-    //     },//表示如果请求响应出现错误，会执行的回调函数
-    // });
-});
-
+}
 

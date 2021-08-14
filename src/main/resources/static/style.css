@@ -11,6 +11,7 @@ button {
   --purple1: #2e1ed3;
   --purple2: #6460ff;
   --purple3: #ccccff;
+  --purplebg: #ebeef8;
   --red1: #ff353b;
   --red2: #ff9398;
   --green: #00baba;
@@ -54,7 +55,7 @@ button {
   margin: 20px;
   /* width: 100%; */
   height: fit-content;
-  background-color: var(--purple3);
+  background-color: var(--purplebg);
   border-radius: var(--div-border-radius);
 }
 /* 內div 增加margin 間距 */
