@@ -304,6 +304,7 @@ day.addEventListener("click", (e) => {
 const todayFits = document.getElementById('today-fits');
 
 function findToday(today) {
+    todayFits.innerHTML = '';
     $.post("findToday", { day: today }, function (data) {
 
         console.log(data.length);

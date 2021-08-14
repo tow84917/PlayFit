@@ -13,5 +13,5 @@ public interface Monthly_record_Repository extends JpaRepository<MonthlyRecord, 
 
     @Nullable
     @Query(value = "SELECT * FROM monthly_record where user_id = :user_id and month(monthly) = :monthly and year(monthly) = :year" , nativeQuery = true)
-    MonthlyRecord findByUserIdAndMonthly(@Param("user_id") int user_id, @Param("monthly") int monthly, @Param("year") int year);
+    MonthlyRecord findByUserIdAndMonthly(@Param("user_id") int userId, @Param("monthly") int monthly, @Param("year") int year);
 }

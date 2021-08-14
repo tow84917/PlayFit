@@ -10,7 +10,6 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.FitAchieve;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +41,12 @@ public class CalendarCrontroller {
 	@Autowired
 	CalendarTool tool;
 
+	/**
+	 * 找user當月的紀錄
+	 * @param monthYear
+	 * @param principal
+	 * @return
+	 */
 	@RequestMapping(value = "/findMonthlyRecord")
 	@ResponseBody
 	public String findMonthlyRecord(@RequestBody Map<String, Object> monthYear, Principal principal){
@@ -51,7 +56,7 @@ public class CalendarCrontroller {
 		Integer year = tool.monthYearMapGetYear(monthYear);
 		System.out.println("month:  " + month + ",  year:  " + year);
 
-		MonthlyRecord record = calenderService.findByUser_idAndMonthly(41, month, year);
+		MonthlyRecord record = calenderService.findByUserIdAndMonthly( month, year);
 		System.out.println("findMonthlyRecord==========");
 //		System.out.println(record);
 		Map<String, Object> map = new HashMap<>();
@@ -68,10 +73,14 @@ public class CalendarCrontroller {
 			System.out.println(e.getMessage());
 			s = "";
 		}
-
 		return s;
 	}
 
+	/**
+	 * 找user當月哪幾天有排健身
+	 * @param monthYear
+	 * @return
+	 */
 	@RequestMapping(value = "/findFitDays")
 	@ResponseBody
 	public List<Integer> findMonthlyFitDays(@RequestBody Map<String, Object> monthYear){
@@ -92,7 +101,7 @@ public class CalendarCrontroller {
 
 
 	/**
-	 * 顯示 點選的日期所排程的動作
+	 * 顯示 當日所排程的動作
 	 * @param paramsMap
 	 * @param request
 	 * @param response
@@ -104,13 +113,14 @@ public class CalendarCrontroller {
 	@ResponseBody
 	public String calendercopy(@RequestParam Map<String,Object> paramsMap , HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
 
-		System.out.println(request.getParameter("day"));
+//		System.out.println(request.getParameter("day"));
 		System.out.println(paramsMap);
 		
-//		String date = (String)paramsMap.get("day");
-//		date = date.replaceAll(",", "/");
+		String today = (String)paramsMap.get("day");
+//		today = today.replaceAll(",", "/");
+		String[] split = today.split("/");
 		Calendar c = new Calendar.Builder().build();
-		c.set(2021,7,22);
+		c.set(Integer.parseInt(split[0]),Integer.parseInt(split[1])-1,Integer.parseInt(split[2]));
 		java.sql.Date date = new Date(c.getTimeInMillis());
 
 		List<FitAchieve> dailyRecords = calenderService.findByCreatedDate(date);

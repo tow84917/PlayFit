@@ -24,20 +24,20 @@ public class Tset1 {
     @Autowired
     UserRepository userRepository;
 
-    @Test
-    public void test2(){
-        MonthlyRecord monthlyRecord = calenderService.findByUser_idAndMonthly(41, 8, 2021);
-        /*if( monthlyRecord == null) {
-			Calendar c = new Calendar.Builder().build();
-			c.set(2021, 7, 1);
-            User user = userRepository.getById(41);
-            monthlyRecord = new Monthly_record( user, c, 0, 0, 0);
-			monthlyRecordRepository.save(monthlyRecord);
-		}
-         */
-
-
-    }
+//    @Test
+//    public void test2(){
+//        MonthlyRecord monthlyRecord = calenderService.findByUserIdAndMonthly(41, 8, 2021);
+//        /*if( monthlyRecord == null) {
+//			Calendar c = new Calendar.Builder().build();
+//			c.set(2021, 7, 1);
+//            User user = userRepository.getById(41);
+//            monthlyRecord = new Monthly_record( user, c, 0, 0, 0);
+//			monthlyRecordRepository.save(monthlyRecord);
+//		}
+//         */
+//
+//
+//    }
 
     @Test
     public void test(){

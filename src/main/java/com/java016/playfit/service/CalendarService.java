@@ -11,7 +11,7 @@ public interface CalendarService {
 	public byte[] findImage(int id);
 //	public int[] findMonthlyFitDays(int month, int year);
 	public List<Integer> findMonthlyFitDays(int month, int year);
-	public MonthlyRecord findByUser_idAndMonthly(int user_id, int monthly, int year);
+	public MonthlyRecord findByUserIdAndMonthly(int monthly, int year);
 
     List<FitAchieve> findByCreatedDate(Date date);
 }

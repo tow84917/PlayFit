@@ -27,16 +27,23 @@ public class CalendarServiceImpl implements CalendarService {
 	@Autowired
 	UserService userService;
 
+	/**
+	 * 找user當月的紀錄
+	 * @param monthly
+	 * @param year
+	 * @return
+	 */
 	@Override
-	public MonthlyRecord findByUser_idAndMonthly(int user_id, int monthly , int year){
-		MonthlyRecord monthlyRecord = monthlyRecordRepository.findByUserIdAndMonthly(user_id,  monthly , year);
+	public MonthlyRecord findByUserIdAndMonthly(int monthly , int year){
+		int userId = userService.getLoginUserId();
+		System.out.println("userId: " + userId);
+		MonthlyRecord monthlyRecord = monthlyRecordRepository.findByUserIdAndMonthly(41,  monthly , year);
 		System.out.println("CalendarServiceImpl---");
-
-
+//		如果沒有當月紀錄，則建一筆新的空紀錄
 		if( monthlyRecord == null) {
 			Calendar c = new Calendar.Builder().build();
 			c.set(year, monthly-1, 1);
-			User user = userRepository.getById(41);
+			User user = userRepository.getById(41);			// userId待改
 			monthlyRecord = new MonthlyRecord( user, c, 0, 0, 0);
 			monthlyRecordRepository.save(monthlyRecord);
 		}
@@ -45,10 +52,17 @@ public class CalendarServiceImpl implements CalendarService {
 		return monthlyRecord;
 	}
 
+	/**
+	 * user當日所排程的健身動作
+	 * @param date
+	 * @return
+	 */
 	@Override
 	public List<FitAchieve> findByCreatedDate(Date date) {
 		System.out.println("findByCreatedDate");
-		List<DailyRecord> byCreatedDate = dailyRecordRepository.findByCreatedDate(date);
+		int userId = userService.getLoginUserId();
+		System.out.println("userId: " + userId);
+		List<DailyRecord> byCreatedDate = dailyRecordRepository.findByCreatedDate(date , 41);
 		List<FitAchieve> fitAchieveList = new ArrayList<>();
 		for (DailyRecord d :
 				byCreatedDate) {
@@ -59,18 +73,25 @@ public class CalendarServiceImpl implements CalendarService {
 				fitAchieveList.add(fitAchieve);
 			}
 		}
-		System.out.println(byCreatedDate);
-		System.out.println("------------");
-		System.out.println(fitAchieveList);
+//		System.out.println(byCreatedDate);
+//		System.out.println("------------");
+//		System.out.println(fitAchieveList);
 		return fitAchieveList;
 	}
 
+	/**
+	 * 找user當月哪幾天有排健身  如果當天有紀錄，但沒健身，或是直接執行沒預先排程？
+	 * @param month
+	 * @param year
+	 * @return List<Integer>
+	 */
 	@Override
 	public List<Integer> findMonthlyFitDays(int month, int year){
 		int[] ints = new int[] {};
 		List<Integer> list = new ArrayList<>();
 		System.out.println("findMonthlyFitDays--------");
-//		int userId = userService.getUserId();				// 為登入測試時關閉
+		int userId = userService.getLoginUserId();
+		System.out.println("userId: " + userId);
 		List<Date> monthlyDays = achieve_repository.findByMonthAndYearGroup(41, month, year);
 		System.out.println(monthlyDays);
 		for (Date c :
