@@ -34,7 +34,7 @@ public class CalendarServiceImpl implements CalendarService {
 	UserService userService;
 
 	public Monthly_record findByUser_idAndMonthly(int user_id, int monthly , int year){
-		Monthly_record monthlyRecord = monthlyRecordRepository.findByUser_idAndMonthly(user_id,  monthly , year);
+		Monthly_record monthlyRecord = monthlyRecordRepository.findByUserIdAndMonthly(user_id,  monthly , year);
 		System.out.println("CalendarServiceImpl---");
 
 

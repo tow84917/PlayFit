@@ -33,19 +33,6 @@ public class Monthly_record {
     public Monthly_record() {
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Monthly_record{");
-        sb.append("id=").append(id);
-        sb.append(", user=").append(user);
-        sb.append(", monthly=").append(monthly);
-        sb.append(", finish=").append(finish);
-        sb.append(", monthly_kcal=").append(monthly_kcal);
-        sb.append(", monthly_time=").append(monthly_time);
-        sb.append('}');
-        return sb.toString();
-    }
-
     public int getId() {
         return id;
     }
@@ -92,5 +79,18 @@ public class Monthly_record {
 
     public void setMonthly_time(int monthly_time) {
         this.monthly_time = monthly_time;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Monthly_record{");
+        sb.append("id=").append(id);
+        sb.append(", user=").append(user.getId());
+        sb.append(", monthly=").append(monthly);
+        sb.append(", finish=").append(finish);
+        sb.append(", monthly_kcal=").append(monthly_kcal);
+        sb.append(", monthly_time=").append(monthly_time);
+        sb.append('}');
+        return sb.toString();
     }
 }
