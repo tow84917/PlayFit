@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +22,7 @@ import javax.persistence.TemporalType;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 @Entity
 @Table(name="users")
@@ -60,10 +63,15 @@ public class User implements UserDetails, Serializable{
 	@Column(name="certification_status")
 	private int certificationStatus;
 	
-	//bi
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY) // default Eager
 	@JoinColumn(name = "avatar_id", referencedColumnName = "id")
 	private Avatar avatar;
+	
+	@OneToMany(mappedBy="user")
+	private List<HealthRecord> healthRecords;
+	
+	@OneToMany(mappedBy="user")
+	private List<PersonalGoal> PersonalGoals;
 	
 	@OneToMany(mappedBy = "userId")
 	@Column(name = "daily_records")
@@ -186,6 +194,22 @@ public class User implements UserDetails, Serializable{
 		this.monthlyRecords = monthly_records;
 	}
 	
+	public List<HealthRecord> getHealthRecords() {
+		return healthRecords;
+	}
+
+	public void setHealthRecords(List<HealthRecord> healthRecords) {
+		this.healthRecords = healthRecords;
+	}
+
+	public List<PersonalGoal> getPersonalGoals() {
+		return PersonalGoals;
+	}
+
+	public void setPersonalGoals(List<PersonalGoal> personalGoals) {
+		PersonalGoals = personalGoals;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

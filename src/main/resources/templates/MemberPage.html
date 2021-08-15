@@ -11,7 +11,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
     </style>
     <!-- 會員Css -->
-    <link rel="stylesheet" th:href="@{/memberPage/MemberPage.css}">
+    <link rel="stylesheet" href="MemberPage.css">
     <title>MemberPage</title>
 </head>
 <body>
@@ -91,17 +91,15 @@
                     <div class="task">
                          <!-- 右上左 -->
                         <div class="taskL">
-                            <div class="today"> 
-                                2021/07/15 Thur.
+                            <div class="today" th:text ="${today}"> 
                             </div>
                             <div class="progressBar">
                                 <div class="taskInfo">
                                     <p>Tasks to do</p> 
                                     <p id="progressNumber"></p>
                                 </div>
-                                <canvas id="taskProgressBar" width="490" height="15">
+                                <canvas id="taskProgressBar" width="490" height="15" th:text ="${completionRate}">
                                     <!-- Js catch progress data -->
-                                    75
                                 </canvas>
                             </div>
                         </div>
@@ -109,13 +107,13 @@
                         <div class="taskR">
                             <div>
                                 <div class="displyTask">
-                                    <p>1568</p>
+                                    <p th:text ="${todayRecord.kcalIntake}"></p>
                                 </div>
                                 <label>CAL GAIN</label>
                             </div>
                             <div>
                                 <div class="displyTask">
-                                    <p>654</p>
+                                    <p th:text ="${todayRecord.kcalBurned}"></p>
                                 </div>
                                 <label>CAL LOST</label>
                             </div>
@@ -136,19 +134,22 @@
                              <!-- 目標欄中 -->
                             <div class="goalMid">
                                 <div class="weightBox">
-                                    <p>75 Kg<br>
-                                        <span id="weightAnnotation">Start</span>
-                                    </p>
-                                    <p id="centerFocus">63.4 Kg<br>
+                                <div>
+                                    <p th:text ="${personalGoal.startWeight} + 'KG'"></p>
+                                    <span id="weightAnnotation">Start</span>
+                                </div>
+                                <div>
+                                    <p id="centerFocus" th:text ="${healthRecord.weight} + 'KG'"></p>
                                         <span id="weightAnnotation">
                                             Current<br>Weight
                                         </span>
-                                    </p>
-                                    <p>50 Kg<br>
+                                </div>
+                                <div>
+                                    <p th:text ="${personalGoal.goalWeight} + 'KG'"></p>
                                         <span id="weightAnnotation">
                                             Goal
                                         </span>
-                                    </p>
+                                </div>
                                 </div>
                             </div>
                              <!-- 目標欄下 -->
@@ -156,13 +157,13 @@
                                 <div class="startDate">
                                     <strong>Start Date</strong>
                                     <div class="displyGoal">
-                                        <p>2021-08-09</p>
+                                        <p th:text ="${personalGoal.createDate}"></p>
                                     </div>
                                 </div>
                                 <div class="totalLost">
                                     <strong>Total Lost</strong>
                                     <div class="displyGoal">
-                                        <p>9825.56</p>
+                                        <p th:text ="${personalGoal.totalLost}"></p>
                                     </div>
                                 </div>
                             </div>
@@ -182,30 +183,18 @@
                             <!-- Thymeleaf will foreach here ; 
                                 assign background-color、src、activityName-->
                             <div class="activityBox" id="scrollbarStyle">
-                                <div class="activity" style="background-color: #2e1ed3;">
-                                    <img src="/10_min_BLIT.png" alt="activity_name">
-                                    <p id="activityName">PSIT</p>
-                                </div>
-                                
-                                <div class="activity" style="background-color: #2e1ed3;">
-                                    <img src="/10_min_BLIT.png" alt="activity_name">
-                                    <p id="activityName">LIPT</p>
-                                </div>
-
-                                <div class="activity" style="background-color: #6460ff;">
-                                    <img src="/10_min_BLIT.png" alt="activity_name">
-                                    <p id="activityName">STE</p>
-                                </div>
-
-                                <div class="activity" style="background-color: #6460ff;">
-                                    <img src="/10_min_BLIT.png" alt="activity_name">
-                                    <p id="activityName">BLIT</p>
-                                </div>
-
-                                <div class="activity" style="background-color: #6460ff;">
-                                    <img src="/10_min_BLIT.png" alt="activity_name">
-                                    <p id="activityName">LIPT</p>
-                                </div>                            
+                            	<div th:each="task : ${activityStatus}" th:with="color1='#2e1ed3',color2='#6460ff'">
+<!--                             		done -->
+	                                <div class="activity" th:if="${task.value =='done'}" th:style="'background-color:'+ ${color1}">
+	                                    <img th:src="@{${task.key.imagePath}}" alt="activity_name">
+	                                    <p id="activityName" th:text ="${task.key.name}"></p>
+	                                </div>
+<!-- 	                                undone -->
+	                                <div class="activity" th:if="${task.value =='undone'}" th:style="'background-color:'+ ${color2}">
+	                                  <img th:src="@{${task.key.imagePath}}" alt="activity_name">
+	                                    <p id="activityName" th:text ="${task.key.name}"></p>
+	                                </div>
+                            	</div>
                             </div>
                             <!-- 日曆連結 -->
                             <a href="" class="goCalendar">
@@ -216,9 +205,92 @@
                 </div>
             </div>
         </div>
+        <!-- 修改個人資料表單 -->
+        <form action="" method="POST" class="editForm">
+            <div class="formRange">
+                <button type="button" class="close">&times;</button>
+                <table>
+                    <tr>
+                        <td colspan="2">
+                            <label>Edit Profile</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Name:</p>
+                            <p><input type="text" name="name" value="" class="editColumn"></p>
+                        </td>
+                        <td>
+                            <p>Nuck Name:</p>
+                            <p><input type="text" name="name" value="" class="editColumn"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Password:</p>
+                            <p><input type="password" name="name" value="" class="editColumn"></p>
+                        </td>
+                        <td>
+                            <p>Confirm Password:</p>
+                            <p><input type="password" name="name" value="" class="editColumn"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Phone:</p>
+                            <p><input type="text" name="name" value="" class="editColumn"></p>
+                        </td>
+                        <td>
+                            <p>Email:</p>
+                            <p><input type="email" name="email" class="editColumn"></p>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <p>Address:</p>
+                            <p><input type="text" name="name" value="" class="editColumnAddress"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Height:</p>
+                            <p><input type="number" name="name" value="" min="50.00" max="300.00" step="0.01" class="editColumn"></p>
+                        </td>
+                        <td>
+                            <p>Weight:</p>
+                            <p><input type="number" name="name" value="" min="20.00" max="500.00" step="0.01" class="editColumn"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>birthday:</p>
+                            <p><input type="date" name="name" value="" class="editColumn"></p>
+                        </td>
+                        <td>
+                            <p>Activity Level:</p>
+                            <select name="" class="editColumn">
+                                <option value="1">LightExercise</option>
+                                <option value="2">ModerateExercise</option>
+                                <option value="3">HeavyExercise</option>
+                                <option value="4">Athlete</option>
+                                <option value="0">Sedentary(office job)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Submit" id="confirmSubmit">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
     </div>
     <div class="footer"></div>
-    <script th:src="@{/memberPage/taskCanvas.js}"></script>
-    <script th:src="@{/memberPage/bodyCanvas.js}"></script>   
+    <div class="overlay hidden"></div>
+    <script src="MemberPage.js"></script>
+    <script src="taskCanvas.js"></script>
+    <script src="bodyCanvas.js"></script>   
 </body>
 </html>
