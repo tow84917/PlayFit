@@ -39,6 +39,7 @@ public class FitActivity {
 
 	// bi-directional many-to-one association to FitAchieve
 	@JsonIgnore
+	@Column(name = "fit_achieves")
 	@OneToMany(mappedBy = "fitActivity")
 	private List<FitAchieve> fitAchieves;
 
