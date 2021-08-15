@@ -15,9 +15,9 @@ import com.java016.playfit.service.UserService;
 @Service
 public class CalendarServiceImpl implements CalendarService {
 	@Autowired
-	Fit_achieve_Repository achieve_repository;
+	FitAchieveRepository achieve_repository;
 	@Autowired
-	Monthly_record_Repository monthlyRecordRepository;
+	MonthlyRecordRepository monthlyRecordRepository;
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
@@ -79,6 +79,8 @@ public class CalendarServiceImpl implements CalendarService {
 		return fitAchieveList;
 	}
 
+
+
 	/**
 	 * 找user當月哪幾天有排健身  如果當天有紀錄，但沒健身，或是直接執行沒預先排程？
 	 * @param month
@@ -87,7 +89,6 @@ public class CalendarServiceImpl implements CalendarService {
 	 */
 	@Override
 	public List<Integer> findMonthlyFitDays(int month, int year){
-		int[] ints = new int[] {};
 		List<Integer> list = new ArrayList<>();
 		System.out.println("findMonthlyFitDays--------");
 		int userId = userService.getLoginUserId();
@@ -127,7 +128,44 @@ public class CalendarServiceImpl implements CalendarService {
 
 		return list;
 	}
+	/**
+	 * 找user當月哪幾天有排健身  如果當天有紀錄，但沒健身，或是直接執行沒預先排程？
+	 * @param month
+	 * @param year
+	 * @return List<Integer>
+	 */
+	@Override
+	public Set<Integer> findUserMonthlyFitDays(int month, int year) {
+		System.out.println("findUserMonthlyFitDays###############");
+		List<Integer> list = new ArrayList<>();
+		Set<Integer> set =new HashSet<>();
 
+		System.out.println("findUserMonthlyFitDays--------");
+		int userId = userService.getLoginUserId();
+		System.out.println("userId: " + userId);
+		List<DailyRecord> monthlyRecords = dailyRecordRepository.findByCreatedDateMonthly(41, month, year);
+
+		for (DailyRecord dailyRecord : monthlyRecords) {
+			boolean flag = false;
+			Set<FitAchieve> fitAchieves = dailyRecord.getFitAchieves(); // 當天所做、排的健身
+			if (fitAchieves != null){									// 如果健身記錄不為空
+				for (FitAchieve fitAchieve : fitAchieves) {
+					String status = fitAchieve.getStatus();
+					if ("按計畫執行".equals(status) || "未執行".equals(status)){ // 如果有排計畫
+						Date createdDate = dailyRecord.getCreatedDate();
+						Calendar createdCalender = converter.convertToEntityAttribute(createdDate);
+						int i = createdCalender.get(Calendar.DAY_OF_MONTH);
+						System.out.println("排程日期: " + i);
+						set.add(i);
+					} // 直接執行
+				}
+			} else { // 如果健身記錄為空
+			}
+		}
+
+		System.out.println("findUserMonthlyFitDays###############");
+		return set;
+	}
 	@Autowired
 	AvatarRepository avatarRepo;
 

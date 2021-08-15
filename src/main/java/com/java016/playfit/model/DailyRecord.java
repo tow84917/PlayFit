@@ -2,7 +2,7 @@ package com.java016.playfit.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -44,9 +44,9 @@ public class DailyRecord {
 
     private Integer status;  //是否為日記  1 是  0 不是   可改成 Boolean?
     
-    @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.DATE)
 	@Column(name="created_date")
-    private Date date;
+    private Date createdDate;
 
     @JsonIgnore
     @OneToMany(mappedBy = "dailyRecord")
@@ -108,12 +108,12 @@ public class DailyRecord {
         this.status = status;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setDate(Date created_date) {
-        this.date = created_date;
+    public void setCreatedDate(Date created_date) {
+        this.createdDate = created_date;
     }
     @JsonIgnore
     public Set<FitAchieve> getFitAchieves() {
@@ -142,7 +142,7 @@ public class DailyRecord {
 		builder.append(", status=");
 		builder.append(status);
 		builder.append(", created_date=");
-		builder.append(date);
+		builder.append(createdDate);
 		builder.append(", fit_achieves=");
 		builder.append(fitAchieves.hashCode());
 		builder.append("]");

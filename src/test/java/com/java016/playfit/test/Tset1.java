@@ -1,10 +1,9 @@
 package com.java016.playfit.test;
 
-import com.java016.playfit.dao.Fit_achieve_Repository;
-import com.java016.playfit.dao.Monthly_record_Repository;
+import com.java016.playfit.dao.FitAchieveRepository;
+import com.java016.playfit.dao.MonthlyRecordRepository;
 import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.FitAchieve;
-import com.java016.playfit.model.MonthlyRecord;
 import com.java016.playfit.service.CalendarService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,11 @@ import java.util.Date;
 public class Tset1 {
 
     @Autowired
-    Fit_achieve_Repository achieveRepository;
+    FitAchieveRepository achieveRepository;
     @Autowired
     CalendarService calenderService;
     @Autowired
-    Monthly_record_Repository monthlyRecordRepository;
+    MonthlyRecordRepository monthlyRecordRepository;
     @Autowired
     UserRepository userRepository;
 

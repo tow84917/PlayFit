@@ -26,7 +26,7 @@ public interface DailyRecordRepository extends JpaRepository<DailyRecord, Intege
 	
 	//Hql
 	@Query(value = "FROM DailyRecord dr "
-	+ "WHERE dr.userId = :userId AND (dr.date BETWEEN :startDate AND :endDate)")
+	+ "WHERE dr.userId = :userId AND (dr.createdDate BETWEEN :startDate AND :endDate)")
 	public List<DailyRecord> findAllDateBetween(
 			@Param("userId")Integer userId,
 			@Param("startDate") Date startDate, 
@@ -34,6 +34,16 @@ public interface DailyRecordRepository extends JpaRepository<DailyRecord, Intege
 
 	@Query(value = "SELECT * FROM Daily_Record where created_date = :createdDate and user_id = :userId" , nativeQuery = true)
 	public List<DailyRecord> findByCreatedDate(Date createdDate, int userId);
+
+	/**
+	 * 找user當月的紀錄
+	 * @param userId
+	 * @param monthly
+	 * @param year
+	 * @return
+	 */
+	@Query(value = "select * from Daily_Record where user_id = :userId and  month(created_date) = :monthly and year(created_date) = :year" , nativeQuery = true)
+	List<DailyRecord> findByCreatedDateMonthly( int userId, int monthly, int year);
 }
 
 

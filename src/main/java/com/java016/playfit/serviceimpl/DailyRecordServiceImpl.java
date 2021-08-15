@@ -65,7 +65,7 @@ public class DailyRecordServiceImpl implements DailyRecordService {
 			// 比對有無資料
 			isData = false; // reset
 			for (DailyRecord dr : dailys) {
-				String dayCheck = String.valueOf(dr.getDate());
+				String dayCheck = String.valueOf(dr.getCreatedDate());
 				if (day.equals(dayCheck)) {
 					exerciseData.put(count, formatDataForResponse(day, dr.getKcalBurned()));
 					count++;
