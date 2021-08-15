@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Date;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.java016.playfit.model.FitAchieve;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.MonthlyRecord;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.CalendarService;
