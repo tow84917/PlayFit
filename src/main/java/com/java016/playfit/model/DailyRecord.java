@@ -1,22 +1,21 @@
 package com.java016.playfit.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.sql.Date;
-import java.util.Set;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Daily_Record")
@@ -26,111 +25,131 @@ public class DailyRecord {
 	private Integer id;
 
 	@JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User userId;
-    
-    @Column(name="kcal_burned")
-    private int kcalBurned;
-    
-    @Column(name="kcal_intake")
-    private int kcalIntake;
+	@ManyToOne
+	private User user;
 
-    private String title;
-    
-    @Lob
+	@Column(name = "kcal_burned")
+	private Integer kcalBurned;
+
+	@Column(name = "kcal_intake")
+	private Integer kcalIntake;
+
+	private String title;
+
+	@Lob
 	@Column(name = "content", columnDefinition = "CLOB")
-    private String content;
+	private String content;
 
-    private Integer status;  //是否為日記  1 是  0 不是   可改成 Boolean?
-    
-//    @Temporal(TemporalType.DATE)
-	@Column(name="created_date")
-    private Date createdDate;
+	private Integer status; // 是否為日記 1 是 0 不是 可改成 Boolean?
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "dailyRecord")
-    private Set<FitAchieve> fitAchieves;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "created_date")
+	private Date createdDate;
 
-    public int getId() {
-        return id;
-    }
-    @JsonIgnore
-    public void setId(int id) {
-        this.id = id;
-    }
-    @JsonIgnore
-    public User getUserId() {
-        return userId;
-    }
+	@JsonIgnore
+	@OneToMany(mappedBy = "dailyRecord")
+	private List<FitAchieve> fitAchieves;
 
-    public void setUserId(User user_id) {
-        this.userId = user_id;
-    }
+	// bi-directional many-to-one association to Meal
+	@JsonIgnore
+	@OneToMany(mappedBy = "dailyRecord")
+	private List<Meal> meals;
 
-    public int getKcalBurned() {
-        return kcalBurned;
-    }
+	public DailyRecord() {
 
-    public void setKcalBurned(int kcal_burned) {
-        this.kcalBurned = kcal_burned;
-    }
+	}
+	
+	@JsonIgnore
+	public Integer getId() {
+		return id;
+	}
+	
+	@JsonIgnore
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public int getKcalIntake() {
-        return kcalIntake;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void setKcalIntake(int kcal_intake) {
-        this.kcalIntake = kcal_intake;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public Integer getKcalBurned() {
+		return kcalBurned;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setKcalBurned(Integer kcalBurned) {
+		this.kcalBurned = kcalBurned;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public Integer getKcalIntake() {
+		return kcalIntake;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public void setKcalIntake(Integer kcalIntake) {
+		this.kcalIntake = kcalIntake;
+	}
 
-    public int getStatus() {
-        return status;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public void setCreatedDate(Date created_date) {
-        this.createdDate = created_date;
-    }
-    @JsonIgnore
-    public Set<FitAchieve> getFitAchieves() {
-        return fitAchieves;
-    }
-    @JsonIgnore
-    public void setFitAchieves(Set<FitAchieve> fit_achieves) {
-        this.fitAchieves = fit_achieves;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	
+	@JsonIgnore
+	public List<FitAchieve> getFitAchieves() {
+		return fitAchieves;
+	}
+	
+	@JsonIgnore
+	public void setFitAchieves(List<FitAchieve> fitAchieves) {
+		this.fitAchieves = fitAchieves;
+	}
+	@JsonIgnore
+	public List<Meal> getMeals() {
+		return meals;
+	}
+	@JsonIgnore
+	public void setMeals(List<Meal> meals) {
+		this.meals = meals;
+	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("DailyRecord [id=");
 		builder.append(id);
-		builder.append(", user_id=");
-		builder.append(userId);
+		builder.append(", user=");
+		builder.append(user);
 		builder.append(", kcalBurned=");
 		builder.append(kcalBurned);
 		builder.append(", kcalIntake=");
@@ -141,10 +160,12 @@ public class DailyRecord {
 		builder.append(content);
 		builder.append(", status=");
 		builder.append(status);
-		builder.append(", created_date=");
+		builder.append(", createdDate=");
 		builder.append(createdDate);
-		builder.append(", fit_achieves=");
-		builder.append(fitAchieves.hashCode());
+		builder.append(", fitAchieves=");
+		builder.append(fitAchieves);
+		builder.append(", meals=");
+		builder.append(meals);
 		builder.append("]");
 		return builder.toString();
 	}

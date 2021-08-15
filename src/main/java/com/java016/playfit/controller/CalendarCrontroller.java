@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Date;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -83,7 +86,7 @@ public class CalendarCrontroller {
 	 */
 	@RequestMapping(value = "/findFitDays")
 	@ResponseBody
-	public Set<Integer> findMonthlyFitDays(@RequestBody Map<String, Object> monthYear){
+	public List<Integer> findMonthlyFitDays(@RequestBody Map<String, Object> monthYear){
 		System.out.println("找當月排成控制器----------");
 		Integer month = (Integer) monthYear.get("month") + 1;
 		Integer year = (Integer) monthYear.get("year");
@@ -92,7 +95,7 @@ public class CalendarCrontroller {
 		// 舊
 //		List<Integer> monthlyFitDays = calenderService.findMonthlyFitDays(month, year);
 		// 新 排除健身記錄為空或直接執行的日期
-		Set<Integer> userMonthlyFitDays = calenderService.findUserMonthlyFitDays(month, year);
+		List<Integer> userMonthlyFitDays = calenderService.findUserMonthlyFitDays(month, year);
 		System.out.println(userMonthlyFitDays);
 
 		System.out.println("----");

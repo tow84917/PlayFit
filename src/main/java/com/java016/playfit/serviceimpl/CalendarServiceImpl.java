@@ -1,14 +1,26 @@
 package com.java016.playfit.serviceimpl;
 
 import java.sql.Date;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
-import com.java016.playfit.dao.*;
-import com.java016.playfit.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java016.playfit.converter.LocalDateCalendarAttributeConverter;
+import com.java016.playfit.dao.AvatarRepository;
+import com.java016.playfit.dao.DailyRecordRepository;
+import com.java016.playfit.dao.FitAchieveRepository;
+import com.java016.playfit.dao.MonthlyRecordRepository;
+import com.java016.playfit.dao.UserRepository;
+import com.java016.playfit.model.Avatar;
+import com.java016.playfit.model.DailyRecord;
+import com.java016.playfit.model.FitAchieve;
+import com.java016.playfit.model.MonthlyRecord;
+import com.java016.playfit.model.User;
 import com.java016.playfit.service.CalendarService;
 import com.java016.playfit.service.UserService;
 
@@ -67,7 +79,7 @@ public class CalendarServiceImpl implements CalendarService {
 		for (DailyRecord d :
 				byCreatedDate) {
 //			System.out.println(d.getFitAchieves());
-			Set<FitAchieve> fitAchieves = d.getFitAchieves();
+			List<FitAchieve> fitAchieves = d.getFitAchieves();
 			for (FitAchieve fitAchieve :
 					fitAchieves) {
 				fitAchieveList.add(fitAchieve);
@@ -135,10 +147,10 @@ public class CalendarServiceImpl implements CalendarService {
 	 * @return List<Integer>
 	 */
 	@Override
-	public Set<Integer> findUserMonthlyFitDays(int month, int year) {
+	public List<Integer> findUserMonthlyFitDays(int month, int year) {
 		System.out.println("findUserMonthlyFitDays###############");
 		List<Integer> list = new ArrayList<>();
-		Set<Integer> set =new HashSet<>();
+		List<Integer> set =new LinkedList<Integer>();
 
 		System.out.println("findUserMonthlyFitDays--------");
 		int userId = userService.getLoginUserId();
@@ -147,12 +159,12 @@ public class CalendarServiceImpl implements CalendarService {
 
 		for (DailyRecord dailyRecord : monthlyRecords) {
 			boolean flag = false;
-			Set<FitAchieve> fitAchieves = dailyRecord.getFitAchieves(); // 當天所做、排的健身
+			List<FitAchieve> fitAchieves = dailyRecord.getFitAchieves(); // 當天所做、排的健身
 			if (fitAchieves != null){									// 如果健身記錄不為空
 				for (FitAchieve fitAchieve : fitAchieves) {
 					String status = fitAchieve.getStatus();
 					if ("按計畫執行".equals(status) || "未執行".equals(status)){ // 如果有排計畫
-						Date createdDate = dailyRecord.getCreatedDate();
+						Date createdDate = (Date) dailyRecord.getCreatedDate();
 						Calendar createdCalender = converter.convertToEntityAttribute(createdDate);
 						int i = createdCalender.get(Calendar.DAY_OF_MONTH);
 						System.out.println("排程日期: " + i);

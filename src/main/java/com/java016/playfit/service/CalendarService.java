@@ -1,11 +1,10 @@
 package com.java016.playfit.service;
 
-import com.java016.playfit.model.FitAchieve;
-import com.java016.playfit.model.MonthlyRecord;
-
 import java.sql.Date;
 import java.util.List;
-import java.util.Set;
+
+import com.java016.playfit.model.FitAchieve;
+import com.java016.playfit.model.MonthlyRecord;
 
 public interface CalendarService {
 
@@ -16,5 +15,5 @@ public interface CalendarService {
 
     List<FitAchieve> findByCreatedDate(Date date);
 
-    Set<Integer> findUserMonthlyFitDays(int month, int year);
+    List<Integer> findUserMonthlyFitDays(int month, int year);
 }
