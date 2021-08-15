@@ -1,7 +1,6 @@
 package com.java016.playfit.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.sql.Time;
 import java.util.List;
 
