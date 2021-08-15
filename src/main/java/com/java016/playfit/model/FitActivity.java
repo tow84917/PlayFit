@@ -39,7 +39,6 @@ public class FitActivity {
 
 	// bi-directional many-to-one association to FitAchieve
 	@JsonIgnore
-	@Column(name = "fit_achieves")
 	@OneToMany(mappedBy = "fitActivity")
 	private List<FitAchieve> fitAchieves;
 
@@ -115,11 +114,11 @@ public class FitActivity {
 	public void setFitAchieves(List<FitAchieve> fitAchieves) {
 		this.fitAchieves = fitAchieves;
 	}
-	@JsonIgnore
+
 	public FitActivityVideo getFitActivityVideo() {
 		return fitActivityVideo;
 	}
-	@JsonIgnore
+
 	public void setFitActivityVideo(FitActivityVideo fitActivityVideo) {
 		this.fitActivityVideo = fitActivityVideo;
 	}

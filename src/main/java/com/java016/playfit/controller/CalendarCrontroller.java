@@ -135,9 +135,6 @@ public class CalendarCrontroller {
 
 		List<FitAchieve> dailyRecords = calenderService.findByCreatedDate(date);
 		System.out.println("dailyRecords");
-		for (FitAchieve dailyRecord : dailyRecords) {
-			System.out.println(dailyRecord);
-		}
 		ObjectMapper mapper = new ObjectMapper();
 		String s = mapper.writeValueAsString(dailyRecords);
 
