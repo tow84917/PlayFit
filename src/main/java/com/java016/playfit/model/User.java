@@ -5,11 +5,9 @@ import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +20,6 @@ import javax.persistence.TemporalType;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 
 @Entity
 @Table(name="users")
@@ -63,7 +60,7 @@ public class User implements UserDetails, Serializable{
 	@Column(name="certification_status")
 	private int certificationStatus;
 	
-	@ManyToOne(fetch = FetchType.LAZY) // default Eager
+	@ManyToOne 
 	@JoinColumn(name = "avatar_id", referencedColumnName = "id")
 	private Avatar avatar;
 	
@@ -72,14 +69,6 @@ public class User implements UserDetails, Serializable{
 	
 	@OneToMany(mappedBy="user")
 	private List<PersonalGoal> PersonalGoals;
-	
-	@OneToMany(mappedBy = "userId")
-	@Column(name = "daily_records")
-	private Set<DailyRecord> dailyRecords;
-
-	@OneToMany(mappedBy = "user")
-	@Column(name = "monthly_records")
-	private Set<MonthlyRecord> monthlyRecords;
 	
 	public Integer getId() {
 		return id;
@@ -178,22 +167,6 @@ public class User implements UserDetails, Serializable{
 		this.avatar = avatar;
 	}
 
-	public Set<DailyRecord> getDailyRecords() {
-		return dailyRecords;
-	}
-
-	public void setDailyRecords(Set<DailyRecord> daily_records) {
-		this.dailyRecords = daily_records;
-	}
-
-	public Set<MonthlyRecord> getMonthlyRecords() {
-		return monthlyRecords;
-	}
-
-	public void setMonthlyRecords(Set<MonthlyRecord> monthly_records) {
-		this.monthlyRecords = monthly_records;
-	}
-	
 	public List<HealthRecord> getHealthRecords() {
 		return healthRecords;
 	}
@@ -201,7 +174,7 @@ public class User implements UserDetails, Serializable{
 	public void setHealthRecords(List<HealthRecord> healthRecords) {
 		this.healthRecords = healthRecords;
 	}
-
+	
 	public List<PersonalGoal> getPersonalGoals() {
 		return PersonalGoals;
 	}
@@ -209,7 +182,7 @@ public class User implements UserDetails, Serializable{
 	public void setPersonalGoals(List<PersonalGoal> personalGoals) {
 		PersonalGoals = personalGoals;
 	}
-
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -236,11 +209,11 @@ public class User implements UserDetails, Serializable{
 		builder.append(", certificationStatus=");
 		builder.append(certificationStatus);
 		builder.append(", avatar=");
-		builder.append(avatar);
-		builder.append(", daily_records=");
-		builder.append(dailyRecords.hashCode());
-		builder.append(", monthly_records=");
-		builder.append(monthlyRecords);
+		builder.append(avatar.getName());
+		builder.append(", healthRecords=");
+		builder.append(healthRecords);
+		builder.append(", PersonalGoals=");
+		builder.append(PersonalGoals);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -276,3 +249,22 @@ public class User implements UserDetails, Serializable{
 		return true; // 用戶是否啟用
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

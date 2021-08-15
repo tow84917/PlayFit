@@ -1,111 +1,122 @@
 package com.java016.playfit.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.sql.Time;
-import java.util.Set;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "Fit_activity")
+@Table(name = "fit_activity")
 public class FitActivity {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @JsonIgnore
-    @Column(name = "fit_achieve")
-    @OneToMany(mappedBy = "fitActivity")
-    private Set<FitAchieve> fitAchieve;
+	@Column(name = "body_part")
+	private String bodyPart;
 
-    private String name;
-    @Column(name = "body_part")
-    private String bodyPart;
+	private String description;
 
-    private String description;
+	@Column(name = "kcal_burn")
+	private Float kcalBurn;
 
-    @Column(name = "kcal_burn")
-    private double kcalBurn;
+	@Column(name = "image_path")
+	private String imagePath;
 
-    @Column(name = "image_path")
-    private String imagePath;
+	private String name;
 
-    @JsonIgnore
-    @OneToOne()
-    @JoinColumn(name = "video_id")
-    private FitActivityVideo videoId;
+	private Time time;
 
-    private Time time; //運動時間長度
+	// bi-directional many-to-one association to FitAchieve
+	@OneToMany(mappedBy = "fitActivity")
+	private List<FitAchieve> fitAchieves;
 
-    public int getId() {
-        return id;
-    }
+	// bi-directional many-to-one association to FitActivityVideo
+	@ManyToOne
+	@JoinColumn(name = "video_id")
+	private FitActivityVideo fitActivityVideo;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    @JsonIgnore
-    public Set<FitAchieve> getFitAchieve() {
-        return fitAchieve;
-    }
-    @JsonIgnore
-    public void setFitAchieve(Set<FitAchieve> fit_achieve) {
-        this.fitAchieve = fit_achieve;
-    }
+	public FitActivity() {
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getBodyPart() {
-        return bodyPart;
-    }
+	public String getBodyPart() {
+		return bodyPart;
+	}
 
-    public void setBodyPart(String body_part) {
-        this.bodyPart = body_part;
-    }
+	public void setBodyPart(String bodyPart) {
+		this.bodyPart = bodyPart;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public double getKcalBurn() {
-        return kcalBurn;
-    }
+	public Float getKcalBurn() {
+		return kcalBurn;
+	}
 
-    public void setKcalBurn(double kcal_burn) {
-        this.kcalBurn = kcal_burn;
-    }
+	public void setKcalBurn(Float kcalBurn) {
+		this.kcalBurn = kcalBurn;
+	}
 
-    public String getImagePath() {
-        return imagePath;
-    }
+	public String getImagePath() {
+		return imagePath;
+	}
 
-    public void setImagePath(String image_path) {
-        this.imagePath = image_path;
-    }
-    @JsonIgnore
-    public FitActivityVideo getVideoId() {
-        return videoId;
-    }
-    @JsonIgnore
-    public void setVideoId(FitActivityVideo video_id) {
-        this.videoId = video_id;
-    }
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 
-    public Time getTime() {
-        return time;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setTime(Time time) {
-        this.time = time;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Time getTime() {
+		return time;
+	}
+
+	public void setTime(Time time) {
+		this.time = time;
+	}
+
+	public List<FitAchieve> getFitAchieves() {
+		return fitAchieves;
+	}
+
+	public void setFitAchieves(List<FitAchieve> fitAchieves) {
+		this.fitAchieves = fitAchieves;
+	}
+
+	public FitActivityVideo getFitActivityVideo() {
+		return fitActivityVideo;
+	}
+
+	public void setFitActivityVideo(FitActivityVideo fitActivityVideo) {
+		this.fitActivityVideo = fitActivityVideo;
+	}
+
 }

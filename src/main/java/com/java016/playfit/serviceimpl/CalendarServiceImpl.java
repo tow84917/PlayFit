@@ -1,23 +1,34 @@
 package com.java016.playfit.serviceimpl;
 
 import java.sql.Date;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Optional;
 
-import com.java016.playfit.dao.*;
-import com.java016.playfit.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java016.playfit.converter.LocalDateCalendarAttributeConverter;
+import com.java016.playfit.dao.AvatarRepository;
+import com.java016.playfit.dao.DailyRecordRepository;
+import com.java016.playfit.dao.FitcAchieveRepository;
+import com.java016.playfit.dao.MonthlyRecordRepository;
+import com.java016.playfit.dao.UserRepository;
+import com.java016.playfit.model.Avatar;
+import com.java016.playfit.model.DailyRecord;
+import com.java016.playfit.model.FitAchieve;
+import com.java016.playfit.model.MonthlyRecord;
+import com.java016.playfit.model.User;
 import com.java016.playfit.service.CalendarService;
 import com.java016.playfit.service.UserService;
 
 @Service
 public class CalendarServiceImpl implements CalendarService {
 	@Autowired
-	Fit_achieve_Repository achieve_repository;
+	FitcAchieveRepository achieve_repository;
 	@Autowired
-	Monthly_record_Repository monthlyRecordRepository;
+	MonthlyRecordRepository monthlyRecordRepository;
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
@@ -67,7 +78,7 @@ public class CalendarServiceImpl implements CalendarService {
 		for (DailyRecord d :
 				byCreatedDate) {
 //			System.out.println(d.getFitAchieves());
-			Set<FitAchieve> fitAchieves = d.getFitAchieves();
+			List<FitAchieve> fitAchieves = d.getFitAchieves();
 			for (FitAchieve fitAchieve :
 					fitAchieves) {
 				fitAchieveList.add(fitAchieve);

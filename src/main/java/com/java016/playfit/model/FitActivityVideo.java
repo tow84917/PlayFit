@@ -1,85 +1,99 @@
 package com.java016.playfit.model;
 
-import javax.persistence.*;
 import java.sql.Time;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 @Entity
-@Table(name = "Fit_activity_video")
+@Table(name="fit_activity_video")
 public class FitActivityVideo {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
 
-    private String name;
+	@Column(name="file_name")
+	private String fileName;
 
-    @Column(name = "video_path")
-    private String videoPath; //影片路徑
+	@Column(name="mime_type")
+	private String mimeType;
 
-    @Column(name = "file_name")
-    private String fileName; //檔名
+	private String name;
 
-    @Column(name = "mime_type")
-    private String mimeType; //檔案類型
+	private Time time;
 
-    private Time time; //影片時間長度
+	@Lob
+	private byte[] video;
 
-    @OneToOne(mappedBy = "videoId")
-//    @Column(name = "fit_activity")
-    private FitActivity fitActivity;
+	//bi-directional many-to-one association to FitActivity
+	@OneToMany(mappedBy="fitActivityVideo")
+	private List<FitActivity> fitActivities;
 
-    public int getId() {
-        return id;
-    }
+	public FitActivityVideo() {}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getFileName() {
+		return fileName;
+	}
 
-    public String getVideoPath() {
-        return videoPath;
-    }
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 
-    public void setVideoPath(String video_path) {
-        this.videoPath = video_path;
-    }
+	public String getMimeType() {
+		return mimeType;
+	}
 
-    public String getFileName() {
-        return fileName;
-    }
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
+	}
 
-    public void setFileName(String file_name) {
-        this.fileName = file_name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getMimeType() {
-        return mimeType;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setMimeType(String mime_type) {
-        this.mimeType = mime_type;
-    }
+	public Time getTime() {
+		return time;
+	}
 
-    public Time getTime() {
-        return time;
-    }
+	public void setTime(Time time) {
+		this.time = time;
+	}
 
-    public void setTime(Time time) {
-        this.time = time;
-    }
+	public byte[] getVideo() {
+		return video;
+	}
 
-    public FitActivity getFitActivity() {
-        return fitActivity;
-    }
+	public void setVideo(byte[] video) {
+		this.video = video;
+	}
 
-    public void setFitActivity(FitActivity fit_activity) {
-        this.fitActivity = fit_activity;
-    }
+	public List<FitActivity> getFitActivities() {
+		return fitActivities;
+	}
+
+	public void setFitActivities(List<FitActivity> fitActivities) {
+		this.fitActivities = fitActivities;
+	}
+	
 }
+

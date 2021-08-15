@@ -8,7 +8,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface Monthly_record_Repository extends JpaRepository<MonthlyRecord, Integer> {
+public interface MonthlyRecordRepository extends JpaRepository<MonthlyRecord, Integer> {
 
 
     @Nullable

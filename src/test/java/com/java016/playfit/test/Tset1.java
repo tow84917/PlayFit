@@ -1,7 +1,7 @@
 package com.java016.playfit.test;
 
-import com.java016.playfit.dao.Fit_achieve_Repository;
-import com.java016.playfit.dao.Monthly_record_Repository;
+import com.java016.playfit.dao.FitcAchieveRepository;
+import com.java016.playfit.dao.MonthlyRecordRepository;
 import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.MonthlyRecord;
@@ -16,11 +16,11 @@ import java.util.Date;
 public class Tset1 {
 
     @Autowired
-    Fit_achieve_Repository achieveRepository;
+    FitcAchieveRepository achieveRepository;
     @Autowired
     CalendarService calenderService;
     @Autowired
-    Monthly_record_Repository monthlyRecordRepository;
+    MonthlyRecordRepository monthlyRecordRepository;
     @Autowired
     UserRepository userRepository;
 
@@ -49,7 +49,7 @@ public class Tset1 {
 
         Timestamp timestamp = new Timestamp(date1.getTime());
 
-        FitAchieve achieve = new FitAchieve( null,null, 1, 1000, date, null , timestamp,"1");
+        FitAchieve achieve = new FitAchieve();
 
         achieveRepository.save(achieve);
 
