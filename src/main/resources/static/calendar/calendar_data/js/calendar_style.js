@@ -311,9 +311,7 @@ function findToday(today) {
         for (let i = 0; i < data.length; i++) {
             const element = data[i];
             console.log('element: ', element);
-            const fitActivity = element.fitActivity;
-            console.log('fitActivity: ', fitActivity);
-            const path = findToday.imagePath;
+            const path = element.fitActivity.imagePath;
             console.log('path: ', path);
             const fitName = element.fitActivity.name;
             const status = element.status;

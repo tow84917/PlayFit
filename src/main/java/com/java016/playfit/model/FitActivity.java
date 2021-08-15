@@ -115,11 +115,11 @@ public class FitActivity {
 	public void setFitAchieves(List<FitAchieve> fitAchieves) {
 		this.fitAchieves = fitAchieves;
 	}
-
+	@JsonIgnore
 	public FitActivityVideo getFitActivityVideo() {
 		return fitActivityVideo;
 	}
-
+	@JsonIgnore
 	public void setFitActivityVideo(FitActivityVideo fitActivityVideo) {
 		this.fitActivityVideo = fitActivityVideo;
 	}
