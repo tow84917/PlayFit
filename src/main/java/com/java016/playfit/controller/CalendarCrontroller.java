@@ -87,20 +87,27 @@ public class CalendarCrontroller {
 	@RequestMapping(value = "/findFitDays")
 	@ResponseBody
 	public List<Integer> findMonthlyFitDays(@RequestBody Map<String, Object> monthYear){
-
+		System.out.println("找當月排成控制器----------");
 		Integer month = (Integer) monthYear.get("month") + 1;
 		Integer year = (Integer) monthYear.get("year");
 		System.out.println("month:  " + month + ",  year:  " + year);
 
-		List<Integer> monthlyFitDays = calenderService.findMonthlyFitDays(month, year);
+		// 舊
+//		List<Integer> monthlyFitDays = calenderService.findMonthlyFitDays(month, year);
+		// 新 排除健身記錄為空或直接執行的日期
+		List<Integer> userMonthlyFitDays = calenderService.findUserMonthlyFitDays(month, year);
+		System.out.println(userMonthlyFitDays);
 
 		System.out.println("----");
 //		System.out.println(Arrays.toString(monthlyFitDays));
 		System.out.println("----");
 
 //		return  new int[] {10, 20};
-		return monthlyFitDays;
+		System.out.println("找當月排成控制器----------");
+//		return monthlyFitDays;
+		return userMonthlyFitDays;
 	}
+
 
 
 	/**

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.java016.playfit.model.FitAchieve;
 
-public interface FitcAchieveRepository extends JpaRepository<FitAchieve, Integer> {
+public interface FitAchieveRepository extends JpaRepository<FitAchieve, Integer> {
 
 //    @Query(value = "SELECT  execution_date FROM Fit_achieve where month(execution_date) = :month and year(execution_date) = :year group by execution_date" , nativeQuery=true)
     @Query(value = "SELECT r.created_date FROM playfit.Fit_achieve a join Daily_Record r on a.daily_record_id = r.id " +

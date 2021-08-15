@@ -25,43 +25,45 @@ public class DailyRecord {
 	private Integer id;
 
 	@JsonIgnore
-    @ManyToOne
-    private User user;
-    
+	@ManyToOne
+	private User user;
+
 	@Column(name = "kcal_burned")
 	private Integer kcalBurned;
-    
+
 	@Column(name = "kcal_intake")
 	private Integer kcalIntake;
 
-    private String title;
-    
-    @Lob
-	@Column(name = "content", columnDefinition = "CLOB")
-    private String content;
+	private String title;
 
-    private Integer status;  //是否為日記  1 是  0 不是   可改成 Boolean?
-    
-    @Temporal(TemporalType.DATE)
+	@Lob
+	@Column(name = "content", columnDefinition = "CLOB")
+	private String content;
+
+	private Integer status; // 是否為日記 1 是 0 不是 可改成 Boolean?
+
+	@Temporal(TemporalType.DATE)
 	@Column(name = "created_date")
 	private Date createdDate;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "dailyRecord")
+	@JsonIgnore
+	@OneToMany(mappedBy = "dailyRecord")
 	private List<FitAchieve> fitAchieves;
-    
- // bi-directional many-to-one association to Meal
- 	@OneToMany(mappedBy = "dailyRecord")
- 	private List<Meal> meals;
 
-public DailyRecord() {
-		
+	// bi-directional many-to-one association to Meal
+	@OneToMany(mappedBy = "dailyRecord")
+	private List<Meal> meals;
+
+	public DailyRecord() {
+
 	}
-
+	
+	@JsonIgnore
 	public Integer getId() {
 		return id;
 	}
-
+	
+	@JsonIgnore
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -121,11 +123,13 @@ public DailyRecord() {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-
+	
+	@JsonIgnore
 	public List<FitAchieve> getFitAchieves() {
 		return fitAchieves;
 	}
-
+	
+	@JsonIgnore
 	public void setFitAchieves(List<FitAchieve> fitAchieves) {
 		this.fitAchieves = fitAchieves;
 	}
@@ -136,5 +140,32 @@ public DailyRecord() {
 
 	public void setMeals(List<Meal> meals) {
 		this.meals = meals;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("DailyRecord [id=");
+		builder.append(id);
+		builder.append(", user=");
+		builder.append(user);
+		builder.append(", kcalBurned=");
+		builder.append(kcalBurned);
+		builder.append(", kcalIntake=");
+		builder.append(kcalIntake);
+		builder.append(", title=");
+		builder.append(title);
+		builder.append(", content=");
+		builder.append(content);
+		builder.append(", status=");
+		builder.append(status);
+		builder.append(", createdDate=");
+		builder.append(createdDate);
+		builder.append(", fitAchieves=");
+		builder.append(fitAchieves);
+		builder.append(", meals=");
+		builder.append(meals);
+		builder.append("]");
+		return builder.toString();
 	}
 }

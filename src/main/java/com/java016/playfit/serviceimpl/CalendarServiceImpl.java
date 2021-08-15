@@ -3,6 +3,7 @@ package com.java016.playfit.serviceimpl;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.java016.playfit.converter.LocalDateCalendarAttributeConverter;
 import com.java016.playfit.dao.AvatarRepository;
 import com.java016.playfit.dao.DailyRecordRepository;
-import com.java016.playfit.dao.FitcAchieveRepository;
+import com.java016.playfit.dao.FitAchieveRepository;
 import com.java016.playfit.dao.MonthlyRecordRepository;
 import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.Avatar;
@@ -26,7 +27,7 @@ import com.java016.playfit.service.UserService;
 @Service
 public class CalendarServiceImpl implements CalendarService {
 	@Autowired
-	FitcAchieveRepository achieve_repository;
+	FitAchieveRepository achieve_repository;
 	@Autowired
 	MonthlyRecordRepository monthlyRecordRepository;
 	@Autowired
@@ -90,6 +91,8 @@ public class CalendarServiceImpl implements CalendarService {
 		return fitAchieveList;
 	}
 
+
+
 	/**
 	 * 找user當月哪幾天有排健身  如果當天有紀錄，但沒健身，或是直接執行沒預先排程？
 	 * @param month
@@ -98,7 +101,6 @@ public class CalendarServiceImpl implements CalendarService {
 	 */
 	@Override
 	public List<Integer> findMonthlyFitDays(int month, int year){
-		int[] ints = new int[] {};
 		List<Integer> list = new ArrayList<>();
 		System.out.println("findMonthlyFitDays--------");
 		int userId = userService.getLoginUserId();
@@ -138,7 +140,44 @@ public class CalendarServiceImpl implements CalendarService {
 
 		return list;
 	}
+	/**
+	 * 找user當月哪幾天有排健身  如果當天有紀錄，但沒健身，或是直接執行沒預先排程？
+	 * @param month
+	 * @param year
+	 * @return List<Integer>
+	 */
+	@Override
+	public List<Integer> findUserMonthlyFitDays(int month, int year) {
+		System.out.println("findUserMonthlyFitDays###############");
+		List<Integer> list = new ArrayList<>();
+		List<Integer> set =new LinkedList<Integer>();
 
+		System.out.println("findUserMonthlyFitDays--------");
+		int userId = userService.getLoginUserId();
+		System.out.println("userId: " + userId);
+		List<DailyRecord> monthlyRecords = dailyRecordRepository.findByCreatedDateMonthly(41, month, year);
+
+		for (DailyRecord dailyRecord : monthlyRecords) {
+			boolean flag = false;
+			List<FitAchieve> fitAchieves = dailyRecord.getFitAchieves(); // 當天所做、排的健身
+			if (fitAchieves != null){									// 如果健身記錄不為空
+				for (FitAchieve fitAchieve : fitAchieves) {
+					String status = fitAchieve.getStatus();
+					if ("按計畫執行".equals(status) || "未執行".equals(status)){ // 如果有排計畫
+						Date createdDate = (Date) dailyRecord.getCreatedDate();
+						Calendar createdCalender = converter.convertToEntityAttribute(createdDate);
+						int i = createdCalender.get(Calendar.DAY_OF_MONTH);
+						System.out.println("排程日期: " + i);
+						set.add(i);
+					} // 直接執行
+				}
+			} else { // 如果健身記錄為空
+			}
+		}
+
+		System.out.println("findUserMonthlyFitDays###############");
+		return set;
+	}
 	@Autowired
 	AvatarRepository avatarRepo;
 

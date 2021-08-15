@@ -35,7 +35,6 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 		DailyRecord dailyRecord = dailyRecordRepo.findByUserIdAndDate(userId, date);
 		return dailyRecord;
 	}
-
 }
 
 

@@ -1,22 +1,22 @@
 package com.java016.playfit.test;
 
-import com.java016.playfit.dao.FitcAchieveRepository;
-import com.java016.playfit.dao.MonthlyRecordRepository;
-import com.java016.playfit.dao.UserRepository;
-import com.java016.playfit.model.FitAchieve;
-import com.java016.playfit.model.MonthlyRecord;
-import com.java016.playfit.service.CalendarService;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.java016.playfit.dao.FitAchieveRepository;
+import com.java016.playfit.dao.MonthlyRecordRepository;
+import com.java016.playfit.dao.UserRepository;
+import com.java016.playfit.model.FitAchieve;
+import com.java016.playfit.service.CalendarService;
+
 public class Tset1 {
 
     @Autowired
-    FitcAchieveRepository achieveRepository;
+    FitAchieveRepository achieveRepository;
     @Autowired
     CalendarService calenderService;
     @Autowired
