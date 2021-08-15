@@ -124,11 +124,11 @@ public class FitAchieve {
 	public void setDailyRecord(DailyRecord dailyRecord) {
 		this.dailyRecord = dailyRecord;
 	}
-	@JsonIgnore
+
 	public FitActivity getFitActivity() {
 		return fitActivity;
 	}
-	@JsonIgnore
+
 	public void setFitActivity(FitActivity fitActivity) {
 		this.fitActivity = fitActivity;
 	}
