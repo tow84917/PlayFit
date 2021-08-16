@@ -209,11 +209,11 @@ public class User implements UserDetails, Serializable{
 		builder.append(", certificationStatus=");
 		builder.append(certificationStatus);
 		builder.append(", avatar=");
-		builder.append(avatar.getName());
+//		builder.append(avatar);
 		builder.append(", healthRecords=");
-		builder.append(healthRecords);
+//		builder.append(healthRecords.hashCode());
 		builder.append(", PersonalGoals=");
-		builder.append(PersonalGoals);
+//		builder.append(PersonalGoals.hashCode());
 		builder.append("]");
 		return builder.toString();
 	}

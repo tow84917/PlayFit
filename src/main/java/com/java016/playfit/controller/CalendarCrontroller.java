@@ -108,8 +108,6 @@ public class CalendarCrontroller {
 		return userMonthlyFitDays;
 	}
 
-
-
 	/**
 	 * 顯示 當日所排程的動作
 	 * @param paramsMap
@@ -141,14 +139,6 @@ public class CalendarCrontroller {
 		return s;
 	}
 
-	
-	@RequestMapping("image")
-	public ModelAndView image() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("img");
-		return mv;
-	}
-
 	/**
 	 * 依照 ID 寫出 BLOB 圖片
 	 * @param id
@@ -177,14 +167,15 @@ public class CalendarCrontroller {
 	public ModelAndView calendar(@AuthenticationPrincipal User user) {
 
 		System.out.println("calender**********");
-//		int userId = userService.getUserId();
-//		System.out.println(userId);
-		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/calendar/calendar copy.html");
 		return mv;
 	}
 
+	@RequestMapping("image")
+	public ModelAndView image() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("img");
+		return mv;
+	}
 }
-
-// test

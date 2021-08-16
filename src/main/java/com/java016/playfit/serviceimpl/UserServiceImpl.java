@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService  {
 		user.setBirthday(new Date());
 		user.setCreatedAt(new Timestamp(1627833600));
 		user.setCertificationStatus(0);
-		System.out.println(user);
+		System.out.println("service > " + user);
 		userRepo.save(user);
 
 	}
