@@ -1,0 +1,471 @@
+* {
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Montserrat', sans-serif;
+  }
+  :root {
+    --purple1: #2e1ed3;
+    --purple2: #6460ff;
+    --purple3: #ccccff;
+    --red1: #ff353b;
+    --red2: #ff9398;
+    --green: #00baba;
+    --orange: #ff9a00;
+    --white: #fff;
+    --Gy1: #eeeeee;
+    --Gy2: #c5c9d8;
+    --Gy3: #8a919b;
+    --gradient-blue: linear-gradient(135deg, #2484c6 4.69%, #2e1ed3 77.62%);
+    --light-blur: #0075ff;
+    --default-filter: drop-shadow(3px 6px 6px rgba(0, 0, 0, 0.25));
+    --active-filter: drop-shadow(1px 3px 3px rgba(0, 0, 0, 0.25));
+    --background: #f6f5f2;
+    --background: #ebeef8;
+  
+    --btn-border-radius: 1.5rem;
+    --input-border-radius: 10px;
+    --div-border-radius: 15px;
+    --border-def: 1px solid var(--purple1);
+  
+    --margin-list: 2px;
+    --margin-horizon: 1rem;
+  
+    --btn-width-height: 3rem;
+  
+    --font-size-d: 1.25rem;
+    --font-size-l: 1.5rem;
+    --font-weight-blod: 700;
+  }
+  .font {
+  }
+  
+  /* div --------------------------------------------------------- */
+  /* 檢查 */
+  div {
+    /* border: 1px solid red; */
+  }
+  /* class div  */
+  .div {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    /* width: 100%; */
+    height: fit-content;
+    background-color: var(--purple3);
+    border-radius: var(--div-border-radius);
+  }
+  /* 內div 增加margin 間距 */
+  .div .div-sec {
+    margin: 5px;
+    padding: 0.5rem 1rem;
+  }
+  /* div --------------------------------------------------------- */
+  
+  /* button --------------------------------------------------------- */
+  .btn {
+    color: var(--white);
+    font-size: var(--font-size-d);
+    font-weight: var(--font-weight-blod);
+  
+    width: 12.5rem;
+    height: var(--btn-width-height);
+    background: var(--purple1);
+    border: 0;
+    margin-right: var(--margin-horizon);
+  
+    filter: var(--default-filter);
+  }
+  .btn:hover {
+    color: var(--white);
+    background: var(--purple2);
+  }
+  .btn:active {
+    background: var(--green);
+    filter: var(--active-filter);
+  }
+  .btn:focus {
+    box-shadow: none;
+  }
+  /* 外框button  */
+  .second {
+    color: var(--purple1);
+    background: var(--white);
+  
+    border: 3px solid var(--purple1);
+    box-sizing: border-box;
+  }
+  
+  .second:hover {
+    color: var(--purple2);
+    background: var(--white);
+    border: 3px solid var(--purple2);
+  }
+  
+  .second:active {
+    color: var(--green);
+    background-color: var(--white);
+    border: 3px solid var(--green);
+  }
+  /* button --------------------------------------------------------- */
+  
+  /* input --------------------------------------------------------- */
+  /* 輸入框 在rul裡更改圖片 */
+  .input {
+    padding: 0.5rem;
+  
+    font-size: 1.25rem;
+    font-weight: 700;
+  
+    width: 12.5rem;
+    height: 2.75rem;
+  
+    outline: none;
+    border-radius: var(--input-border-radius);
+    border: 2px solid var(--purple1);
+  
+    background: url(svg/icon1_1.svg) no-repeat scroll 0.75rem;
+    background-color: var(--white);
+    background-size: 1.2rem;
+    padding-left: 2.5rem;
+  }
+  /* input --------------------------------------------------------- */
+  
+  /* 下拉選單 --------------------------------------------------------- */
+  
+  /*the container must be positioned relative:*/
+  .custom-select {
+    position: relative;
+  }
+  
+  .custom-select select {
+    display: none;
+    /* hide original SELECT element: */
+  }
+  
+  /*point the arrow upwards when the select box is open (active):*/
+  .select-selected.select-arrow-active:after {
+  }
+  
+  /*style the items (options), including the selected item:
+   已選擇的 */
+  /* 選單 所有文字 / 背景 箭頭 */
+  .select-items div,
+  .select-selected {
+    display: flex;
+    align-items: center;
+    height: 2.75rem;
+    width: 12.5rem;
+  
+    font-size: 1.25rem;
+    font-weight: 700;
+  
+    border-radius: var(--input-border-radius);
+    border: 2px solid var(--purple1);
+  
+    /* 背景 箭頭 */
+    background: url(svg/icon-select.svg) no-repeat scroll calc(100% - 5px)
+      calc(100% - 5px);
+    background-color: var(--white);
+  
+    margin: 0px !important;
+    padding: 0 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  /*style items (options):*/
+  .select-items {
+    display: flex;
+    /* align-items: center; */
+    flex-direction: column;
+  
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+  
+    margin: 0 !important;
+    padding: 0.5rem 1rem;
+    /* margin-top: 8px !important; */
+  }
+  
+  /* 下拉選單樣式 */
+  .select-items div {
+    margin-bottom: 5px !important;
+    padding: 0.5rem 1rem;
+  
+    background: var(--white);
+    border-radius: var(--input-border-radius);
+    border: 2px solid var(--purple1);
+  }
+  
+  /*hide the items when the select box is closed:*/
+  .select-hide {
+    display: none;
+  }
+  
+  /* hover */
+  .select-items div:hover,
+  .same-as-selected {
+    background-color: var(--purple3);
+  }
+  
+  /* 下拉選單 --------------------------------------------------------- */
+  
+  /* 加號 --------------------------------------------------------- */
+  .plus {
+    width: var(--btn-width-height);
+    height: var(--btn-width-height);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .line-1 {
+    position: fixed;
+    height: calc(var(--btn-width-height) / 2);
+    background-color: var(--white);
+    border-radius: 2px;
+    width: 3.5px;
+  }
+  
+  .line-2 {
+    position: fixed;
+    height: calc(var(--btn-width-height) / 2);
+    background-color: var(--white);
+    border-radius: 2px;
+    width: 3.5px;
+    transform: rotate(90deg);
+  }
+  /* 加號 --------------------------------------------------------- */
+  
+  /* checkbox --------------------------------------------------------- */
+  input[type='checkbox'],
+  input[type='radio'] {
+    /* 移除預設 */
+    display: none;
+  }
+  
+  /* checkbox 列表對齊 */
+  .checkbox-div {
+    display: flex;
+    /* align-items: center; */
+    flex-direction: column;
+  }
+  /* 文字對齊 */
+  .checkbox-inter {
+    margin: var(--margin-list);
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+  }
+  /* checkbox 文字設定 */
+  .checkbox-span {
+    margin-left: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  input + label {
+    /* checkbox 尺寸 */
+    width: 30px;
+    height: 30px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 背景 邊框 */
+    box-shadow: 0 0 0px 2px var(--Gy3) inset;
+    border-radius: var(--input-border-radius);
+    background: var(--white);
+    transition: 0.1s all;
+    /* cursor: pointer; */
+    /* z-index: 999 !important; */
+  }
+  
+  input + label:hover {
+    transform: scale(0.9);
+    background: var(--purple3);
+  }
+  
+  input + label:after {
+    /* content: ''; */
+  }
+  
+  input:checked + label {
+    transform: scale(1);
+  }
+  
+  input:checked + label:hover {
+    transform: scale(0.95);
+  }
+  
+  /* 選中後樣式 */
+  input:checked + label:after {
+    content: url(./svg/checkbox.svg);
+    text-align: center;
+    line-height: 18px; /* 眼睛高度 */
+    margin: 0 0;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    background: var(--green);
+    /* border: 2px solid var(--purple2); */
+  }
+  /* checkbox --------------------------------------------------------- */
+  
+  /* page --------------------------------------------------------- */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+  }
+  /* 外框 */
+  .page-ul {
+    border: 3px solid var(--purple1);
+    border-radius: calc(var(--input-border-radius) + 3px);
+  
+    background-color: var(--white);
+  }
+  .page-li {
+    border-radius: inherit;
+  }
+  .page-del {
+    width: var(--btn-width-height);
+    height: var(--btn-width-height);
+    font-size: var(--font-size-d);
+    font-weight: var(--font-weight-blod);
+    text-align: center;
+    /* line-height: 20px; */
+  
+    border: 0 !important;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: var(--input-border-radius);
+  
+    margin: 0 15px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .page-li:first-child svg {
+    margin-left: -3px;
+  }
+  
+  .page-li:last-child svg {
+    margin-left: 6px;
+  }
+  
+  .page-link {
+    color: var(--purple1);
+    /* border-radius: inherit; */
+  }
+  
+  .page-del:focus,
+  .page-link:hover {
+    box-shadow: none;
+    border-radius: var(--input-border-radius);
+  
+    background-color: var(--purple3);
+    color: var(--purple1);
+  }
+  .page-link:hover {
+  }
+  
+  .page-li:last-child .page-del,
+  .page-li:first-child .page-del {
+    border-radius: var(--input-border-radius);
+  }
+  .page-li:last-child .page-del {
+    margin-right: 0;
+  }
+  .page-li:first-child .page-del {
+    margin-left: 0;
+  }
+  .page-item {
+  }
+  .page-item.active .page-link {
+    border-radius: 0;
+    border-radius: var(--input-border-radius);
+  
+    color: var(--white);
+    background-color: var(--green);
+  }
+  /* page --------------------------------------------------------- */
+  
+  /* 進度條 --------------------------------------------------------- */
+  .progressbar-my {
+    overflow: visible;
+  
+    /* 長度 */
+    width: 30rem;
+    background-color: var(--background);
+  
+    display: flex;
+  
+    height: 0.5rem;
+    font-size: 0.75rem;
+  
+    border-radius: 0.25rem;
+  }
+  .bar-my {
+    border-radius: 1rem;
+    background-color: var(--purple1);
+  }
+  /* 原點 */
+  .progressbar-my span {
+    /* position: relative; */
+    width: 1rem;
+    height: 1rem;
+    margin: -0.25rem;
+    background-color: var(--purple1);
+    border-radius: 1rem;
+  }
+  /* 進度條 --------------------------------------------------------- */
+
+  /* label{
+        color: var(--purple1);
+    background: var(--white);
+  
+    border: 3px solid var(--purple1);
+    box-sizing: border-box;
+  } */
+
+
+
+
+
+        #container {
+            height: 100px;
+            width: 200px;
+        }
+
+        #container span {
+            position: relative;
+        }
+
+        #container .inputCheck {
+            position: absolute;
+            width: 419px;
+            height: 195px;
+            visibility: hidden;
+        }
+
+        #container .inputCheck+label {
+            display: inline-block;
+            width: 419px;
+            height: 195px;
+            background-image: url(/calender/images/belly.png);
+        }
+
+        #container .inputCheck:checked+label {
+            background: url(/calender/images/butt.png) no-repeat center center;
+            background-size: 419px 195px;
+        }
+
+        img{
+          width: 200px;
+          height: 100px;
+        }
+
