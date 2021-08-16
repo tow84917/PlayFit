@@ -3,6 +3,8 @@ package com.java016.playfit.dao;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -54,6 +56,11 @@ public interface DailyRecordRepository extends JpaRepository<DailyRecord, Intege
 	@Query(value = "SELECT * FROM Daily_Record where created_date = "
 			+ ":createdDate and user_id = :userId" , nativeQuery = true)
 	public List<DailyRecord> findByCreatedDate(Date createdDate, int userId);
+	
+	
+	// 以分頁方式回傳日常紀錄
+	Page<DailyRecord> findAllByUser(User user,Pageable pageable);
+	
 }
 
 

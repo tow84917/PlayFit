@@ -40,5 +40,12 @@ public interface UserService {
 	 * @return username
 	 */
 	String getLoginUserName();
+	
+	/**
+	 * 獲取登入Email
+	 * 
+	 * @return username
+	 */
+	String getLoginUserEmail();
 
 }

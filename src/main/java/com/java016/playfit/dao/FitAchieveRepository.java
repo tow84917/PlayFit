@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.FitAchieve;
 
 public interface FitAchieveRepository extends JpaRepository<FitAchieve, Integer> {
@@ -21,4 +22,6 @@ public interface FitAchieveRepository extends JpaRepository<FitAchieve, Integer>
 
     @Query(value = "SELECT * FROM Fit_achieve where month(execution_date) = :month and year(execution_date) = :year" , nativeQuery=true)
     Set<FitAchieve> findByMonthAndYear(int month, int year);
+    
+    List<FitAchieve> findAllByDailyRecordAndStatus(DailyRecord dailyRecord,String status);
 }

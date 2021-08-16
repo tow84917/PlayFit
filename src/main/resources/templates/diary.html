@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Dairy</h1>
+<div th:if="${!isDiary}">
+	<a th:href="@{/diary_add_update}">新增今天的日記</a>
+</div>
+<div th:if="${isDiary}">
+	<a th:href="@{/diary_add_update}">編輯今天的日記</a>
+</div>
+
+
+
+<div th:each="dailyRecord : ${dailyRecords}">
+    <a th:if="${dailyRecord}" 
+    	th:href="@{/showDailyRecord/{id}(id=${dailyRecord.id})}" 
+    	th:utext="${dailyRecord.createdDate} + '	Title : ' + ${dailyRecord.title}"> 
+     </a>
+</div>
+<div>
+	Total Items: [[${totalItems}]] - Page [[${currentPage}]] of [[${totalPages}]]
+	&nbsp; - &nbsp;
+	<span th:each="i: ${#numbers.sequence(1,totalPages)}">
+		<a th:if="${i != currentPage}" th:href="@{'/diary_homepage/' + ${i}}">[[${i}]]</a> 
+		<span th:unless="${i != currentPage}">[[${i}]]</span>
+		&nbsp;&nbsp;
+	</span>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+		<div>
+    		<h1>About Today</h1>
+    	</div>
+
+
+		<div th:if="${dailyRecord}" th:utext="'Title:'+${dailyRecord.title} 
+											+ '<br/>Content:' + ${dailyRecord.content}
+											+ '<br/>Kcal Burned:' + ${dailyRecord.kcalBurned}
+											+ '<br/>Kcal Intake:' + ${dailyRecord.kcalIntake}
+											+ '<br/>Date:' + ${dailyRecord.createdDate}">
+		</div>
+		
+		<div>
+    		<h1>Eat Today</h1>
+    	</div>
+		
+		<div th:if="${todayMeals}" th:each="todayMeal: ${todayMeals}" 
+		th:utext="${todayMeal.timePeriod.name} + '--' + ${todayMeal.food.name}">
+		
+		</div>
+
+    	<div>
+    		<h1>Done Today</h1>
+    	</div>
+    	<div th:if="${fitAchieves}" th:each="achieve: ${fitAchieves}" 
+        	th:utext="${achieve.fitActivity.name} + '--' + ${achieve.numberGroups} + '--' + ${achieve.totalKcal}">
+        </div>
+</body>
+</html>

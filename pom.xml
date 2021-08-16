@@ -51,6 +51,10 @@
 		    <artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
+		    <groupId>org.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+		<dependency>
 		    <groupId>org.webjars</groupId>
 		    <artifactId>bootstrap</artifactId>
 		    <version>4.0.0-2</version>
