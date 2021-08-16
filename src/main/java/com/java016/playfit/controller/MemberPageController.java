@@ -91,7 +91,12 @@ public class MemberPageController {
 			// 今日運動項目 & 完成狀態
 			LinkedHashMap<FitActivity, String> activityStatus = 
 					memberService.getTodayActivityAndStatus(todayRecord);		
-			mv.addObject("activityStatus", activityStatus);			
+			mv.addObject("activityStatus", activityStatus);	
+			
+			// 今日消耗
+			mv.addObject("calLost", todayRecord.getKcalBurned());
+			mv.addObject("calGain", todayRecord.getKcalIntake());
+			
 		}
 		
 		// 取最近健康紀錄
