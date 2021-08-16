@@ -137,7 +137,7 @@
                             </div>
                             <!-- 加號 -->
                             <div class=" align-r">
-                                <button class="plus btn ">
+                                <button class="plus btn" 　data-toggle="modal" data-target="#myModal">
                                     <span class="line-1"></span>
                                     <span class="line-2"></span>
                                 </button>
@@ -156,9 +156,25 @@
         </div>
     </div>
 
+    <!-- Vertically centered modal -->
+    <div class="modal-dialog modal-dialog-centered">
+        ...
+    </div>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+        class="container">
+
+    </div>
+
 
     <script>
+        var myModal = document.getElementById('myModal')
+        var myInput = document.getElementById('myInput')
 
+        myModal.addEventListener('shown.bs.modal', function () {
+            myInput.focus()
+        })
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"

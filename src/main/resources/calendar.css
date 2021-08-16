@@ -1,0 +1,274 @@
+:root {
+  --btn-l-height: 160px;
+  --padding-def: 40px;
+  --padding-hef: 20px;
+
+  --purple1: #2e1ed3;
+  --purple2: #6460ff;
+  --purple3: #ccccff;
+  --purplebg: #ebeef8;
+  --red1: #ff353b;
+  --red2: #ff9398;
+  --green: #00baba;
+  --orange: #ff9a00;
+  --white: #fff;
+  --Gy1: #eeeeee;
+  --Gy2: #c5c9d8;
+  --Gy3: #8a919b;
+  --gradient-blue: linear-gradient(135deg, #2484c6 4.69%, #2e1ed3 77.62%);
+  --light-blur: #0075ff;
+  --default-filter: drop-shadow(3px 6px 6px rgba(0, 0, 0, 0.25));
+  --active-filter: drop-shadow(1px 3px 3px rgba(0, 0, 0, 0.25));
+  --background: #f6f5f2;
+  --background2: #ebeef8;
+
+  --div-border-radius: 30px;
+  --btn-border-radius: 1.5rem;
+  --input-border-radius: 10px;
+  --border-def: 1px solid var(--purple1);
+
+  --margin-list: 10px;
+  --margin-horizon: 1rem;
+  --padding-def: 40px;
+
+  --btn-width-height: 3rem;
+
+  --font-size-d: 1.25rem;
+  --font-size-l: 1.5rem;
+  --font-size-xl: 2.5rem;
+  --font-weight-blod: 700;
+}
+
+div {
+  /* box-shadow: 0 0 0px 2px black inset; */
+}
+
+.header {
+  height: 80px;
+  background: #000;
+}
+.br {
+  height: var(--padding-def);
+}
+.full-width {
+  width: 100%;
+}
+.div {
+  margin: 0;
+  padding: var(--padding-def);
+}
+
+.div-btn {
+  align-self: flex-end;
+  height: var(--btn-l-height);
+}
+
+.container-fluid,
+.container-xxl,
+.container {
+  box-shadow: 0 0 0px 4px red inset;
+  background: grey;
+  padding: 0;
+  padding-left: 100px;
+  padding-right: 100px;
+  /* max-width: 1920px; */
+  height: max-content;
+  /* >>更改總高 */
+  height: 1040px;
+}
+
+.row {
+  height: max-content;
+  height: 100%;
+
+  width: 100%;
+  margin: 0;
+}
+
+.my-row {
+  flex-direction: column;
+}
+
+.my-col {
+  box-shadow: 0 0 0px 2px green inset;
+  /* height: 500px; */
+  /* >>左右間隔 */
+  padding-left: var(--padding-hef);
+  padding-right: var(--padding-hef);
+
+  /* height: max-content; */
+}
+
+.my-col-m {
+  /* height: fit-content;
+  height: max-content; */
+  box-shadow: 0 0 0px 2px gold inset;
+  /* 取消 內元素左右間隔 */
+  padding: 0;
+  /* >>內元素 上下間隔 */
+  padding-bottom: var(--padding-def);
+}
+
+.full-height {
+  height: 100%;
+}
+
+.info-col {
+  height: 200px;
+}
+
+.calendar-col {
+  /* height: 400px; */
+  height: calc(100% - 200px);
+}
+
+.calendar-inter {
+  box-shadow: 0 0 0px 1px blue inset;
+  width: 100%;
+  /* height: 800px; */
+  height: 100%;
+
+  background-color: var(--purple2);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.fit-today {
+  box-shadow: 0 0 0px 1px blue inset;
+  display: flex;
+  /* 滾動 */
+  /* overflow-y: scroll; */
+
+  height: 100%;
+  height: 840px;
+
+  padding-bottom: 0;
+
+  /* 垂直 */
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+
+  /* 固定加號 */
+  position: relative;
+}
+
+.scroll {
+  overflow-y: scroll;
+}
+
+/* 當日 健身項目 -------------------------------------------------- */
+.today-card {
+  width: 100%;
+  height: fit-content;
+  background-color: var(--purple1);
+  margin-bottom: 1.5rem;
+  /* 取消 btn 陰影 */
+  filter: none;
+
+  /* 固定 */
+  position: relative;
+}
+/* 完成的動作 */
+.today-card-finish {
+  background-color: var(--purple3);
+  pointer-events: none;
+}
+/* 完成的icon */
+.finish-icon {
+  width: 35px;
+  position: absolute;
+  left: var(--padding-hef);
+  top: var(--padding-hef);
+}
+
+/* 當日 健身項目內的圖片 */
+/* 未執行 */
+.today-fit {
+  width: 100%;
+  opacity: 0.7;
+}
+/* 已執行 */
+.today-fit-finish {
+  opacity: 0.3;
+}
+
+/* 當日 健身項目內的文字 */
+.today-fit-name {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-blod);
+  color: var(--white);
+
+  /* 固定在右下 */
+  position: absolute;
+  right: var(--padding-hef);
+  bottom: var(--padding-hef);
+}
+
+.btn-l {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--div-border-radius);
+
+  font-size: 3rem;
+}
+.align-r {
+  /* display: flex;
+  justify-content: flex-end; */
+  position: absolute;
+  right: var(--padding-hef);
+  bottom: var(--padding-hef);
+}
+.btn {
+  margin-right: 0;
+}
+
+#day {
+  font-size: 4rem;
+  font-weight: var(--font-weight-blod);
+  width: 100%;
+  height: 100px;
+  margin-bottom: var(--margin-horizon);
+  margin-left: 10px;
+}
+
+/* 月達成 */
+.info {
+  box-shadow: 0 0 0px 1px blue inset;
+  width: 100%;
+  /* height: 200px; */
+  height: 100%;
+  padding: 20px 40px;
+  font-weight: var(--font-weight-blod);
+}
+
+.monthly_record {
+  font-size: var(--font-size-xl);
+  height: inherit;
+}
+
+/* 達成的值  */
+.monthly_value {
+  font-size: var(--font-size-l);
+  display: flex;
+  align-items: center;
+}
+
+.monthly_icon {
+  width: 25px;
+}
+.value_inter {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.value_inter h3 {
+}
+/* 數字 */
+.num_value {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-blod);
+}
