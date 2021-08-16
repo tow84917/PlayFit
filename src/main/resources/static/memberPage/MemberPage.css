@@ -101,10 +101,10 @@
   border-radius: 20px;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  justify-content: center;
 }
 /* 頭貼 Size*/
-.head img{
+.headPic{
   width: auto;
 }
 
@@ -114,7 +114,6 @@
   width: 270px;
   margin-top: 4px;
 
-  background-color: white;
   border: 1px red solid;
 
   font-size: 32px;

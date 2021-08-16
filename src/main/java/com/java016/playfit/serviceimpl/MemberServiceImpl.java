@@ -37,7 +37,7 @@ public class MemberServiceImpl implements MemberService {
 	public Double taskCompletionRate(DailyRecord todayRecord) {
 		double completionRate = 0;
 		List<FitAchieve> achieves = todayRecord.getFitAchieves();
-
+		
 		int taskNum = achieves.size();
 		int completeNum = taskNum;
 

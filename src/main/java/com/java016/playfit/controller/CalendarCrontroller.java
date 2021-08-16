@@ -123,7 +123,7 @@ public class CalendarCrontroller {
 
 //		System.out.println(request.getParameter("day"));
 		System.out.println(paramsMap);
-		
+	
 		String today = (String)paramsMap.get("day");
 //		today = today.replaceAll(",", "/");
 		String[] split = today.split("/");

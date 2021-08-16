@@ -108,5 +108,11 @@ public class UserServiceImpl implements UserService  {
 		User user = (User) authentication.getPrincipal();
 		return user.getFullName();
 	}
+	
+	public String getLoginUserEmail() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		return user.getEmail();
+	}
 
 }

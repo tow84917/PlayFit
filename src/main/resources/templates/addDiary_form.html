@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Insert title here</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/diary/css/addDiary_form.css">
+    <script type="text/javascript" src="/diary/js/addDiary_form.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+  <div id="sFromResponse"></div>
+    <div class="testbox">
+      <form th:action="@{/processDiaryUpdate}" th:object="${todayDailyRecord}" method="post">
+        <div class="banner" th:utext="'<h1' + *{user.email} + '</h1>'" >
+        </div>
+        <div class="item">
+          <p>Date of Event</p>
+          <input type="date" th:id="myDate" th:field="*{createdDate}" readonly/>
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="item">
+          <p>Add Food</p>
+          <button type="button" id="addFoodBtnTemp">Add</button>
+        </div>
+        <div th:if="${meals}" th:each="meal: ${meals}" 
+        	th:utext="${meal.timePeriod.name} + '--' + ${meal.food.name} + '  <button type=' + 'button'+ ' class=' + 'deleteClass' + ' value=' + ${meal.id} + '>Delete</button>'">
+        </div>
+        <div class="item">
+          <p>Title</p>
+          <input type="text" th:field="*{title}"/>
+        </div>
+        <div class="item">
+          <p>Content</p>
+          <textarea rows="3" th:field="*{content}"></textarea>
+        </div>
+
+        <div class="btn-block">
+          <button type="submit">SEND</button>
+        </div>
+		
+		<input type="hidden" name="mealHidden" value="last">
+      </form>
+    </div>
+    	<div>
+    		<h1>Done Today</h1>
+    	</div>
+    	<div th:if="${fitAchieves}" th:each="achieve: ${fitAchieves}" 
+        	th:utext="${achieve.fitActivity.name} + '--' + ${achieve.numberGroups} + '--' + ${achieve.totalKcal}">
+        </div>
+                <!-- The Modal -->
+		<div id="myModal" class="modal">
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="close">&times;</span>
+		    <select id="myTimePeriod">
+            <option th:each="timePeriod : ${timePeriods}" th:value="${timePeriod.id}" th:utext="${timePeriod.name}">
+          	</select>
+          	<select id="myFood">
+            <option th:each="food : ${foods}" th:value="${food.id}" th:utext="${food.name}">
+          	</select>
+          	<form>
+		    <button type="button" id="addFoodBtn">Add!</button>
+		    </form>
+		  </div>
+		</div>
+  </body>
+  <meta th:name="_csrf" th:content="${_csrf.token}"/>
+  <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+</html>
