@@ -11,7 +11,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
     </style>
     <!-- 會員Css -->
-    <link rel="stylesheet" href="MemberPage.css">
+    <link rel="stylesheet" th:href="@{/memberPage/MemberPage.css}">
     <title>MemberPage</title>
 </head>
 <body>
@@ -23,13 +23,13 @@
             <div class="left">
                 <!-- 大頭貼 -->
                 <div class="head">
-                    <img src="/Member.gif" alt="headpic">
+                    <img class="headPic" th:src="@{${avatar.imagePath}}" alt="headpic">
                 </div>
                 <div class="name">
                     <p th:if= "${user.nickName}" th:text ="${user.nickName}"/>
                     <p th:if= "${user.nickName.empty}" th:text ="${user.fullName}"/>
                     <!-- 名字旁帽子 -->
-                    <img src="mm.png" width="40px" alt="smallName_pic">
+                    <img th:src="@{/memberPage/img/mm.png}" width="40px" alt="smallName_pic">
                 </div>
                 <!-- 個人資訊 -->
                 <div class="personInfo">
@@ -40,7 +40,7 @@
                         </div>
                         <!-- 日記連結 -->
                         <a href="" class="dailypic">
-                            <img src="PngItem_1145674.png" width="42px" height="40px" alt="smallDaily_pic">
+                            <img th:src="@{/memberPage/img/PngItem_1145674.png}" width="42px" height="40px" alt="smallDaily_pic">
                         </a>
                     </div>
                     <!-- 身體資訊 -->
@@ -107,13 +107,13 @@
                         <div class="taskR">
                             <div>
                                 <div class="displyTask">
-                                    <p th:text ="${todayRecord.kcalIntake}"></p>
+                                    <p th:text ="${calGain}"></p>
                                 </div>
                                 <label>CAL GAIN</label>
                             </div>
                             <div>
                                 <div class="displyTask">
-                                    <p th:text ="${todayRecord.kcalBurned}"></p>
+                                    <p th:text ="${calLost}"></p>
                                 </div>
                                 <label>CAL LOST</label>
                             </div>
@@ -182,21 +182,24 @@
                             <strong>Training Of Today</strong>
                             <!-- Thymeleaf will foreach here ; 
                                 assign background-color、src、activityName-->
-                            <div class="activityBox" id="scrollbarStyle">
-                            	<div th:each="task : ${activityStatus}" th:with="color1='#2e1ed3',color2='#6460ff'">
-<!--                             		done -->
-	                                <div class="activity" th:if="${task.value =='done'}" th:style="'background-color:'+ ${color1}">
-	                                    <img th:src="@{${task.key.imagePath}}" alt="activity_name">
-	                                    <p id="activityName" th:text ="${task.key.name}"></p>
-	                                </div>
-<!-- 	                                undone -->
-	                                <div class="activity" th:if="${task.value =='undone'}" th:style="'background-color:'+ ${color2}">
-	                                  <img th:src="@{${task.key.imagePath}}" alt="activity_name">
-	                                    <p id="activityName" th:text ="${task.key.name}"></p>
-	                                </div>
-                            	</div>
-                            </div>
-                            <!-- 日曆連結 -->
+							<div class="activityBox" id="scrollbarStyle">
+									<div th:if="${activityStatus}" th:each="task : ${activityStatus}"
+										th:with="color1='#2e1ed3',color2='#6460ff'">
+										<!--                             		done -->
+										<div class="activity" th:if="${task.value =='done'}"
+											th:style="'background-color:'+ ${color1}">
+											<img th:src="@{${task.key.imagePath}}" alt="activity_name">
+											<p id="activityName" th:text="${task.key.name}"></p>
+										</div>
+										<!-- 	                                undone -->
+										<div class="activity" th:if="${task.value =='undone'}"
+											th:style="'background-color:'+ ${color2}">
+											<img th:src="@{${task.key.imagePath}}" alt="activity_name">
+											<p id="activityName" th:text="${task.key.name}"></p>
+										</div>
+									</div>
+								</div>
+							<!-- 日曆連結 -->
                             <a href="" class="goCalendar">
                                 <p>...</p> 
                             </a>
@@ -289,8 +292,8 @@
     </div>
     <div class="footer"></div>
     <div class="overlay hidden"></div>
-    <script src="MemberPage.js"></script>
-    <script src="taskCanvas.js"></script>
-    <script src="bodyCanvas.js"></script>   
+    <script th:src="@{\memberPage\taskCanvas.js}"></script>
+    <script th:src="@{\memberPage\MemberPage.js}"></script>
+    <script th:src="@{\memberPage\bodyCanvas.js}"></script>   
 </body>
 </html>
