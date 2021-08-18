@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 任務項目完成 % 數
 	@Override
-	public Double taskCompletionRate(DailyRecord todayRecord) {
+	public Double getTaskCompletionRate(DailyRecord todayRecord) {
 		double completionRate = 0;
 		List<FitAchieve> achieves = todayRecord.getFitAchieves();
 		
@@ -93,13 +95,14 @@ public class MemberServiceImpl implements MemberService {
 
 	// response 自訂格式化
 	@Override
-	public String[] formatDataForResponse(String day, Integer kcal) {
+	public String[] getFormatDataForResponse(String day, Integer kcal) {
 		return new String[] { day.replaceAll("-", "/").substring(5), String.valueOf(kcal) };
 	}
 
 	// 回傳日期區間運動卡洛里資料(*之後會變更區間)
+	@Transactional
 	@Override
-	public Map<Integer, String[]> weekExerciseData(Integer userId) {
+	public Map<Integer, String[]> getWeekExerciseData(Integer userId) {
 
 		long now = System.currentTimeMillis();
 		long weekMillis = 86400 * 7 * 1000;
@@ -128,7 +131,7 @@ public class MemberServiceImpl implements MemberService {
 			for (DailyRecord dr : dailys) {
 				String dayCheck = String.valueOf(dr.getCreatedDate());
 				if (day.equals(dayCheck)) {
-					exerciseData.put(count, formatDataForResponse(day, dr.getKcalBurned()));
+					exerciseData.put(count, getFormatDataForResponse(day, dr.getKcalBurned()));
 					count++;
 					isData = true;
 					break;
@@ -136,11 +139,10 @@ public class MemberServiceImpl implements MemberService {
 			}
 			// 沒有則加入 0 => 長條圖空
 			if (!isData) {
-				exerciseData.put(count, formatDataForResponse(day, 0));
+				exerciseData.put(count, getFormatDataForResponse(day, 0));
 				count++;
 			}
 		}
 		return exerciseData;
 	}
-
 }

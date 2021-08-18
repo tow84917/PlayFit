@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -31,6 +36,7 @@ public class User implements UserDetails, Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotBlank(message = "全名不能空白")
 	@Column(name="full_name")
 	private String fullName;
 	
@@ -41,12 +47,15 @@ public class User implements UserDetails, Serializable{
 	
 	private String gender;
 	
+	@Email
 	private String email;
 	
+	@Pattern(regexp = "09\\d{8}" , message = "手機格式不符")
 	private String phone;
 	
 	private String address;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd") // 表單傳 String
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
 	
@@ -64,10 +73,10 @@ public class User implements UserDetails, Serializable{
 	@JoinColumn(name = "avatar_id", referencedColumnName = "id")
 	private Avatar avatar;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	private List<HealthRecord> healthRecords;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	private List<PersonalGoal> PersonalGoals;
 	
 	public Integer getId() {

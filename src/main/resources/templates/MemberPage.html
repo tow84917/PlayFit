@@ -26,8 +26,8 @@
                     <img class="headPic" th:src="@{${avatar.imagePath}}" alt="headpic">
                 </div>
                 <div class="name">
-                    <p th:if= "${user.nickName}" th:text ="${user.nickName}"/>
-                    <p th:if= "${user.nickName.empty}" th:text ="${user.fullName}"/>
+                    <p th:if= "${user.nickName}" th:text ="${user.nickName}"></p>
+                    <p th:if= "${user.nickName.empty}" th:text ="${user.fullName}"></p>
                     <!-- 名字旁帽子 -->
                     <img th:src="@{/memberPage/img/mm.png}" width="40px" alt="smallName_pic">
                 </div>
@@ -80,8 +80,12 @@
                     </div>
                 </div>
                 <div class="twiceBtn">
-                    <button class="logOut">LOG OUT</button>
-                    <button class="editProfile">EDIT PROFILE</button>
+                    <form method="POST" th:action="@{/logout}">
+                    	<input type="submit" class="logOut" value="LOG OUT">
+                    </form>
+                    <form method="GET" th:action="@{/editProfile}">
+                    	<input type="submit" class="editProfile" value="EDIT PROFILE">
+                    </form>
                 </div>
             </div>
             <!-- 右方資訊 -->
@@ -136,17 +140,17 @@
                                 <div class="weightBox">
                                 <div>
                                     <p th:text ="${personalGoal.startWeight} + 'KG'"></p>
-                                    <span id="weightAnnotation">Start</span>
+                                    <span class="weightAnnotation">Start</span>
                                 </div>
                                 <div>
                                     <p id="centerFocus" th:text ="${healthRecord.weight} + 'KG'"></p>
-                                        <span id="weightAnnotation">
+                                        <span class="weightAnnotation">
                                             Current<br>Weight
                                         </span>
                                 </div>
                                 <div>
                                     <p th:text ="${personalGoal.goalWeight} + 'KG'"></p>
-                                        <span id="weightAnnotation">
+                                        <span class="weightAnnotation">
                                             Goal
                                         </span>
                                 </div>
@@ -208,87 +212,6 @@
                 </div>
             </div>
         </div>
-        <!-- 修改個人資料表單 -->
-        <form action="" method="POST" class="editForm">
-            <div class="formRange">
-                <button type="button" class="close">&times;</button>
-                <table>
-                    <tr>
-                        <td colspan="2">
-                            <label>Edit Profile</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>Name:</p>
-                            <p><input type="text" name="name" value="" class="editColumn"></p>
-                        </td>
-                        <td>
-                            <p>Nuck Name:</p>
-                            <p><input type="text" name="name" value="" class="editColumn"></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>Password:</p>
-                            <p><input type="password" name="name" value="" class="editColumn"></p>
-                        </td>
-                        <td>
-                            <p>Confirm Password:</p>
-                            <p><input type="password" name="name" value="" class="editColumn"></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>Phone:</p>
-                            <p><input type="text" name="name" value="" class="editColumn"></p>
-                        </td>
-                        <td>
-                            <p>Email:</p>
-                            <p><input type="email" name="email" class="editColumn"></p>
-                        </td>
-                        
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <p>Address:</p>
-                            <p><input type="text" name="name" value="" class="editColumnAddress"></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>Height:</p>
-                            <p><input type="number" name="name" value="" min="50.00" max="300.00" step="0.01" class="editColumn"></p>
-                        </td>
-                        <td>
-                            <p>Weight:</p>
-                            <p><input type="number" name="name" value="" min="20.00" max="500.00" step="0.01" class="editColumn"></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>birthday:</p>
-                            <p><input type="date" name="name" value="" class="editColumn"></p>
-                        </td>
-                        <td>
-                            <p>Activity Level:</p>
-                            <select name="" class="editColumn">
-                                <option value="1">LightExercise</option>
-                                <option value="2">ModerateExercise</option>
-                                <option value="3">HeavyExercise</option>
-                                <option value="4">Athlete</option>
-                                <option value="0">Sedentary(office job)</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input type="submit" value="Submit" id="confirmSubmit">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </form>
     </div>
     <div class="footer"></div>
     <div class="overlay hidden"></div>

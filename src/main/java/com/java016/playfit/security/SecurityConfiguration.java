@@ -52,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.permitAll()
 				.and()
 				.logout()
-				.logoutSuccessUrl("/") // 登出跳轉
+				.logoutSuccessUrl("/login") // 登出跳轉
 				.permitAll();
 	}
 }

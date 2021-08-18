@@ -30,7 +30,7 @@
   width: 1200px;
   height: 730px;
   /* background-color: brown; */
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   margin: 20px auto ;
 
   display: flex;
@@ -40,7 +40,7 @@
 /* 左方資訊 */
 .left{
   width: 28%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
 
   align-items: center;
 
@@ -51,20 +51,20 @@
 /* 右方資訊 */
 .right{
   width: 72%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
 
   align-items: center;
 
 }
 /* 右方上 */
 .top{
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   height: 20%;
 }
 
 /* 右方下 */
 .down{
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   height: 77.5%;
   
   margin-top: 2.3%;
@@ -73,7 +73,7 @@
 }
 /* 右下左 */
 .dl{
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   
   width: 65%;
 
@@ -83,7 +83,7 @@
 }
 /* 右下右 */
 .dr{
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   
   width: 35%;
 
@@ -114,7 +114,7 @@
   width: 270px;
   margin-top: 4px;
 
-  border: 1px red solid;
+  /*border: 1px red solid;*/
 
   font-size: 32px;
   display: flex;
@@ -137,18 +137,19 @@
 }
 /* 簡單資訊 */
 .simpleInfo{
-  width: 270px;
-  height: 22%;
+  width: 280px;
+  height: 20%;
 
-  padding: 10px;
+  padding: 18px;
 
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   display: flex;
+  justify-content: center;
 }
 /* 生日 & 信箱 */
 .dateMail{
-  width: 70%;
-  border: 1px red solid;
+  width: 68%;
+  /*border: 1px red solid;*/
   font-size: 16px;
   word-wrap:break-word;
   display: flex;
@@ -159,7 +160,7 @@
 /* 小圖 */
 .dailypic{
   width: 30%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   
   padding: 5px;
   text-align: center;
@@ -169,7 +170,11 @@
 .bodyInfo{
   width: 270px;
   height: 85%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
+}
+
+.twiceBtn{
+	display: flex;
 }
 
 /* 登出 */
@@ -186,7 +191,7 @@
   border: 3px solid #6460ff;
 
 }
-/* 修改會員資料 */
+/* 修改會員資料 BTN */
 .editProfile{
   background-color: white;
   height: 45px;
@@ -194,107 +199,11 @@
   font-size: 13px;
 
   padding: 9px;
+  margin-top: 8px;
   margin-left: 12px;
 
   border-radius: 20px;
   border: 3px solid #6460ff;
-}
-
-/* 修改個人資料表單 */
-.editForm{
-  width: 560px;
-  height: 650px;
-  border-radius: 25px;
-  /* padding: 30px; */
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-  z-index: 3;
-
-  background-color: rgba(235, 238, 248, 0.87);
-
-  position: absolute;
-  left: 33%;
-  top: 30%;
-  opacity: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* X */
-.close {
-  position: absolute;
-  top: 20px;
-  right: 60px ;
-  font-size: 60px;
-
-  color: #333;
-  
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-
-/* 表單顯示範圍 */
-.formRange{
-  width: 90%;
-  height: 95%;
-  /* border: 1px red solid; */
-
-  display: flex;
-  justify-content: center;
-}
-
-/* Form title */
-.formRange label{
-  font-size: 36px;
-  color: #6460ff;
-}
-
-/*  修改 Table */
-.formRange table{
-  width: 100%;
-  text-align: left;
-  border-spacing : 45px 15px;
-  font-size: 18px;
-
-  align-items: center;
-}
-/* 修改欄位 */
-.editColumn{
-  width: 190px;
-  height: 33px;
-  font-size: 14.5px;
-
-  background-color: rgba(255, 255, 255, 0.6);
-
-  border: 3px solid #6460ff;
-  border-radius: 20px;
-}
-/* 地址欄 */
-.editColumnAddress{
-  width: 424px;
-  height: 33px;
-  font-size: 14.5px;
-
-  background-color: white;
-
-  border: 3px solid #6460ff;
-  border-radius: 20px;
-}
-/* 提交按鈕 */
-#confirmSubmit{
-  width: 40%;
-  height: 40px;
-
-  background-color: white;
-  border-radius: 20px;
-
-  border: 3px solid #6460ff;
-
-  position: relative;
-  left: 50%;
-  transform: translate(-50%);
 }
 
 /* 任務 + 勳章  */
@@ -311,14 +220,14 @@
 /* 任務欄左 */
 .taskL{
   width: 63%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   display: flex;
   flex-direction: column;
 }
 
 .today{
   height: 47%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   font-size: 38px;
   padding: 16px 22px;
 }
@@ -326,7 +235,7 @@
 /* 進度條相關 */
 .progressBar{
   height: 53%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   padding: 8px 24px;
 
   font-size: 21px;
@@ -341,9 +250,9 @@
 
 #taskProgressBar{
   border-radius: 20px;
-
+  background-color:white;
   margin-top: 4px;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
 
   overflow: hidden;
 }
@@ -351,7 +260,7 @@
 /* 任務欄右 */
 .taskR{
   width: 35%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   padding: 15px 13px;
   margin-left: 2%;
   
@@ -397,7 +306,7 @@
   font-size: 38px;
   
   height: 18%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   margin: 10px 25px 0px 25px;
 
   display: flex;
@@ -421,7 +330,7 @@
 /* 目標欄中 */
 .goalMid{
   height: 45%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   
   display: flex;
   flex-direction: column;
@@ -434,7 +343,7 @@
 
   height: 100%;
   background-color: white;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   border-radius: 20px;
 
   display: flex;
@@ -453,7 +362,7 @@
   font-weight: bold;
 }
 /* 體重標記 */
-#weightAnnotation{
+.weightAnnotation{
   font-size: 18px;
   color: black;
   line-height: 10px;
@@ -461,7 +370,7 @@
 /* 目標欄下 */
 .goalDown{
   height: 26%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   
   margin: 10px 25px;
   display: flex;
@@ -472,12 +381,12 @@
 .startDate{
   width: 50%;
   height: 100%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
 }
 .totalLost{
   width: 50%;
   height: 100%;
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   margin-left: 6%; 
 }
 
@@ -552,10 +461,10 @@
 /* 今日訓練菜單 */
 .activityBox{
   width: 100%;
-  height: 65%;
-  border: 1px red solid;
+  height: 57%;
+  /*border: 1px red solid;*/
 
-  margin-top: 3%;
+  margin-top: 6%;
 
   /* display: flex;
   flex-direction: column; */
@@ -598,7 +507,7 @@
   
   margin-top: 4%;
 
-  border: 1px red solid;
+  /*border: 1px red solid;*/
   border-radius: 20px;
 
   position: relative;
