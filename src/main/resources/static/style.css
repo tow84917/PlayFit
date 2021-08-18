@@ -307,7 +307,7 @@ input:checked + label:hover {
 
 /* 選中後樣式 */
 input:checked + label:after {
-  content: url(./svg/checkbox.svg);
+  /* content: url(./svg/checkbox.svg); */
   text-align: center;
   line-height: 18px; /* 眼睛高度 */
   margin: 0 0;

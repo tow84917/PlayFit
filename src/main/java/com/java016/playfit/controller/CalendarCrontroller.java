@@ -110,7 +110,7 @@ public class CalendarCrontroller {
 
 	/**
 	 * 顯示 當日所排程的動作
-	 * @param paramsMap
+//	 * @param paramsMap
 	 * @param request
 	 * @param response
 	 * @return
@@ -119,14 +119,14 @@ public class CalendarCrontroller {
 	@RequestMapping(value = "/findToday" ,
 			method=RequestMethod.POST)
 	@ResponseBody
-	public String calendercopy(@RequestParam Map<String,Object> paramsMap , HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
-
-//		System.out.println(request.getParameter("day"));
-		System.out.println(paramsMap);
+	public String findActivityByDay(@RequestParam String day,
+									HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
+		System.out.println("findActivityByDay in");
+		System.out.println(day);
 	
-		String today = (String)paramsMap.get("day");
+//		String today = (String)paramsMap.get("day");
 //		today = today.replaceAll(",", "/");
-		String[] split = today.split("/");
+		String[] split = day.split("/");
 		Calendar c = new Calendar.Builder().build();
 		c.set(Integer.parseInt(split[0]),Integer.parseInt(split[1])-1,Integer.parseInt(split[2]));
 		java.sql.Date date = new Date(c.getTimeInMillis());
@@ -172,10 +172,35 @@ public class CalendarCrontroller {
 		return mv;
 	}
 
-	@RequestMapping("image")
-	public ModelAndView image() {
+	/**
+	 * 增加健身計畫
+	 * @param paramsMap
+	 */
+	@RequestMapping("/addActivity")
+	@ResponseBody
+	public void addActivity(@RequestBody Map<String,Object> paramsMap){
+		System.out.println("addActivity");
+		System.out.println(paramsMap);
+		for (String s : paramsMap.keySet()) {
+			System.out.println(s);
+		}
+
+		System.out.println("addActivity finish \n");
+
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("index");
+//		return mv;
+	}
+
+	@RequestMapping("/addFit")
+	public ModelAndView addFit(@RequestParam Map<String,Object> paramsMap){
+		System.out.println("addFit");
+		System.out.println(paramsMap);
+		for (String s : paramsMap.keySet()) {
+			System.out.println(s);
+		}
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("img");
+		mv.setViewName("index");
 		return mv;
 	}
 }

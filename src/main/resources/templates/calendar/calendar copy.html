@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -85,13 +85,99 @@
         .fit-part {
             background-color: cornsilk;
             height: 100%;
-            width: 500px;
+            width: 400px;
             /* margin: 10px; */
             margin-left: 10px;
             margin-right: 10px;
             /* 水平內顯示為區塊 */
             display: inline-block;
             /* display: inline; */
+        }
+
+        #fits-form {
+            background-color: aliceblue;
+            height: inherit;
+            width: 100%;
+        }
+
+
+        input+div {
+            /* checkbox 尺寸 */
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 背景 邊框 */
+            /* box-shadow: 0 0 0px 2px var(--Gy3) inset; */
+            /* border-radius: var(--input-border-radius); */
+            background: var(--white);
+            /* transition: 0.1s all; */
+            /* cursor: pointer; */
+            /* z-index: 999 !important; */
+        }
+
+        input+label:hover {
+            transform: scale(1);
+            background: var(--purple3);
+        }
+
+        /* input + label:after {
+  content: '';
+} */
+
+        input:checked+label {
+            /* transform: scale(1); */
+            background-color: darkgreen;
+        }
+
+        input:checked+label:hover {
+            transform: scale(1);
+            /* transform: scale(0.95); */
+        }
+
+        input+label .fit-a {
+            background-color: darkgoldenrod;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 多選 label 內 div   */
+        input+label .fit-a:hover {
+            background-color: sandybrown;
+        }
+
+        input:checked+label .fit-a {
+            /* transform: scale(1); */
+            background-color: darkgreen;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        .fit-a-top {
+
+            background-color: grey;
+            width: 100%;
+            height: 70%;
+            display: flex;
+            align-items: center;
+        }
+
+        .fit-a-button {
+            background-color: cadetblue;
+            width: 100%;
+            height: 30%;
+        }
+
+        .fit-activity {
+            width: 100%;
         }
     </style>
 </head>
@@ -231,94 +317,112 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <!--  -->
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-
-
-                <div class="modal-body body">
-                    <div class="modal-bg">
-                        <div class="fit-part"></div>
-                        <div class="fit-part"></div>
-                        <div class="fit-part"></div>
-                        <div class="fit-part"></div>
-
-                        <!-- <div class="modal-top">
-
-                        </div> -->
-                        <!-- 
-
-                        <div class="modal-button">
+                <form id="fits-form " th:action="@{addFit}" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body body">
+                        <div class="modal-bg">
                             <div class="fit-part"></div>
                             <div class="fit-part"></div>
                             <div class="fit-part"></div>
                             <div class="fit-part"></div>
-                        </div> -->
+
+                            <!-- <div class="modal-top">
+
+                            </div> -->
+                            <!-- 
+
+                            <div class="modal-button">
+                                <div class="fit-part"></div>
+                                <div class="fit-part"></div>
+                                <div class="fit-part"></div>
+                                <div class="fit-part"></div>
+                            </div> -->
+
+                        </div>
 
                     </div>
 
-                </div>
 
+                    <div class="modal-body body">
 
-                <div class="modal-body body">
-                    <div class="modal-bg">
-                        <div class="fit-part"></div>
-                        <div class="fit-part"></div>
-                        <div class="fit-part"></div>
-                        <div class="fit-part"></div>
+                        <div class="modal-bg">
+                            <input id="checkbox" type="checkbox" name="activity" value="1" />
+                            <label class="fit-part" for="checkbox">
+                                <div class="fit-a">
+                                    <div class="fit-a-top">
+                                        <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
 
-                        <!-- <div class="modal-top">
-
-                        </div> -->
-                        <!-- 
-
-                        <div class="modal-button">
-                            <div class="fit-part"></div>
-                            <div class="fit-part"></div>
-                            <div class="fit-part"></div>
-                            <div class="fit-part"></div>
-                        </div> -->
-
-                    </div>
-
-                </div>
-
-
-                <!-- <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-4">.col-md-4</div>
-                            <div class="col-md-4 ms-auto">.col-md-4 .ms-auto</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 ms-auto">.col-md-3 .ms-auto</div>
-                            <div class="col-md-2 ms-auto">.col-md-2 .ms-auto</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 ms-auto">.col-md-6 .ms-auto</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-9">
-                                Level 1: .col-sm-9
-                                <div class="row">
-                                    <div class="col-8 col-sm-6">
-                                        Level 2: .col-8 .col-sm-6
                                     </div>
-                                    <div class="col-4 col-sm-6">
-                                        Level 2: .col-4 .col-sm-6
+                                    <div class="fit-a-button">
+
+                                    </div>
+
+                                </div>
+                            </label>
+
+                            <input id="checkbox2" type="checkbox" name="activity" value="2" />
+                            <label class="fit-part" for="checkbox2">
+                                <div class="fit-a">
+                                    <div class="fit-a-top">
+                                        <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
+
+                                    </div>
+                                    <div class="fit-a-button">
+
+                                    </div>
+
+                                </div>
+                            </label>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4">.col-md-4</div>
+                                <div class="col-md-4 ms-auto">.col-md-4 .ms-auto</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 ms-auto">.col-md-3 .ms-auto</div>
+                                <div class="col-md-2 ms-auto">.col-md-2 .ms-auto</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 ms-auto">.col-md-6 .ms-auto</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    Level 1: .col-sm-9
+                                    <div class="row">
+                                        <div class="col-8 col-sm-6">
+                                            Level 2: .col-8 .col-sm-6
+                                        </div>
+                                        <div class="col-4 col-sm-6">
+                                            Level 2: .col-4 .col-sm-6
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div> -->
+                    <!--  -->
+                    <div class="modal-footer">
+                        <div class="div-sec">
+                            <input class="btn rounded-pill" type="submit" value="submit">
+                            <div id="fit-submit" class="btn" data-bs-dismiss="modal" aria-label="Close"></div>
+                        </div>
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button> -->
                     </div>
-                </div> -->
-                <!--  -->
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
-                </div> -->
+                </form>
+
 
             </div>
             <!-- <div class="modal-content">
