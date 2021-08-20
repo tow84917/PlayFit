@@ -63,18 +63,18 @@ function renderExerciseData() {
 
 // 錯誤Icon
 var errorImage = new Image();
-errorImage.src = "errorIcon.png"
+errorImage.src = "/memberPage/img/errorIcon.png"
 
 // error fnc
 function getDataFaild(error){
     // error clg
     console.log(error); 
     // errorImage
-    context.drawImage(errorImage,175,40);
+    context.drawImage(errorImage,190,20);
     // error message
-    context.font = "bold 18px Montserrat";
+    context.font = "bold 12px Montserrat";
     context.fillStyle = "#ff353b"
-    context.fillText("Oops! something wrong,try again later.", 105, 188);
+    context.fillText("Oops! something wrong,try again later.", 140, 170);
 }
 
 // 非同步請求

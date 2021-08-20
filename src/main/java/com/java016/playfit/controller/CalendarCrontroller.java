@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.java016.playfit.model.FitActivity;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -190,6 +191,15 @@ public class CalendarCrontroller {
 //		ModelAndView mv = new ModelAndView();
 //		mv.setViewName("index");
 //		return mv;
+	}
+
+	@RequestMapping("findActivities")
+	@ResponseBody
+	public void findActivities(@RequestParam String bodyPartSelect){
+		System.out.println("findActivities in");
+		System.out.println(bodyPartSelect);
+		List<FitActivity> activities = calenderService.findActivities(bodyPartSelect);
+		System.out.println("findActivities out");
 	}
 
 	@RequestMapping("/addFit")

@@ -403,3 +403,36 @@ fitSubmit.addEventListener('click', (e) => {
         },
     })
 })
+
+
+// 選取部位
+const body = document.getElementsByName('body');
+
+
+const bodyPart = document.querySelector('.fit-body-part');
+let bodyFlag = false ;
+bodyPart.addEventListener('click', (e) => {
+    console.log(e.target);
+    console.log(e.target.localName);
+
+    if (bodyFlag || e.target.localName != 'input') {
+        bodyFlag = false;
+        return;
+    }
+    let bodyPartSelect ;
+   
+    for (let i = 0; i < body.length; i++) {
+        const element = body[i]; 
+
+        if (element.checked) {
+            console.log('-------checkec-------');
+            bodyPartSelect = element.value;
+            bodyFlag = true;
+        }
+    }
+    console.log('bodyPartSelect: ', bodyPartSelect);
+
+    $.post('findActivities' , {"bodyPartSelect": bodyPartSelect} , function (data) {
+        console.log('data: ', data);
+    })
+})

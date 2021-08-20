@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import com.java016.playfit.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public class CalendarServiceImpl implements CalendarService {
 	LocalDateCalendarAttributeConverter converter;
 	@Autowired
 	UserService userService;
-
+	
 	/**
 	 * 找user當月的紀錄
 	 * @param monthly
@@ -178,6 +179,13 @@ public class CalendarServiceImpl implements CalendarService {
 		System.out.println("findUserMonthlyFitDays###############");
 		return set;
 	}
+
+	@Override
+	public List<FitActivity> findActivities(String bodyPartSelect) {
+
+		return null;
+	}
+
 	@Autowired
 	AvatarRepository avatarRepo;
 

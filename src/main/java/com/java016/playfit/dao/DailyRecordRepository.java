@@ -40,7 +40,7 @@ public interface DailyRecordRepository extends JpaRepository<DailyRecord, Intege
 	 */
 	@Query(value = "SELECT * FROM Daily_Record d WHERE d.created_date = "
 			+ ":date AND d.user_id = :userId", nativeQuery=true)
-	DailyRecord findByUserIdAndDate(@Param("userId")Integer userId,@Param("date")Date date);
+	public DailyRecord findByUserIdAndDate(@Param("userId")Integer userId,@Param("date")Date date);
 
 	/**
 	 * 找user當月的紀錄

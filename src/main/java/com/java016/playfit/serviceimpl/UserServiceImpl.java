@@ -1,9 +1,9 @@
 package com.java016.playfit.serviceimpl;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,10 +16,14 @@ import com.java016.playfit.model.User;
 import com.java016.playfit.service.UserService;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService  {
 
 	@Autowired
 	UserRepository userRepo;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public List<User> findAll() {
@@ -42,16 +46,14 @@ public class UserServiceImpl implements UserService  {
 	@Override
 	public void saveUser(User user) {
 
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String encodedPassword = passwordEncoder.encode(user.getPassword());
-		user.setPassword(encodedPassword);
-//		user.setAccount(user.getEmail());
-		user.setGender("Male");
-		user.setPhone("0900000000");
-		user.setBirthday(new Date());
-		user.setCreatedAt(new Timestamp(1627833600));
-		user.setCertificationStatus(0);
-		System.out.println("service > " + user);
+//		String encodedPassword = passwordEncoder.encode(user.getPassword());
+//		user.setPassword(encodedPassword);
+//		user.setGender("Male");
+//		user.setPhone("0900000000");
+//		user.setBirthday(new Date());
+//		user.setCreatedAt(new Timestamp(1627833600));
+//		user.setCertificationStatus(0);
+		System.out.println(user);
 		userRepo.save(user);
 
 	}

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.java016.playfit.model.FitAchieve;
+import com.java016.playfit.model.FitActivity;
 import com.java016.playfit.model.MonthlyRecord;
 
 public interface CalendarService {
@@ -16,4 +17,6 @@ public interface CalendarService {
     List<FitAchieve> findByCreatedDate(Date date);
 
     List<Integer> findUserMonthlyFitDays(int month, int year);
+
+    List<FitActivity> findActivities(String bodyPartSelect);
 }

@@ -27,14 +27,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- 日曆 部分的 -->
-    <link rel="stylesheet" th:href="@{./calendar_data/css/calendar_style.css}">
+    <link rel="stylesheet" th:href="@{./calendar_data/css/calendar_style.css}"
+        href="../../static/calendar/calendar_data/css/calendar_style.css">
     <!-- <link rel="stylesheet" href="../../static/calendar_data/css/calendar_style.css"> -->
 
 
     <!-- 其他佈局 css -->
-    <link rel="stylesheet" th:href="@{./calendar_data/calendar.css}" href="../../static/calendar_data/calendar.css">
+    <link rel="stylesheet" th:href="@{./calendar_data/calendar.css}"
+        href="../../static/calendar/calendar_data/calendar.css">
     <style>
         /* model 彈出視窗 */
+        .modal-content {
+            border-radius: var(--btn-border-radius);
+        }
+
         /* 彈出視窗body */
         .body {
             padding: 0;
@@ -67,10 +73,6 @@
 
             display: flex;
             /* flex-wrap: nowrap; */
-
-
-
-
         }
 
         .modal-button {
@@ -83,15 +85,20 @@
 
         /* 健身部位 */
         .fit-part {
-            background-color: cornsilk;
+            background-color: var(--purplebg);
             height: 100%;
             width: 400px;
             /* margin: 10px; */
             margin-left: 10px;
             margin-right: 10px;
+            padding: 20px;
             /* 水平內顯示為區塊 */
             display: inline-block;
             /* display: inline; */
+        }
+
+        .fit-part:hover {
+            background-color: var(--purple2);
         }
 
         #fits-form {
@@ -129,7 +136,8 @@
 
         input:checked+label {
             /* transform: scale(1); */
-            background-color: darkgreen;
+            /* background-color: darkgreen; */
+            box-shadow: 0 0 0px 7px var(--purple1) inset;
         }
 
         input:checked+label:hover {
@@ -148,9 +156,9 @@
         }
 
         /* 多選 label 內 div   */
-        input+label .fit-a:hover {
+        /* input+label .fit-a:hover {
             background-color: sandybrown;
-        }
+        } */
 
         input:checked+label .fit-a {
             /* transform: scale(1); */
@@ -163,7 +171,7 @@
 
         .fit-a-top {
 
-            background-color: grey;
+            /* background-color: grey; */
             width: 100%;
             height: 70%;
             display: flex;
@@ -171,13 +179,26 @@
         }
 
         .fit-a-button {
-            background-color: cadetblue;
+            /* background-color: cadetblue; */
             width: 100%;
             height: 30%;
+            /* text-align: center; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .fit-activity {
             width: 100%;
+        }
+
+        .activity-part {
+            font-size: 2rem;
+            font-weight: var(--font-weight-blod);
+        }
+
+        .model-submit {
+            display: flex;
         }
     </style>
 </head>
@@ -323,11 +344,47 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body body">
-                        <div class="modal-bg">
-                            <div class="fit-part"></div>
-                            <div class="fit-part"></div>
-                            <div class="fit-part"></div>
-                            <div class="fit-part"></div>
+                        <div class="modal-bg fit-body-part">
+                            <input id="body1" type="radio" name="body" value="Upper" />
+                            <label class="fit-part" for="body1">
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
+
+                                </div>
+                                <div class="fit-a-button">
+                                    <span class="activity-part">Upper</span>
+                                </div>
+                            </label>
+                            <input id="body2" type="radio" name="body" value="Core" />
+                            <label class="fit-part" for="body2">
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
+
+                                </div>
+                                <div class="fit-a-button">
+                                    <span class="activity-part">Core</span>
+                                </div>
+                            </label>
+                            <input id="body3" type="radio" name="body" value="Lower" />
+                            <label class="fit-part" for="body3">
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
+
+                                </div>
+                                <div class="fit-a-button">
+                                    <span class="activity-part">Core</span>
+                                </div>
+                            </label>
+                            <input id="body4" type="radio" name="body" value="HIIT" />
+                            <label class="fit-part" for="body4">
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
+
+                                </div>
+                                <div class="fit-a-button">
+                                    <span class="activity-part">Core</span>
+                                </div>
+                            </label>
 
                             <!-- <div class="modal-top">
 
@@ -351,30 +408,30 @@
                         <div class="modal-bg">
                             <input id="checkbox" type="checkbox" name="activity" value="1" />
                             <label class="fit-part" for="checkbox">
-                                <div class="fit-a">
-                                    <div class="fit-a-top">
-                                        <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
-
-                                    </div>
-                                    <div class="fit-a-button">
-
-                                    </div>
+                                <!-- <div class="fit-a"> -->
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
 
                                 </div>
+                                <div class="fit-a-button">
+
+                                </div>
+
+                                <!-- </div> -->
                             </label>
 
                             <input id="checkbox2" type="checkbox" name="activity" value="2" />
                             <label class="fit-part" for="checkbox2">
-                                <div class="fit-a">
-                                    <div class="fit-a-top">
-                                        <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
-
-                                    </div>
-                                    <div class="fit-a-button">
-
-                                    </div>
+                                <!-- <div class="fit-a"> -->
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
 
                                 </div>
+                                <div class="fit-a-button">
+
+                                </div>
+
+                                <!-- </div> -->
                             </label>
 
 
@@ -414,13 +471,15 @@
                     </div> -->
                     <!--  -->
                     <div class="modal-footer">
-                        <div class="div-sec">
-                            <input class="btn rounded-pill" type="submit" value="submit">
-                            <div id="fit-submit" class="btn" data-bs-dismiss="modal" aria-label="Close"></div>
-                        </div>
+                        <div id="fit-submit" class="btn rounded-pill model-submit" data-bs-dismiss="modal"
+                            aria-label="Close">
+                            submit </div>
+                        <!-- </div>
+                        <div class="div-sec"> -->
+                        <!-- <input class="btn rounded-pill" type="submit" value="submit"> -->
                         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary">Understood</button> -->
-                    </div>
+                        <!-- </div> -->
                 </form>
 
 
@@ -458,7 +517,8 @@
     <!-- ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- 日曆 -->
-    <script th:src="@{./calendar_data/js/calendar_style.js}"></script>
+    <script th:src="@{./calendar_data/js/calendar_style.js}"
+        src="../../static/calendar/calendar_data/js/calendar_style.js"></script>
     <!-- <script th:href="@{./calendar/js/calendar_style.js}" src="../../static/js/calendar_style.js"></script> -->
 
 </body>

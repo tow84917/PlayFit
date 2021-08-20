@@ -280,8 +280,8 @@ input + label {
   justify-content: center;
   align-items: center;
   /* 背景 邊框 */
-  box-shadow: 0 0 0px 2px var(--Gy3) inset;
-  border-radius: var(--input-border-radius);
+  /* box-shadow: 0 0 0px 2px var(--Gy3) inset; */
+  border-radius: var(--btn-border-radius);
   background: var(--white);
   transition: 0.1s all;
   /* cursor: pointer; */

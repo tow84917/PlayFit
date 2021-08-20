@@ -13,7 +13,7 @@ public interface MemberService {
 	String getFormatMemberPageDate();
 
 	// 任務項目完成 % 數
-	Double taskCompletionRate(DailyRecord todayRecord);
+	Double getTaskCompletionRate(DailyRecord todayRecord);
 
 	// 取今日運動項目及完成狀態
 	LinkedHashMap<FitActivity, String> getTodayActivityAndStatus(DailyRecord todayRecord);
@@ -22,9 +22,9 @@ public interface MemberService {
 	List<FitActivity> getTodayActivity(DailyRecord todayRecord);
 
 	// response 自訂格式化
-	String[] formatDataForResponse(String day, Integer kcal);
+	String[] getFormatDataForResponse(String day, Integer kcal);
 
 	// 回傳日期區間運動卡洛里資料(*之後會變更區間)
-	Map<Integer, String[]> weekExerciseData(Integer userId);
+	Map<Integer, String[]> getWeekExerciseData(Integer userId);
 
 }
