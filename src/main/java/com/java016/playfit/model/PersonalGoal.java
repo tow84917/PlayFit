@@ -27,10 +27,10 @@ public class PersonalGoal {
 	private User user;
 	
 	@Column(name="start_Weight")
-	private Float startWeight;
+	private Double startWeight;
 	
 	@Column(name="goal_Weight")
-	private Float goalWeight;
+	private Double goalWeight;
 	
 	@Column(name="total_lost")
 	private Integer totalLost;
@@ -55,19 +55,19 @@ public class PersonalGoal {
 		this.user = user;
 	}
 
-	public Float getStartWeight() {
+	public Double getStartWeight() {
 		return startWeight;
 	}
 
-	public void setStartWeight(Float startWeight) {
+	public void setStartWeight(Double startWeight) {
 		this.startWeight = startWeight;
 	}
 
-	public Float getGoalWeight() {
+	public Double getGoalWeight() {
 		return goalWeight;
 	}
 
-	public void setGoalWeight(Float goalWeight) {
+	public void setGoalWeight(Double goalWeight) {
 		this.goalWeight = goalWeight;
 	}
 

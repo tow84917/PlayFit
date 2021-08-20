@@ -42,6 +42,10 @@ public class MemberServiceImpl implements MemberService {
 		
 		int taskNum = achieves.size();
 		int completeNum = taskNum;
+		
+		if (taskNum == 0) {
+			return 0.0 ;
+		}
 
 		for (FitAchieve achieve : achieves) {
 			if (achieve.getStatus().equals("未執行")) {

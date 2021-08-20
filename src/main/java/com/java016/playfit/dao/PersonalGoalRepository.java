@@ -1,5 +1,6 @@
 package com.java016.playfit.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,13 +13,34 @@ import com.java016.playfit.model.PersonalGoal;
 @Repository
 public interface PersonalGoalRepository extends JpaRepository<PersonalGoal, Integer> {
 	
+	/**
+	 * 找USER 所有目標紀錄
+	 * @param userId
+	 * @return List<PersonalGoal>
+	 */
+	public List<PersonalGoal> findByUserId(Integer userId);
+	
+	/**
+	 * 找最新目標紀錄
+	 * @param userId
+	 * @return PersonalGoal
+	 */
 	@Query(value = "SELECT * FROM Personal_Goal pg WHERE pg.user_id = :userId "
 			+ "order by pg.created_date desc limit 1"
 	, nativeQuery=true)
 	public PersonalGoal findLastDateByUserId(
 			@Param("userId")Integer userId);
 	
-	public List<PersonalGoal> findByUserId(Integer userId);
+	/**
+	 * 找USER某日期目標紀錄
+	 * @param userId
+	 * @param date
+	 * @return PersonalGoal
+	 */
+	@Query(value = "SELECT * FROM Personal_Goal p WHERE p.created_date = "
+			+ ":date AND p.user_id = :userId", nativeQuery=true)
+	public PersonalGoal findByUserIdAndDate(@Param("userId")Integer userId,@Param("date")Date date);
+
 }
 
 

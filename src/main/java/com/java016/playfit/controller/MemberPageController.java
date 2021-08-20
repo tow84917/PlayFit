@@ -33,7 +33,7 @@ public class MemberPageController {
 	MemberService memberService;
 
 	UserService userService;
-	
+
 	HealthRecordService healthRecordService;
 
 	PersonalGoalService personalGoalService;
@@ -114,22 +114,20 @@ public class MemberPageController {
 
 	// 處理修改表單
 	@PostMapping("/editProfile")
-	public String processEditProfile(
-			@Valid @ModelAttribute("editUser") User editUser, 
-			BindingResult result) {
-		
+	public String processEditProfile(@Valid @ModelAttribute("editUser") User editUser, BindingResult result) {
+
 		// 有錯回到原頁
 		if (result.hasErrors()) {
 			System.out.println(editUser.getFullName());
 			return "EditProfile";
 		}
-		
+
 		userService.saveUser(editUser);
-		
+
 		return "redirect:/MemberPage"; // redirect request
 
 	}
-	
+
 	// 修改User Modal
 	@ModelAttribute("editUser")
 	public User giveEditUser() {
@@ -148,6 +146,37 @@ public class MemberPageController {
 		return mv;
 	}
 
+	// 修改個人目標
+	@PostMapping("/editPersonGoal")
+	public String editPersonGoal(@ModelAttribute("personalGoal") PersonalGoal editGoal) {
+		// user id
+		int userId = userService.getLoginUserId();
+		User user = userService.getUserById(userId);
+		// 抓出今天的日期
+		java.util.Date utilDate = new java.util.Date();
+		// 把日期轉成SQL型態的Date
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		
+		PersonalGoal personalGoal = personalGoalService.findByUserIdAndDate(userId, sqlDate);
+		HealthRecord healthRecord = healthRecordService.findLastDateByUserId(userId);
+		
+		// 每天限一個目標
+		if (personalGoal == null) { // 新的
+			personalGoal = new PersonalGoal();
+			personalGoal.setUser(user);
+			personalGoal.setStartWeight(healthRecord.getWeight());
+			personalGoal.setGoalWeight(editGoal.getGoalWeight());
+			personalGoal.setTotalLost(0);
+			personalGoal.setCreateDate(sqlDate);
+			personalGoalService.savePersonalGoal(personalGoal);
+		}else if (personalGoal != null) { // 新的舊的修改
+			personalGoal.setGoalWeight(editGoal.getGoalWeight());
+			personalGoalService.savePersonalGoal(personalGoal);
+		}
+		
+		return "forward:MemberPage";
+	}
+
 	// 取近期運動量
 	@RequestMapping("/graphicExerciseData")
 	@ResponseBody
@@ -160,3 +189,9 @@ public class MemberPageController {
 		return data;
 	}
 }
+
+
+
+
+
+
