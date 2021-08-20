@@ -66,8 +66,8 @@ div {
 .container-fluid,
 .container-xxl,
 .container {
-  box-shadow: 0 0 0px 4px red inset;
-  background: grey;
+  /* box-shadow: 0 0 0px 4px red inset; */
+  /* background: grey; */
   padding: 0;
   padding-left: 100px;
   padding-right: 100px;
@@ -90,7 +90,7 @@ div {
 }
 
 .my-col {
-  box-shadow: 0 0 0px 2px green inset;
+  /* box-shadow: 0 0 0px 2px green inset; */
   /* height: 500px; */
   /* >>左右間隔 */
   padding-left: var(--padding-hef);
@@ -102,7 +102,7 @@ div {
 .my-col-m {
   /* height: fit-content;
   height: max-content; */
-  box-shadow: 0 0 0px 2px gold inset;
+  /* box-shadow: 0 0 0px 2px gold inset; */
   /* 取消 內元素左右間隔 */
   padding: 0;
   /* >>內元素 上下間隔 */
@@ -123,7 +123,7 @@ div {
 }
 
 .calendar-inter {
-  box-shadow: 0 0 0px 1px blue inset;
+  /* box-shadow: 0 0 0px 1px blue inset; */
   width: 100%;
   /* height: 800px; */
   height: 100%;
@@ -137,7 +137,7 @@ div {
 }
 
 .fit-today {
-  box-shadow: 0 0 0px 1px blue inset;
+  /* box-shadow: 0 0 0px 1px blue inset; */
   display: flex;
   /* 滾動 */
   /* overflow-y: scroll; */
@@ -237,7 +237,7 @@ div {
 
 /* 月達成 */
 .info {
-  box-shadow: 0 0 0px 1px blue inset;
+  /* box-shadow: 0 0 0px 1px blue inset; */
   width: 100%;
   /* height: 200px; */
   height: 100%;

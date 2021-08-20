@@ -181,9 +181,16 @@ public class CalendarCrontroller {
 	@ResponseBody
 	public void addActivity(@RequestBody Map<String,Object> paramsMap){
 		System.out.println("addActivity");
+		int loginUserId = userService.getLoginUserId();
 		System.out.println(paramsMap);
 		for (String s : paramsMap.keySet()) {
 			System.out.println(s);
+		}
+		String day = (String) paramsMap.get("day");
+		System.out.println(day);
+		List<String> activity = (List<String>) paramsMap.get("activity");
+		for (String o : activity) {
+			System.out.println(o);
 		}
 
 		System.out.println("addActivity finish \n");
@@ -193,13 +200,22 @@ public class CalendarCrontroller {
 //		return mv;
 	}
 
+	/**
+	 * 找某部位的健身動作
+	 * @param bodyPartSelect
+	 */
 	@RequestMapping("findActivities")
 	@ResponseBody
-	public void findActivities(@RequestParam String bodyPartSelect){
+	public String findActivities(@RequestParam String bodyPartSelect) throws JsonProcessingException {
 		System.out.println("findActivities in");
 		System.out.println(bodyPartSelect);
 		List<FitActivity> activities = calenderService.findActivities(bodyPartSelect);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String s = mapper.writeValueAsString(activities);
+
 		System.out.println("findActivities out");
+		return s;
 	}
 
 	@RequestMapping("/addFit")

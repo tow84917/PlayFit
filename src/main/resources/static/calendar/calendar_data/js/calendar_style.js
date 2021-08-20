@@ -270,7 +270,7 @@ document.querySelector(".prev").addEventListener("click", () => {
     getMonthlyRecord(date);
 });
 // 下一月
-document.querySelector(".next").addEventListener("click", () => {
+document.querySelector('.next').addEventListener("click", () => {
     date.setMonth(date.getMonth() + 1);
     monthDays.innerHTML = '';
     
@@ -304,7 +304,7 @@ day.addEventListener("click", (e) => {
 
 });
 
-const todayFits = document.getElementById('today-fits');
+todayFits = document.getElementById('today-fits');
 
 // 更新當天所選動作
 function findToday(today) {
@@ -432,7 +432,52 @@ bodyPart.addEventListener('click', (e) => {
     }
     console.log('bodyPartSelect: ', bodyPartSelect);
 
+    // 找部位動作
+    const allActivities = document.getElementById('all-activities');
+    allActivities.innerHTML = '';
     $.post('findActivities' , {"bodyPartSelect": bodyPartSelect} , function (data) {
         console.log('data: ', data);
-    })
+
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+
+            let inputId = 'cb' + i;
+            let input = document.createElement('input');
+            input.setAttribute('id', inputId);
+            input.setAttribute('type', 'checkbox');
+            input.setAttribute('name', 'activity');
+            input.setAttribute('value', element.id);
+            allActivities.appendChild(input);
+
+            // label ------------------------------------------------------------
+            let label = document.createElement('label');
+            label.setAttribute('class', 'fit-part');
+            label.setAttribute('for', inputId);
+
+            // ------------------------------------------------------------
+            let top = document.createElement('div');
+            top.setAttribute('class', 'fit-a-top');
+
+            let fitImg = document.createElement('img');
+            fitImg.setAttribute('class', 'fit-activity');
+            fitImg.setAttribute('src', element.imagePath);
+
+            top.appendChild(fitImg);
+            // ------------------------------------------------------------
+            let b = document.createElement('div');
+            b.setAttribute('class', 'fit-a-button');
+            b.innerHTML = element.name;
+            
+            // ------------------------------------------------------------
+
+            label.appendChild(top);
+            label.appendChild(b);
+            // label ------------------------------------------------------------
+
+            allActivities.appendChild(label);
+        }
+
+
+
+    },'json')
 })

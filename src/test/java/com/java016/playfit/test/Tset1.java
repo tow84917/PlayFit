@@ -3,8 +3,13 @@ package com.java016.playfit.test;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import com.java016.playfit.dao.FitActivityRepository;
+import com.java016.playfit.model.FitActivity;
+import com.java016.playfit.serviceimpl.CalendarServiceImpl;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.java016.playfit.dao.FitAchieveRepository;
@@ -12,32 +17,36 @@ import com.java016.playfit.dao.MonthlyRecordRepository;
 import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.service.CalendarService;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
+
+@SpringBootTest
 public class Tset1 {
 
     @Autowired
     FitAchieveRepository achieveRepository;
     @Autowired
-    CalendarService calenderService;
+    FitActivityRepository fitActivityRepository;
     @Autowired
     MonthlyRecordRepository monthlyRecordRepository;
     @Autowired
     UserRepository userRepository;
 
-//    @Test
-//    public void test2(){
-//        MonthlyRecord monthlyRecord = calenderService.findByUserIdAndMonthly(41, 8, 2021);
-//        /*if( monthlyRecord == null) {
-//			Calendar c = new Calendar.Builder().build();
-//			c.set(2021, 7, 1);
-//            User user = userRepository.getById(41);
-//            monthlyRecord = new Monthly_record( user, c, 0, 0, 0);
-//			monthlyRecordRepository.save(monthlyRecord);
-//		}
-//         */
-//
-//
-//    }
+    @Test
+    public void test2(){
+//        CalendarServiceImpl calendarService = new CalendarServiceImpl();
+//        List<FitActivity> activities = calendarService.findActivities("Upper");
+
+        List<FitActivity> upper = fitActivityRepository.findAllByBodyPart("Upper");
+        for (FitActivity fitActivity : upper) {
+        System.out.println(fitActivity.getName());
+
+        }
+
+    }
 
     @Test
     public void test(){

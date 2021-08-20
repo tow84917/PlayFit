@@ -7,16 +7,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import com.java016.playfit.dao.*;
 import com.java016.playfit.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java016.playfit.converter.LocalDateCalendarAttributeConverter;
-import com.java016.playfit.dao.AvatarRepository;
-import com.java016.playfit.dao.DailyRecordRepository;
-import com.java016.playfit.dao.FitAchieveRepository;
-import com.java016.playfit.dao.MonthlyRecordRepository;
-import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.Avatar;
 import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.FitAchieve;
@@ -35,6 +31,8 @@ public class CalendarServiceImpl implements CalendarService {
 	UserRepository userRepository;
 	@Autowired
 	DailyRecordRepository dailyRecordRepository;
+	@Autowired
+	FitActivityRepository fitActivityRepository;
 	@Autowired
 	LocalDateCalendarAttributeConverter converter;
 	@Autowired
@@ -180,10 +178,18 @@ public class CalendarServiceImpl implements CalendarService {
 		return set;
 	}
 
+	/**
+	 * 找某部位的健身動作
+	 * @param bodyPartSelect
+	 * @return
+	 */
 	@Override
 	public List<FitActivity> findActivities(String bodyPartSelect) {
+		System.out.println("calendarService in");
+		List<FitActivity> allByBodyPart = fitActivityRepository.findAllByBodyPart(bodyPartSelect);
 
-		return null;
+
+		return allByBodyPart;
 	}
 
 	@Autowired
