@@ -402,6 +402,16 @@ fitSubmit.addEventListener('click', (e) => {
         error: function () {
         },
     })
+
+    findToday(today);
+    // getMonthlyFitDays(today);
+    
+
+    monthDays.innerHTML = '';
+    
+    let schedulet = getMonthlyFitDays(date);
+    renderCalender(schedulet);
+    
 })
 
 
@@ -477,7 +487,18 @@ bodyPart.addEventListener('click', (e) => {
             allActivities.appendChild(label);
         }
 
-
-
     },'json')
+})
+
+
+const addAchivity = document.getElementById('addAchivity');
+addAchivity.addEventListener('click' , () => {
+    const selectBody = document.querySelectorAll('.select-body');
+    console.log('selectBody: ', selectBody);
+    for (let i = 0; i < selectBody.length; i++) {
+        const element = selectBody[i];
+        element.checked = false;
+    }
+    const allActivities = document.getElementById('all-activities');
+    allActivities.innerHTML = '';
 })

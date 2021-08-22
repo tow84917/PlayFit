@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -178,26 +179,23 @@ public class CalendarCrontroller {
 	 * @param paramsMap
 	 */
 	@RequestMapping("/addActivity")
-	@ResponseBody
-	public void addActivity(@RequestBody Map<String,Object> paramsMap){
+//	@ResponseBody
+	public String addActivity(@RequestBody Map<String,Object> paramsMap) throws ParseException {
 		System.out.println("addActivity");
 		int loginUserId = userService.getLoginUserId();
-		System.out.println(paramsMap);
-		for (String s : paramsMap.keySet()) {
-			System.out.println(s);
-		}
 		String day = (String) paramsMap.get("day");
+//		day.replaceAll("/", "-");
 		System.out.println(day);
-		List<String> activity = (List<String>) paramsMap.get("activity");
-		for (String o : activity) {
-			System.out.println(o);
-		}
+		List<String> activities = (List<String>) paramsMap.get("activity");
+
+		calenderService.addActivities(41, day, activities);
+
 
 		System.out.println("addActivity finish \n");
 
 //		ModelAndView mv = new ModelAndView();
 //		mv.setViewName("index");
-//		return mv;
+		return "redirect:/calendar/calendar";
 	}
 
 	/**

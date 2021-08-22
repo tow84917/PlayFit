@@ -1,6 +1,7 @@
 package com.java016.playfit.service;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 
 import com.java016.playfit.model.FitAchieve;
@@ -19,4 +20,6 @@ public interface CalendarService {
     List<Integer> findUserMonthlyFitDays(int month, int year);
 
     List<FitActivity> findActivities(String bodyPartSelect);
+
+    void addActivities(int loginUserId, String day, List<String> activities) throws ParseException;
 }

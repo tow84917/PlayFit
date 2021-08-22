@@ -27,7 +27,7 @@ public class FitActivity {
 	private String description;
 
 	@Column(name = "kcal_burn")
-	private Float kcalBurn;
+	private Integer kcalBurn;
 
 	@Column(name = "image_path")
 	private String imagePath;
@@ -48,6 +48,17 @@ public class FitActivity {
 	private FitActivityVideo fitActivityVideo;
 
 	public FitActivity() {
+	}
+
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("FitActivity{");
+		sb.append("id=").append(id);
+		sb.append(", bodyPart='").append(bodyPart).append('\'');
+		sb.append(", name='").append(name).append('\'');
+		sb.append(", time=").append(time);
+		sb.append('}');
+		return sb.toString();
 	}
 
 	public Integer getId() {
@@ -74,11 +85,11 @@ public class FitActivity {
 		this.description = description;
 	}
 
-	public Float getKcalBurn() {
+	public Integer getKcalBurn() {
 		return kcalBurn;
 	}
 
-	public void setKcalBurn(Float kcalBurn) {
+	public void setKcalBurn(Integer kcalBurn) {
 		this.kcalBurn = kcalBurn;
 	}
 
