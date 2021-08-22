@@ -13,16 +13,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java016.playfit.dao.DailyRecordRepository;
+import com.java016.playfit.dao.HealthRecordRepository;
+import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.FitActivity;
 import com.java016.playfit.service.MemberService;
 
 @Service
+@Transactional
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	DailyRecordRepository dailyRecordRepo;
+	
+	@Autowired
+	UserRepository userRepo;
+	
+	@Autowired
+	HealthRecordRepository healthRecordRepo;
 	
 	// 會員頁日期表示法
 	@Override

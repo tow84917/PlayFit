@@ -9,14 +9,13 @@ public interface UserService {
 	List<User> findAll();
 
 	// Id 找會員
-	User findById(Integer id);
+	User getUserById(Integer id);
 
 	// email 找會員
 	User findByEmail(String email);
 
+	// 註冊用
 	void saveUser(User user);
-
-	User getUserById(int id);
 
 	void updateUserName(int id, String fullName);
 
@@ -40,11 +39,11 @@ public interface UserService {
 	 * @return username
 	 */
 	String getLoginUserName();
-	
+
 	/**
 	 * 獲取登入Email
 	 * 
-	 * @return username
+	 * @return Email
 	 */
 	String getLoginUserEmail();
 
