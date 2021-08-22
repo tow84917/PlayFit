@@ -39,7 +39,8 @@ public interface PersonalGoalRepository extends JpaRepository<PersonalGoal, Inte
 	 */
 	@Query(value = "SELECT * FROM Personal_Goal p WHERE p.created_date = "
 			+ ":date AND p.user_id = :userId", nativeQuery=true)
-	public PersonalGoal findByUserIdAndDate(@Param("userId")Integer userId,@Param("date")Date date);
+	public PersonalGoal findByUserIdAndDate(@Param("userId")Integer userId,
+			@Param("date")Date date);
 
 }
 

@@ -30,14 +30,14 @@
 
 /* 修改個人資料表單 */
 .editForm {
-  width: 550px;
-  height: 680px;
-  border-radius: 25px;
-  /* border: 1px solid red; */
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  width: 520px;
+  height: 640px;
+  border-radius: 0px 25px 25px 25px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15);
   z-index: 3;
 
   background-color: rgba(235, 238, 248, 0.87);
+  border-left: 6px dashed rgba(0, 0, 0, 0.12);
 
   display: flex;
   align-items: center;
@@ -105,3 +105,46 @@
   left: 50%;
   transform: translate(-50%);
 }
+
+/* 連結範圍 */
+.hrefSelect {
+  width: 160px;
+  height: 230px;
+
+  background-color: rgba(235, 238, 248, 0.87);
+
+  position: relative;
+  bottom: 210px;
+
+  border-radius: 25px 0 0 25px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+/* 連結 */
+.editHref {
+  width: 150px;
+  height: 50px;
+  background-color: #6460ff;
+
+  font-size: 20px;
+  color: #eeeeee;
+  text-align: center;
+
+  border-radius: 10px 0 0 30px;
+}
+
+.editHref a {
+	color: white;
+	text-decoration: none;
+}
+
+
+
+
+
+
+

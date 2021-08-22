@@ -18,9 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,7 +33,6 @@ public class User implements UserDetails, Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotBlank(message = "全名不能空白")
 	@Column(name="full_name")
 	private String fullName;
 	
@@ -47,10 +43,8 @@ public class User implements UserDetails, Serializable{
 	
 	private String gender;
 	
-	@Email
 	private String email;
 	
-	@Pattern(regexp = "09\\d{8}" , message = "手機格式不符")
 	private String phone;
 	
 	private String address;
@@ -69,7 +63,7 @@ public class User implements UserDetails, Serializable{
 	@Column(name="certification_status")
 	private int certificationStatus;
 	
-	@ManyToOne 
+	@ManyToOne
 	@JoinColumn(name = "avatar_id", referencedColumnName = "id")
 	private Avatar avatar;
 	

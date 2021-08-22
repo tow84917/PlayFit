@@ -3,17 +3,17 @@ package com.java016.playfit.controller;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.java016.playfit.model.Avatar;
 import com.java016.playfit.model.DailyRecord;
@@ -53,23 +53,20 @@ public class MemberPageController {
 
 	// 會員頁面
 	@RequestMapping("/MemberPage")
-	public ModelAndView showMemberPage() {
-
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("MemberPage");
+	public String showMemberPage(Model model, RedirectAttributes ra, HttpServletRequest request) {
 
 		// 目前登入者 + Id
 		int userId = userService.getLoginUserId();
 		User user = userService.getUserById(userId);
-		mv.addObject("user", user);
+		model.addAttribute("user", user);
 
 		// 會員虛擬角色
 		Avatar avatar = user.getAvatar();
-		mv.addObject("avatar", avatar);
+		model.addAttribute("avatar", avatar);
 
 		// 會員頁日期表示法
 		String today = memberService.getFormatMemberPageDate();
-		mv.addObject("today", today);
+		model.addAttribute("today", today);
 
 		// 抓出今天的日期
 		java.util.Date utilDate = new java.util.Date();
@@ -78,103 +75,50 @@ public class MemberPageController {
 
 		// 取目前用戶今天的紀錄
 		DailyRecord todayRecord = dailyRecordService.findByUserIdAndDate(userId, sqlDate);
-		mv.addObject("todayRecord", todayRecord);
+		model.addAttribute("todayRecord", todayRecord);
 
 		// 如果今天還沒有紀錄
 		if (todayRecord == null) {
-			mv.addObject("completionRate", 0);
-			mv.addObject("activityStatus", false);
-			mv.addObject("calLost", 0);
-			mv.addObject("calGain", 0);
+			model.addAttribute("completionRate", 0);
+			model.addAttribute("activityStatus", false);
+			model.addAttribute("calLost", 0);
+			model.addAttribute("calGain", 0);
 		} else {
 			// 算今日項目達成率
 			Double completionRate = memberService.getTaskCompletionRate(todayRecord);
-			mv.addObject("completionRate", completionRate);
+			model.addAttribute("completionRate", completionRate);
 
 			// 今日運動項目 & 完成狀態
 			LinkedHashMap<FitActivity, String> activityStatus = memberService.getTodayActivityAndStatus(todayRecord);
-			mv.addObject("activityStatus", activityStatus);
+			model.addAttribute("activityStatus", activityStatus);
 
 			// 今日消耗
-			mv.addObject("calLost", todayRecord.getKcalBurned());
-			mv.addObject("calGain", todayRecord.getKcalIntake());
+			model.addAttribute("calLost", todayRecord.getKcalBurned());
+			model.addAttribute("calGain", todayRecord.getKcalIntake());
 
 		}
 
 		// 取最近健康紀錄
 		HealthRecord healthRecord = healthRecordService.findLastDateByUserId(userId);
-		mv.addObject("healthRecord", healthRecord);
+		model.addAttribute("healthRecord", healthRecord);
 
 		// 取最近目標紀錄
 		PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(userId);
-		mv.addObject("personalGoal", personalGoal);
+		model.addAttribute("personalGoal", personalGoal);
 
-		return mv;
-	}
-
-	// 處理修改表單
-	@PostMapping("/editProfile")
-	public String processEditProfile(@Valid @ModelAttribute("editUser") User editUser, BindingResult result) {
-
-		// 有錯回到原頁
-		if (result.hasErrors()) {
-			System.out.println(editUser.getFullName());
-			return "EditProfile";
+		// 收到 forward:/MemberPage (edit personalGoal)
+		String result = (String) request.getAttribute("result");
+		if (result != null) {
+			if (result.equalsIgnoreCase("error")) {
+				ra.addFlashAttribute("updateResult", "error"); // Flash forward 會消失
+			}
+			if (result.equalsIgnoreCase("success")) {
+				ra.addFlashAttribute("updateResult", "success");
+			}
+			return "redirect:/MemberPage";
 		}
 
-		userService.saveUser(editUser);
-
-		return "redirect:/MemberPage"; // redirect request
-
-	}
-
-	// 修改User Modal
-	@ModelAttribute("editUser")
-	public User giveEditUser() {
-		int userId = userService.getLoginUserId();
-		User editUser = userService.getUserById(userId);
-		return editUser;
-	}
-
-	// 修改表單頁面
-	@GetMapping("/editProfile")
-	public ModelAndView editProfilePage() {
-
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("EditProfile");
-
-		return mv;
-	}
-
-	// 修改個人目標
-	@PostMapping("/editPersonGoal")
-	public String editPersonGoal(@ModelAttribute("personalGoal") PersonalGoal editGoal) {
-		// user id
-		int userId = userService.getLoginUserId();
-		User user = userService.getUserById(userId);
-		// 抓出今天的日期
-		java.util.Date utilDate = new java.util.Date();
-		// 把日期轉成SQL型態的Date
-		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-		
-		PersonalGoal personalGoal = personalGoalService.findByUserIdAndDate(userId, sqlDate);
-		HealthRecord healthRecord = healthRecordService.findLastDateByUserId(userId);
-		
-		// 每天限一個目標
-		if (personalGoal == null) { // 新的
-			personalGoal = new PersonalGoal();
-			personalGoal.setUser(user);
-			personalGoal.setStartWeight(healthRecord.getWeight());
-			personalGoal.setGoalWeight(editGoal.getGoalWeight());
-			personalGoal.setTotalLost(0);
-			personalGoal.setCreateDate(sqlDate);
-			personalGoalService.savePersonalGoal(personalGoal);
-		}else if (personalGoal != null) { // 新的舊的修改
-			personalGoal.setGoalWeight(editGoal.getGoalWeight());
-			personalGoalService.savePersonalGoal(personalGoal);
-		}
-		
-		return "forward:MemberPage";
+		return "MemberPage";
 	}
 
 	// 取近期運動量
@@ -182,13 +126,45 @@ public class MemberPageController {
 	@ResponseBody
 	public Map<Integer, String[]> graphicExerciseData() {
 		Map<Integer, String[]> data = null;
-//		int userId = userService.getLoginUserId();
-
-//		data = dailyRecordService.weekExerciseData(userId);
-		data = memberService.getWeekExerciseData(1);
+		int userId = userService.getLoginUserId();
+		data = memberService.getWeekExerciseData(userId);
 		return data;
 	}
+
+	// 修改個人目標
+	@PostMapping("/editPersonGoal")
+	public String editPersonGoal(@RequestParam("editWeight") Double newGoal, HttpServletRequest request) {
+
+		// user id
+		int userId = userService.getLoginUserId();
+		User user = userService.getUserById(userId);
+
+		// 取最近健康紀錄
+		HealthRecord healthRecord = healthRecordService.findLastDateByUserId(userId);
+
+		// 設定目標高於體重則無效
+		if (newGoal >= healthRecord.getWeight()) {
+			request.setAttribute("result", "error"); // 加入訊息告知會員頁
+			return "forward:/MemberPage";
+		}
+
+		// 更新一天限創一個
+		personalGoalService.updatePersonalGoal(newGoal, user, healthRecord);
+		request.setAttribute("result", "success"); // 加入訊息告知會員頁
+
+		return "forward:/MemberPage";
+	}
+
+	// 連結到修改表單 Modal
+	@ModelAttribute("actionToEditForm")
+	public String goEditForm() {
+
+		return "editUser";
+	}
 }
+
+
+
 
 
 

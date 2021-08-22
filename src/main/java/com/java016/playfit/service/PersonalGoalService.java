@@ -3,7 +3,9 @@ package com.java016.playfit.service;
 import java.sql.Date;
 import java.util.List;
 
+import com.java016.playfit.model.HealthRecord;
 import com.java016.playfit.model.PersonalGoal;
+import com.java016.playfit.model.User;
 
 public interface PersonalGoalService {
 
@@ -16,7 +18,17 @@ public interface PersonalGoalService {
 	// 找特定User、日期目標紀錄
 	PersonalGoal findByUserIdAndDate(Integer userId, Date date);
 
-	// 儲存新目標
+	// 儲存目標
 	void savePersonalGoal(PersonalGoal personalGoal);
 
+	// 更新或儲存目標
+	void updatePersonalGoal(Double newGoal, User user, HealthRecord healthRecord);
+
 }
+
+
+
+
+
+
+

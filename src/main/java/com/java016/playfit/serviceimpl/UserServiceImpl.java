@@ -1,7 +1,6 @@
 package com.java016.playfit.serviceimpl;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService  {
 
 	// Id 找會員
 	@Override
-	public User findById(Integer id) {
+	public User getUserById(Integer id) {
 		return userRepo.findById(id)
 				.orElseThrow(() -> new RuntimeException("User " + id + " not found."));
 	}
@@ -42,7 +41,8 @@ public class UserServiceImpl implements UserService  {
 	public User findByEmail(String email) {
 		return userRepo.findByEmail(email);
 	}
-
+	
+	// 註冊用
 	@Override
 	public void saveUser(User user) {
 
@@ -56,18 +56,6 @@ public class UserServiceImpl implements UserService  {
 		System.out.println(user);
 		userRepo.save(user);
 
-	}
-
-	@Override
-	public User getUserById(int id) {
-		Optional<User> optional = userRepo.findById(id);
-		User user = null;
-		if (optional.isPresent()) {
-			user = optional.get();
-		} else {
-			throw new RuntimeException("User not found for id :: " + id);
-		}
-		return user;
 	}
 
 	@Override
@@ -111,6 +99,12 @@ public class UserServiceImpl implements UserService  {
 		return user.getFullName();
 	}
 	
+	/**
+	 * 獲取登入Email
+	 * 
+	 * @return Email
+	 */
+	@Override
 	public String getLoginUserEmail() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();

@@ -24,7 +24,20 @@
 	<div class="header"></div>
 	<!-- 修改個人資料表單 -->
 	<div class="main">
-		<form th:action="@{/editProfile}" th:object="${editUser}" method="POST" class="editForm" >
+	<!-- 	表單連結 -->
+		<div class="hrefSelect">
+			<div th:each="href: ${hrefList}">
+				<div class="editHref">
+					<a th:if="${href == '/editUser' && currentForm != 'userForm'}" th:href="@{${href}}">Personal Infomation</a> 
+					<span th:if="${href == '/editUser' && currentForm == 'userForm'}">Personal Infomation</span>
+					<a th:if="${href == '/editHealthRecord' && currentForm != 'healthRecordForm'}" th:href="@{${href}}">Health Record</a>
+					<span th:if="${href == '/editHealthRecord' && currentForm == 'healthRecordForm'}">Health Record</span> 
+					<a th:if="${href == '/editPassword' && currentForm != 'passwordForm'}" th:href="@{${href}}">Modify Password</a>
+					<span th:if="${href == '/editPassword' && currentForm == 'passwordForm'}">Modify Password</span> 
+				</div>
+			</div>
+		</div>	
+		<form th:action="@{/editMemberInfo}" th:object="${modifyUser}" method="POST" class="editForm" >
 			<div class="formRange">
 				<table>
 					<tr>
@@ -53,7 +66,7 @@
 					</tr>
 					<tr>
 						<td>
-							<p>Cell phone:</p>
+							<p>Phone:</p>
 							<p>
 								<input type="text" th:field="*{phone}" value=""
 									class="editColumn">
@@ -67,7 +80,8 @@
 								<input type="date" th:field="*{birthday}" value=""
 									class="editColumn">
 							</p>
-							<br>
+							<br th:unless="${#fields.hasErrors('birthday')}">
+							<span class="error" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Error</span>
 						</td>
 					</tr>
 					<tr>
