@@ -57,7 +57,31 @@ public class FitAchieve {
 	@JoinColumn(name="fit_activity_id")
 	private FitActivity fitActivity;
 
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("FitAchieve{");
+		sb.append("id=").append(id);
+		sb.append(", executionDate=").append(executionDate);
+		sb.append(", endTime=").append(endTime);
+		sb.append(", createdAt=").append(createdAt);
+		sb.append(", status='").append(status).append('\'');
+		sb.append(", numberGroups=").append(numberGroups);
+		sb.append(", totalKcal=").append(totalKcal);
+		sb.append(", dailyRecord=").append(dailyRecord.getId());
+		sb.append(", fitActivity=").append(fitActivity);
+		sb.append('}');
+		return sb.toString();
+	}
+
 	public FitAchieve() {
+	}
+
+	public FitAchieve(String status, Integer numberGroups, Integer totalKcal, DailyRecord dailyRecord, FitActivity fitActivity) {
+		this.status = status;
+		this.numberGroups = numberGroups;
+		this.totalKcal = totalKcal;
+		this.dailyRecord = dailyRecord;
+		this.fitActivity = fitActivity;
 	}
 
 	public Integer getId() {

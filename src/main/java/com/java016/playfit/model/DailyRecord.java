@@ -59,9 +59,14 @@ public class DailyRecord {
 	private List<Meal> meals;
 
 	public DailyRecord() {
-
 	}
-	
+
+	public DailyRecord(User user, Integer status, Date createdDate) {
+		this.user = user;
+		this.status = status;
+		this.createdDate = createdDate;
+	}
+
 	@JsonIgnore
 	public Integer getId() {
 		return id;
@@ -152,7 +157,7 @@ public class DailyRecord {
 		builder.append("DailyRecord [id=");
 		builder.append(id);
 		builder.append(", user=");
-		builder.append(user);
+		builder.append(user.getFullName());
 		builder.append(", kcalBurned=");
 		builder.append(kcalBurned);
 		builder.append(", kcalIntake=");

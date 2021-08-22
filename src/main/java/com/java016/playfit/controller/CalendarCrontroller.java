@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.java016.playfit.model.FitActivity;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -108,11 +110,9 @@ public class CalendarCrontroller {
 		return userMonthlyFitDays;
 	}
 
-
-
 	/**
 	 * 顯示 當日所排程的動作
-	 * @param paramsMap
+//	 * @param paramsMap
 	 * @param request
 	 * @param response
 	 * @return
@@ -121,14 +121,14 @@ public class CalendarCrontroller {
 	@RequestMapping(value = "/findToday" ,
 			method=RequestMethod.POST)
 	@ResponseBody
-	public String calendercopy(@RequestParam Map<String,Object> paramsMap , HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
-
-//		System.out.println(request.getParameter("day"));
-		System.out.println(paramsMap);
+	public String findActivityByDay(@RequestParam String day,
+									HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
+		System.out.println("findActivityByDay in");
+		System.out.println(day);
 	
-		String today = (String)paramsMap.get("day");
+//		String today = (String)paramsMap.get("day");
 //		today = today.replaceAll(",", "/");
-		String[] split = today.split("/");
+		String[] split = day.split("/");
 		Calendar c = new Calendar.Builder().build();
 		c.set(Integer.parseInt(split[0]),Integer.parseInt(split[1])-1,Integer.parseInt(split[2]));
 		java.sql.Date date = new Date(c.getTimeInMillis());
@@ -139,14 +139,6 @@ public class CalendarCrontroller {
 		String s = mapper.writeValueAsString(dailyRecords);
 
 		return s;
-	}
-
-	
-	@RequestMapping("image")
-	public ModelAndView image() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("img");
-		return mv;
 	}
 
 	/**
@@ -177,14 +169,62 @@ public class CalendarCrontroller {
 	public ModelAndView calendar(@AuthenticationPrincipal User user) {
 
 		System.out.println("calender**********");
-//		int userId = userService.getUserId();
-//		System.out.println(userId);
-		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/calendar/calendar copy.html");
 		return mv;
 	}
 
-}
+	/**
+	 * 增加健身計畫
+	 * @param paramsMap
+	 */
+	@RequestMapping("/addActivity")
+//	@ResponseBody
+	public String addActivity(@RequestBody Map<String,Object> paramsMap) throws ParseException {
+		System.out.println("addActivity");
+		int loginUserId = userService.getLoginUserId();
+		String day = (String) paramsMap.get("day");
+//		day.replaceAll("/", "-");
+		System.out.println(day);
+		List<String> activities = (List<String>) paramsMap.get("activity");
 
-// test
+		calenderService.addActivities(41, day, activities);
+
+
+		System.out.println("addActivity finish \n");
+
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("index");
+		return "redirect:/calendar/calendar";
+	}
+
+	/**
+	 * 找某部位的健身動作
+	 * @param bodyPartSelect
+	 */
+	@RequestMapping("findActivities")
+	@ResponseBody
+	public String findActivities(@RequestParam String bodyPartSelect) throws JsonProcessingException {
+		System.out.println("findActivities in");
+		System.out.println(bodyPartSelect);
+		List<FitActivity> activities = calenderService.findActivities(bodyPartSelect);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String s = mapper.writeValueAsString(activities);
+
+		System.out.println("findActivities out");
+		return s;
+	}
+
+	@RequestMapping("/addFit")
+	public ModelAndView addFit(@RequestParam Map<String,Object> paramsMap){
+		System.out.println("addFit");
+		System.out.println(paramsMap);
+		for (String s : paramsMap.keySet()) {
+			System.out.println(s);
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("index");
+		return mv;
+	}
+}

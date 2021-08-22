@@ -72,7 +72,18 @@ public class User implements UserDetails, Serializable{
 	
 	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	private List<PersonalGoal> PersonalGoals;
-	
+
+	@OneToMany(mappedBy = "user")
+	private List<DailyRecord> dailyRecords;
+
+	public List<DailyRecord> getDailyRecords() {
+		return dailyRecords;
+	}
+
+	public void setDailyRecords(List<DailyRecord> dailyRecords) {
+		this.dailyRecords = dailyRecords;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -212,11 +223,11 @@ public class User implements UserDetails, Serializable{
 		builder.append(", certificationStatus=");
 		builder.append(certificationStatus);
 		builder.append(", avatar=");
-		builder.append(avatar.getName());
+//		builder.append(avatar);
 		builder.append(", healthRecords=");
-		builder.append(healthRecords);
+//		builder.append(healthRecords.hashCode());
 		builder.append(", PersonalGoals=");
-		builder.append(PersonalGoals);
+//		builder.append(PersonalGoals.hashCode());
 		builder.append("]");
 		return builder.toString();
 	}

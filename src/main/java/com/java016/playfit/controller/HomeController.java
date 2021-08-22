@@ -51,6 +51,7 @@ public class HomeController {
 	@PostMapping("/process_register")
 	public ModelAndView processRegister(User user) {
 		ModelAndView mv = new ModelAndView();
+		System.out.println("controller > " + user);
 		userService.saveUser(user);
 		mv.setViewName("register_success");
 		return mv;

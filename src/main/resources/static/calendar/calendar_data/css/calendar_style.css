@@ -141,8 +141,8 @@
 
 /* .days div:hover:not(.today), */
 .days button:hover:not(.today) {
-  background-color: rgb(46, 179, 135);
-  border: 0.2rem solid #777;
+  /* background-color: rgb(46, 179, 135); */
+  border: 0.2rem solid var(--purple1);
   cursor: pointer;
 }
 
@@ -157,7 +157,13 @@
 
 /* 箭頭 */
 .fas {
-  font-size: 6rem;
+  /* font-size: 6rem; */
+  /* color: var(--white); */
+  fill: var(--white);
+  transition: fill 0.2s;
+}
+.fas:hover {
+  fill: var(--purple1);
 }
 
 /* 已完成 */

@@ -1,0 +1,19 @@
+/* 選中後樣式 */
+input:checked + label:after {
+  /* content: url(./svg/checkbox.svg); */
+  text-align: center;
+  /* line-height: 18px; */
+  /* 眼睛高度 */
+  margin: 0 0;
+  width: 0;
+  height: 0;
+  border-radius: inherit;
+  background: var(--green);
+  /* border: 2px solid var(--purple2); */
+}
+
+input:checked + label:before {
+  text-align: center;
+
+  background: greenyellow;
+}

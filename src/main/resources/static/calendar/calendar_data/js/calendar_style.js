@@ -1,8 +1,9 @@
 function dofirst() {
     date = new Date();
     console.log('date: ', date);
-    const today = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    today = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     console.log('day: ', today);
+    document.getElementById('day').innerText = today;
     findToday(today);
 
     let schedulet = getMonthlyFitDays(date);
@@ -269,7 +270,7 @@ document.querySelector(".prev").addEventListener("click", () => {
     getMonthlyRecord(date);
 });
 // 下一月
-document.querySelector(".next").addEventListener("click", () => {
+document.querySelector('.next').addEventListener("click", () => {
     date.setMonth(date.getMonth() + 1);
     monthDays.innerHTML = '';
     
@@ -287,12 +288,14 @@ $(document).ajaxSend(function (e, xhr, options) {
 });
 // 403 錯誤
 
+
+
 let day = document.querySelector(".days");
 day.addEventListener("click", (e) => {
 
     const target = e.target;
     
-    let today = target.value;
+    today = target.value;
     today =  today.replace(/,/g,'/');
     console.log('day: ', today);
     document.getElementById('day').innerText = today;
@@ -301,8 +304,9 @@ day.addEventListener("click", (e) => {
 
 });
 
-const todayFits = document.getElementById('today-fits');
+todayFits = document.getElementById('today-fits');
 
+// 更新當天所選動作
 function findToday(today) {
     todayFits.innerHTML = '';
     $.post("findToday", { day: today }, function (data) {
@@ -356,3 +360,145 @@ function findToday(today) {
     },'json');
 }
 
+// 送出選取動作
+const fitSubmit = document.getElementById('fit-submit'); // 送出按鈕
+const activity = document.getElementsByName('activity');
+
+fitSubmit.addEventListener('click', (e) => {
+    console.log('fitSubmit: ',today);
+
+    let value = new Array();
+    for (let i = 0; i < activity.length; i++) {
+        const element = activity[i];
+        if (element.checked) {
+            value.push(element.value);
+        }
+    }
+    console.log('value: ', value);
+
+    // 後端只能收到陣列的第一個值  {day=2021/8/19, activity[]=1}
+    // $.post("addActivity", {"day": today, "activity": value}, function (data) {
+    //     console.log('data: ', data);
+
+    //     findToday(today);
+    // })
+
+    console.log(JSON.stringify({day: today, activity: value}));
+
+    $.ajax({
+        url:"addActivity" , 
+        type: "POST" , 
+        async:false ,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json", 
+        data: JSON.stringify({day: today, activity: value}),
+        // data: json,
+        success: function (data) {
+            console.log('data: ', data);
+
+            findToday(today);
+            
+        },
+        error: function () {
+        },
+    })
+
+    findToday(today);
+    // getMonthlyFitDays(today);
+    
+
+    monthDays.innerHTML = '';
+    
+    let schedulet = getMonthlyFitDays(date);
+    renderCalender(schedulet);
+    
+})
+
+
+// 選取部位
+const body = document.getElementsByName('body');
+
+
+const bodyPart = document.querySelector('.fit-body-part');
+let bodyFlag = false ;
+bodyPart.addEventListener('click', (e) => {
+    console.log(e.target);
+    console.log(e.target.localName);
+
+    if (bodyFlag || e.target.localName != 'input') {
+        bodyFlag = false;
+        return;
+    }
+    let bodyPartSelect ;
+   
+    for (let i = 0; i < body.length; i++) {
+        const element = body[i]; 
+
+        if (element.checked) {
+            console.log('-------checkec-------');
+            bodyPartSelect = element.value;
+            bodyFlag = true;
+        }
+    }
+    console.log('bodyPartSelect: ', bodyPartSelect);
+
+    // 找部位動作
+    const allActivities = document.getElementById('all-activities');
+    allActivities.innerHTML = '';
+    $.post('findActivities' , {"bodyPartSelect": bodyPartSelect} , function (data) {
+        console.log('data: ', data);
+
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+
+            let inputId = 'cb' + i;
+            let input = document.createElement('input');
+            input.setAttribute('id', inputId);
+            input.setAttribute('type', 'checkbox');
+            input.setAttribute('name', 'activity');
+            input.setAttribute('value', element.id);
+            allActivities.appendChild(input);
+
+            // label ------------------------------------------------------------
+            let label = document.createElement('label');
+            label.setAttribute('class', 'fit-part');
+            label.setAttribute('for', inputId);
+
+            // ------------------------------------------------------------
+            let top = document.createElement('div');
+            top.setAttribute('class', 'fit-a-top');
+
+            let fitImg = document.createElement('img');
+            fitImg.setAttribute('class', 'fit-activity');
+            fitImg.setAttribute('src', element.imagePath);
+
+            top.appendChild(fitImg);
+            // ------------------------------------------------------------
+            let b = document.createElement('div');
+            b.setAttribute('class', 'fit-a-button');
+            b.innerHTML = element.name;
+            
+            // ------------------------------------------------------------
+
+            label.appendChild(top);
+            label.appendChild(b);
+            // label ------------------------------------------------------------
+
+            allActivities.appendChild(label);
+        }
+
+    },'json')
+})
+
+
+const addAchivity = document.getElementById('addAchivity');
+addAchivity.addEventListener('click' , () => {
+    const selectBody = document.querySelectorAll('.select-body');
+    console.log('selectBody: ', selectBody);
+    for (let i = 0; i < selectBody.length; i++) {
+        const element = selectBody[i];
+        element.checked = false;
+    }
+    const allActivities = document.getElementById('all-activities');
+    allActivities.innerHTML = '';
+})

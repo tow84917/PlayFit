@@ -1,21 +1,21 @@
 package com.java016.playfit.serviceimpl;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import com.java016.playfit.dao.*;
+import com.java016.playfit.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
 
 import com.java016.playfit.converter.LocalDateCalendarAttributeConverter;
-import com.java016.playfit.dao.AvatarRepository;
-import com.java016.playfit.dao.DailyRecordRepository;
-import com.java016.playfit.dao.FitAchieveRepository;
-import com.java016.playfit.dao.MonthlyRecordRepository;
-import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.Avatar;
 import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.FitAchieve;
@@ -23,11 +23,12 @@ import com.java016.playfit.model.MonthlyRecord;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.CalendarService;
 import com.java016.playfit.service.UserService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CalendarServiceImpl implements CalendarService {
 	@Autowired
-	FitAchieveRepository achieve_repository;
+	FitAchieveRepository fitAchieveRepository;
 	@Autowired
 	MonthlyRecordRepository monthlyRecordRepository;
 	@Autowired
@@ -35,10 +36,12 @@ public class CalendarServiceImpl implements CalendarService {
 	@Autowired
 	DailyRecordRepository dailyRecordRepository;
 	@Autowired
+	FitActivityRepository fitActivityRepository;
+	@Autowired
 	LocalDateCalendarAttributeConverter converter;
 	@Autowired
 	UserService userService;
-
+	
 	/**
 	 * 找user當月的紀錄
 	 * @param monthly
@@ -105,7 +108,7 @@ public class CalendarServiceImpl implements CalendarService {
 		System.out.println("findMonthlyFitDays--------");
 		int userId = userService.getLoginUserId();
 		System.out.println("userId: " + userId);
-		List<Date> monthlyDays = achieve_repository.findByMonthAndYearGroup(41, month, year);
+		List<Date> monthlyDays = fitAchieveRepository.findByMonthAndYearGroup(41, month, year);
 		System.out.println(monthlyDays);
 		for (Date c :
 				monthlyDays) {
@@ -178,6 +181,60 @@ public class CalendarServiceImpl implements CalendarService {
 		System.out.println("findUserMonthlyFitDays###############");
 		return set;
 	}
+
+	/**
+	 * 找某部位的健身動作
+	 * @param bodyPartSelect
+	 * @return
+	 */
+	@Override
+	public List<FitActivity> findActivities(String bodyPartSelect) {
+		System.out.println("calendarService in");
+		List<FitActivity> allByBodyPart = fitActivityRepository.findAllByBodyPart(bodyPartSelect);
+
+
+		return allByBodyPart;
+	}
+
+	/**
+	 * 依user增加一筆健身計畫
+	 * @param loginUserId
+	 * @param day
+	 * @param activities
+	 */
+	@Override
+	@Transactional
+	public void addActivities(int loginUserId, String day, List<String> activities) throws ParseException {
+		System.out.println("addActivities in");
+
+		// 2021/8/20 日期字串轉 sql.Date
+		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date(df.parse(day).getTime());
+		for (String activityId : activities) {
+			System.out.println(activityId);
+
+			// 依user、日期，找出當天日記的id
+			DailyRecord dailyRecord = dailyRecordRepository.findByUserIdAndDate(loginUserId, date);
+			// 如果沒日記，新增一筆
+			if (dailyRecord == null ) {
+				dailyRecord = new DailyRecord(userService.findById(loginUserId) , 0 , date);
+				dailyRecordRepository.save(dailyRecord);
+			}
+
+			// 依健身Id，找出健身項目
+			int id = Integer.parseInt(activityId);
+
+			FitActivity activity = fitActivityRepository.findById(id).get();
+
+			FitAchieve fitAchieve = new FitAchieve("未執行", 1, activity.getKcalBurn(), dailyRecord , activity);
+			System.out.println(fitAchieve);
+
+			fitAchieveRepository.save(fitAchieve);
+		}
+		System.out.println("addActivities out");
+//		fitAchieveRepository.saveAll();
+	}
+
 	@Autowired
 	AvatarRepository avatarRepo;
 

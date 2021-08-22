@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -13,8 +13,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
 
     <!-- 主要css -->
     <link rel="stylesheet" th:href="@{/style.css}" href="../../static/style.css">
@@ -23,15 +27,200 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- 日曆 部分的 -->
-    <link rel="stylesheet" th:href="@{./calendar_data/css/calendar_style.css}">
+    <link rel="stylesheet" th:href="@{./calendar_data/css/calendar_style.css}"
+        href="../../static/calendar/calendar_data/css/calendar_style.css">
     <!-- <link rel="stylesheet" href="../../static/calendar_data/css/calendar_style.css"> -->
 
-    <style>
-
-    </style>
 
     <!-- 其他佈局 css -->
-    <link rel="stylesheet" th:href="@{./calendar_data/calendar.css}" href="../../static/calendar_data/calendar.css">
+    <link rel="stylesheet" th:href="@{./calendar_data/calendar.css}"
+        href="../../static/calendar/calendar_data/calendar.css">
+    <style>
+        /* model 彈出視窗 */
+        .modal-content {
+            border-radius: var(--btn-border-radius);
+            background-color: var(--purple2);
+            border: 0;
+        }
+
+        .modal-header {
+            border-top-left-radius: var(--btn-border-radius);
+            border-top-right-radius: var(--btn-border-radius);
+            border: 0;
+
+        }
+
+        .modal-footer {
+            border: 0;
+        }
+
+
+        /* 彈出視窗body */
+        .body {
+            padding: 0;
+
+        }
+
+        /* 彈出視窗實際內容 */
+        .modal-bg {
+            background-color: var(--purple2);
+            height: 300px;
+            padding: 10px;
+            /* display: flex; */
+            /* flex-direction: column; */
+            /* flex-wrap: wrap; */
+            width: inherit;
+            /* 滾動 */
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+
+
+        }
+
+        .modal-top {
+            background-color: aqua;
+            /* width: 100%; */
+            height: inherit;
+            /* flex: 1; */
+            /* padding: 20px; */
+
+            display: flex;
+            /* flex-wrap: nowrap; */
+        }
+
+        .modal-button {
+            background-color: burlywood;
+            height: inherit;
+            /* flex: 1; */
+
+            display: flex;
+        }
+
+        /* 健身部位 */
+        .fit-part {
+            background-color: var(--purplebg);
+            height: 100%;
+            width: 400px;
+            /* margin: 10px; */
+            margin-left: 10px;
+            margin-right: 10px;
+            padding: 20px;
+            /* 水平內顯示為區塊 */
+            display: inline-block;
+            /* display: inline; */
+        }
+
+        .fit-part:hover {
+            background-color: var(--purple1);
+            transition: 0.2s;
+        }
+
+        #fits-form {
+            background-color: aliceblue;
+            height: inherit;
+            width: 100%;
+        }
+
+
+
+
+        input+label:hover {
+            transform: scale(1);
+            background: var(--purple3);
+        }
+
+        /* input + label:after {
+  content: '';
+} */
+
+        input:checked+label {
+            /* transform: scale(1); */
+            /* background-color: darkgreen; */
+            box-shadow: 0 0 0px 7px var(--purple1) inset;
+        }
+
+        input:checked+label:hover {
+            transform: scale(1);
+            /* transform: scale(0.95); */
+        }
+
+        input+label .fit-a {
+            background-color: darkgoldenrod;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 多選 label 內 div   */
+        /* input+label .fit-a:hover {
+            background-color: sandybrown;
+        } */
+
+        input:checked+label .fit-a {
+            /* transform: scale(1); */
+            background-color: darkgreen;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        .fit-a-top {
+
+            /* background-color: grey; */
+            width: 100%;
+            height: 70%;
+            display: flex;
+            align-items: center;
+        }
+
+        .fit-a-button {
+            /* background-color: cadetblue; */
+            width: 100%;
+            height: 30%;
+            /* text-align: center; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 2rem;
+            font-weight: var(--font-weight-blod);
+        }
+
+        .fit-activity {
+            width: 100%;
+        }
+
+
+        .model-submit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-1 {
+            position: fixed;
+            height: calc(var(--btn-width-height) / 2);
+            background-color: var(--white);
+            border-radius: 2px;
+            width: 3.5px;
+            transform: rotate(45deg);
+
+        }
+
+        .close-2 {
+            position: fixed;
+            height: calc(var(--btn-width-height) / 2);
+            background-color: var(--white);
+            border-radius: 2px;
+            width: 3.5px;
+            transform: rotate(-45deg);
+        }
+    </style>
 </head>
 
 <body>
@@ -84,8 +273,12 @@
                     </div>
                     <div class="col-12 my-col-m calendar-col">
                         <div class="calendar-inter div">
-                            <i class="fas fa-angle-left 
-                                    prev"></i>
+                            <svg class="fas prev" width="50" height="50" viewBox="0 0 49 49" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M24.1667 48.3334C37.5135 48.3334 48.3333 37.5136 48.3333 24.1667C48.3333 10.8198 37.5135 1.52588e-05 24.1667 1.52588e-05C10.8198 1.52588e-05 0 10.8198 0 24.1667C0 37.5136 10.8198 48.3334 24.1667 48.3334ZM27.2912 10.3745L15.2078 22.4578C14.2641 23.4016 14.2641 24.9318 15.2078 25.8755L27.2912 37.9589C28.2349 38.9026 29.7651 38.9026 30.7088 37.9589C31.6526 37.0151 31.6526 35.4849 30.7088 34.5412L20.3343 24.1667L30.7088 13.7922C31.6526 12.8484 31.6526 11.3183 30.7088 10.3745C29.7651 9.43074 28.2349 9.43074 27.2912 10.3745Z" />
+                            </svg>
+                            <!-- <i class="fas fa-angle-left prev"></i> -->
                             <!-- 日曆 -->
                             <div class="calendar">
                                 <div class="month">
@@ -110,8 +303,14 @@
                             </div>
                             <!-- <div class="container">
                             </div> -->
-                            <i class="fas fa-angle-right 
-                                    next"></i>
+                            <svg class="fas next" width="49" height="49" viewBox="0 0 49 49" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M24.1668 5.51668e-06C10.82 4.34986e-06 0.000163497 10.8198 0.00016233 24.1667C0.000161163 37.5136 10.8199 48.3333 24.1668 48.3333C37.5137 48.3333 48.3335 37.5136 48.3335 24.1667C48.3335 10.8198 37.5137 6.6835e-06 24.1668 5.51668e-06ZM21.0423 37.9588L33.1257 25.8755C34.0694 24.9318 34.0694 23.4016 33.1257 22.4578L21.0423 10.3745C20.0986 9.43073 18.5684 9.43073 17.6247 10.3745C16.6809 11.3183 16.6809 12.8484 17.6247 13.7922L27.9991 24.1667L17.6247 34.5412C16.6809 35.4849 16.6809 37.0151 17.6247 37.9588C18.5684 38.9026 20.0986 38.9026 21.0423 37.9588Z" />
+                            </svg>
+
+                            <!-- <i class="fas fa-angle-right 
+                                    next"></i> -->
                         </div>
                     </div>
                 </div>
@@ -137,7 +336,8 @@
                             </div>
                             <!-- 加號 -->
                             <div class=" align-r">
-                                <button class="plus btn ">
+                                <button id="addAchivity" class="plus btn btn-primary" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop" 　>
                                     <span class="line-1"></span>
                                     <span class="line-2"></span>
                                 </button>
@@ -157,9 +357,105 @@
     </div>
 
 
-    <script>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
-    </script>
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <!--  -->
+                <form id="fits-form " th:action="@{addFit}" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                        <button type="button" class="btn plus" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="close-1"></span>
+                            <span class="close-2"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body body">
+                        <div class="modal-bg fit-body-part">
+                            <input class="select-body" id="body1" type="radio" name="body" value="Upper" />
+                            <label class="fit-part" for="body1">
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
+
+                                </div>
+                                <div class="fit-a-button">
+                                    Upper </div>
+                            </label>
+                            <input class="select-body" id="body2" type="radio" name="body" value="Core" />
+                            <label class="fit-part" for="body2">
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
+
+                                </div>
+                                <div class="fit-a-button">
+                                    Core </div>
+                            </label>
+                            <input class="select-body" id="body3" type="radio" name="body" value="Lower" />
+                            <label class="fit-part" for="body3">
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
+
+                                </div>
+                                <div class="fit-a-button">
+                                    Lower </div>
+                            </label>
+                            <input class="select-body" id="body4" type="radio" name="body" value="HIIT" />
+                            <label class="fit-part" for="body4">
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
+
+                                </div>
+                                <div class="fit-a-button">
+                                    HIIT
+                                </div>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="modal-body body">
+
+                        <div class="modal-bg" id="all-activities">
+                            <!-- <input id="checkbox" type="checkbox" name="activity" value="1" />
+                            <label class="fit-part" for="checkbox">
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
+                                </div>
+                                <div class="fit-a-button">
+                                </div>
+                            </label>
+
+                            <input id="checkbox2" type="checkbox" name="activity" value="2" />
+                            <label class="fit-part" for="checkbox2">
+                                <div class="fit-a-top">
+                                    <img class="fit-activity" src="./images/Fit_activity/10_min_BLIT.png" alt="">
+
+                                </div>
+                                <div class="fit-a-button">
+
+                                </div>
+
+                            </label> -->
+
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <div id="fit-submit" class="btn rounded-pill model-submit" data-bs-dismiss="modal"
+                            aria-label="Close">
+                            submit </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
         integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
@@ -169,7 +465,8 @@
     <!-- ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- 日曆 -->
-    <script th:src="@{./calendar_data/js/calendar_style.js}"></script>
+    <script th:src="@{./calendar_data/js/calendar_style.js}"
+        src="../../static/calendar/calendar_data/js/calendar_style.js"></script>
     <!-- <script th:href="@{./calendar/js/calendar_style.js}" src="../../static/js/calendar_style.js"></script> -->
 
 </body>
