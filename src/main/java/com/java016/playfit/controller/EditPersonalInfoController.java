@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.java016.playfit.model.HealthRecord;
 import com.java016.playfit.model.User;
@@ -34,7 +33,7 @@ public class EditPersonalInfoController {
 	// 處理修改USER
 	@PostMapping("/editMemberInfo")
 	public String processEditProfile(@ModelAttribute("modifyUser") User modifyUser, 
-			BindingResult result, RedirectAttributes ra) {
+			BindingResult result) {
 
 		// 驗證
 		new editUserValidator().validate(modifyUser, result);
@@ -51,16 +50,36 @@ public class EditPersonalInfoController {
 		int userId = userService.getLoginUserId();
 		User user = userService.getUserById(userId);
 		
-		// 取最近健康紀錄
-		HealthRecord healthRecord = healthRecordService.findLastDateByUserId(userId);
+		// 取最近期健康紀錄
+		HealthRecord healthRecordLast = healthRecordService.findLastDateByUserId(userId);
 		
 		// 檢查年記是否改變(年紀影響 BMR、TDEE、BFP、FFMI)
-		int originAge = healthRecord.getAge();
+		int originAge = healthRecordLast.getAge();
 		int newAge = bodyCalculator.calAge(modifyUser.getBirthday()); 
 		
 		// 儲存或更新健康紀錄
 		if (newAge != originAge) {
-			healthRecordService.updateHealthRecord(user, healthRecord);
+			
+			// 抓出今天的日期
+			java.util.Date utilDate = new java.util.Date();
+			
+			// 把日期轉成SQL型態的Date
+			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			
+			// 取今日紀錄
+			HealthRecord healthRecordToday = 
+					healthRecordService.findByUserIdAndDate(userId, sqlDate);
+			
+			// 無今日紀錄則創建
+			if (healthRecordToday == null) {
+				healthRecordService.createNewRecord(healthRecordLast, user, sqlDate);
+			}
+			
+			// 有今日紀錄則更新
+			if (healthRecordToday != null) {
+				healthRecordService.updateHealthRecord(user, healthRecordToday);
+			}
+			
 		}
 
 		return "redirect:/MemberPage"; // redirect request

@@ -20,7 +20,10 @@ public interface HealthRecordService {
 	// 儲存健康紀錄
 	void saveHealthRecord(HealthRecord healthRecord);
 
-	// 更新或儲存健康紀錄
-	void updateHealthRecord(User user, HealthRecord healthRecord);
+	// 創建新的健康紀錄(無今日紀錄時)
+	void createNewRecord(HealthRecord lastRecord, User user, Date date);
+
+	// 更新健康紀錄(無今日紀錄時)
+	void updateHealthRecord(User user, HealthRecord healthRecordToday);
 
 }

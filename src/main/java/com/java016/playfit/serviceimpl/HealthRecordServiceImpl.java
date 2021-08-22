@@ -42,54 +42,36 @@ public class HealthRecordServiceImpl implements HealthRecordService {
 		HealthRecord healthRecord = healthRecordRepo.findByUserIdAndDate(userId, date);
 		return healthRecord;
 	}
-	
+
 	// 儲存健康紀錄
 	@Override
 	public void saveHealthRecord(HealthRecord healthRecord) {
 		healthRecordRepo.save(healthRecord);
 	}
 
-	// 更新或儲存健康紀錄
+	// 創建新的健康紀錄(無今日紀錄時)
 	@Override
-	public void updateHealthRecord(User user, HealthRecord healthRecord) {
+	public void createNewRecord(HealthRecord lastRecord, User user, Date date) {
+		
+		// 用舊的紀錄給欄位缺少的值
+		HealthRecord healthRecordToday = new HealthRecord();
+		healthRecordToday.setHeight(lastRecord.getHeight());
+		healthRecordToday.setWeight(lastRecord.getWeight());
+		healthRecordToday.setAge(bodyCalculator.calAge(user.getBirthday()));
+		healthRecordToday.setExerciseFrequency(lastRecord.getExerciseFrequency());
+		healthRecordToday.setCalorieDeficit(lastRecord.getCalorieDeficit());
+		healthRecordToday.setDate(date);
+		healthRecordToday.setUser(user);
+		healthRecordToday = bodyCalculator.calAll(healthRecordToday, user);
+		healthRecordRepo.save(healthRecordToday);
+	}
 
-		// 今天的日期
-		java.util.Date utilDate = new java.util.Date();
-		// 把日期轉成SQL型態的Date
-		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-
-		// 找今天是否已經有紀錄
-		HealthRecord healthRecordToday = healthRecordRepo.findByUserIdAndDate(user.getId(), sqlDate);
-
-		// 每天限創一個健康紀錄
-		if (healthRecordToday == null) { // 新的
-			healthRecordToday = new HealthRecord();
-			healthRecordToday.setHeight(healthRecord.getHeight());
-			healthRecordToday.setWeight(healthRecord.getWeight());
-			healthRecordToday.setAge(bodyCalculator.calAge(user.getBirthday()));
-			healthRecordToday.setExerciseFrequency(healthRecord.getExerciseFrequency());
-			healthRecordToday.setCalorieDeficit(healthRecord.getCalorieDeficit());
-			healthRecordToday.setDate(sqlDate);
-			healthRecordToday.setUser(user);
-			healthRecordToday = bodyCalculator.calAll(healthRecordToday, user);
-			healthRecordRepo.save(healthRecordToday);
-		} else if (healthRecordToday != null) { // 舊的修改
-			healthRecordToday = bodyCalculator.calAll(healthRecordToday, user);
-			healthRecordToday.setCalorieDeficit(healthRecord.getCalorieDeficit());
-			healthRecordRepo.save(healthRecordToday);
-		}
+	// 更新健康紀錄(有今日紀錄時)
+	@Override
+	public void updateHealthRecord(User user, HealthRecord healthRecordToday) {
+		
+		healthRecordToday = bodyCalculator.calAll(healthRecordToday, user);
+		healthRecordRepo.save(healthRecordToday);
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
