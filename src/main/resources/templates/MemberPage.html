@@ -11,7 +11,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
     </style>
     <!-- 會員Css -->
-    <link rel="stylesheet" th:href="@{/memberPage/MemberPage.css}">
+    <link rel="stylesheet" th:href="@{/memberPage/css/MemberPage.css}">
     <title>MemberPage</title>
 </head>
 <body>
@@ -143,10 +143,21 @@
                                     <span class="weightAnnotation">Start</span>
                                 </div>
                                 <div>
-                                    <p id="centerFocus" th:text ="${healthRecord.weight} + 'KG'"></p>
-                                        <span class="weightAnnotation">
-                                            Current<br>Weight
-                                        </span>
+								<!-- 未完成 -->
+                                	<div th:if="${healthRecord.weight > personalGoal.goalWeight}">
+	                                    <p id="centerFocus" th:text ="${healthRecord.weight} + 'KG'"></p>
+	                                        <span class="weightAnnotation">
+	                                            Current<br>Weight
+	                                        </span>
+                                     </div>
+								<!-- 完成 -->
+                                     <div th:if="${healthRecord.weight <= personalGoal.goalWeight}" style="color: #85FF9E; font-size: 16px">
+                                		<br>
+                                		<p id="centerFocus" th:text ="${healthRecord.weight} + 'KG'" style="color: #6460ff; line-height: 6px"></p>
+                                		<br>
+                                		<p>Congratulations !</p>
+                                		<p>You completed the goal .</p>
+                               		</div>
                                 </div>
                                 <div>
                                     <p th:text ="${personalGoal.goalWeight} + 'KG'"></p>
@@ -233,8 +244,13 @@
     </div>
     <div class="footer"></div>
     <div class="overlay hidden"></div>
-    <script type="text/javascript" th:src="@{\memberPage\taskCanvas.js}"></script>
-    <script type="text/javascript" th:src="@{\memberPage\MemberPage.js}"></script>
-    <script type="text/javascript" th:src="@{\memberPage\bodyCanvas.js}"></script>   
+    <script type="text/javascript" th:src="@{\memberPage\js\taskCanvas.js}"></script>
+    <script type="text/javascript" th:src="@{\memberPage\js\MemberPage.js}"></script>
+    <script type="text/javascript" th:src="@{\memberPage\js\bodyCanvas.js}"></script>
+    <script th:inline="javascript">
+    	var message = /*[[${updateMessage}]]*/ 'default';
+    	if(message == 'editUserSuccess') alert('Upadate User Information success.');
+    	if(message == 'editBodyInfoSuccess') alert('Upadate Body Information success.');
+    </script>   
 </body>
 </html>

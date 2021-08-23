@@ -1,0 +1,606 @@
+@charset "UTF-8";
+/* css reset ---------------------------------- */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+div, ul, li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* css reset ---------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+/* 設定變數 ---------------------------------- */
+:root {
+  --purple3: #ccccff;
+  --purple2: #6460ff;
+  --purple1: #2e1ed3;
+  --white: #ffffff;
+  --Gy1: #e4ebf5;
+  --Gy2: #c8d0e7;
+  --Gy3: #bec8e4;
+  --greyDark: #9baacf;
+  --navbar-background:rgba(255, 255, 255, 0.808);
+  --navbar-shadow:rgba(128, 128, 128, 0.322);
+}
+
+/* 設定變數 ---------------------------------- */
+.w800 {
+  font-weight: 800;
+}
+
+/* RWD ---------------------------------- */
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  overflow-y: scroll;
+  font-family: "Montserrat", sans-serif;
+}
+html body {
+  height: 100%;
+}
+html li {
+  list-style: none;
+}
+html a {
+  text-decoration: none;
+}
+html .container {
+  font-size: 2.4rem;
+}
+html .navbar {
+  padding: 30px 88px;
+}
+html .nav-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+html .nav-menu .nav-item {
+  margin-top: 2.3px;
+  margin-left: 2rem;
+}
+html .nav-menu .nav-item .nav-link {
+  position: relative;
+  font-size: 1.4rem;
+  padding: 20px 12px;
+}
+html .nav-menu .nav-item img {
+  margin-right: 20px;
+}
+@media (max-width: 1280px) {
+  html .character ul li {
+    margin-bottom: 3%;
+  }
+  html .character ul li img {
+    height: 10%;
+  }
+  html .diary {
+    margin-bottom: 200px;
+  }
+  html .diary ul {
+    margin-top: 350px;
+  }
+  html .diary ul .diary-word {
+    width: auto;
+  }
+}
+@media (max-width: 992px) {
+  html .navbar {
+    padding: 30px 39px;
+  }
+  html .navbar img {
+    margin-right: 10px;
+  }
+  html .character ul li {
+    margin-bottom: 3%;
+  }
+  html .character ul li img {
+    width: 40%;
+  }
+  html .train-at-home ul {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  html .train-at-home ul .bubble-train img {
+    width: 50%;
+  }
+  html .train-at-home ul li {
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 2.5%;
+  }
+  html .diary ul {
+    margin: 40px 0;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  html .diary ul .diary-img img {
+    width: 50%;
+  }
+  html .diary ul li {
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 2.5%;
+  }
+  html footer {
+    padding: 15% 80px;
+  }
+  html .wrapper p {
+    font-size: 2.4rem;
+  }
+}
+@media (max-width: 768px) {
+  html .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 6rem;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+    transition: 0.3s;
+  }
+  html .nav-menu .nav-item {
+    margin: 2.5rem 0;
+    padding-top: 2rem;
+  }
+  html .nav-menu .nav-item .nav-link {
+    position: relative;
+    font-size: 1.4rem;
+    padding: 20px 12px;
+    color: var(--purple1);
+  }
+  html .nav-menu .nav-item .nav-link:hover {
+    color: #ffffff;
+  }
+  html .nav-menu .nav-item .nav-link::before {
+    transform: scaleX(0) !important;
+    transform-origin: center !important;
+  }
+  html .nav-menu .nav-item .nav-link:hover::before {
+    transform: scaleX(2000%) !important;
+    transform-origin: center !important;
+  }
+  html .nav-menu .nav-item .nav-link::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    inset: 0 0 0 0;
+    background: var(--purple1);
+    z-index: -1;
+    transition: transform 0.3s ease;
+  }
+  html .nav-menu.active {
+    box-shadow: 3px 3px 12px rgba(128, 128, 128, 0.322);
+    background-color: rgba(255, 255, 255, 0.808);
+    left: 0;
+  }
+  html .hamburger {
+    display: block;
+    cursor: pointer;
+  }
+  html .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  html .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  html .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  html .character li {
+    height: auto;
+    margin-bottom: 4%;
+  }
+  html .wrapper p {
+    font-size: 1.8rem;
+  }
+  html footer {
+    padding: 15% 50px;
+  }
+}
+
+/* RWD ---------------------------------- */
+/* header ---------------------------------- */
+header {
+  margin-bottom: -115px;
+  z-index: 99999;
+  position: fixed;
+  height: 60px;
+  width: 100%;
+  background-color: var(--purple1);
+  background: white;
+  box-shadow: 3px 3px 12px rgba(128, 128, 128, 0.322);
+  padding: 3px;
+  backdrop-filter: blur(8px);
+}
+header .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+header .navbar .nav-logo {
+  margin-top: 5px;
+  margin-left: 15px;
+}
+header .navbar .nav-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .navbar .nav-menu .nav-item {
+  margin-top: 2.3px;
+}
+header .navbar .nav-menu .nav-item .nav-link {
+  font-size: 1.4rem;
+  padding: 20px 12px;
+  color: var(--purple1);
+}
+header .navbar .nav-menu .nav-item .nav-link:hover {
+  color: #ffffff;
+}
+header .navbar .nav-menu .nav-item .nav-link::before {
+  transform: scaleX(0);
+  transform-origin: bottom right;
+}
+header .navbar .nav-menu .nav-item .nav-link:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+header .navbar .nav-menu .nav-item .nav-link::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  inset: 0 0 0 0;
+  background: var(--purple1);
+  z-index: -1;
+  transition: transform 0.3s ease;
+}
+
+.header {
+  visibility: visible;
+  z-index: 99999;
+  position: fixed;
+  height: 60px;
+  width: 100%;
+  background-color: var(--purple1);
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 3px 3px 12px rgba(128, 128, 128, 0.322);
+  padding: 3px;
+  backdrop-filter: blur(8px);
+}
+.header .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+.header .navbar .nav-logo {
+  margin-top: 5px;
+  margin-left: 15px;
+}
+.header .navbar .nav-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .navbar .nav-menu .nav-item {
+  margin-top: 2.3px;
+}
+.header .navbar .nav-menu .nav-item .nav-link {
+  font-size: 1.4rem;
+  padding: 20px 12px;
+  color: var(--purple1);
+}
+.header .navbar .nav-menu .nav-item .nav-link:hover {
+  color: #ffffff;
+}
+.header .navbar .nav-menu .nav-item .nav-link::before {
+  transform: scaleX(0);
+  transform-origin: bottom right;
+}
+.header .navbar .nav-menu .nav-item .nav-link:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.header .navbar .nav-menu .nav-item .nav-link::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  inset: 0 0 0 0;
+  background: var(--purple1);
+  z-index: -1;
+  transition: transform 0.3s ease;
+}
+
+.hamburger {
+  display: none;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--purple1);
+}
+
+/* header ---------------------------------- */
+/* 小怪獸律動---------------------------------- */
+@keyframes rattle {
+  0% {
+    -webkit-transform: translateX(-4px);
+    letter-spacing: -0.012em;
+  }
+  25% {
+    -webkit-transform: translateY(-4px) rotate(-8deg);
+    font-size: 8.9999em;
+  }
+  50% {
+    -webkit-transform: translateX(4px);
+    text-shadow: 0 1px 0 #000;
+  }
+  75% {
+    -webkit-transform: translateY(4px);
+  }
+  100% {
+    -webkit-transform: translateY(10px);
+  }
+}
+@keyframes rattle1 {
+  0% {
+    -webkit-transform: translateX(0px);
+    letter-spacing: -0.012em;
+  }
+  25% {
+    -webkit-transform: translateY(4px);
+  }
+  50% {
+    -webkit-transform: translateX(0px);
+  }
+  75% {
+    -webkit-transform: translateY(14px);
+  }
+  100% {
+    -webkit-transform: translateY(-7px);
+  }
+}
+.multi-ani {
+  animation: rattle 1.2s infinite alternate;
+  color: var(--white);
+  font-size: 7em;
+  text-align: center;
+  text-shadow: 0 4px 0 #000, -2px -2px 0 var(--purple1), -3px -3px 0 var(--white);
+}
+
+.multi-ani1 {
+  animation: rattle1 4s infinite alternate;
+  z-index: -99999;
+  color: var(--white);
+  text-align: center;
+  text-shadow: 0 4px 0 #000, -2px -2px 0 var(--purple1), -3px -3px 0 var(--white);
+}
+
+.multi-ani2 {
+  animation: rattle1 3s infinite alternate;
+  color: var(--white);
+  text-align: center;
+  text-shadow: 0 4px 0 #000, -2px -2px 0 var(--purple1), -3px -3px 0 var(--white);
+}
+
+.multi-ani3 {
+  animation: rattle1 5s infinite alternate;
+  color: var(--white);
+  text-align: center;
+  text-shadow: 0 4px 0 #000, -2px -2px 0 var(--purple1), -3px -3px 0 var(--white);
+}
+
+.multi-ani4 {
+  animation: rattle1 6s infinite alternate;
+  color: var(--white);
+  text-align: center;
+  text-shadow: 0 4px 0 #000, -2px -2px 0 var(--purple1), -3px -3px 0 var(--white);
+}
+
+/* 小怪獸律動---------------------------------- */
+.topHeader {
+  width: 100%;
+  height: 1024px;
+  font-size: 50px;
+  padding-top: 150px;
+  background-color: var(--purple1);
+  background-size: 10%;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.topHeader .bubble {
+  text-align: right;
+  margin-right: 5px;
+}
+.topHeader h1 {
+  text-align: left;
+  padding-left: 50px;
+  color: var(--white);
+}
+
+.container {
+  margin-bottom: 100px;
+  background-size: cover;
+  width: 100%;
+}
+.container h1 {
+  color: black;
+  font-size: 48px;
+  line-height: 55px;
+  text-align: center;
+  padding-top: 70px;
+  padding-bottom: 50px;
+}
+.container p {
+  color: black;
+  padding: 0 13%;
+  line-height: 40px;
+  background: white;
+}
+.container ul h1 {
+  padding: 5% 0;
+}
+.container ul .character {
+  padding-top: 100px;
+}
+.container ul .character ul {
+  margin-bottom: 40px;
+  text-align: center;
+}
+.container ul .character ul li {
+  text-align: center;
+  display: inline-block;
+  margin-bottom: 2.5%;
+}
+.container ul .character ul li img {
+  width: 80%;
+}
+.container ul .character:after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+.container ul .train-at-home {
+  height: 900px;
+}
+.container ul .train-at-home ul {
+  margin-bottom: 40px;
+  text-align: center;
+}
+.container ul .train-at-home ul .bubble-train img {
+  width: 70%;
+}
+.container ul .train-at-home ul li {
+  text-align: center;
+  display: inline-block;
+  margin-bottom: 2.5%;
+}
+.container ul .train-at-home:after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+.container ul .train-at-home h1 {
+  text-align: left;
+  padding-left: 50px;
+}
+.container ul .diary {
+  padding: 0 5%;
+  margin-bottom: 200px;
+  height: 900px;
+}
+.container ul .diary ul {
+  text-align: center;
+}
+.container ul .diary ul .diary-word {
+  width: 50%;
+}
+.container ul .diary ul .diary-img img {
+  margin-top: 40px;
+  width: 100%;
+}
+.container ul .diary ul li {
+  text-align: center;
+  display: inline-block;
+  margin-bottom: 2.5%;
+}
+.container ul .diary:after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+.container ul .diary h1 {
+  text-align: left;
+  padding-left: 100px;
+}
+
+footer {
+  font-size: 1.6rem;
+  padding: 10% 150px;
+  line-height: 2.4rem;
+  background-color: var(--purple1);
+  text-align: center;
+  color: white;
+}
+footer div ul li {
+  padding-bottom: 50px;
+}
+
+/*# sourceMappingURL=_index.css.map */

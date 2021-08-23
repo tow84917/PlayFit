@@ -1,0 +1,288 @@
+@charset "UTF-8";
+/* css reset ---------------------------------- */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* css reset ---------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+/* 設定變數 ---------------------------------- */
+:root {
+  --purple3: #ccccff;
+  --purple2: #6460ff;
+  --purple1: #2e1ed3;
+  --white: #ffffff;
+  --Gy1: #e4ebf5;
+  --Gy2: #c8d0e7;
+  --Gy3: #bec8e4;
+  --greyDark: #9baacf;
+  --navbar-background:rgba(255, 255, 255, 0.808);
+  --navbar-shadow:rgba(128, 128, 128, 0.322);
+}
+
+/* 設定變數 ---------------------------------- */
+.w800 {
+  font-weight: 800;
+}
+
+/* RWD ---------------------------------- */
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  overflow-y: scroll;
+  font-family: "Montserrat", sans-serif;
+}
+html li {
+  list-style: none;
+}
+html a {
+  text-decoration: none;
+}
+html .wrapper {
+  font-size: 28px;
+}
+html .navbar {
+  padding: 30px 88px;
+}
+html .nav-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+html .nav-menu .nav-item {
+  margin-top: 2.3px;
+  margin-left: 2rem;
+}
+html .nav-menu .nav-item .nav-link {
+  position: relative;
+  font-size: 1.4rem;
+  padding: 20px 12px;
+}
+html .nav-menu .nav-item img {
+  margin-right: 20px;
+}
+@media (max-width: 992px) {
+  html .navbar {
+    padding: 30px 39px;
+  }
+  html img {
+    margin-right: 10px;
+  }
+  html footer {
+    padding: 15% 80px;
+  }
+  html .wrapper p {
+    font-size: 2.4rem;
+  }
+}
+@media (max-width: 768px) {
+  html .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 6rem;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+    transition: 0.3s;
+  }
+  html .nav-menu .nav-item {
+    margin: 2.5rem 0;
+    padding-top: 2rem;
+  }
+  html .nav-menu .nav-item .nav-link {
+    position: relative;
+    font-size: 1.4rem;
+    padding: 20px 12px;
+    color: var(--purple1);
+  }
+  html .nav-menu .nav-item .nav-link:hover {
+    color: #ffffff;
+  }
+  html .nav-menu .nav-item .nav-link::before {
+    transform: scaleX(0) !important;
+    transform-origin: center !important;
+  }
+  html .nav-menu .nav-item .nav-link:hover::before {
+    transform: scaleX(2000%) !important;
+    transform-origin: center !important;
+  }
+  html .nav-menu .nav-item .nav-link::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    inset: 0 0 0 0;
+    background: var(--purple1);
+    z-index: -1;
+    transition: transform 0.3s ease;
+  }
+  html .nav-menu.active {
+    box-shadow: 3px 3px 12px rgba(128, 128, 128, 0.322);
+    background-color: rgba(255, 255, 255, 0.808);
+    left: 0;
+  }
+  html .hamburger {
+    display: block;
+    cursor: pointer;
+  }
+  html .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  html .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  html .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  html .wrapper p {
+    font-size: 1.8rem;
+  }
+  html footer {
+    padding: 15% 50px;
+  }
+}
+
+/* RWD ---------------------------------- */
+/* header ---------------------------------- */
+.header {
+  position: fixed;
+  height: 60px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 3px 3px 12px rgba(128, 128, 128, 0.322);
+  padding: 3px;
+  backdrop-filter: blur(8px);
+}
+.header .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+.header .navbar .nav-logo {
+  margin-top: 5px;
+  margin-left: 15px;
+}
+.header .navbar .nav-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .navbar .nav-menu .nav-item {
+  margin-top: 2.3px;
+}
+.header .navbar .nav-menu .nav-item .nav-link {
+  font-size: 1.4rem;
+  padding: 20px 12px;
+  color: var(--purple1);
+}
+.header .navbar .nav-menu .nav-item .nav-link:hover {
+  color: #ffffff;
+}
+.header .navbar .nav-menu .nav-item .nav-link::before {
+  transform: scaleX(0);
+  transform-origin: bottom right;
+}
+.header .navbar .nav-menu .nav-item .nav-link:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.header .navbar .nav-menu .nav-item .nav-link::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  inset: 0 0 0 0;
+  background: var(--purple1);
+  z-index: -1;
+  transition: transform 0.3s ease;
+}
+
+.hamburger {
+  display: none;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--purple1);
+}
+
+/* header ---------------------------------- */
+footer {
+  font-size: 1.6rem;
+  padding: 10% 150px;
+  line-height: 2.4rem;
+  background-color: var(--purple1);
+  text-align: center;
+  color: white;
+}
+footer div ul li {
+  padding-bottom: 50px;
+}
+
+/*# sourceMappingURL=_headerAndFooter.css.map */

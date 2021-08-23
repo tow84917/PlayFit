@@ -9,21 +9,25 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import com.java016.playfit.dao.*;
-import com.java016.playfit.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.java016.playfit.converter.LocalDateCalendarAttributeConverter;
+import com.java016.playfit.dao.AvatarRepository;
+import com.java016.playfit.dao.DailyRecordRepository;
+import com.java016.playfit.dao.FitAchieveRepository;
+import com.java016.playfit.dao.FitActivityRepository;
+import com.java016.playfit.dao.MonthlyRecordRepository;
+import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.Avatar;
 import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.FitAchieve;
+import com.java016.playfit.model.FitActivity;
 import com.java016.playfit.model.MonthlyRecord;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.CalendarService;
 import com.java016.playfit.service.UserService;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CalendarServiceImpl implements CalendarService {

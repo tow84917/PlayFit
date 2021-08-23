@@ -16,7 +16,7 @@ import com.java016.playfit.service.UserService;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService  {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepo;
@@ -57,9 +57,25 @@ public class UserServiceImpl implements UserService  {
 		userRepo.save(user);
 
 	}
-
+	
+	/**
+	 * 更新使用者密碼
+	 * @param id
+	 * @param password
+	 */
 	@Override
-	public void updateUserName(int id, String fullName) {
+	public void updateUserPassword(Integer id, String password) {
+		String encodedPassword = passwordEncoder.encode(password); // 加密
+		userRepo.updateUserPassword(id, encodedPassword);
+	}
+	
+	/**
+	 * 更新使用者名稱
+	 * @param id
+	 * @param fullName
+	 */
+	@Override
+	public void updateUserName(Integer id, String fullName) {
 		userRepo.updateUserName(id, fullName);
 	}
 

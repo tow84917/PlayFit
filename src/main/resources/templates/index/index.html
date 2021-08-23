@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="../../static/index/css/index_style.css">
+    <script src="../../static/jquery-3.6.0.js"></script>
+    <script>$(window).scroll(function () {
+            if ($(window).scrollTop() > 1000) {
+                $('header').addClass('header');
+                $('.header').animate({
+                    top: '0px'
+                });
+                // $(window).unbind('scroll');
+            }
+            if ($(window).scrollTop() < 1000) {
+                $('header').removeClass('header');
+                $('.header').removeAttr('style');
+            }
+        });</script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:800" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Menu Start -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="nav-logo"><img src="../../static/index/images/bluelogo.svg" alt=""></a>
+            <ul class="nav-menu w800">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">FIT NOW</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">CALCULATOR</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">PLALENDAR</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">ABOUT US</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-icon"><img src="../../static/index/images/plyFitIcon.svg" alt=""></a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+    <!-- Menu End -->
+
+    <!-- Main Start -->
+    <div class="topHeader" id="fadeInOverlay">
+        <h1 class="w800">No need to train,</h1>
+        <h1 class="w800">just Play.</h1>
+
+        <div class="bubble" >
+            <img class="multi-ani" src="../../static/index/images/topHeader_bubble_purple.png" alt=""
+                style="top: 400px; right:700px; position:absolute;">
+            <img class="multi-ani3" src="../../static/index/images/topHeader_bubble_pink.png" alt=""
+                style="top: 650px; right:1200px; position:absolute;">
+            <img class="multi-ani4" src="../../static/index/images/topHeader_bubble_orange.png" alt=""
+                style="top: 280px; right:700px; position:absolute;">
+            <img class="multi-ani" src="../../static/index/images/topHeader_bubble_lightPurple.png" alt=""
+                style="top: 150px; right:580px; position:absolute;">
+            <img class="multi-ani3" src="../../static/index/images/topHeader_bubble_black.png" alt=""
+                style="top: 250px; right:500px; position:absolute;">
+            <img class="multi-ani" src="../../static/index/images/topHeader_bubble_yellow.png" alt=""
+                style="top: 500px; right:250px; position:absolute;">
+            <img class="multi-ani4" src="../../static/index/images/topHeader_bubble_smallBlue.png" alt=""
+                style="top: 380px; right:500px; position:absolute;">
+            <img class="multi-ani2" src="../../static/index/images/topHeader_bubble_bigBlue.png" alt=""
+                style="top: 230px; right:250px; position:absolute;">
+            <img class="multi-ani2" src="../../static/index/images/topHeader_bubble_orange.png" alt=""
+                style="top: 700px; right:100px; position:absolute;">
+
+            <img class="multi-ani2" src="../../static/index/images/topHeader_bubble_bigDeepBlue.png" alt=""
+                style="z-index: 99998; top: 340px; left:-100px; position:absolute;">
+            <img class="multi-ani1" src="../../static/index/images/topHeader_bubble_smallDeepBlue.png" alt=""
+                style="z-index: 99998; top: 220px; left:420px; position:absolute;">
+        </div>
+
+
+    </div>
+
+    <div class="container">
+        <ul>
+            <li class="character">
+                <h1>Create your own <br> unique character.</h1>
+                <img class="multi-ani1" src="../../static/index/images/character_bubble_Big.png" alt=""
+                    style="left:-250px; position:absolute;">
+                <img class="multi-ani1" src="../../static/index/images/character_bubble_small.png" alt=""
+                    style="right:200px; position:absolute;">
+                <img class="multi-ani1" src="../../static/index/images/character_bubble_mid.png" alt=""
+                    style="right:0px; position:absolute;">
+                <ul>
+                    <li><img src="../../static/index/images/character1.png" alt=""></li>
+                    <li><img src="../../static/index/images/character2.gif" alt=""></li>
+                    <li><img src="../../static/index/images/character3.png" alt=""></li>
+                </ul>
+            </li>
+            <li class="train-at-home">
+                <ul>
+                    <li class="three-icon">
+                        <h1>Stay in shape,<br>train at home.</h1>
+                        <img src="../../static/index/images/personalize.png" alt="">
+                        <p>Personalize</p>
+                        <img src="../../static/index/images/easyToUse.png" alt="">
+                        <p>Easy to use</p>
+                        <img src="../../static/index/images/newbieFriendly.png" alt="">
+                        <p>Newbie-friendly</p>
+                    </li>
+                    <li class="bubble-train">
+                        <img class="multi-ani4" src="../../static/index/images/bubbleTrain.png" alt="">
+                    </li>
+                </ul>
+
+                <!-- <img src="" alt=""> -->
+            </li>
+            <li class="diary">
+                <ul>
+                    <img class="multi-ani1" src="../../static/index/images/diary_bubble_Big.png" alt=""
+                    style="left:-250px; position:absolute;">
+                    <img class="multi-ani1" src="../../static/index/images/diary_bubble_small.png" alt=""
+                    style="left:200px; position:absolute;">
+                    <img class="multi-ani1" src="../../static/index/images/diary_bubble_mid.png" alt=""
+                    style="right:-20px; position:absolute;">
+                    <li class="diary-img"><img src="../../static/index/images/diary.png" alt=""></li>
+                    <li class="diary-word">
+                        <h1>Your personal<br>trainer,<br>just a click away.</h1>
+                        <p>With fitlab: at home you can also use our own fitlab: app in addition to personal training.
+                            This app offers various practical options that support you in your training process.
+                            Together with your trainer you can analyze your personal development and results.</p>
+                    </li>
+                </ul>
+                <img class="multi-ani1" src="../../static/index/images/diary_bubble_slice.png" alt=""
+                    style="right:0px; position:absolute;">
+                <h1>keep your<br>calories diary.</h1>
+
+            </li>
+        </ul>
+    </div>
+    <!-- Main End -->
+
+    <!-- Copyright Start -->
+    <footer>
+        <div>
+            <ul>
+                <li><a href="#logo"><img src="../../static/index/images/whitelogo.svg" alt=""></a></li>
+                <li>本網站為JAVA工程師班第16期第二組學員專題成果作品，本平台僅供學習、展示之用。若有牴觸有關著作權，或有第三人主張侵害智慧財產權等情事，均由學員負法律上責任，本公司概不負責。若有侵權疑慮，您可以私訊[北科大-JAVA工程師養成班]，後續會由專人協助處理。
+                </li>
+                <li>
+                    <p>Copyright © 2021 Play Fit All Rights Reserved.</p>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    <!-- Copyright End -->
+    <script src="../../static/index/js/index_style.js"></script>
+</body>
+
+</html>

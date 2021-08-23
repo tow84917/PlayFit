@@ -16,8 +16,20 @@ public interface UserService {
 
 	// 註冊用
 	void saveUser(User user);
-
-	void updateUserName(int id, String fullName);
+	
+	/**
+	 * 更新使用者密碼
+	 * @param id
+	 * @param password
+	 */
+	void updateUserPassword(Integer id, String password);
+	
+	/**
+	 * 更新使用者名稱
+	 * @param id
+	 * @param fullName
+	 */
+	void updateUserName(Integer id, String fullName);
 
 	/**
 	 * 獲取登入使用者

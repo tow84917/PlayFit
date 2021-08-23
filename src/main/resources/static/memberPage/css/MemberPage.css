@@ -1,0 +1,604 @@
+* {
+	box-sizing: border-box;
+	margin: 0px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
+}
+
+.header {
+	width: 100%;
+	min-width: 1150px;
+	height: 80px;
+	background-color: #6460ff;
+}
+
+.main {
+	width: 100%;
+	height: 740px;
+	background-color: white;
+}
+
+.footer {
+	width: 100%;
+	min-width: 1150px;
+	height: 80px;
+	background-color: #6460ff;
+}
+
+/* 顯示範圍 */
+.range {
+	width: 1200px;
+	height: 730px;
+	/* background-color: brown; */
+	/*border: 1px red solid;*/
+	margin: 20px auto;
+	display: flex;
+}
+
+/* 左方資訊 */
+.left {
+	width: 28%;
+	/*border: 1px red solid;*/
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+/* 右方資訊 */
+.right {
+	width: 72%;
+	/*border: 1px red solid;*/
+	align-items: center;
+}
+/* 右方上 */
+.top {
+	/*border: 1px red solid;*/
+	height: 20%;
+}
+
+/* 右方下 */
+.down {
+	/*border: 1px red solid;*/
+	height: 77.5%;
+	margin-top: 2.3%;
+	display: flex;
+}
+/* 右下左 */
+.dl {
+	/*border: 1px red solid;*/
+	width: 65%;
+	display: flex;
+	flex-direction: column;
+	/* align-items: center; */
+}
+/* 右下右 */
+.dr {
+	/*border: 1px red solid;*/
+	width: 35%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+/* 頭貼 */
+.head {
+	width: 270px;
+	height: 260px;
+	background-color: rgb(235, 238, 248);
+	border-radius: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+/* 頭貼 Size*/
+.headPic {
+	width: auto;
+}
+
+/* 名子 小貼圖 */
+.name {
+	width: 270px;
+	margin-top: 4px;
+	word-wrap: break-word;
+	/*border: 1px red solid;*/
+	font-size: 32px;
+	display: flex;
+	justify-content: space-around;
+	/* text-align: center; */
+}
+
+.name img {
+	width: 40px;
+	max-height: 42px;
+}
+
+/* 個人資訊  */
+.personInfo {
+	width: 270px;
+	height: 360px;
+	background-color: rgb(235, 238, 248);
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+}
+/* 簡單資訊 */
+.simpleInfo {
+	width: 280px;
+	height: 20%;
+	padding: 18px;
+	/*border: 1px red solid;*/
+	display: flex;
+	justify-content: center;
+}
+/* 生日 & 信箱 */
+.dateMail {
+	width: 68%;
+	/*border: 1px red solid;*/
+	font-size: 16px;
+	word-wrap: break-word;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+/* 小圖 */
+.dailypic {
+	width: 30%;
+	/*border: 1px red solid;*/
+	padding: 5px;
+	text-align: center;
+}
+
+/* 身體資訊 */
+.bodyInfo {
+	width: 270px;
+	height: 85%;
+	/*border: 1px red solid;*/
+}
+
+.twiceBtn {
+	display: flex;
+}
+
+/* 登出 */
+.logOut {
+	background-color: white;
+	height: 45px;
+	width: 120px;
+	font-size: 13px;
+	padding: 9px;
+	margin-top: 8px;
+	border-radius: 20px;
+	border: 3px solid #6460ff;
+}
+/* 修改會員資料 BTN */
+.editProfile {
+	background-color: white;
+	height: 45px;
+	width: 120px;
+	font-size: 13px;
+	padding: 9px;
+	margin-top: 8px;
+	margin-left: 12px;
+	border-radius: 20px;
+	border: 3px solid #6460ff;
+}
+
+/* 任務 + 勳章  */
+.task {
+	width: 858px;
+	height: 142px;
+	background-color: rgb(235, 238, 248);
+	border-radius: 20px;
+	display: flex;
+}
+/* 任務欄左 */
+.taskL {
+	width: 63%;
+	/*border: 1px red solid;*/
+	display: flex;
+	flex-direction: column;
+}
+
+.today {
+	height: 47%;
+	/*border: 1px red solid;*/
+	font-size: 38px;
+	padding: 16px 22px;
+}
+
+/* 進度條相關 */
+.progressBar {
+	height: 53%;
+	/*border: 1px red solid;*/
+	padding: 8px 24px;
+	font-size: 21px;
+	display: flex;
+	flex-direction: column;
+}
+
+.taskInfo {
+	display: flex;
+	justify-content: space-between;
+}
+
+#taskProgressBar {
+	border-radius: 20px;
+	background-color: white;
+	margin-top: 4px;
+	/*border: 1px red solid;*/
+	overflow: hidden;
+}
+
+/* 任務欄右 */
+.taskR {
+	width: 35%;
+	/*border: 1px red solid;*/
+	padding: 15px 13px;
+	margin-left: 2%;
+	font-size: 21px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.taskR div {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.displyTask {
+	background-color: white;
+	width: 55%;
+	height: 50px;
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	color: #6460ff;
+}
+
+/* 目標 */
+.goal {
+	width: 540px;
+	height: 310px;
+	background-color: rgb(235, 238, 248);
+	border-radius: 20px;
+}
+/* 目標欄上 */
+.goalUp {
+	font-size: 38px;
+	height: 18%;
+	/*border: 1px red solid;*/
+	margin: 10px 25px 0px 25px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.addPersonGoal {
+	font-size: 38px;
+	color: #6460ff;
+	text-align: center;
+	background-color: rgb(235, 238, 248);
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	border: none;
+	box-shadow: 2px 2px 1.5px 1.5px rgb(0, 0, 0, 0.15);
+}
+/* 目標欄中 */
+.goalMid {
+	height: 45%;
+	/*border: 1px red solid;*/
+	display: flex;
+	flex-direction: column;
+	margin: 0px 25px 0px 25px;
+	font-size: 27px;
+	font-weight: bold;
+}
+/* 體重資訊 */
+.weightBox {
+	height: 100%;
+	background-color: white;
+	/*border: 1px red solid;*/
+	border-radius: 20px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	text-align: center;
+	line-height: 23px;
+	color: #6460ff;
+	box-shadow: 3.5px 3.5px 0px 0px rgb(0, 0, 0, 0.1);
+}
+/* 中間體重 */
+#centerFocus {
+	font-size: 38px;
+	font-weight: bold;
+}
+/* 體重標記 */
+.weightAnnotation {
+	font-size: 18px;
+	color: black;
+	line-height: 10px;
+}
+/* 目標欄下 */
+.goalDown {
+	height: 26%;
+	/*border: 1px red solid;*/
+	margin: 10px 25px;
+	display: flex;
+	font-size: 22px;
+}
+/* startDate、.totalLost 顯示欄位 */
+.startDate {
+	width: 50%;
+	height: 100%;
+	/*border: 1px red solid;*/
+}
+
+.totalLost {
+	width: 50%;
+	height: 100%;
+	/*border: 1px red solid;*/
+	margin-left: 6%;
+}
+
+.displyGoal {
+	background-color: white;
+	height: 50px;
+	width: 100%;
+	color: #6460ff;
+	border-radius: 12px;
+	font-size: 22px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+/* 長條圖 */
+.canvasBox {
+	width: 540px;
+	height: 235px;
+	margin-top: 20px;
+	background-color: rgb(235, 238, 248);
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* canvas draw range */
+#canvas {
+	/* border: 1px solid red; */
+	background-color: rgb(235, 238, 248);
+	margin: 0 auto;
+	transform: translate(0, 15%);
+}
+
+/* Exercise per week */
+#canvasTitle {
+	font-family: "Montserrat", sans-serif;
+	color: #ff353b;
+	position: absolute;
+	transform: translate(0, 8%);
+}
+
+/* 訓練菜單 */
+.train {
+	left: 1%;
+	/* border: 1px red solid; */
+	width: 280px;
+	height: 560px;
+	padding: 12px 23px;
+	background-color: rgb(235, 238, 248);
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Training of today title */
+.train strong {
+	font-size: 36px;
+	word-wrap: break-word;
+	line-height: 38px;
+}
+/* 今日訓練菜單 */
+.activityBox {
+	width: 100%;
+	height: 57%;
+	/*border: 1px red solid;*/
+	margin-top: 6%;
+	/* display: flex;
+  flex-direction: column; */
+	align-items: center;
+	overflow: scroll;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+/* 靠近顯示滾輪 */
+.activityBox:hover {
+	overflow-y: visible;
+}
+
+/* 滾輪樣式設定 */
+#scrollbarStyle::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+#scrollbarStyle::-webkit-scrollbar {
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#scrollbarStyle::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, #00baba),
+		color-stop(1.5, #6460ff));
+}
+
+/* 活動項目 */
+.activity {
+	width: 232px;
+	height: 90px;
+	margin-top: 4%;
+	/*border: 1px red solid;*/
+	border-radius: 20px;
+	position: relative;
+}
+
+/* 圖片 */
+.activity img {
+	width: 230px;
+	height: 85px;
+	opacity: 0.65;
+}
+
+/* 說明文字 */
+#activityName {
+	position: absolute;
+	right: 6%;
+	bottom: 3%;
+	font-size: 24px;
+	color: white;
+}
+
+/* 日曆連結 */
+.goCalendar {
+	font-size: 38px;
+	color: #6460ff;
+	display: flex;
+	margin: auto 0px;
+	background-color: rgb(235, 238, 248);
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	border: none;
+	box-shadow: 2px 2px 1.5px 1.5px rgb(0, 0, 0, 0.15);
+	/* 調整位置 */
+	position: relative;
+	left: 80%;
+	top: 5%;
+}
+
+.goCalendar p {
+	/* 調整位置 */
+	position: absolute;
+	transform: translateY(-18%);
+}
+
+/* bodyTable */
+.bodyInfo table {
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+	border-spacing: 12px 22px;
+	font-size: 20px;
+}
+
+.bodyInfo td {
+	width: 100px;
+	height: 60px;
+	background-color: white;
+	border-radius: 20px;
+}
+
+.bodyInfo table strong {
+	margin: 10px;
+	color: #6460ff;
+}
+
+/* a config */
+a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+}
+
+/* 修改個人目標 */
+.editGoal {
+	width: 350px;
+	height: 250px;
+	border-radius: 25px;
+	padding: 17px;
+	color: #6460ff;
+	font-size: 34px;
+	background-color: rgba(235, 238, 248, 0.87);
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+	position: relative;
+	bottom: 65%;
+	left: 40%;
+	opacity: 0;
+	z-index: 3;
+}
+
+.goalForm {
+	margin-top: 25px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.editColumn {
+	width: 210px;
+	height: 33px;
+	font-size: 25px;
+	margin-top: 15px;
+	background-color: rgba(255, 255, 255, 0.6);
+	border: 3px solid #6460ff;
+	border-radius: 20px;
+	text-align: center;
+}
+
+.setUP {
+	width: 150px;
+	height: 33px;
+	font-size: 18px;
+	margin-top: 30px;
+	background-color: rgba(255, 255, 255, 0.6);
+	border: 3px solid #6460ff;
+	border-radius: 20px;
+}
+
+.setUP[type=number]::-webkit-inner-spin-button {
+	width: 50px;
+	height: 50px;
+	color: aqua;
+	text-align: center;
+}
+
+/* X */
+.close {
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	font-size: 34px;
+	color: #333;
+	cursor: pointer;
+	border: none;
+	background: none;
+}
+
+/* 遮罩 */
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 920px;
+	background-color: rgba(0, 0, 0, 0.15);
+	/* 背景模糊 */
+	backdrop-filter: blur(2.5px);
+	/* 層數低 */
+	z-index: 2;
+}
+
+.hidden {
+	display: none;
+}
+
+.showEditForm {
+	transform: translate(0%, -15%);
+	opacity: 1;
+	transition: all 1s;
+}

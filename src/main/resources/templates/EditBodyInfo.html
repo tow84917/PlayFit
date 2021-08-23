@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- jquery -->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<!-- 字型 -->
+<style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap')
+	;
+.error {
+	color: red;
+	font-size: 15px;
+}
+</style>
+<!-- 修改資料 Css -->
+<link rel="stylesheet" th:href="@{/editProfileForm/css/EditBodyInfo.css}">
+<title>EditProfile</title>
+</head>
+<body>
+	<div class="header"></div>
+	<!-- 修改身體資料表單 -->
+	<div class="main">
+	<!-- 	表單連結 -->
+		<div class="hrefSelect">
+			<div th:each="href: ${hrefList}">
+				<div class="editHref">
+					<a th:if="${href == '/editUser' && currentForm != 'userForm'}" th:href="@{${href}}">Personal Infomation</a> 
+					<span th:if="${href == '/editUser' && currentForm == 'userForm'}">Personal Infomation</span>
+					<a th:if="${href == '/editHealthRecord' && currentForm != 'healthRecordForm'}" th:href="@{${href}}">Health Record</a>
+					<span th:if="${href == '/editHealthRecord' && currentForm == 'healthRecordForm'}">Health Record</span> 
+					<a th:if="${href == '/editPassword' && currentForm != 'passwordForm'}" th:href="@{${href}}">Modify Password</a>
+					<span th:if="${href == '/editPassword' && currentForm == 'passwordForm'}">Modify Password</span> 
+				</div>
+			</div>
+		</div>	
+		<form th:action="@{/editBodyInfo}" class="editForm" method="POST">
+			<div class="formRange">
+				<label>Body Infomation</label>
+				<div class="editBox">
+					<p>Height</p>
+					<input type="number" name="height" class="editColumn" 
+					min="50.00" max="300.00" step="0.01" th:value="${healthRecord.height}">
+				</div>
+
+				<div class="editBox"> 
+					<p>Weight</p>
+					<input type="number" name="weight" class="editColumn" 
+					min="35.00" max="300.00" step="0.01" th:value="${healthRecord.weight}">
+				</div>
+
+				<div class="editBox">
+					<p>Activity Level:</p>
+					<select name="activityLevel" class="editColumn" th:value="${healthRecord.exerciseFrequency}">
+						<option value="LightExercise">LightExercise</option>
+						<option value="ModerateExercise">ModerateExercise</option>
+						<option value="HeavyExercise">HeavyExercise</option>
+						<option value="Athlete">Athlete</option>
+						<option value="Sedentary">Sedentary(office job)</option>
+					</select>
+				</div>
+
+				<input type="submit" value="Update" class="setUP">
+			</div>
+		</form>
+	</div>
+	<div class="footer"></div>
+	<script src="/EditPassword.js"></script>
+</body>
+</html>

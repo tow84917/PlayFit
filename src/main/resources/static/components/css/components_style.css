@@ -1,0 +1,411 @@
+@charset "UTF-8";
+/* 設定變數 ---------------------------------- */
+:root {
+  --purple3: #ccccff;
+  --purple2: #6460ff;
+  --purple1: #2e1ed3;
+  --white: #ffffff;
+  --Gy1: #e4ebf5;
+  --Gy2: #c8d0e7;
+  --Gy3: #bec8e4;
+  --Gy4: #9baacf;
+  --navbar-background: rgba(255, 255, 255, 0.808);
+  --navbar-shadow: rgba(128, 128, 128, 0.322);
+}
+
+/* 設定變數 ---------------------------------- */
+html {
+  box-sizing: inherit;
+  font-size: 62.5%;
+  overflow-y: scroll;
+  font-family: "Montserrat", sans-serif;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--Gy1);
+}
+
+.components {
+  width: auto;
+  height: auto;
+  border-radius: 3rem;
+  box-shadow: 0.8rem 0.8rem 1.4rem var(--Gy2), -0.2rem -0.2rem 1.8rem var(--white);
+  padding: 4rem;
+  display: grid;
+  grid-template-columns: 17.6rem 19rem 20.4rem;
+  grid-template-rows: repeat(autofit, min-content);
+  grid-column-gap: 5rem;
+  grid-row-gap: 2.5rem;
+  align-items: center;
+}
+
+/* 切換按鈕 ---------------------------------- */
+.switch {
+  grid-column: 1/2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+.switch input {
+  display: none;
+}
+.switch__1 input:checked ~ label, .switch__2 input:checked ~ label {
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
+}
+.switch__1 input:checked ~ label::after, .switch__2 input:checked ~ label::after {
+  background: var(--purple2);
+}
+.switch__1 label, .switch__2 label {
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+}
+.switch__1 label:hover::after, .switch__2 label:hover::after {
+  background: var(--purple2);
+}
+.switch__1 label::after, .switch__2 label::after {
+  content: "";
+  position: absolute;
+  width: 1.4rem;
+  height: 1.4rem;
+  background: var(--Gy4);
+  border-radius: 50%;
+  transition: 0.3s ease;
+}
+
+/* 切換按鈕 ---------------------------------- */
+/* buttons長方形按鈕兩個-------------------------------- */
+.btn {
+  width: 15rem;
+  height: 4rem;
+  border-radius: 1rem;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.btn__primary {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  background: var(--purple2);
+  box-shadow: inset 0.2rem 0.2rem 1rem var(--purple3), inset -0.2rem -0.2rem 1rem var(--purple1), 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+  color: var(--Gy1);
+}
+.btn__primary:hover {
+  color: var(--white);
+}
+.btn__primary:active {
+  box-shadow: inset 0.2rem 0.2rem 1rem var(--purple1), inset -0.2rem -0.2rem 1rem var(--purple3);
+}
+.btn__secondary {
+  grid-column: 1/2;
+  grid-row: 3/4;
+  color: var(--Gy4);
+}
+.btn__secondary:hover {
+  color: var(--purple2);
+}
+.btn__secondary:active {
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
+}
+.btn p {
+  font-size: 1.6rem;
+}
+
+/* buttons長方形按鈕兩個-------------------------------- */
+/* playbutton開始健身按鈕-------------------------- */
+.circle {
+  grid-column: 1/2;
+  grid-row: 4/6;
+  width: 9rem;
+  height: 100%;
+  justify-self: center;
+  border-radius: 1rem;
+  display: grid;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+}
+.circle__btn {
+  grid-row: 1/2;
+  grid-column: 1/2;
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  margin: 0.6rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 3.2rem;
+  color: var(--purple2);
+  z-index: 300;
+  background: var(--Gy1);
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+  cursor: pointer;
+  position: relative;
+}
+.circle__btn.shadow {
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
+}
+.circle__btn .play {
+  position: absolute;
+  opacity: 0;
+  transition: all 0.2s linear;
+}
+.circle__btn .play.visibility {
+  opacity: 1;
+}
+.circle__btn .pause {
+  position: absolute;
+  transition: all 0.2s linear;
+}
+.circle__btn .pause.visibility {
+  opacity: 0;
+}
+.circle__back-1, .circle__back-2 {
+  grid-row: 1/2;
+  grid-column: 1/2;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  filter: blur(1px);
+  z-index: 100;
+}
+.circle__back-1 {
+  box-shadow: 0.4rem 0.4rem 0.8rem var(--Gy2), -0.4rem -0.4rem 0.8rem var(--white);
+  background: linear-gradient(to bottom right, var(--Gy2) 0%, var(--white) 100%);
+  animation: waves 4s linear infinite;
+}
+.circle__back-1.paused {
+  animation-play-state: paused;
+}
+.circle__back-2 {
+  box-shadow: 0.4rem 0.4rem 0.8rem var(--Gy2), -0.4rem -0.4rem 0.8rem var(--white);
+  animation: waves 4s linear 2s infinite;
+}
+.circle__back-2.paused {
+  animation-play-state: paused;
+}
+
+/* playbutton開始健身按鈕-------------------------- */
+/* 搜尋欄、輸入欄位-------------------------- */
+.form {
+  grid-column: 2/3;
+  grid-row: 3/4;
+}
+.form__input {
+  width: 20.4rem;
+  height: 4rem;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  padding-left: 1.4rem;
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
+  background: none;
+  font-family: inherit;
+  color: var(--Gy4);
+}
+.form__input::placeholder {
+  color: var(--Gy3);
+}
+.form__input:focus {
+  outline: none;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+}
+
+/* 搜尋欄、輸入欄位-------------------------- */
+/* 分段三選一健身計算 --------------------------------------------------------- */
+.segmented-control {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  width: 20.4rem;
+  height: 4rem;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.segmented-control input {
+  display: none;
+}
+.segmented-control > input:checked + label {
+  transition: all 0.5s ease;
+  color: var(--purple2);
+}
+.segmented-control__1, .segmented-control__2, .segmented-control__3 {
+  width: 6.8rem;
+  height: 3.6rem;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--Gy4);
+  transition: all 0.5s ease;
+}
+.segmented-control__1:hover, .segmented-control__2:hover, .segmented-control__3:hover {
+  color: var(--purple2);
+}
+.segmented-control__color {
+  position: absolute;
+  height: 3.4rem;
+  width: 6.2rem;
+  margin-left: 0.3rem;
+  border-radius: 0.8rem;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+  pointer-events: none;
+}
+
+#tab-1:checked ~ .segmented-control__color {
+  transform: translateX(0);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab-2:checked ~ .segmented-control__color {
+  transform: translateX(6.8rem);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab-3:checked ~ .segmented-control__color {
+  transform: translateX(13.6rem);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* 分段三選一健身計算 --------------------------------------------------------- */
+/* 一些圓形ICONS-------------------------------------- */
+.circleicon {
+  grid-column: 2/4;
+  grid-row: 4/6;
+  display: flex;
+  justify-content: space-between;
+}
+.circleicon__more, .circleicon__plus, .circleicon__bulb, .circleicon__click, .circleicon__leave {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--Gy4);
+  transition: all 0.5s ease;
+}
+.circleicon__more:active, .circleicon__plus:active, .circleicon__bulb:active, .circleicon__click:active, .circleicon__leave:active {
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
+  color: var(--purple2);
+}
+.circleicon__more:hover, .circleicon__plus:hover, .circleicon__bulb:hover, .circleicon__click:hover, .circleicon__leave:hover {
+  color: var(--purple2);
+  background-color: var(--purple3);
+}
+
+/* 一些圓形ICONS-------------------------------------- */
+/* 一些ICONS-------------------------------------- */
+.normalIcon {
+  grid-column: 3/4;
+  grid-row: 2/3;
+  display: flex;
+  justify-content: space-between;
+}
+.normalIcon__more, .normalIcon__plus, .normalIcon__click {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.normalIcon__more:active, .normalIcon__plus:active, .normalIcon__click:active {
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
+  color: var(--purple2);
+}
+.normalIcon__more:hover, .normalIcon__plus:hover, .normalIcon__click:hover {
+  color: var(--purple2);
+}
+
+/* 一些ICONS-------------------------------------- */
+/* 進度條 --------------------------------------------------------- */
+.slider {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  /* 進度條 --------------------------------------------------------- */
+}
+.slider__box {
+  width: 100%;
+  height: 1rem;
+  cursor: pointer;
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
+  border-radius: 1rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.slider__btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--white);
+  position: absolute;
+  box-shadow: 0px 0.1rem 0.3rem 0px var(--greyLight-3);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.slider__btn:hover ~ .slider__tooltip {
+  opacity: 1;
+}
+.slider__btn::after {
+  content: "";
+  position: absolute;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
+}
+.slider__color {
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  left: 0;
+  z-index: 100;
+  border-radius: inherit;
+  background: var(--purple1);
+  background: linear-gradient(-1deg, var(--purple2) 0%, var(--purple2) 50%, var(--purple3) 100%);
+}
+.slider__tooltip {
+  position: absolute;
+  top: 2.6rem;
+  height: 2.5rem;
+  width: 3rem;
+  border-radius: 0.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: var(--purple2);
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/*# sourceMappingURL=icon.css.map */
