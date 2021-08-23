@@ -217,7 +217,7 @@ public class CalendarServiceImpl implements CalendarService {
 			DailyRecord dailyRecord = dailyRecordRepository.findByUserIdAndDate(loginUserId, date);
 			// 如果沒日記，新增一筆
 			if (dailyRecord == null ) {
-				dailyRecord = new DailyRecord(userService.findById(loginUserId) , 0 , date);
+				dailyRecord = new DailyRecord(userService.getUserById(loginUserId) , 0 , date);
 				dailyRecordRepository.save(dailyRecord);
 			}
 
