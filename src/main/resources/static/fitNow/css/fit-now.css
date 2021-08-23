@@ -170,22 +170,11 @@ body{
 .header{
     grid-column-start: 1;
     grid-column-end: 5;
-    background-color: white;
-    box-shadow: 0px 3px 5px 0px rgb(235, 238, 248);
+
     position: sticky;
     top: 0;
 }
 
 
-.footer{
-    width:100vm;
-    height: 300px;
-    grid-column: 1 / span 4;
-    border:1px solid #000000;
-    background-color: rgb(67, 60, 250);
-    display:grid;
 
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 50px 1fr 1fr 100px;
-}
 

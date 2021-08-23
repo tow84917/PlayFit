@@ -14,7 +14,7 @@
     </style>
 <body>
     <div class="container">
-        <div class="header"></div>
+        <header th:replace="fragments/header::myHeader"></header>
         <div class="blank"></div>
 
         <div class="content-left">
@@ -33,7 +33,7 @@
         </div>
         <div class="blank"></div>
     </div>
-    <div class="footer"></div>
+    <footer th:replace="fragments/footer::myFooter"></footer>
 </body>
 <meta th:name="_csrf" th:content="${_csrf.token}"/>
 <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>headerAndFooter</title>
+</head>
+<body>
+     <!-- Menu Start -->
+    <header th:fragment="myHeader" class="header">
+        <nav class="navbar">
+            <a href="#" class="nav-logo"><img src="/header&Footer/images/bluelogo.svg" alt=""></a>
+            <ul class="nav-menu w800">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">FIT NOW</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">CALCULATOR</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">PLALENDAR</a>
+                </li>
+                <li class="nav-item">
+                <a href="#" class="nav-link">ABOUT US</a>
+            </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-icon"><img src="../../static/header&Footer/images/plyFitIcon.svg" alt=""></a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+        <link rel="stylesheet" href="/header&Footer/css/header&Footer_style.css">
+    	<link href="https://fonts.googleapis.com/css?family=Montserrat:800" rel="stylesheet">
+    	<script src="/header&Footer/js/header&Footer_style.js"></script>
+    </header>
+
+<script src="../../static/header&Footer/js/header&Footer_style.js"></script>
+</body>
+</html>
