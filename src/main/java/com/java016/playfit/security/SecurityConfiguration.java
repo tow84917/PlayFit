@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -52,8 +53,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.permitAll()
 				.and()
 				.logout()
-				.logoutSuccessUrl("/login") // 登出跳轉
-				.permitAll();
+					.logoutUrl("/logout")
+					//如果是用get請求訪問/logout的話必須加以下這一行
+					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+					.clearAuthentication(true)
+					.invalidateHttpSession(true)
+					.deleteCookies("JSESSIONID")
+					.logoutSuccessUrl("/login") // 登出跳轉
+					.permitAll();
 	}
 }
 
