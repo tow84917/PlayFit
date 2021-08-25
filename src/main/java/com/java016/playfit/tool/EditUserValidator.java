@@ -1,15 +1,20 @@
 package com.java016.playfit.tool;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.java016.playfit.model.User;
+import com.java016.playfit.service.UserService;
 
 @Component
-public class editUserValidator implements Validator {
-	// 修改個人資訊用 Validator
+public class EditUserValidator implements Validator {
+	// 修改個人資訊專用 Validator
+	
+	@Autowired
+	UserService userService;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -24,7 +29,7 @@ public class editUserValidator implements Validator {
 		// 全名、暱稱12字以內 (符合個人頁)
 		// Full Name
 		ValidationUtils.rejectIfEmptyOrWhitespace
-		(errors, "fullName", "user.fullName.not.empty", "FullName required");
+		(errors, "fullName", "", "FullName required");
 		if (user.getFullName().length() > 12) { 
 			errors.rejectValue("fullName", "", "FullName over size");
 		}
@@ -38,15 +43,21 @@ public class editUserValidator implements Validator {
 		
 		// Email
 		ValidationUtils.rejectIfEmptyOrWhitespace
-		(errors, "email", "user.email.not.empty", "Email required");
+		(errors, "email", "", "Email required");
 		if (!user.getEmail()
 				.matches("^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$")) {
 			errors.rejectValue("email", "", "Email illegal.");
 		}
 		
+		// Email 不可與其他會員重複
+		if (userService.findByEmail(user.getEmail()) != null && 
+				!user.getEmail().equals(userService.getLoginUser().getEmail())) {
+			errors.rejectValue("email", "", "Email duplicate.");
+		}
+		
 		// Birthday
 		ValidationUtils.rejectIfEmptyOrWhitespace
-		(errors, "birthday", "user.birthday.not.empty", "Birthday required");
+		(errors, "birthday", "", "Birthday required");
 		// 要大於 14 歲
 		if (new BodyCalculator().calAge(user.getBirthday()) < 14) {
 			errors.rejectValue("birthday", "", "Have to be 14 or over");

@@ -25,7 +25,9 @@
                 <a href="#" class="nav-link">ABOUT US</a>
             </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-icon"><img src="../../static/header&Footer/images/plyFitIcon.svg" alt=""></a>
+                    <a href="#" class="nav-icon">
+                    	<img th:src="@{\header&Footer\images\plyFitIcon.svg}" alt="plyFitIcon.svg">
+                    </a>
                 </li>
             </ul>
             <div class="hamburger">
@@ -34,7 +36,7 @@
                 <span class="bar"></span>
             </div>
         </nav>
-        <link rel="stylesheet" href="/header&Footer/css/header&Footer_style.css">
+        <link rel="stylesheet" th:href="@{\header&Footer\css\header&Footer_style.css}">
     	<link href="https://fonts.googleapis.com/css?family=Montserrat:800" rel="stylesheet">
     	<script src="/header&Footer/js/header&Footer_style.js"></script>
     </header>
