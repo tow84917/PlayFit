@@ -40,11 +40,11 @@ public class HomeController {
 		return mv;
 	}
 	
-	@RequestMapping("/register")
-	public ModelAndView ShowRegistrationForm() {
+	@RequestMapping("/login")
+	public ModelAndView login_signup() {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user",new User());
-		mv.setViewName("signup_form");
+		mv.setViewName("login_signup");
 		return mv;
 	}
 	
@@ -57,10 +57,10 @@ public class HomeController {
 		return mv;
 	}
 	
-	@GetMapping("/login")
-	public String login() {
-		return "/login";
-	}
+//	@GetMapping("/login")
+//	public String login() {
+//		return "/login_signup";
+//	}
 	
 	@GetMapping("/showFormForUpdate/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") int id, Model model) {

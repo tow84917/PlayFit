@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./login.css" />
-    <script src="./login.js"></script>
+    <link rel="stylesheet" th:href="@{/login/login.css}" href="login.css"/>
+    <script th:src="@{/login/login.js}" src="login.js"></script>
     <title>logIn/signUp</title>
 </head>
 
@@ -15,13 +16,13 @@
     <main>
         <div class="container">
             <div class="leftBox">
-                    <form action="" class="signUp">
+                    <form th:action="@{/process_register}" th:object="${user}" method="post" class="signUp">
                         <h3>SIGN UP</h3>
                         <div class="input"> 
-                            <input type="email" name="email" placeholder="Email*">
-                            <input type="text" name="nickName" placeholder="Nickname">
-                            <input type="password" name="password" placeholder="password*">
-                            <input type="password" name="ConfirmPassword" placeholder="Confirm Password*">
+                            <input type="email" name="email" th:field="*{email}" placeholder="Email*">
+                            <input type="password" name="fullName" th:field="*{fullName}" placeholder="Full Name">
+                            <input type="text" name="nickName" th:field="*{nickName}" placeholder="Nickname">
+                            <input type="password" name="password"  th:field="*{password}" placeholder="Password*">
                         </div>
                         <div class="button">
                             <button type="submit"  id="signUpSubmit">SIGN UP</button>
@@ -31,7 +32,7 @@
             
             
             <div class="rightBox">
-                    <form action="" class="logIn">
+                    <form th:action="@{/login}" method="post" class="logIn">
                         <h3>LOG IN</h3>
                         <div class="input">
                             <input type="email" name="email" placeholder="Email*">
@@ -59,6 +60,20 @@
                 </div>
             </div>
         </div>
+        <!-- <ul>
+	  <li sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/login}">Login</a></li>
+	  <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/logout">Logout</a></li>
+	  <li sec:authorize="isAuthenticated()">Welcome, <span sec:authentication="name"></span></li>
+	</ul>
+	<div th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <div th:if="${upadtePasswordOK}" style="color: green">
+           	[[${upadtePasswordOK}]]
+        </div> -->
     </main>
 </body>
 
