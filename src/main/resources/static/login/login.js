@@ -17,6 +17,14 @@ function doFirst(){
     }
     swiftButton = document.getElementById('swiftButton');
     swiftButton.addEventListener('click',move);
+
+
+    let step2 = document.getElementById('step2');
+    let signUpSubmit = document.getElementById('signUpSubmit');
+    signUpSubmit.addEventListener('click',e =>{
+        step2.style.display = 'inline';
+        // e.preventDefault();
+    })
 }
 
 

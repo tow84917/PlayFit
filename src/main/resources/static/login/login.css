@@ -62,7 +62,7 @@ main{
 
 .container{
     display:flex;
-    width: 60%;
+    width: 46%;
     height: 550px;
     border-radius: 30px;
     margin: 150px auto;
@@ -109,6 +109,12 @@ input {
 
 }
 
+/* #signUpSubmit{
+    margin: 0 auto;
+    text-align: center;
+    line-height: auto;
+} */
+
 input::placeholder{
     text-align: left;
     font-family: 'Montserrat', sans-serif;
@@ -138,13 +144,13 @@ form .button{
 }
 
 .swiftBox{
-    width: 30%;
+    width: 23%;
     height: 550px;
     position: absolute;
     background: #2E1ED3;
     border-radius: 30px;
     transition: 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    /* display: none; */
+    z-index: 3;
 }
 .swiftContent{
     width: 80%;
@@ -204,7 +210,7 @@ form .button{
 }
 
 
-#swiftButton{
+#swiftButton, #nextStep{
     background: var(--primary-dark);
     box-shadow: 0.2rem 0.2rem 0.4rem rgba(0, 0, 0, 0.3), -0.2rem -0.2rem 0.4rem rgba(255, 255, 255, 0.2);
     color: var(--white);
@@ -235,4 +241,29 @@ form .button{
     --greyLight-2: #c8d0e7;
     --greyLight-3: #bec8e4;
     --greyDark: #9baacf;
+}
+
+
+
+/* step2 */
+#step2{
+    position: absolute;
+    left: 10%;
+    border: 1px solid red;
+    border-radius: 1rem;
+    width: 40%;
+    /* height: 550px; */
+    z-index: 4;
+    background-color: var(--primary-light);
+    display: none;
+    font-weight: 700;
+    font-size: 4rem;
+}
+#step2 input{
+    width: 30%;
+}
+#step2 select{
+    width: 30%;
+    font-size: 2.4rem;
+    font-family: 'Montserrat', sans-serif;
 }

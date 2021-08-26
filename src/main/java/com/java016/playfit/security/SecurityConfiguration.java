@@ -41,9 +41,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.antMatchers("/").permitAll() // 不需登入的頁面 
-//				.anyRequest().authenticated() // 除了首頁皆要登入
+			http.authorizeRequests()
+				.antMatchers("/","/**/*.js", "/**/*.css").permitAll()
+				.anyRequest().authenticated() // 除了首頁皆要登入
 				.and()
 				.formLogin()
 				.usernameParameter("email")
@@ -61,6 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 					.deleteCookies("JSESSIONID")
 					.logoutSuccessUrl("/login") // 登出跳轉
 					.permitAll();
+			   
 	}
 }
 

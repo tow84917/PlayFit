@@ -166,7 +166,7 @@ public class EditPersonalInfoController {
 		// 取最近期健康紀錄
 		HealthRecord healthRecordLast = healthRecordService.findLastDateByUserId(userId);
 
-		// 檢查年記是否改變(年紀影響 BMR、TDEE、BFP、FFMI)
+		// 檢查年紀是否改變(年紀影響 BMR、TDEE、BFP、FFMI)
 		int originAge = healthRecordLast.getAge();
 		int newAge = bodyCalculator.calAge(modifyUser.getBirthday());
 

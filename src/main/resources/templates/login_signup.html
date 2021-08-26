@@ -6,8 +6,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" th:href="@{/login/login.css}" href="login.css"/>
-    <script th:src="@{/login/login.js}" src="login.js"></script>
+    <link rel="stylesheet"  th:href="@{/login/login.css}" href="/static/login/login.css"/>
+    <script  th:src="@{/login/login.js}" src="/static/login/login.css"></script>
     <title>logIn/signUp</title>
 </head>
 
@@ -16,17 +16,60 @@
     <main>
         <div class="container">
             <div class="leftBox">
-                    <form th:action="@{/process_register}" th:object="${user}" method="post" class="signUp">
+                    <form th:action="@{/process_register}"  method="post" class="signUp">
                         <h3>SIGN UP</h3>
+                        <!-- 註冊step1 -->
                         <div class="input"> 
-                            <input type="email" name="email" th:field="*{email}" placeholder="Email*">
-                            <input type="password" name="fullName" th:field="*{fullName}" placeholder="Full Name">
-                            <input type="text" name="nickName" th:field="*{nickName}" placeholder="Nickname">
-                            <input type="password" name="password"  th:field="*{password}" placeholder="Password*">
+                            <input type="email" name="email" th:value="${user.email}" placeholder="Email*">
+                            <input type="password" name="fullName" th:value="${user.fullName}" placeholder="Full Name*">
+                            <input type="text" name="nickName" th:value="${user.nickName}" placeholder="Nickname">
+                            <input type="password" name="password"  th:value="${user.password}" placeholder="Password*">
+                            <!-- <input type="password" name="confirmPassword"  th:field="*{password}" placeholder="Confirm Password*"> -->
                         </div>
                         <div class="button">
-                            <button type="submit"  id="signUpSubmit">SIGN UP</button>
+                            <div id="signUpSubmit">SIGN UP</div>
                         </div>
+
+                        <!-- 註冊step2 -->
+                        <div id="step2">
+                            <p>Your Basic Info</p>
+
+							
+                            <label for="targetWeight">Target Weight</label>
+                            <input type="text" name="targetWeight" th:value="${personalGoal.goalWeight}" id="targetWeight" />
+                            <br>
+                            <label for="currentWeight">Current Weight</label>
+                            <input type="text" name="currentWeight" th:value="${healthRecord.weight}" id="currentWeight" />
+                            <br>
+                            <label for="height">Your Height</label>
+                            <input type="text" name="height"  th:value="${healthRecord.height}" id="height" />
+                            
+                            <br>
+                            <label for="birthday">Date Of Birth</label>
+                            <input type="text" name="birthday" id="birthday" th:value="${user.birthday}" placeholder="yyyy-mm-dd" />
+
+                            <br>
+                            <span>Activity Level</span>
+					        <select name="activityLevel" class="editColumn" th:value="${healthRecord.exerciseFrequency}">
+                                <option value="Sedentary">Sedentary(office job)</option>
+					    	    <option value="LightExercise">Light Exercise</option>
+					    	    <option value="ModerateExercise">Moderate Exercise</option>
+					    	    <option value="HeavyExercise">Heavy Exercise</option>
+					    	    <option value="Athlete">Athlete</option>
+					        </select>
+
+                            <button  id="nextStep">Next Step</button>
+                        </div> 
+                        
+                        
+
+                        <!-- step3 創建角色-->
+                        <div id="step3">
+                            
+                        </div>
+
+
+                            
                     </form>
             </div>     
             
@@ -60,8 +103,8 @@
                 </div>
             </div>
         </div>
-        <!-- <ul>
-	  <li sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/login}">Login</a></li>
+     <ul>
+	  <!-- <li sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/login}">Login</a></li>
 	  <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/logout">Logout</a></li>
 	  <li sec:authorize="isAuthenticated()">Welcome, <span sec:authentication="name"></span></li>
 	</ul>
