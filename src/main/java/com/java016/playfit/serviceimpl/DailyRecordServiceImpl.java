@@ -78,7 +78,7 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 	public Page<DailyRecord> getAllDailyRecordByUserAndPage(User user,int pageNumber) {
 		Pageable pageable = PageRequest.of(pageNumber-1, 3,Sort.by("createdDate").descending());
 		
-		return dailyRecordRepo.findAllByUser(user, pageable);
+		return dailyRecordRepo.findAllByUserAndStatus(user, 1, pageable);
 	}
 
 	@Override

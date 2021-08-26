@@ -7,8 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +19,6 @@ import com.java016.playfit.model.FitActivity;
 import com.java016.playfit.service.MemberService;
 
 @Service
-@Transactional
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
@@ -113,7 +110,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	// 回傳日期區間運動卡洛里資料(*之後會變更區間)
-	@Transactional
 	@Override
 	public Map<Integer, String[]> getWeekExerciseData(Integer userId) {
 

@@ -5,11 +5,13 @@
   font-weight: bold;
 }
 
-.header {
-  width: 100%;
-  min-width: 1150px;
-  height: 80px;
-  background-color: #6460ff;
+.myHeader {
+	width: 100%;
+	min-width: 1150px;
+	height: 80px;
+	/*background-color: #6460ff;*/
+	background-color: white;
+
 }
 
 .main {
@@ -108,13 +110,13 @@
 
 /* 連結範圍 */
 .hrefSelect {
-  width: 160px;
-  height: 230px;
+  width: 170px;
+  height: 400px;
 
   background-color: rgba(235, 238, 248, 0.87);
 
   position: relative;
-  bottom: 210px;
+  bottom: 120px;
 
   border-radius: 25px 0 0 25px;
 
@@ -126,15 +128,19 @@
 
 /* 連結 */
 .editHref {
-  width: 150px;
-  height: 50px;
+  width: 160px;
+  height: 110px;
   background-color: #6460ff;
 
-  font-size: 20px;
+  font-size: 18px;
   color: #eeeeee;
   text-align: center;
 
-  border-radius: 10px 0 0 30px;
+  border-radius: 30px 0 0 30px;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .editHref a {

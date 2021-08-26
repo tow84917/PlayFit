@@ -21,23 +21,55 @@
 <title>EditProfile</title>
 </head>
 <body>
-	<div class="header"></div>
+	<div class="myHeader">
+    	<header th:replace="fragments/header::myHeader"></header>
+    </div>
 	<!-- 修改個人資料表單 -->
 	<div class="main">
-	<!-- 	表單連結 -->
+		<!-- 	表單連結 -->
 		<div class="hrefSelect">
 			<div th:each="href: ${hrefList}">
 				<div class="editHref">
-					<a th:if="${href == '/editUser' && currentForm != 'userForm'}" th:href="@{${href}}">Personal Infomation</a> 
-					<span th:if="${href == '/editUser' && currentForm == 'userForm'}">Personal Infomation</span>
-					<a th:if="${href == '/editHealthRecord' && currentForm != 'healthRecordForm'}" th:href="@{${href}}">Health Record</a>
-					<span th:if="${href == '/editHealthRecord' && currentForm == 'healthRecordForm'}">Health Record</span> 
-					<a th:if="${href == '/editPassword' && currentForm != 'passwordForm'}" th:href="@{${href}}">Modify Password</a>
-					<span th:if="${href == '/editPassword' && currentForm == 'passwordForm'}">Modify Password</span> 
+					<a th:if="${href == '/editUser' && currentForm != 'userForm'}" th:href="@{${href}}">
+						<img alt="personIcon" th:src="@{\editProfileForm\img\user.png}" width="48px"> 
+						<p>
+							Personal Information						
+						</p>	
+					</a> 
+					<span th:if="${href == '/editUser' && currentForm == 'userForm'}">
+						<img alt="personIcon" th:src="@{\editProfileForm\img\user.png}" width="48px"> 
+						<p>
+							Personal Information						
+						</p>
+					</span>
+					<a th:if="${href == '/editHealthRecord' && currentForm != 'healthRecordForm'}" th:href="@{${href}}">
+						<img alt="personIcon" th:src="@{\editProfileForm\img\muscles.png}" width="48px"> 
+						<p>
+							Health Record					
+						</p>
+					</a>
+					<span th:if="${href == '/editHealthRecord' && currentForm == 'healthRecordForm'}">
+						<img alt="personIcon" th:src="@{\editProfileForm\img\muscles.png}" width="48px"> 
+						<p>
+							Health Record					
+						</p>
+					</span> 
+					<a th:if="${href == '/editPassword' && currentForm != 'passwordForm'}" th:href="@{${href}}">
+						<img alt="personIcon" th:src="@{\editProfileForm\img\password.png}" width="48px"> 
+						<p>
+							Modify Password					
+						</p>
+					</a>
+					<span th:if="${href == '/editPassword' && currentForm == 'passwordForm'}">
+						<img alt="personIcon" th:src="@{\editProfileForm\img\password.png}" width="48px"> 
+						<p>
+							Modify Password					
+						</p>
+					</span> 
 				</div>
 			</div>
-		</div>	
-		<form th:action="@{/editMemberInfo}" th:object="${modifyUser}" method="POST" class="editForm" >
+		</div>
+		<form th:action="@{/editUser}" th:object="${modifyUser}" method="POST" class="editForm" >
 			<div class="formRange">
 				<table>
 					<tr>
@@ -128,6 +160,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="footer"></div>
+<!-- 	<div class="footer"></div> -->
+    <footer th:replace="fragments/footer::myFooter"></footer>
 </body>
 </html>

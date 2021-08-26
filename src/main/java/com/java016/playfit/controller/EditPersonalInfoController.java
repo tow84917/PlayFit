@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import com.java016.playfit.model.User;
 import com.java016.playfit.service.HealthRecordService;
 import com.java016.playfit.service.UserService;
 import com.java016.playfit.tool.BodyCalculator;
-import com.java016.playfit.tool.editUserValidator;
+import com.java016.playfit.tool.EditUserValidator;
 
 @Controller
 public class EditPersonalInfoController {
@@ -31,20 +32,25 @@ public class EditPersonalInfoController {
 	BodyCalculator bodyCalculator;
 
 	BCryptPasswordEncoder passwordEncoder;
-
+	
+	EditUserValidator editUserValidator;
+	
 	@Autowired
 	public EditPersonalInfoController(UserService userService, HealthRecordService healthRecordService,
-			BodyCalculator bodyCalculator, BCryptPasswordEncoder passwordEncoder) {
+			BodyCalculator bodyCalculator, BCryptPasswordEncoder passwordEncoder, EditUserValidator editUserValidator) {
 		this.userService = userService;
 		this.healthRecordService = healthRecordService;
 		this.bodyCalculator = bodyCalculator;
 		this.passwordEncoder = passwordEncoder;
+		this.editUserValidator = editUserValidator;
 	}
 
 	// 處理修改密碼
 	@PostMapping("/editPassword")
-	public String processEditPassword(@RequestParam(value = "originPwd") String originPwd,
-			@RequestParam(value = "newPwd") String newPwd, @RequestParam(value = "confimPwd") String confimPwd,
+	public String processEditPassword(
+			@RequestParam(value = "originPwd") String originPwd,
+			@RequestParam(value = "newPwd") String newPwd, 
+			@RequestParam(value = "confimPwd") String confimPwd,
 			RedirectAttributes ra) {
 
 		// 取現在登入者
@@ -85,7 +91,7 @@ public class EditPersonalInfoController {
 	}
 
 	// 處裡修改身體資訊
-	@PostMapping("/editBodyInfo")
+	@PostMapping("/editHealthRecord")
 	public String processEditBodyInfo(
 			@RequestParam(value = "height") Double height,
 			@RequestParam(value = "weight") Double weight,
@@ -142,17 +148,26 @@ public class EditPersonalInfoController {
 	}
 
 	// 處理修改USER
-	@PostMapping("/editMemberInfo")
+	@PostMapping("/editUser")
 	public String processEditProfile(
 			@ModelAttribute("modifyUser") User modifyUser,
 			BindingResult result,
 			RedirectAttributes ra) {
 
 		// 驗證
-		new editUserValidator().validate(modifyUser, result);
+		editUserValidator.validate(modifyUser, result);
 
 		// 有錯回到原頁
 		if (result.hasErrors()) {
+			
+//			觀察是否有格式錯誤用
+			System.out.println("======================");
+			List<ObjectError> list = result.getAllErrors();
+			for(ObjectError error : list) {
+				System.out.println("有錯誤：" + error);
+			}
+			System.out.println("======================");
+			
 			System.out.println(modifyUser.getFullName());
 			return "EditMemberInfo";
 		}
@@ -232,7 +247,6 @@ public class EditPersonalInfoController {
 	public User giveModifyUser() {
 		int userId = userService.getLoginUserId();
 		User user = userService.getUserById(userId);
-		System.out.println(user.getAvatar().getName());
 		return user;
 	}
 

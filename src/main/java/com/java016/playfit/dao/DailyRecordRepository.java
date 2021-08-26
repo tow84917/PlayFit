@@ -61,6 +61,7 @@ public interface DailyRecordRepository extends JpaRepository<DailyRecord, Intege
 	// 以分頁方式回傳日常紀錄
 	Page<DailyRecord> findAllByUser(User user,Pageable pageable);
 	
+	Page<DailyRecord> findAllByUserAndStatus(User user,Integer status,Pageable pageable);
 }
 
 

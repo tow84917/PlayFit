@@ -1,15 +1,19 @@
 * {
 	box-sizing: border-box;
 	margin: 0px;
+	padding: 0;
 	font-family: 'Montserrat', sans-serif;
 	font-weight: bold;
+	font-size: 100%;
 }
 
-.header {
+.myHeader {
 	width: 100%;
 	min-width: 1150px;
 	height: 80px;
-	background-color: #6460ff;
+	/*background-color: #6460ff;*/
+	background-color: white;
+
 }
 
 .main {
@@ -374,11 +378,12 @@
 }
 
 /* Exercise per week */
-#canvasTitle {
+.canvasTitle {
 	font-family: "Montserrat", sans-serif;
+	font-size:14px;
 	color: #ff353b;
 	position: absolute;
-	transform: translate(0, 8%);
+	transform: translate(0, 50%);
 }
 
 /* 訓練菜單 */
@@ -487,7 +492,7 @@
 }
 
 /* bodyTable */
-.bodyInfo table {
+.bodyTable {
 	width: 100%;
 	text-align: center;
 	margin: 0 auto;
@@ -495,20 +500,24 @@
 	font-size: 20px;
 }
 
-.bodyInfo td {
+.bodyTable td {
 	width: 100px;
 	height: 60px;
 	background-color: white;
 	border-radius: 20px;
 }
 
-.bodyInfo table strong {
+.bodyTable tr {
+	margin: 5px
+}
+
+.bodyTable strong {
 	margin: 10px;
 	color: #6460ff;
 }
 
 /* a config */
-a {
+.train a {
 	display: flex;
 	align-items: center;
 	justify-content: center;

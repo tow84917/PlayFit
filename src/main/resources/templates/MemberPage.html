@@ -6,17 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- jquery -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <!-- sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <style>
+    .swal2-popup.swal2-modal {
+        font-size: 12px; 
+    }
+    .swal2-modal .swal2-title {
+        font-size: 28px;
+    }
+    .swal2-modal button {
+        padding: 3px 6px;
+        border: none;
+    }
+	</style>
     <!-- 字型 -->
    <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
     </style>
+    
     <!-- 會員Css -->
     <link rel="stylesheet" th:href="@{/memberPage/css/MemberPage.css}">
     <title>MemberPage</title>
 </head>
 <body>
-    <div class="header"></div>
+    <div class="myHeader">
+    	<header th:replace="fragments/header::myHeader"></header>
+    </div>
+    
     <div class="main">
+<!--     header -->
         <!-- 顯示範圍 -->
         <div class="range">
             <!-- 左方資訊 -->
@@ -45,7 +64,7 @@
                     </div>
                     <!-- 身體資訊 -->
                     <div class="bodyInfo">
-                        <table>
+                        <table class="bodyTable">
                             <tr>
                                 <td>
                                     <strong>Height</strong>
@@ -185,7 +204,7 @@
                         </div>
                         <!-- Canvas -->
                         <div class="canvasBox">
-                            <strong id="canvasTitle">Exercise per week</strong>
+                            <strong class="canvasTitle">Exercise per week</strong>
                             <canvas id="canvas" width="525" height="200">
                                 hopefully you can't see this. If you do, get Google Chrome.
                               </canvas>
@@ -240,17 +259,40 @@
                         </div>
                 </form>
         </div>
-        
-    </div>
-    <div class="footer"></div>
+       
+    </div> <!-- main end -->
+    
+    <!-- footer -->
+<!--     <div class="footer"></div> -->
+    <footer th:replace="fragments/footer::myFooter"></footer>
+    
     <div class="overlay hidden"></div>
     <script type="text/javascript" th:src="@{\memberPage\js\taskCanvas.js}"></script>
     <script type="text/javascript" th:src="@{\memberPage\js\MemberPage.js}"></script>
     <script type="text/javascript" th:src="@{\memberPage\js\bodyCanvas.js}"></script>
     <script th:inline="javascript">
     	var message = /*[[${updateMessage}]]*/ 'default';
-    	if(message == 'editUserSuccess') alert('Upadate User Information success.');
-    	if(message == 'editBodyInfoSuccess') alert('Upadate Body Information success.');
-    </script>   
+
+    	if(message == 'editUserSuccess') alertEditUser();
+    	if(message == 'editBodyInfoSuccess') alertEditBodyInfo();
+
+    	function alertEditUser() {
+            Swal.fire(
+                "Update Result", //title 
+                "Upadate User Information success.", //message
+                "success" //圖示 success/info/warning/error/question
+                //圖示範例：https://sweetalert2.github.io/#icons
+            );
+        }
+        
+    	function alertEditBodyInfo() {
+            Swal.fire(
+                "Update Result",
+                "Upadate Body Information success.", 
+                "success" 
+                
+            );
+        }
+    </script>
 </body>
 </html>

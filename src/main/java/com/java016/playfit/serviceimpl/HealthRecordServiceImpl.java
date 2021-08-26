@@ -15,7 +15,6 @@ import com.java016.playfit.service.HealthRecordService;
 import com.java016.playfit.tool.BodyCalculator;
 
 @Service
-@Transactional
 public class HealthRecordServiceImpl implements HealthRecordService {
 
 	@Autowired
@@ -44,12 +43,14 @@ public class HealthRecordServiceImpl implements HealthRecordService {
 	}
 
 	// 儲存健康紀錄
+	@Transactional
 	@Override
 	public void saveHealthRecord(HealthRecord healthRecord) {
 		healthRecordRepo.save(healthRecord);
 	}
 
 	// 創建新的健康紀錄(無今日紀錄時)
+	@Transactional
 	@Override
 	public void createNewRecord(HealthRecord lastRecord, User user, Date date) {
 		
@@ -67,6 +68,7 @@ public class HealthRecordServiceImpl implements HealthRecordService {
 	}
 
 	// 更新健康紀錄(有今日紀錄時)
+	@Transactional
 	@Override
 	public void updateHealthRecord(User user, HealthRecord healthRecordToday) {
 		
