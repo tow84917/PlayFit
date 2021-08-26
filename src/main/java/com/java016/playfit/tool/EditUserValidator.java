@@ -46,17 +46,20 @@ public class EditUserValidator implements Validator {
 		(errors, "email", "", "Email required");
 		
 		if (!(user.getEmail().isBlank())) {		
+			// 判斷格式
 			if (!user.getEmail()
 					.matches("^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$")) {
 				errors.rejectValue("email", "", "Email illegal.");
-			}else {
-				// Email 不可與其他會員重複
-				if (userService.findByEmail(user.getEmail()).getId() != 
-						userService.getLoginUserId()) {
-					errors.rejectValue("email", "", "Email duplicate.");
-				}				
 			}
-			
+				
+			// Email 不可與其他會員重複
+			User otherUser = userService.findByEmail(user.getEmail());
+			if (otherUser != null) {
+				
+				if (otherUser.getId() != user.getId()) {
+						errors.rejectValue("email", "", "Email duplicate.");					
+					}
+			}				
 		}
 		
 		// Birthday
