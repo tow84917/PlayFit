@@ -31,28 +31,32 @@ public class EditUserValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace
 		(errors, "fullName", "", "FullName required");
 		if (user.getFullName().length() > 12) { 
-			errors.rejectValue("fullName", "", "FullName over size");
+			errors.rejectValue("fullName", "", "FullName oversize");
 		}
 		
 		// Nick Name
 		if (!(user.getNickName().isBlank())) {
 			if (user.getNickName().length() > 12) {
-				errors.rejectValue("nickName", "", "NickName over size");				
+				errors.rejectValue("nickName", "", "NickName oversize");				
 			}
 		}
 		
 		// Email
 		ValidationUtils.rejectIfEmptyOrWhitespace
 		(errors, "email", "", "Email required");
-		if (!user.getEmail()
-				.matches("^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$")) {
-			errors.rejectValue("email", "", "Email illegal.");
-		}
 		
-		// Email 不可與其他會員重複
-		if (userService.findByEmail(user.getEmail()) != null && 
-				!user.getEmail().equals(userService.getLoginUser().getEmail())) {
-			errors.rejectValue("email", "", "Email duplicate.");
+		if (!(user.getEmail().isBlank())) {		
+			if (!user.getEmail()
+					.matches("^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$")) {
+				errors.rejectValue("email", "", "Email illegal.");
+			}else {
+				// Email 不可與其他會員重複
+				if (userService.findByEmail(user.getEmail()).getId() != 
+						userService.getLoginUserId()) {
+					errors.rejectValue("email", "", "Email duplicate.");
+				}				
+			}
+			
 		}
 		
 		// Birthday
@@ -75,7 +79,7 @@ public class EditUserValidator implements Validator {
 		// Address 資料庫大小
 		if (!(user.getAddress().isBlank())) {
 			if (user.getAddress().length() > 100) {
-				errors.rejectValue("address", "", "address over size");				
+				errors.rejectValue("address", "", "address oversize");				
 			}
 		}
 		

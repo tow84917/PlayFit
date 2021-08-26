@@ -33,13 +33,13 @@
 					<a th:if="${href == '/editUser' && currentForm != 'userForm'}" th:href="@{${href}}">
 						<img alt="personIcon" th:src="@{\editProfileForm\img\user.png}" width="48px"> 
 						<p>
-							Personal Infomation						
+							Personal Information						
 						</p>	
 					</a> 
 					<span th:if="${href == '/editUser' && currentForm == 'userForm'}">
 						<img alt="personIcon" th:src="@{\editProfileForm\img\user.png}" width="48px"> 
 						<p>
-							Personal Infomation						
+							Personal Information						
 						</p>
 					</span>
 					<a th:if="${href == '/editHealthRecord' && currentForm != 'healthRecordForm'}" th:href="@{${href}}">

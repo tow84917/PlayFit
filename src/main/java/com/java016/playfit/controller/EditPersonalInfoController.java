@@ -247,7 +247,6 @@ public class EditPersonalInfoController {
 	public User giveModifyUser() {
 		int userId = userService.getLoginUserId();
 		User user = userService.getUserById(userId);
-//		System.out.println(user.getAvatar().getName());
 		return user;
 	}
 
