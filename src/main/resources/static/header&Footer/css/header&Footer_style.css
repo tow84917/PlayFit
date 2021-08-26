@@ -4,19 +4,87 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -26,8 +94,17 @@ time, mark, audio, video {
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
   display: block;
 }
 
@@ -35,17 +112,21 @@ body {
   line-height: 1;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
-blockquote, q {
+blockquote,
+q {
   quotes: none;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: "";
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
   content: none;
 }
 
@@ -69,8 +150,8 @@ table {
   --Gy2: #c8d0e7;
   --Gy3: #bec8e4;
   --greyDark: #9baacf;
-  --navbar-background:rgba(255, 255, 255, 0.808);
-  --navbar-shadow:rgba(128, 128, 128, 0.322);
+  --navbar-background: rgba(255, 255, 255, 0.808);
+  --navbar-shadow: rgba(128, 128, 128, 0.322);
 }
 
 /* 設定變數 ---------------------------------- */
@@ -83,7 +164,7 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
   overflow-y: scroll;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 html li {
   list-style: none;
@@ -161,7 +242,7 @@ html .nav-menu .nav-item img {
     transform-origin: center !important;
   }
   html .nav-menu .nav-item .nav-link::before {
-    content: " ";
+    content: ' ';
     display: block;
     position: absolute;
     top: 0;
@@ -209,6 +290,7 @@ html .nav-menu .nav-item img {
   box-shadow: 3px 3px 12px rgba(128, 128, 128, 0.322);
   padding: 3px;
   backdrop-filter: blur(8px);
+  z-index: 99;
 }
 .header .navbar {
   display: flex;
@@ -245,7 +327,7 @@ html .nav-menu .nav-item img {
   transform-origin: bottom left;
 }
 .header .navbar .nav-menu .nav-item .nav-link::before {
-  content: " ";
+  content: ' ';
   display: block;
   position: absolute;
   top: 0;
