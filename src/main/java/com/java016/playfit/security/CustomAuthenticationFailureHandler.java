@@ -30,5 +30,13 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 			response.sendRedirect("/login/failure?errorMessage=" + errorMessage);
 		}
 		
+		// 失敗處理,認證信後 前端需要字樣
+//		<!--         <div th:if="${isEnabled}"> -->
+//		<!--  			Account has not been activated.        -->
+//		<!--         </div> -->
+//		        
+//		<!--         <div th:if="${error}"> -->
+//		<!--             Invalid username and password. -->
+//		<!--         </div> -->
 	}
 }

@@ -127,7 +127,8 @@ public class MemberPageController {
 	public Map<Integer, String[]> graphicExerciseData() {
 		Map<Integer, String[]> data = null;
 		int userId = userService.getLoginUserId();
-		data = memberService.getWeekExerciseData(userId);
+		User user = userService.getUserById(userId);
+		data = memberService.getWeekExerciseData(user);
 		return data;
 	}
 

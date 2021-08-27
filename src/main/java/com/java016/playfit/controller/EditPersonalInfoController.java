@@ -60,20 +60,26 @@ public class EditPersonalInfoController {
 		// 與原始密碼不符
 		boolean originPwdOk = passwordEncoder.matches(originPwd, user.getPassword());
 		if (!originPwdOk) {
-			ra.addFlashAttribute("error", "The original password or the confirmed password error.");
-			return "EditPassword";
+			ra.addFlashAttribute("passwordError", "The original password or the confirmed password error.");
+			return "redirect:/editPassword";
 		}
 
 		// 密碼最少7位
 		if (newPwd.length() < 7) {
-			ra.addFlashAttribute("error", "Password size under 7.");
-			return "EditPassword";
+			ra.addFlashAttribute("passwordError", "Password size under 7.");
+			return "redirect:/editPassword";
 		}
 
 		// 輸入密碼與再次確認密碼不符
 		if (!(newPwd.equals(confimPwd))) {
-			ra.addFlashAttribute("error", "The original password or the confirmed password error.");
-			return "EditPassword";
+			ra.addFlashAttribute("passwordError", "The original password or the confirmed password error.");
+			return "redirect:/editPassword";
+		}
+		
+		// 新舊密碼相同
+		if (originPwd.equals(newPwd)) {
+			ra.addFlashAttribute("passwordError", "Same old and new password.");
+			return "redirect:/editPassword";
 		}
 
 		// 更新密碼
@@ -102,6 +108,17 @@ public class EditPersonalInfoController {
 		// 現在登入者
 		int userId = userService.getLoginUserId();
 		User user = userService.getUserById(userId);
+		
+		// 取最近期健康紀錄
+		HealthRecord healthRecordLast = healthRecordService.findLastDateByUserId(userId);
+		
+		// 與之前紀錄相同 不更新
+		if (healthRecordLast.getHeight().equals(height) && // Double 物件型態要用equals()
+			healthRecordLast.getWeight().equals(weight) &&
+			healthRecordLast.getExerciseFrequency().equals(activityLevel)
+				) {
+			return "redirect:/MemberPage";
+		}
 
 		// 抓出今天的日期
 		java.util.Date utilDate = new java.util.Date();
@@ -114,8 +131,6 @@ public class EditPersonalInfoController {
 
 		// 無今日紀錄則創建
 		if (healthRecordToday == null) {
-			// 取最近期健康紀錄
-			HealthRecord healthRecordLast = healthRecordService.findLastDateByUserId(userId);
 			// 建新紀錄欄位先繼承上次最新
 			healthRecordService.createNewRecord(healthRecordLast, user, sqlDate);
 			
@@ -130,6 +145,7 @@ public class EditPersonalInfoController {
 			
 			// 更新會重新計算
 			healthRecordService.updateHealthRecord(user, healthRecordTodayNew);
+			ra.addFlashAttribute("updateMessage","editBodyInfoSuccess");
 		}
 
 		// 有今日紀錄則更新
@@ -140,9 +156,9 @@ public class EditPersonalInfoController {
 			healthRecordToday.setExerciseFrequency(activityLevel);
 			
 			healthRecordService.updateHealthRecord(user, healthRecordToday);
+			ra.addFlashAttribute("updateMessage","editBodyInfoSuccess");
 		}
 		
-		ra.addFlashAttribute("updateMessage","editBodyInfoSuccess");
 		
 		return "redirect:/MemberPage";
 	}

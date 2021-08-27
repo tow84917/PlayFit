@@ -86,12 +86,22 @@
 
 				<div class="editBox">
 					<p>Activity Level:</p>
-					<select name="activityLevel" class="editColumn" th:value="${healthRecord.exerciseFrequency}">
-						<option value="LightExercise">LightExercise</option>
-						<option value="ModerateExercise">ModerateExercise</option>
-						<option value="HeavyExercise">HeavyExercise</option>
-						<option value="Athlete">Athlete</option>
-						<option value="Sedentary">Sedentary(office job)</option>
+					<select name="activityLevel" class="editColumn">
+						<option value="LightExercise" th:selected="${healthRecord.exerciseFrequency eq 'LightExercise'}">
+							LightExercise
+						</option>
+						<option value="ModerateExercise" th:selected="${healthRecord.exerciseFrequency eq 'ModerateExercise'}">
+							ModerateExercise
+						</option>
+						<option value="HeavyExercise" th:selected="${healthRecord.exerciseFrequency eq 'HeavyExercise'}">
+							HeavyExercise
+						</option>
+						<option value="Athlete" th:selected="${healthRecord.exerciseFrequency eq 'Athlete'}">
+							Athlete
+						</option>
+						<option value="Sedentary" th:selected="${healthRecord.exerciseFrequency eq 'Sedentary'}">
+							Sedentary(office job)
+						</option>
 					</select>
 				</div>
 

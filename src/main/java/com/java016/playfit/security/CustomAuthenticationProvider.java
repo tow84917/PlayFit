@@ -15,7 +15,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	private final UserDetailsService userDetailsService;
 	
-	// 密碼驗證器
 	private BCryptPasswordEncoder passwordEncoder;
 
 	public CustomAuthenticationProvider(UserDetailsService userDetailsService, 
