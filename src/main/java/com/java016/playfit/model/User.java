@@ -222,12 +222,6 @@ public class User implements UserDetails, Serializable{
 		builder.append(createdAt);
 		builder.append(", certificationStatus=");
 		builder.append(certificationStatus);
-		builder.append(", avatar=");
-//		builder.append(avatar);
-		builder.append(", healthRecords=");
-//		builder.append(healthRecords.hashCode());
-		builder.append(", PersonalGoals=");
-//		builder.append(PersonalGoals.hashCode());
 		builder.append("]");
 		return builder.toString();
 	}
@@ -260,7 +254,13 @@ public class User implements UserDetails, Serializable{
 
 	@Override
 	public boolean isEnabled() {
-		return true; // 用戶是否啟用
+		
+		// 用戶是否啟用, 認證信用
+		if (this.certificationStatus == 0) {
+			return false ;
+		}
+		
+		return true; 
 	}
 }
 
