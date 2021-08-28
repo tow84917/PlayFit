@@ -70,6 +70,7 @@
 			</div>
 		</div>
 		<form th:action="@{/editUser}" th:object="${modifyUser}" method="POST" class="editForm" >
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> 
 			<div class="formRange">
 				<table>
 					<tr>

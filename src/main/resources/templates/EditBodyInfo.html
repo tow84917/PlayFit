@@ -70,6 +70,7 @@
 			</div>
 		</div>	
 		<form th:action="@{/editHealthRecord}" class="editForm" method="POST">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> 
 			<div class="formRange">
 				<label>Body Infomation</label>
 				<div class="editBox">

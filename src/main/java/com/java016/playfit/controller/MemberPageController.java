@@ -1,5 +1,6 @@
 package com.java016.playfit.controller;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -8,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -52,7 +54,7 @@ public class MemberPageController {
 	}
 
 	// 會員頁面
-	@RequestMapping("/MemberPage")
+	@GetMapping("/MemberPage")
 	public String showMemberPage(Model model, RedirectAttributes ra, HttpServletRequest request) {
 
 		// 目前登入者 + Id
@@ -79,14 +81,10 @@ public class MemberPageController {
 
 		// 如果今天還沒有紀錄
 		if (todayRecord == null) {
-			model.addAttribute("completionRate", 0);
 			model.addAttribute("activityStatus", false);
 			model.addAttribute("calLost", 0);
 			model.addAttribute("calGain", 0);
 		} else {
-			// 算今日項目達成率
-			Double completionRate = memberService.getTaskCompletionRate(todayRecord);
-			model.addAttribute("completionRate", completionRate);
 
 			// 今日運動項目 & 完成狀態
 			LinkedHashMap<FitActivity, String> activityStatus = memberService.getTodayActivityAndStatus(todayRecord);
@@ -121,20 +119,48 @@ public class MemberPageController {
 		return "MemberPage";
 	}
 
-	// 取近期運動量
-	@RequestMapping("/graphicExerciseData")
+	// 取近一周運動量
+	@GetMapping(value = "/ajaxWeeklyExerciseData", 
+			produces = { "application/json" })
 	@ResponseBody
-	public Map<Integer, String[]> graphicExerciseData() {
+	public Map<Integer, String[]> weeklyExerciseData() {
 		Map<Integer, String[]> data = null;
 		int userId = userService.getLoginUserId();
 		User user = userService.getUserById(userId);
 		data = memberService.getWeekExerciseData(user);
 		return data;
 	}
+	
+	// 當日項目完成率
+	@PostMapping(value = "/ajaxTaskCompletionRate",
+			consumes = { "application/json" },
+			produces = { "application/json" })
+	@ResponseBody
+	public Map<String, Double> taskCompletionRate(@RequestBody java.util.Date date) {
+		
+		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+		
+		System.out.println(sqlDate + "---------------------------------");
+		
+		int userId = userService.getLoginUserId();
+		DailyRecord todayRecord = dailyRecordService.findByUserIdAndDate(userId, sqlDate);
+		
+		Double completionRate = 0.0 ;
+		
+		if (todayRecord != null) {
+			completionRate = memberService.getTaskCompletionRate(todayRecord);
+		}
+		
+		Map<String, Double> map = new HashMap<>();
+		map.put("completionRate", completionRate);
+		
+		return map;
+	}
 
 	// 修改個人目標
 	@PostMapping("/editPersonGoal")
-	public String editPersonGoal(@RequestParam("editWeight") Double newGoal, HttpServletRequest request) {
+	public String editPersonGoal(
+			@RequestParam("editWeight") Double newGoal, HttpServletRequest request) {
 
 		// user id
 		int userId = userService.getLoginUserId();

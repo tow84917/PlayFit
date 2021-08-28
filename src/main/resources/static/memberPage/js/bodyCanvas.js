@@ -83,7 +83,7 @@ let weekDays = [] ;
 let kaclData = [] ;
 // async 非同步 fnc
 async function getUserDailyRecord() {
-  await fetch(`/graphicExerciseData`) //await for Settle
+  await fetch(`/ajaxWeeklyExerciseData`) // await for Settle
     .then(response => {
       return response.json(); 
     })
