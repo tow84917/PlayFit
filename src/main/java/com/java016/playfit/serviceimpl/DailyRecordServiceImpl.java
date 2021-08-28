@@ -50,6 +50,7 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 	MealService mealService;
 	@Autowired
 	FitAchieveService fitAchiveService;
+	
 	// 找特定User所有日記紀錄
 	@Override
 	public List<DailyRecord> findAllByUser(User user) {
@@ -67,6 +68,12 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 	public DailyRecord findByUserIdAndDate(Integer userId, Date date) {
 		DailyRecord dailyRecord = dailyRecordRepo.findByUserIdAndDate(userId, date);
 		return dailyRecord;
+	}
+	
+	// 找特定日期所有日記紀錄
+	@Override
+	public List<DailyRecord> findByCreatedDate(Date date) {
+		return dailyRecordRepo.findByCreatedDate(date);
 	}
 	
 	

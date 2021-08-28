@@ -220,7 +220,7 @@ CREATE TABLE `Health_record` (
   `BFP` float DEFAULT NULL,
   `TDEE` float DEFAULT NULL,
   `FFMI` float DEFAULT NULL,
-  `calorie_deficit` int DEFAULT NULL,
+  `calorie_deficit` float DEFAULT NULL,
   `exercise_frequency` varchar(64) NOT NULL,
   `date` date DEFAULT NULL,
   PRIMARY KEY (`id`),

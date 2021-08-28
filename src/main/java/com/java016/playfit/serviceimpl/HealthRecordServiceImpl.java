@@ -75,5 +75,11 @@ public class HealthRecordServiceImpl implements HealthRecordService {
 		healthRecordToday = bodyCalculator.calAll(healthRecordToday, user);
 		healthRecordRepo.save(healthRecordToday);
 	}
+	
+	// 更新熱量赤字
+	@Override
+	public void updateCalorieDeficit(Integer id, Double calorieDeficit) {
+		healthRecordRepo.updateCalorieDeficit(id, calorieDeficit);
+	}
 
 }

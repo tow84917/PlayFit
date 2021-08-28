@@ -2,7 +2,6 @@ package com.java016.playfit.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +21,7 @@ public class HealthRecord {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 
@@ -43,7 +42,7 @@ public class HealthRecord {
 	private Double FFMI;
 	
 	@Column(name="calorie_deficit")
-	private Integer calorieDeficit;
+	private Double calorieDeficit;
 	
 	@Column(name="exercise_frequency")
 	private String exerciseFrequency;
@@ -147,11 +146,11 @@ public class HealthRecord {
 		this.date = date;
 	}
 
-	public Integer getCalorieDeficit() {
+	public Double getCalorieDeficit() {
 		return calorieDeficit;
 	}
 
-	public void setCalorieDeficit(Integer calorieDeficit) {
+	public void setCalorieDeficit(Double calorieDeficit) {
 		this.calorieDeficit = calorieDeficit;
 	}
 

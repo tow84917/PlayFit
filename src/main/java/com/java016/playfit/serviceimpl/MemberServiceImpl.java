@@ -139,7 +139,7 @@ public class MemberServiceImpl implements MemberService {
 	 * @return Integer
 	 */
 	public Integer getDiscrepantDays(Date dateStart, Date dateEnd) {
-		return (int) ((dateEnd.getTime() - dateStart.getTime()) / 1000 / 60 / 60 / 24) + 1;
+		return (int) ((dateEnd.getTime() - dateStart.getTime()) / 1000 / 60 / 60 / 24) ;
 	}
 
 	/**
@@ -179,12 +179,13 @@ public class MemberServiceImpl implements MemberService {
 		
 		// 相差天數
 		int discrepantDays = getDiscrepantDays(registerDate, sqlDate);
+		System.out.println(discrepantDays);
 		
 		// 區間定位
 		int weekPos = discrepantDays % 7 ;
 		
 		// 日期區間
-		Date startDate = new Date(now - (weekPos-1) * dayMillis); // -1 基準
+		Date startDate = new Date(now - weekPos * dayMillis); // -1 基準
 		System.out.println(startDate);
 		Date endDate = new Date(now + (7 - weekPos) * dayMillis);
 		System.out.println(endDate);

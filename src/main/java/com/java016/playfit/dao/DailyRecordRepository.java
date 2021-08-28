@@ -40,7 +40,7 @@ public interface DailyRecordRepository extends JpaRepository<DailyRecord, Intege
 	 */
 	@Query(value = "SELECT * FROM Daily_Record d WHERE d.created_date = "
 			+ ":date AND d.user_id = :userId", nativeQuery=true)
-	public DailyRecord findByUserIdAndDate(@Param("userId")Integer userId,@Param("date")Date date);
+	public DailyRecord findByUserIdAndDate(@Param("userId")Integer userId, @Param("date")Date date);
 
 	/**
 	 * 找user當月的紀錄
@@ -53,9 +53,14 @@ public interface DailyRecordRepository extends JpaRepository<DailyRecord, Intege
 	List<DailyRecord> findByCreatedDateMonthly( int userId, int monthly, int year);
 	
 //	DailyRecord 一天只有一個 可刪?
-	@Query(value = "SELECT * FROM Daily_Record where created_date = "
-			+ ":createdDate and user_id = :userId" , nativeQuery = true)
-	public List<DailyRecord> findByCreatedDate(Date createdDate, int userId);
+//	public List<DailyRecord> findByCreatedDate(Date createdDate, int userId);
+	
+	/**
+	 * 找所有該日期紀錄
+	 * @param createdDate
+	 * @return List<DailyRecord>
+	 */
+	public List<DailyRecord> findByCreatedDate(Date createdDate);
 	
 	
 	// 以分頁方式回傳日常紀錄

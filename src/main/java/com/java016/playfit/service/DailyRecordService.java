@@ -20,6 +20,9 @@ public interface DailyRecordService {
 	// 找特定User、日期日記紀錄
 	DailyRecord findByUserIdAndDate(Integer userId, Date date);
 	
+	// 找特定日期所有日記紀錄
+	List<DailyRecord> findByCreatedDate(Date date);
+	
 	//以下陳以文
 	//以下陳以文
 	//以下陳以文

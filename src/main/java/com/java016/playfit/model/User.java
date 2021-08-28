@@ -256,9 +256,9 @@ public class User implements UserDetails, Serializable{
 	public boolean isEnabled() {
 		
 		// 用戶是否啟用, 認證信用
-		if (this.certificationStatus == 0) {
-			return false ;
-		}
+//		if (this.certificationStatus == 0) {
+//			return false ;
+//		}
 		
 		return true; 
 	}

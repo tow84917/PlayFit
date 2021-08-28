@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.HealthRecord;
 import com.java016.playfit.model.User;
 
@@ -174,6 +175,22 @@ public class BodyCalculator {
 	 */
 	public double roundTwoDecimal(double number) {
 		return Math.round(number * 100)/100.0;
+	}
+	
+	/**
+	 * cal calorieDeficit today
+	 * @param lastHealthRecord
+	 * @param dailyRecordToday
+	 * @return calorieDeficit
+	 */
+	public double calCalorieDeficit(HealthRecord lastHealthRecord
+			, DailyRecord dailyRecordToday) {
+		
+		double calorieDeficit = dailyRecordToday.getKcalIntake()
+				- dailyRecordToday.getKcalBurned()
+				- lastHealthRecord.getTDEE();
+		
+		return roundTwoDecimal(calorieDeficit) ;
 	}
 }
 

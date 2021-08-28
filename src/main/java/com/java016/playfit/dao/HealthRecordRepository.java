@@ -4,9 +4,11 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.java016.playfit.model.HealthRecord;
 
@@ -41,6 +43,20 @@ public interface HealthRecordRepository extends JpaRepository<HealthRecord, Inte
 			+ ":date AND hr.user_id = :userId", nativeQuery=true)
 	public HealthRecord findByUserIdAndDate(@Param("userId")Integer userId,
 			@Param("date")Date date);
+	
+	/**
+	 * 更新熱量赤字
+	 * @param id
+	 * @param password
+	 */
+	@Transactional(rollbackFor = RuntimeException.class)
+	@Modifying
+	@Query(value = "UPDATE Health_Record hr SET hr.calorie_deficit = :calorieDeficit "
+			+ "WHERE hr.id = :id"
+	, nativeQuery=true)
+	public void updateCalorieDeficit(
+			@Param(value = "id") Integer id, 
+			@Param(value="calorieDeficit") Double calorieDeficit) ;
 }
 
 

@@ -42,7 +42,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	public AuthenticationProvider customAuthenticationProvider(){
 		AuthenticationProvider authenticationProvider = 
 				new CustomAuthenticationProvider(userDetailsService(), passwordEncoder());
-		
 		return authenticationProvider;
 	}
     
@@ -55,13 +54,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider()); // old
-//		auth.authenticationProvider(customAuthenticationProvider()); // 認證信後改
+//		auth.authenticationProvider(customAuthenticationProvider()); //認證信後改
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/","/login/failure").permitAll() // 失敗請求、首頁不須登入
+				.antMatchers("/", "/login/failure").permitAll() // 失敗請求、首頁不須登入
 				.anyRequest().authenticated() // 除了上行請求皆須登入
 				.and()
 				.formLogin()

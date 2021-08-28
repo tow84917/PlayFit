@@ -81,17 +81,18 @@ public class CalendarServiceImpl implements CalendarService {
 		System.out.println("findByCreatedDate");
 		int userId = userService.getLoginUserId();
 		System.out.println("userId: " + userId);
-		List<DailyRecord> byCreatedDate = dailyRecordRepository.findByCreatedDate(date , 41);
+//		List<DailyRecord> byCreatedDate = dailyRecordRepository.findByCreatedDate(date , 41);
+		DailyRecord byCreatedDate = dailyRecordRepository.findByUserIdAndDate(41 , date);
 		List<FitAchieve> fitAchieveList = new ArrayList<>();
-		for (DailyRecord d :
-				byCreatedDate) {
+//		for (DailyRecord d :
+//				byCreatedDate) {
 //			System.out.println(d.getFitAchieves());
-			List<FitAchieve> fitAchieves = d.getFitAchieves();
+			List<FitAchieve> fitAchieves = byCreatedDate.getFitAchieves();
 			for (FitAchieve fitAchieve :
 					fitAchieves) {
 				fitAchieveList.add(fitAchieve);
 			}
-		}
+//		}
 //		System.out.println(byCreatedDate);
 //		System.out.println("------------");
 //		System.out.println(fitAchieveList);
