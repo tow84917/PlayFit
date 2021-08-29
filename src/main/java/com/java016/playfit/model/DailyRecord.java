@@ -170,10 +170,6 @@ public class DailyRecord {
 		builder.append(status);
 		builder.append(", createdDate=");
 		builder.append(createdDate);
-		builder.append(", fitAchieves=");
-		builder.append(fitAchieves);
-		builder.append(", meals=");
-		builder.append(meals);
 		builder.append("]");
 		return builder.toString();
 	}

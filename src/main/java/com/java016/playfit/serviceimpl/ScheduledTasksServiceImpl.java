@@ -31,7 +31,7 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	BodyCalculator bodyCalculator;
 
 	@Override
-	@Scheduled(cron = "50 40 22 * * ?") // 指定時間執行
+	@Scheduled(cron = "0 0 0 * * ?") // 指定時間執行 0時(24)
 	public void upadteCalorieDeficit() {
 
 		long now = System.currentTimeMillis();
@@ -57,22 +57,19 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 		for (DailyRecord dr : dailyRecords) {
 			// 此紀錄主人
 			User tempDrUser = dr.getUser();
+			
 			// 找 User "最近"健康紀錄
 			HealthRecord healthRecordLast = 
 					healthRecordService.findLastDateByUserId(tempDrUser.getId());
 			// 昨日熱量赤字
 			double calorieDeficitYestoday = 
 					bodyCalculator.calCalorieDeficit(healthRecordLast, dr);
-			// 更新健康紀錄內熱量赤字
-			healthRecordService.updateCalorieDeficit(healthRecordLast.getId(),
-					healthRecordLast.getCalorieDeficit() + calorieDeficitYestoday);
-			// 取更新後"最近"的健康紀錄
-			HealthRecord healthRecordLastUpdated = 
-					healthRecordService.findLastDateByUserId(tempDrUser.getId());
+			
 			// 更新後的熱量赤字
-			double calorieDeficitUpdated = healthRecordLastUpdated.getCalorieDeficit();
+			double calorieDeficitUpdated = 
+					healthRecordLast.getCalorieDeficit() + calorieDeficitYestoday ;
 //			System.out.println(healthRecordLastUpdated.getCalorieDeficit());
-
+			
 			// 達成"減"一公斤
 			if (calorieDeficitUpdated <= -7700) {
 				// 找user 昨天是否有紀錄
@@ -88,8 +85,7 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 							healthRecordService.findByUserIdAndDate(tempDrUser.getId(),
 							sqlYestoday);
 					// 消除熱量赤字 7700
-					healthRecordYestodayNew.setCalorieDeficit(
-							healthRecordYestodayNew.getCalorieDeficit() + 7700);
+					healthRecordYestodayNew.setCalorieDeficit(calorieDeficitUpdated + 7700);
 					// 減一公斤
 					healthRecordYestodayNew.setWeight(
 							healthRecordYestodayNew.getWeight() - 1);
@@ -100,7 +96,7 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 				// 有紀錄則更新
 				if (healthRecordYestoday != null) {
 					// 消除熱量赤字 7700
-					healthRecordYestoday.setCalorieDeficit(healthRecordYestoday.getCalorieDeficit() + 7700);
+					healthRecordYestoday.setCalorieDeficit(calorieDeficitUpdated + 7700);
 					// 減一公斤
 					healthRecordYestoday.setWeight(healthRecordYestoday.getWeight() - 1);
 					healthRecordService.updateHealthRecord(tempDrUser, healthRecordYestoday);
@@ -122,8 +118,7 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 							healthRecordService.findByUserIdAndDate(tempDrUser.getId(),
 							sqlYestoday);
 					// 消除熱量赤字 7700
-					healthRecordYestodayNew.setCalorieDeficit(
-							healthRecordYestodayNew.getCalorieDeficit() - 7700);
+					healthRecordYestodayNew.setCalorieDeficit(calorieDeficitUpdated - 7700);
 					// 減一公斤
 					healthRecordYestodayNew.setWeight(healthRecordYestodayNew.getWeight() + 1);
 					// 更新紀錄並儲存
@@ -133,12 +128,18 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 				// 有紀錄則更新
 				if (healthRecordYestoday != null) {
 					// 消除熱量赤字 7700
-					healthRecordYestoday.setCalorieDeficit(
-							healthRecordYestoday.getCalorieDeficit() - 7700);
+					healthRecordYestoday.setCalorieDeficit(calorieDeficitUpdated - 7700);
 					// 減一公斤
 					healthRecordYestoday.setWeight(healthRecordYestoday.getWeight() + 1);
 					healthRecordService.updateHealthRecord(tempDrUser, healthRecordYestoday);
 				}
+			}
+			
+			// 未達熱量赤字增減值
+			if (calorieDeficitUpdated > -7700 && calorieDeficitUpdated < 7700) {
+				// 更新最近健康紀錄內熱量赤字
+				healthRecordService.updateCalorieDeficit(healthRecordLast.getId(),
+						healthRecordLast.getCalorieDeficit() + calorieDeficitYestoday);				
 			}
 		}
 

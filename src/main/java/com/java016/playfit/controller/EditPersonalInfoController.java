@@ -1,9 +1,13 @@
 package com.java016.playfit.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.java016.playfit.model.HealthRecord;
@@ -94,6 +100,33 @@ public class EditPersonalInfoController {
 
 		return "redirect:/login";
 
+	}
+	
+	// 給修改前端密碼頁眼睛圖示切換
+	@GetMapping(value = "/getEyePic/{type}", produces = MediaType.IMAGE_PNG_VALUE)
+	@ResponseBody
+	public byte[] getEyePic(
+			@PathVariable("type") String type) throws IOException {
+		
+		// 檔名、路徑
+		String fileNameOpen = "eye.png";
+		String fileNameClose = "eyeclosed.png";
+		String path = "static/editProfileForm/img/"; 
+		
+//		System.out.println(type);
+		
+		InputStream is = null ;
+		
+		// ClassPathResource = start from src/main/resources
+		if (type.equals("open")) {
+			is = new ClassPathResource(path + fileNameOpen).getInputStream();			
+		}
+		
+		if (type.equals("close")) {
+			is = new ClassPathResource(path + fileNameClose).getInputStream();			
+		}
+		
+		return is.readAllBytes();
 	}
 
 	// 處裡修改身體資訊
@@ -235,6 +268,14 @@ public class EditPersonalInfoController {
 	@GetMapping("/editPassword")
 	public String showEditPassword(Model model) {
 		model.addAttribute("currentForm", "passwordForm");
+		
+		// 給眼睛的狀態
+		LinkedList<String> eyeType = new LinkedList<String>();
+		eyeType.add("open");
+		eyeType.add("close");
+	
+		model.addAttribute("eyeType", eyeType);
+		
 		return "EditPassword";
 	}
 
@@ -280,3 +321,14 @@ public class EditPersonalInfoController {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+

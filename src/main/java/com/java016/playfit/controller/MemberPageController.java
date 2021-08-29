@@ -120,7 +120,7 @@ public class MemberPageController {
 	}
 
 	// 取近一周運動量
-	@GetMapping(value = "/ajaxWeeklyExerciseData", 
+	@GetMapping(value = "/weeklyExerciseData", 
 			produces = { "application/json" })
 	@ResponseBody
 	public Map<Integer, String[]> weeklyExerciseData() {

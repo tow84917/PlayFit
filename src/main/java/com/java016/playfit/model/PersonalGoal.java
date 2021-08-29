@@ -91,8 +91,6 @@ public class PersonalGoal {
 		StringBuilder builder = new StringBuilder();
 		builder.append("PersonalGoal [id=");
 		builder.append(id);
-		builder.append(", user=");
-		builder.append(user.getFullName());
 		builder.append(", startWeight=");
 		builder.append(startWeight);
 		builder.append(", goalWeight=");

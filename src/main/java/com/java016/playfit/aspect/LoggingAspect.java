@@ -54,14 +54,14 @@ public class LoggingAspect {
 		int count = 0 ;
 		for(Object arg : args) {
 			argString += String.valueOf(arg) ;
+			count ++ ;
 			if (count < args.length) {
 				argString += ", " ;				
 			}
-			count ++ ;
 		}
 		
-		//myLogger.info("Calling method : " + method + ", args : (" + argString + ")");
-		System.out.println("Calling method : " + method + ", args : (" + argString + ")");
+		myLogger.info("Calling method : " + method + ", args : (" + argString + ")");
+//		System.out.println("Calling method : " + method + ", args : (" + argString + ")");
 	}
 	
 	// @AfterReturning advice 
@@ -75,8 +75,8 @@ public class LoggingAspect {
 		// display 已 return 方法
 		String method = joinPoint.getSignature().toShortString();
 		
-		//myLogger.info("Return method : " + method + ", result : " + result);
-		System.out.println("Return method : " + method + ", result : " + result);
+		myLogger.info("Return method : " + method + ", result : " + result);
+//		System.out.println("Return from method : " + method + ", result : " + result);
 		
 	}
 	

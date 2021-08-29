@@ -87,7 +87,6 @@ public class MonthlyRecord {
     public String toString() {
         final StringBuffer sb = new StringBuffer("Monthly_record{");
         sb.append("id=").append(id);
-        sb.append(", user=").append(user.getId());
         sb.append(", monthly=").append(monthly);
         sb.append(", finish=").append(finish);
         sb.append(", monthly_kcal=").append(monthlyKcal);

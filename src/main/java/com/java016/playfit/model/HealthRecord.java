@@ -159,8 +159,6 @@ public class HealthRecord {
 		StringBuilder builder = new StringBuilder();
 		builder.append("HealthRecord [id=");
 		builder.append(id);
-		builder.append(", user=");
-		builder.append(user.getFullName());
 		builder.append(", age=");
 		builder.append(age);
 		builder.append(", height=");
