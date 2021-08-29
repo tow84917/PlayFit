@@ -1,1 +1,1 @@
-Model HealthRecord 熱量赤字欄位換成 Double , SQL int => float, 使用前請重跑 感恩!!!
+Model HealthRecord 熱量赤字欄位換成 Double , SQL int => float, 使用前建議重跑 感恩!!!

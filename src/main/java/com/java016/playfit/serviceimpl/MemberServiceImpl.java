@@ -132,7 +132,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	/**
-	 * 算某日到某日幾天
+	 * 算某日到某日差幾天
 	 * 
 	 * @param dateStart
 	 * @param dateEnd
@@ -179,16 +179,16 @@ public class MemberServiceImpl implements MemberService {
 		
 		// 相差天數
 		int discrepantDays = getDiscrepantDays(registerDate, sqlDate);
-		System.out.println(discrepantDays);
+//		System.out.println(discrepantDays);
 		
 		// 區間定位
 		int weekPos = discrepantDays % 7 ;
 		
 		// 日期區間
-		Date startDate = new Date(now - weekPos * dayMillis); // -1 基準
-		System.out.println(startDate);
+		Date startDate = new Date(now - weekPos * dayMillis); 
+//		System.out.println(startDate);
 		Date endDate = new Date(now + (7 - weekPos) * dayMillis);
-		System.out.println(endDate);
+//		System.out.println(endDate);
 
 		// 取資料庫區間資料
 		List<DailyRecord> dailys = 
