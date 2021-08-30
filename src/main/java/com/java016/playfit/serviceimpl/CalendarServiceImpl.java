@@ -160,7 +160,7 @@ public class CalendarServiceImpl implements CalendarService {
 						Date createdDate = (Date) dailyRecord.getCreatedDate();
 						Calendar createdCalender = converter.convertToEntityAttribute(createdDate);
 						int i = createdCalender.get(Calendar.DAY_OF_MONTH);
-						System.out.println("排程日期: " + i);
+//						System.out.println("排程日期: " + i);
 						set.add(i);
 					} // 直接執行
 				}

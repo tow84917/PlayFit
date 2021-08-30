@@ -1,44 +1,3 @@
-:root {
-  --btn-l-height: 160px;
-  --padding-def: 40px;
-  --padding-hef: 20px;
-
-  --purple1: #2e1ed3;
-  --purple2: #6460ff;
-  --purple3: #ccccff;
-  --purplebg: #ebeef8;
-  --red1: #ff353b;
-  --red2: #ff9398;
-  --green: #00baba;
-  --orange: #ff9a00;
-  --white: #fff;
-  --Gy1: #eeeeee;
-  --Gy2: #c5c9d8;
-  --Gy3: #8a919b;
-  --gradient-blue: linear-gradient(135deg, #2484c6 4.69%, #2e1ed3 77.62%);
-  --light-blur: #0075ff;
-  --default-filter: drop-shadow(3px 6px 6px rgba(0, 0, 0, 0.25));
-  --active-filter: drop-shadow(1px 3px 3px rgba(0, 0, 0, 0.25));
-  --background: #f6f5f2;
-  --background2: #ebeef8;
-
-  --div-border-radius: 30px;
-  --btn-border-radius: 1.5rem;
-  --input-border-radius: 10px;
-  --border-def: 1px solid var(--purple1);
-
-  --margin-list: 10px;
-  --margin-horizon: 1rem;
-  --padding-def: 40px;
-
-  --btn-width-height: 3rem;
-
-  --font-size-d: 1.25rem;
-  --font-size-l: 1.5rem;
-  --font-size-xl: 2.5rem;
-  --font-weight-blod: 700;
-}
-
 div {
   /* box-shadow: 0 0 0px 2px black inset; */
 }
@@ -70,17 +29,17 @@ div {
   /* box-shadow: 0 0 0px 4px red inset; */
   /* background: grey; */
   padding: 0;
-  padding-left: 100px;
-  padding-right: 100px;
+  /* padding-left: 100px; */
+  /* padding-right: 100px; */
   /* max-width: 1920px; */
   height: max-content;
   /* >>更改總高 */
-  height: 1040px;
+  /* height: 1040px; */
 }
 
 .row {
-  height: max-content;
-  height: 100%;
+  /* height: max-content; */
+  /* height: 100%; */
 
   width: 100%;
   margin: 0;
@@ -93,6 +52,7 @@ div {
 .my-col {
   /* box-shadow: 0 0 0px 2px green inset; */
   /* height: 500px; */
+  height: min(900px);
   /* >>左右間隔 */
   padding-left: var(--padding-hef);
   padding-right: var(--padding-hef);
@@ -111,7 +71,8 @@ div {
 }
 
 .full-height {
-  height: 100%;
+  /* height: 100%; */
+  height: min(100%, 900px);
 }
 
 .info-col {
@@ -126,7 +87,7 @@ div {
 .calendar-inter {
   /* box-shadow: 0 0 0px 1px blue inset; */
   width: 100%;
-  /* height: 800px; */
+
   height: 100%;
 
   background-color: var(--purple2);
@@ -144,8 +105,6 @@ div {
   /* overflow-y: scroll; */
 
   height: 100%;
-  height: 840px;
-
   padding-bottom: 0;
 
   /* 垂直 */
@@ -211,7 +170,7 @@ div {
 
 .btn-l {
   width: 100%;
-  height: 100%;
+  height: 120px;
   border-radius: var(--div-border-radius);
 
   font-size: 3rem;
@@ -249,6 +208,8 @@ div {
 .monthly_record {
   font-size: var(--font-size-xl);
   height: inherit;
+  display: flex;
+  align-items: center;
 }
 
 /* 達成的值  */
@@ -448,4 +409,75 @@ label {
   border-radius: 2px;
   width: 3.5px;
   transform: rotate(-45deg);
+}
+
+.today-height {
+  height: calc(100% - 160px);
+}
+
+/* ----- */
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }
