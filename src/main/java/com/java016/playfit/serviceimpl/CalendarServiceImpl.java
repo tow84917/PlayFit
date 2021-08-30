@@ -203,15 +203,14 @@ public class CalendarServiceImpl implements CalendarService {
 
 	/**
 	 * 依user增加一筆健身計畫
-	 * @param loginUserId
 	 * @param day
 	 * @param activities
 	 */
 	@Override
 	@Transactional
-	public void addActivities(int loginUserId, String day, List<String> activities) throws ParseException {
+	public void addActivities( String day, List<String> activities) throws ParseException {
 		System.out.println("addActivities in");
-
+		int loginUserId = this.userService.getLoginUserId();
 		// 2021/8/20 日期字串轉 sql.Date
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date(df.parse(day).getTime());
