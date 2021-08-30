@@ -172,7 +172,7 @@ public class CalendarCrontroller {
 
 	/**
 	 * 增加健身計畫
-	 * @param paramsMap
+	 * @param paramsMap 日期
 	 */
 	@RequestMapping("/addActivity")
 //	@ResponseBody
