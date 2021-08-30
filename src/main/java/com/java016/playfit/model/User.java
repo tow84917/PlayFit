@@ -1,14 +1,9 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package com.java016.playfit.model;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,14 +16,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(
 		name = "users"
 )
-public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class User {
+	
 	@Id
 	@GeneratedValue(
 			strategy = GenerationType.IDENTITY
@@ -38,20 +34,28 @@ public class User implements Serializable {
 			name = "full_name"
 	)
 	private String fullName;
+	
 	private String password;
+	
 	@Column(
 			name = "nickname"
 	)
 	private String nickName;
+	
 	private String gender;
+	
 	private String email;
+	
 	private String phone;
+	
 	private String address;
+	
 	@DateTimeFormat(
 			pattern = "yyyy-MM-dd"
 	)
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
+	
 	@Column(
 			name = "created_at",
 			nullable = false,
@@ -60,34 +64,44 @@ public class User implements Serializable {
 			columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
 	)
 	private Timestamp createdAt;
+	
 	@Column(
 			name = "certification_status"
 	)
 	private int certificationStatus;
+	
 	@ManyToOne
 	@JoinColumn(
 			name = "avatar_id",
 			referencedColumnName = "id"
 	)
 	private Avatar avatar;
+	
 	@OneToMany(
 			mappedBy = "user",
 			cascade = {CascadeType.ALL}
 	)
 	private List<HealthRecord> healthRecords;
+	
 	@OneToMany(
 			mappedBy = "user",
 			cascade = {CascadeType.ALL}
 	)
 	private List<PersonalGoal> PersonalGoals;
+	
 	@OneToMany(
 			mappedBy = "user"
 	)
 	private List<DailyRecord> dailyRecords;
+	
 	@Column(
 			name = "role"
 	)
 	private String role;
+	
+	public User() {}
+
+//  public User(User user) {}
 
 	public List<DailyRecord> getDailyRecords() {
 		return this.dailyRecords;
@@ -241,13 +255,8 @@ public class User implements Serializable {
 		builder.append(this.createdAt);
 		builder.append(", certificationStatus=");
 		builder.append(this.certificationStatus);
-		builder.append(", avatar=");
-		builder.append(", healthRecords=");
-		builder.append(", PersonalGoals=");
 		builder.append("]");
 		return builder.toString();
 	}
 
-	public User() {
-	}
 }

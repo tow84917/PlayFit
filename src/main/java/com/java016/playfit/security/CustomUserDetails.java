@@ -10,56 +10,97 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//public class CustomUserDetails extends User implements UserDetails {
 public class CustomUserDetails implements UserDetails {
-    private String fullName;
-    private String password;
-    private Integer id;
-    private List<GrantedAuthority> authorities;
-
+	
+	private static final long serialVersionUID = 1L;
+	
+	private User user;
+//	private String fullName;
+//    private String password;
+//    private Integer id;
+//    private List<GrantedAuthority> authorities;
+    
+    
     public CustomUserDetails(User user) {
-        this.fullName = user.getFullName();
-        this.password = user.getPassword();
-        this.id = user.getId();
-        String roles = user.getRole();
-        if (roles == null) {
-            roles = "ROLE_DEF";
-        }
-
-        this.authorities = (List) Arrays.stream(roles.split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        this.user = user;
     }
-
+    
+//    public CustomUserDetails(User user) {
+//        this.fullName = user.getFullName();
+//        this.password = user.getPassword();
+//        this.id = user.getId();
+//        String roles = user.getRole();
+//        if (roles == null) {
+//            roles = "ROLE_DEF";
+//        }
+//
+//        this.authorities = (List) Arrays.stream(roles.split(","))
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
+//    }
+    
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+//        return this.authorities;
+    	
+    	String roles = user.getRole();
+	    if (roles == null) {
+	    	roles = "ROLE_DEF";
+	    }
+    	
+        return (List<? extends GrantedAuthority>) Arrays.stream(roles.split(","))
+            	.map(SimpleGrantedAuthority::new)
+            	.collect(Collectors.toList());
     }
 
 
-    public Integer getId() {
-        return id;
+    @Override
+    public String getPassword() { // 用密碼
+        return user.getPassword();
     }
-
-    public String getPassword() {
-        return this.password;
+    
+    @Override
+    public String getUsername() { // 用戶全名
+        return user.getFullName();
     }
-
-    public String getUsername() {
-        return this.fullName;
+    
+    @Override
+    public boolean isAccountNonExpired() { // 帳號是否未過期
+        return true;
     }
-
-    public boolean isAccountNonExpired() {
+    
+    @Override
+    public boolean isAccountNonLocked() { // 用戶是否未被鎖
+        return true;
+    }
+    
+    @Override
+    public boolean isCredentialsNonExpired() { // 憑證是否未過期
+        return true;
+    }
+    
+    @Override
+    public boolean isEnabled() { // 用戶是否啟用
+    	
+		// 認證信用
+//		if (user.getCertificationStatus() == 0) {
+//			return false ;
+//		}
+    	
         return true;
     }
 
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    public boolean isEnabled() {
-        return true;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
+    
 }
+
+
+
+

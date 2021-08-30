@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -35,7 +36,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		// 從資料庫找到的使用者
 		UserDetails userDetails = null;
 		if (email != null) {
-			userDetails = userDetailsService.loadUserByUsername(email);
+			try {
+				userDetails = userDetailsService.loadUserByUsername(email);
+			} catch (UsernameNotFoundException e) {
+				throw new UsernameNotFoundException("rgrdsgdfhgnot found"); // catch again
+			}
 		}
 		
 		//--------------------------------------
@@ -52,18 +57,18 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		
 		// 密碼錯誤
 		if (!comparePassword) {
-			throw new BadCredentialsException("使用者Email/密碼無效");
+			throw new BadCredentialsException("Bad credentials");
 		}
 
 		// 檢查其他認證
 		if (!userDetails.isEnabled()) {
-			throw new DisabledException("帳號尚未啟用");
+			throw new DisabledException("Disabled");
 		} else if (!userDetails.isAccountNonExpired()) {
-			throw new AccountExpiredException("帳號已過期");
+			throw new AccountExpiredException("AccountExpired");
 		} else if (!userDetails.isAccountNonLocked()) {
-			throw new LockedException("帳號已被鎖定");
+			throw new LockedException("Locked");
 		} else if (!userDetails.isCredentialsNonExpired()) {
-			throw new LockedException("憑證已過期");
+			throw new LockedException("CredentialsExpired");
 		}
 		//--------------------------------------
 		

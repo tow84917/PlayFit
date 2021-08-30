@@ -16,17 +16,22 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 			HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 		
-		System.out.println(exception.getMessage());
+//		System.out.println(exception.getMessage());
 		
 		String errorMessage = exception.getMessage();
 		
+		// 帳號錯誤
+		if (errorMessage.equals("rgrdsgdfhgnot found")) {
+			response.sendRedirect("/login/failure?errorMessage=" + errorMessage);
+		}
+		
 		// 密碼錯誤
-		if (errorMessage.equals("使用者Email/密碼無效")) {
+		if (errorMessage.equals("Bad credentials")) {
 			response.sendRedirect("/login/failure?errorMessage=" + errorMessage);
 		}
 		
 		// 尚未啟用
-		if (errorMessage.equals("帳號尚未啟用")) {
+		if (errorMessage.equals("Disabled")) {
 			response.sendRedirect("/login/failure?errorMessage=" + errorMessage);
 		}
 		

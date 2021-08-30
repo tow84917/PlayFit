@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -54,7 +55,7 @@ public class MemberPageController {
 	}
 
 	// 會員頁面
-	@GetMapping("/MemberPage")
+	@RequestMapping("/MemberPage") // 須同時支援GET、POST(forward:/)
 	public String showMemberPage(Model model, RedirectAttributes ra, HttpServletRequest request) {
 
 		// 目前登入者 + Id
@@ -140,7 +141,7 @@ public class MemberPageController {
 		
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		
-		System.out.println(sqlDate + "---------------------------------");
+//		System.out.println(sqlDate + "---------------------------------");
 		
 		int userId = userService.getLoginUserId();
 		DailyRecord todayRecord = dailyRecordService.findByUserIdAndDate(userId, sqlDate);
@@ -172,14 +173,14 @@ public class MemberPageController {
 		// 設定目標高於體重則無效
 		if (newGoal >= healthRecord.getWeight()) {
 			request.setAttribute("result", "error"); // 加入訊息告知會員頁
-			return "forward:/MemberPage";
+			return "forward:/MemberPage"; // forward 轉交 = POST Mehod
 		}
 
 		// 更新一天限創一個
 		personalGoalService.updatePersonalGoal(newGoal, user, healthRecord);
 		request.setAttribute("result", "success"); // 加入訊息告知會員頁
 
-		return "forward:/MemberPage";
+		return "forward:/MemberPage"; // forward 轉交 = POST Mehod
 	}
 
 	// 連結到修改表單 Modal

@@ -69,13 +69,20 @@ public class HomeController {
 			@RequestParam(name = "errorMessage") String errorMessage, Model model 
 			) {
 		
+//		System.out.println(errorMessage);
+		
+		// 帳號錯誤
+		if (errorMessage.equals("rgrdsgdfhgnot found")) {
+			model.addAttribute("error", true);
+		}
+		
 		// 密碼錯誤
-		if (errorMessage.equals("使用者Email/密碼無效")) {
+		if (errorMessage.equals("Bad credentials")) {
 			model.addAttribute("error", true);
 		}
 		
 		// 尚未啟用
-		if (errorMessage.equals("帳號尚未啟用")) {
+		if (errorMessage.equals("Disabled")) {
 			model.addAttribute("isEnabled", true);
 		}
 		

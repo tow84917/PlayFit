@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
 		Authentication authentication = context.getAuthentication();
 		Object principal = authentication.getPrincipal();
 		CustomUserDetails customUserDetails = (CustomUserDetails) principal;
-		return customUserDetails.getId();
+		return customUserDetails.getUser().getId();
 	}
 
 	/**
@@ -125,9 +125,11 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public String getLoginUserName() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) authentication.getPrincipal();
-		return user.getFullName();
+		Authentication authentication = 
+				SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetails customUserDetails = 
+				(CustomUserDetails) authentication.getPrincipal();
+		return customUserDetails.getUser().getFullName();
 	}
 	
 	/**
@@ -137,9 +139,11 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public String getLoginUserEmail() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) authentication.getPrincipal();
-		return user.getEmail();
+		Authentication authentication = 
+				SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetails customUserDetails = 
+				(CustomUserDetails) authentication.getPrincipal();
+		return customUserDetails.getUser().getEmail();
 	}
 
 }
