@@ -29,12 +29,12 @@ div {
   /* box-shadow: 0 0 0px 4px red inset; */
   /* background: grey; */
   padding: 0;
-  padding-left: 100px;
-  padding-right: 100px;
+  /* padding-left: 100px; */
+  /* padding-right: 100px; */
   /* max-width: 1920px; */
   height: max-content;
   /* >>更改總高 */
-  height: 1040px;
+  /* height: 1040px; */
 }
 
 .row {
@@ -85,7 +85,7 @@ div {
 .calendar-inter {
   /* box-shadow: 0 0 0px 1px blue inset; */
   width: 100%;
-  /* height: 800px; */
+
   height: 100%;
 
   background-color: var(--purple2);
@@ -103,8 +103,6 @@ div {
   /* overflow-y: scroll; */
 
   height: 100%;
-  height: 840px;
-
   padding-bottom: 0;
 
   /* 垂直 */
@@ -170,7 +168,7 @@ div {
 
 .btn-l {
   width: 100%;
-  height: 100%;
+  height: 120px;
   border-radius: var(--div-border-radius);
 
   font-size: 3rem;
@@ -409,4 +407,75 @@ label {
   border-radius: 2px;
   width: 3.5px;
   transform: rotate(-45deg);
+}
+
+.today-height {
+  height: calc(100% - 160px);
+}
+
+/* ----- */
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }

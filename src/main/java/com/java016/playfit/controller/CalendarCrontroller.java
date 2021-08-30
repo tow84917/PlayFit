@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -197,7 +198,7 @@ public class CalendarCrontroller {
 	/**
 	 * 找某部位的健身動作
 	 * 判斷使用者，轉發不同控制器
-	 *  @return
+	 *  @return 不同權限方法
 	 */
 	@RequestMapping({"/findActivities"})
 	public ModelAndView findActivities(@RequestParam String bodyPartSelect ,
@@ -230,6 +231,12 @@ public class CalendarCrontroller {
 		return modelAndView;
 	}
 
+	/**
+	 * 付費會員方法
+	 * @param bodyPartSelect
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	@RequestMapping(value = {"/findAllActivities"} )
 	@ResponseBody
 	public String findAllActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect) throws JsonProcessingException {
@@ -244,8 +251,15 @@ public class CalendarCrontroller {
 		return s;
 	}
 
+	/**
+	 * 一般會員方法
+	 * @param bodyPartSelect
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	@RequestMapping({"/findOneActivities"})
 	@ResponseBody
+	@PreAuthorize("hasRole('PRIME')")
 	public String findOneActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect) throws JsonProcessingException {
 		logger.info("find One Activities in");
 		logger.info(bodyPartSelect);
@@ -277,6 +291,11 @@ public class CalendarCrontroller {
 //		return s;
 	}
 
+	/**
+	 * 棄用
+	 * @param paramsMap
+	 * @return
+	 */
 	@RequestMapping({"/addFit"})
 	public ModelAndView addFit(@RequestParam Map<String, Object> paramsMap) {
 		logger.info("addFit");

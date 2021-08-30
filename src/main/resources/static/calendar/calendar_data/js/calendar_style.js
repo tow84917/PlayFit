@@ -397,15 +397,15 @@ fitSubmit.addEventListener('click', (e) => {
             console.log('data: ', data);
 
             findToday(today);
-            
+            toast();
         },
         error: function () {
         },
     })
 
-    findToday(today);
+    // findToday(today);
     // getMonthlyFitDays(today);
-    
+   
 
     monthDays.innerHTML = '';
     
@@ -502,3 +502,11 @@ addAchivity.addEventListener('click' , () => {
     const allActivities = document.getElementById('all-activities');
     allActivities.innerHTML = '';
 })
+
+
+
+function toast() {
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  }
