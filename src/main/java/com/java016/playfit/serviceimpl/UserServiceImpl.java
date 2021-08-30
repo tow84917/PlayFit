@@ -71,6 +71,17 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	/**
+	 * 更新使用者啟用狀態
+	 * @param id
+	 * @param password
+	 */
+	@Transactional
+	@Override
+	public void updateUserCertificationStatus(Integer id, Integer certificationStatus) {
+		userRepo.updateUserCertificationStatus(id, certificationStatus);
+	}
+	
+	/**
 	 * 更新使用者名稱
 	 * @param id
 	 * @param fullName
