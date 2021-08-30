@@ -166,7 +166,7 @@ public class CalendarCrontroller {
 
 		System.out.println("calender**********");
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/calendar/calendar copy.html");
+		mv.setViewName("/calendar/calendar");
 		return mv;
 	}
 
