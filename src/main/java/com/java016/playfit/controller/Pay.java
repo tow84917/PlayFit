@@ -36,4 +36,15 @@ public class Pay {
         model.addAttribute("check", check);
         return "pay";
     }
+
+    @RequestMapping({"/period"})
+    public String period(Model model, String price) {
+        System.out.println("period in -->> ");
+        ExampleAllInOne exampleAllInOne = new ExampleAllInOne();
+        ExampleAllInOne.initial();
+        String check = ExampleAllInOne.genAioCheckOutPeriod();
+        System.out.println(check);
+        model.addAttribute("check", check);
+        return "pay";
+    }
 }

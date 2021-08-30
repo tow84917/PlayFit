@@ -21,7 +21,6 @@ public interface DailyRecordRepository extends JpaRepository<DailyRecord, Intege
 	//	nativeQuery = true 原生sql 語法
 	/**
 	 * 找User日期區間日記紀錄
-	 * @param createdDate
 	 * @param userId
 	 * @return List<DailyRecord>
 	 */
