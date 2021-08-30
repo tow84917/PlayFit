@@ -1,17 +1,11 @@
 package com.java016.playfit.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.Principal;
-import java.sql.Date;
-import java.text.ParseException;
-import java.util.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.java016.playfit.model.FitActivity;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.java016.playfit.model.*;
+import com.java016.playfit.service.CalendarService;
+import com.java016.playfit.service.UserService;
+import com.java016.playfit.tool.CalendarTool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -21,22 +15,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.java016.playfit.model.FitAchieve;
-import com.java016.playfit.model.MonthlyRecord;
-import com.java016.playfit.model.User;
-import com.java016.playfit.service.CalendarService;
-import com.java016.playfit.service.UserService;
-import com.java016.playfit.tool.CalendarTool;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.Principal;
+import java.sql.Date;
+import java.text.ParseException;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/calendar")
@@ -136,7 +127,7 @@ public class CalendarCrontroller {
 		String[] split = day.split("/");
 		Calendar c = new Calendar.Builder().build();
 		c.set(Integer.parseInt(split[0]),Integer.parseInt(split[1])-1,Integer.parseInt(split[2]));
-		java.sql.Date date = new Date(c.getTimeInMillis());
+		Date date = new Date(c.getTimeInMillis());
 
 		List<FitAchieve> dailyRecords = calenderService.findByCreatedDate(date);
 		System.out.println("dailyRecords");
@@ -209,8 +200,10 @@ public class CalendarCrontroller {
 	 *  @return
 	 */
 	@RequestMapping({"/findActivities"})
-	public String findActivities() {
-		logger.info("findActivities");
+	public ModelAndView findActivities(@RequestParam String bodyPartSelect ,
+									   RedirectAttributes redirectAttributes) {
+		logger.info("findActivities --->  ",bodyPartSelect);
+		System.out.println(bodyPartSelect);
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -218,29 +211,28 @@ public class CalendarCrontroller {
 			String authority1 = authority.getAuthority();
 			System.out.println(authority1);
 		}
+
+		ModelAndView modelAndView = null;
 		if (authentication != null &&
 				authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_PRIME"))) {
-			return "forward:/findAllActivities";
+			logger.info("付費會員");
+			redirectAttributes.addFlashAttribute("bodyPartSelect", bodyPartSelect);
+			modelAndView = new ModelAndView("redirect:findAllActivities");
+//			modelAndView.addObject("bodyPartSelect", bodyPartSelect);
+//			return "forward:/findAllActivities";
 		} else {
-			return "forward:/findOneActivities";
+			logger.info("一般會員");
+//			modelAndView.addObject("bodyPartSelect", bodyPartSelect);
+			redirectAttributes.addFlashAttribute("bodyPartSelect",bodyPartSelect);
+			modelAndView = new ModelAndView("redirect:findOneActivities");
+//			return "forward:/findOneActivities";
 		}
-//		Iterator var3 = authorities.iterator();
-//
-//		while(var3.hasNext()) {
-//			GrantedAuthority authority = (GrantedAuthority)var3.next();
-//			String authority1 = authority.getAuthority();
-//			logger.info(authority1);
-//		}
-//
-//		return authentication != null && authentication.getAuthorities().stream().anyMatch((a) -> {
-//			return a.getAuthority().equals("ROLE_PRIME");
-//		}) ? "forward:/findAllActivities" : "forward:/findOneActivities";
-
+		return modelAndView;
 	}
 
-	@RequestMapping(value = {"findAllActivities"} , method = RequestMethod.POST)
+	@RequestMapping(value = {"/findAllActivities"} )
 	@ResponseBody
-	public String findAllActivities(@RequestParam String bodyPartSelect) throws JsonProcessingException {
+	public String findAllActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect) throws JsonProcessingException {
 		logger.info("find All Activities in");
 		logger.info(bodyPartSelect);
 		List<FitActivity> activities = calenderService.findActivities(bodyPartSelect);
@@ -248,21 +240,30 @@ public class CalendarCrontroller {
 		ObjectMapper mapper = new ObjectMapper();
 		String s = mapper.writeValueAsString(activities);
 
-		System.out.println("findActivities out");
+		logger.info("findActivities out");
 		return s;
 	}
 
-	@RequestMapping({"findOneActivities"})
+	@RequestMapping({"/findOneActivities"})
 	@ResponseBody
-	public String findOneActivities(@RequestParam String bodyPartSelect) throws JsonProcessingException {
+	public String findOneActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect) throws JsonProcessingException {
 		logger.info("find One Activities in");
 		logger.info(bodyPartSelect);
 		List<FitActivity> activities = calenderService.findActivities(bodyPartSelect);
-
+		List<Object> activity1 = new ArrayList<>();
+		int i = 1;
+		for (FitActivity activity : activities) {
+			System.out.println(activity);
+			if (i == 1 ){
+				activity1.add(activity);
+			}
+			i++;
+		}
+		activity1.add(new AddMemberInfo());
 		ObjectMapper mapper = new ObjectMapper();
-		String s = mapper.writeValueAsString(activities.get(0));
+		String s = mapper.writeValueAsString(activity1);
 
-		System.out.println("findActivities out");
+		logger.info("findActivities out");
 		return s;
 //		List<FitActivity> activities = this.calenderService.findActivities(bodyPartSelect);
 //		ObjectMapper mapper = new ObjectMapper();

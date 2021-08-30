@@ -13,11 +13,13 @@ import java.util.stream.Collectors;
 public class CustomUserDetails implements UserDetails {
     private String fullName;
     private String password;
+    private Integer id;
     private List<GrantedAuthority> authorities;
 
     public CustomUserDetails(User user) {
         this.fullName = user.getFullName();
         this.password = user.getPassword();
+        this.id = user.getId();
         String roles = user.getRole();
         if (roles == null) {
             roles = "ROLE_DEF";
@@ -30,6 +32,11 @@ public class CustomUserDetails implements UserDetails {
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
+    }
+
+
+    public Integer getId() {
+        return id;
     }
 
     public String getPassword() {

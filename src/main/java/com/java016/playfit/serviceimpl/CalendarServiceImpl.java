@@ -1,33 +1,18 @@
 package com.java016.playfit.serviceimpl;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-
+import com.java016.playfit.converter.LocalDateCalendarAttributeConverter;
+import com.java016.playfit.dao.*;
+import com.java016.playfit.model.*;
+import com.java016.playfit.service.CalendarService;
+import com.java016.playfit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.java016.playfit.converter.LocalDateCalendarAttributeConverter;
-import com.java016.playfit.dao.AvatarRepository;
-import com.java016.playfit.dao.DailyRecordRepository;
-import com.java016.playfit.dao.FitAchieveRepository;
-import com.java016.playfit.dao.FitActivityRepository;
-import com.java016.playfit.dao.MonthlyRecordRepository;
-import com.java016.playfit.dao.UserRepository;
-import com.java016.playfit.model.Avatar;
-import com.java016.playfit.model.DailyRecord;
-import com.java016.playfit.model.FitAchieve;
-import com.java016.playfit.model.FitActivity;
-import com.java016.playfit.model.MonthlyRecord;
-import com.java016.playfit.model.User;
-import com.java016.playfit.service.CalendarService;
-import com.java016.playfit.service.UserService;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class CalendarServiceImpl implements CalendarService {
@@ -56,14 +41,14 @@ public class CalendarServiceImpl implements CalendarService {
 	public MonthlyRecord findByUserIdAndMonthly(int monthly , int year){
 		int userId = userService.getLoginUserId();
 		System.out.println("userId: " + userId);
-		MonthlyRecord monthlyRecord = monthlyRecordRepository.findByUserIdAndMonthly(41,  monthly , year);
+		MonthlyRecord monthlyRecord = monthlyRecordRepository.findByUserIdAndMonthly(userId,  monthly , year);
 		System.out.println("CalendarServiceImpl---");
 //		如果沒有當月紀錄，則建一筆新的空紀錄
 		if( monthlyRecord == null) {
-			Calendar c = new Calendar.Builder().build();
-			c.set(year, monthly-1, 1);
-			User user = userRepository.getById(41);			// userId待改
-			monthlyRecord = new MonthlyRecord( user, c, 0, 0, 0);
+			Calendar calendar = new Calendar.Builder().build();
+			calendar.set(year, monthly-1, 1);
+			User user = userRepository.getById(userId);
+			monthlyRecord = new MonthlyRecord( user, calendar, 0, 0, 0);
 			monthlyRecordRepository.save(monthlyRecord);
 		}
 		System.out.println(monthlyRecord);
@@ -81,8 +66,8 @@ public class CalendarServiceImpl implements CalendarService {
 		System.out.println("findByCreatedDate");
 		int userId = userService.getLoginUserId();
 		System.out.println("userId: " + userId);
-//		List<DailyRecord> byCreatedDate = dailyRecordRepository.findByCreatedDate(date , 41);
-		DailyRecord byCreatedDate = dailyRecordRepository.findByUserIdAndDate(41 , date);
+//		List<DailyRecord> byCreatedDate = dailyRecordRepository.findByCreatedDate(date , userId);
+		DailyRecord byCreatedDate = dailyRecordRepository.findByUserIdAndDate(userId , date);
 		List<FitAchieve> fitAchieveList = new ArrayList<>();
 //		for (DailyRecord d :
 //				byCreatedDate) {
@@ -113,7 +98,7 @@ public class CalendarServiceImpl implements CalendarService {
 		System.out.println("findMonthlyFitDays--------");
 		int userId = userService.getLoginUserId();
 		System.out.println("userId: " + userId);
-		List<Date> monthlyDays = fitAchieveRepository.findByMonthAndYearGroup(41, month, year);
+		List<Date> monthlyDays = fitAchieveRepository.findByMonthAndYearGroup(userId, month, year);
 		System.out.println(monthlyDays);
 		for (Date c :
 				monthlyDays) {
@@ -163,7 +148,7 @@ public class CalendarServiceImpl implements CalendarService {
 		System.out.println("findUserMonthlyFitDays--------");
 		int userId = userService.getLoginUserId();
 		System.out.println("userId: " + userId);
-		List<DailyRecord> monthlyRecords = dailyRecordRepository.findByCreatedDateMonthly(41, month, year);
+		List<DailyRecord> monthlyRecords = dailyRecordRepository.findByCreatedDateMonthly(userId, month, year);
 
 		for (DailyRecord dailyRecord : monthlyRecords) {
 			boolean flag = false;
