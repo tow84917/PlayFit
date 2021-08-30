@@ -134,6 +134,8 @@ public class CalendarCrontroller {
 		System.out.println("dailyRecords");
 		ObjectMapper mapper = new ObjectMapper();
 		String s = mapper.writeValueAsString(dailyRecords);
+		System.out.println("---->>>>");
+		System.out.println(s);
 
 		return s;
 	}
