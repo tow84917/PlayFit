@@ -1,18 +1,18 @@
 package com.java016.playfit.serviceimpl;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import com.java016.playfit.dao.UserRepository;
+import com.java016.playfit.model.User;
+import com.java016.playfit.security.CustomUserDetails;
+import com.java016.playfit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.java016.playfit.dao.UserRepository;
-import com.java016.playfit.model.User;
-import com.java016.playfit.service.UserService;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -111,9 +111,11 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public int getLoginUserId() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) authentication.getPrincipal();
-		return user.getId();
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		Object principal = authentication.getPrincipal();
+		CustomUserDetails customUserDetails = (CustomUserDetails) principal;
+		return customUserDetails.getId();
 	}
 
 	/**
