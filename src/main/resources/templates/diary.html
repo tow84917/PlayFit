@@ -1,34 +1,192 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diary</title>
+    <link rel="stylesheet" href="/diary/css/diaryStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  </head>
 <body>
-<h1>Dairy</h1>
-<div th:if="${!isDiary}">
-	<a th:href="@{/diary_add_update}">新增今天的日記</a>
-</div>
-<div th:if="${isDiary}">
-	<a th:href="@{/diary_add_update}">編輯今天的日記</a>
-</div>
+<!--Menu Start-->
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">Play Fit</a>
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">FIT NOW</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">CALCULATOR</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">PLALENDAR</a>
+            </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">ABOUT US</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">#</a>
+          </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--Menu End-->
+
+<!--Main Start-->
+<div class="main container">
+  <div class="row">
+  <!--Left Main Start-->
+    <div class="left-main col-2 mt-3" style="text-align: left;">
+
+    <!-- Button  Start-->
+    <button th:if="${!isDiary}" type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+     ADD
+    </button>
+
+	<button th:if="${isDiary}" type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+		EDIT
+	</button>
+
+      <!-- 日記編輯 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<form th:action="@{/processDiaryUpdate}" class="add-diary" th:object="${todayDailyRecord}" method="post">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">Create a Dairy</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="food-edit">
+				<div class="item"></div>
+				<div class="item">
+					<select id="myTimePeriod">
+						<option th:each="timePeriod : ${timePeriods}" th:value="${timePeriod.id}" th:utext="${timePeriod.name}">
+					</select>
+					<select id="myFood">
+						<option th:each="food : ${foods}" th:value="${food.id}" th:utext="${food.name}">
+					</select>
+					<div th:if="${meals}" th:each="meal: ${meals}" 
+					th:utext="${meal.timePeriod.name} + '--' + ${meal.food.name} + '  <button type=' + 'button'+ ' class=' + 'deleteClass' + ' value=' + ${meal.id} + '>Delete</button>'">
+					</div>
+					<div>
+						<button type="button" id="addFoodBtn" style="float:right;">+</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-body" style="text-align: left;">
+				<p>Diary title:</p>
+				<input type="text" th:field="*{title}"> 
+
+				<p>DIARY:</p>
+				<textarea rows="5" cols="50" th:field="*{content}"></textarea>
+
+				<p>Date:</p>
+				<input type="date" id="date" th:field="*{createdDate}" readonly/>
+
+				<p><Picture>Picture:</p>
+				<input type="file" accept="image/*">
+			
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Save changes</button>
+			</div>
+			</div>
+			<input type="hidden" name="mealHidden" value="last">
+		</form>
+      </div>
+    </div>
+    <!-- Button  End-->
+    <!--選單 Start--> 
+    <div class="open_line"  >
+      <div class="has_children">
+        <dt>2021</dt>
+        
+            <a class="ch" href="#">8</a>
+            <a class="ch" href="#">7</a>
+      </div>
+      <div class="has_children">
+        <dt>2020</dt>
+        
+            <a class="ch" href="#">12</a>
+            <a class="ch" href="#">11</a>
+    
+      </div>
+    </div>
+   
+
+
+    </div>
+
+    <!-- 選單  End-->
+  <!--Left Main End-->
+
+
+  <!--Right Main Start--> 
+    <div class="right-main col-10 mt-3">
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
 
 
 
-<div th:each="dailyRecord : ${dailyRecords}">
-    <a th:if="${dailyRecord}" 
-    	th:href="@{/showDailyRecord/{id}(id=${dailyRecord.id})}" 
-    	th:utext="${dailyRecord.createdDate} + '	Title : ' + ${dailyRecord.title}"> 
-     </a>
+		  	<span th:each="i: ${#numbers.sequence(1,totalPages)}">
+				<li class="page-item"><a class="page-link" th:href="@{'/diary_homepage/' + ${i}}">[[${i}]]</a> </li>
+			</span>
+
+
+
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+
+
+
+      <div class="card mb-3" th:each="dailyRecord : ${dailyRecords}">
+        <div class="row g-0">
+          <div class="col-md-8">
+            <div class="card-body ">
+              <h5 class="card-title" th:utext="${dailyRecord.title}">diary title</h5>              
+              <p class="card-text" th:utext="${dailyRecord.content}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, ad velit! Eius at officiis quam, sed amet exercitationem voluptas? Accusamus illo</p>
+              <p class="food" th:each="meal : ${dailyRecord.meals}" th:utext="${meal.timePeriod.name} + ': ' + ${meal.food.name}">food food food food food food food food food</p>
+              <p class="card-date"><small class="text-muted" th:utext="${dailyRecord.createdDate}">2021/8/4</small></p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <img src="..." class="img-fluid rounded-start" alt="...">
+          </div>
+        </div>
+      </div>
+      
+
+    </div>
+
+  <!--Right Main End-->
+  </div>
 </div>
-<div>
-	Total Items: [[${totalItems}]] - Page [[${currentPage}]] of [[${totalPages}]]
-	&nbsp; - &nbsp;
-	<span th:each="i: ${#numbers.sequence(1,totalPages)}">
-		<a th:if="${i != currentPage}" th:href="@{'/diary_homepage/' + ${i}}">[[${i}]]</a> 
-		<span th:unless="${i != currentPage}">[[${i}]]</span>
-		&nbsp;&nbsp;
-	</span>
-</div>
+<!--Main Start-->
+
+
+
+
+<script src="/diary/js/diaryjs.js"></script>
 </body>
 </html>
