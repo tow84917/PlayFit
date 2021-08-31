@@ -25,6 +25,13 @@ public interface UserService {
 	void updateUserPassword(Integer id, String password);
 	
 	/**
+	 * 更新使用者啟用狀態
+	 * @param id
+	 * @param password
+	 */
+	void updateUserCertificationStatus(Integer id, Integer certificationStatus);
+	
+	/**
 	 * 更新使用者名稱
 	 * @param id
 	 * @param fullName

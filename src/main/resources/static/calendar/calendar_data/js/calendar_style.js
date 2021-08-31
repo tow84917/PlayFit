@@ -365,7 +365,7 @@ const fitSubmit = document.getElementById('fit-submit'); // 送出按鈕
 const activity = document.getElementsByName('activity');
 
 fitSubmit.addEventListener('click', (e) => {
-    console.log('fitSubmit: ',today);
+    // console.log('fitSubmit: ',today);
 
     let value = new Array();
     for (let i = 0; i < activity.length; i++) {
@@ -374,7 +374,7 @@ fitSubmit.addEventListener('click', (e) => {
             value.push(element.value);
         }
     }
-    console.log('value: ', value);
+    // console.log('value: ', value);
 
     // 後端只能收到陣列的第一個值  {day=2021/8/19, activity[]=1}
     // $.post("addActivity", {"day": today, "activity": value}, function (data) {
@@ -390,22 +390,18 @@ fitSubmit.addEventListener('click', (e) => {
         type: "POST" , 
         async:false ,
         contentType: "application/json; charset=utf-8",
-        dataType: "json", 
+        // dataType: "json", 
         data: JSON.stringify({day: today, activity: value}),
-        // data: json,
         success: function (data) {
             console.log('data: ', data);
-
+            toast();   
             findToday(today);
-            
         },
         error: function () {
+            console.log("error ---------->>>>>>>>>>>");
         },
     })
 
-    findToday(today);
-    // getMonthlyFitDays(today);
-    
 
     monthDays.innerHTML = '';
     
@@ -502,3 +498,11 @@ addAchivity.addEventListener('click' , () => {
     const allActivities = document.getElementById('all-activities');
     allActivities.innerHTML = '';
 })
+
+
+
+function toast() {
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  }

@@ -15,7 +15,6 @@ import com.java016.playfit.model.User;
 import com.java016.playfit.service.PersonalGoalService;
 
 @Service
-@Transactional
 public class PersonalGoalServiceImpl implements PersonalGoalService {
 	@Autowired
 	PersonalGoalRepository personalGoalRepo;
@@ -40,12 +39,14 @@ public class PersonalGoalServiceImpl implements PersonalGoalService {
 	}
 
 	// 儲存目標
+	@Transactional
 	@Override
 	public void savePersonalGoal(PersonalGoal personalGoal) {
 		personalGoalRepo.save(personalGoal);
 	}
 	
 	// 更新或儲存目標
+	@Transactional
 	@Override
 	public void updatePersonalGoal(Double newGoal, User user, HealthRecord healthRecord) {
 		

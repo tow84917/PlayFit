@@ -25,5 +25,14 @@ public interface HealthRecordService {
 
 	// 更新健康紀錄(無今日紀錄時)
 	void updateHealthRecord(User user, HealthRecord healthRecordToday);
+	
+	// 更新熱量赤字
+	void updateCalorieDeficit(Integer id, Double calorieDeficit);
 
 }
+
+
+
+
+
+

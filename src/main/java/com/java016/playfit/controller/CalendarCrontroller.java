@@ -1,40 +1,34 @@
 package com.java016.playfit.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.java016.playfit.model.*;
+import com.java016.playfit.service.CalendarService;
+import com.java016.playfit.service.UserService;
+import com.java016.playfit.tool.CalendarTool;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.java016.playfit.model.FitActivity;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.java016.playfit.model.FitAchieve;
-import com.java016.playfit.model.MonthlyRecord;
-import com.java016.playfit.model.User;
-import com.java016.playfit.service.CalendarService;
-import com.java016.playfit.service.UserService;
-import com.java016.playfit.tool.CalendarTool;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/calendar")
@@ -45,7 +39,10 @@ public class CalendarCrontroller {
 	CalendarService calenderService;
 	@Autowired
 	CalendarTool tool;
+	private static final Logger logger = LogManager.getLogger(CalendarCrontroller.class);
 
+	public CalendarCrontroller() {
+	}
 	/**
 	 * 找user當月的紀錄
 	 * @param monthYear
@@ -72,7 +69,7 @@ public class CalendarCrontroller {
 		ObjectMapper mapper = new ObjectMapper();
 		String s;
 		try {
-			 s = mapper.writeValueAsString(map);
+			s = mapper.writeValueAsString(map);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -112,7 +109,7 @@ public class CalendarCrontroller {
 
 	/**
 	 * 顯示 當日所排程的動作
-//	 * @param paramsMap
+	 //	 * @param paramsMap
 	 * @param request
 	 * @param response
 	 * @return
@@ -125,18 +122,20 @@ public class CalendarCrontroller {
 									HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
 		System.out.println("findActivityByDay in");
 		System.out.println(day);
-	
+
 //		String today = (String)paramsMap.get("day");
 //		today = today.replaceAll(",", "/");
 		String[] split = day.split("/");
 		Calendar c = new Calendar.Builder().build();
 		c.set(Integer.parseInt(split[0]),Integer.parseInt(split[1])-1,Integer.parseInt(split[2]));
-		java.sql.Date date = new Date(c.getTimeInMillis());
+		Date date = new Date(c.getTimeInMillis());
 
 		List<FitAchieve> dailyRecords = calenderService.findByCreatedDate(date);
 		System.out.println("dailyRecords");
 		ObjectMapper mapper = new ObjectMapper();
 		String s = mapper.writeValueAsString(dailyRecords);
+		System.out.println("---->>>>");
+		System.out.println(s);
 
 		return s;
 	}
@@ -154,7 +153,7 @@ public class CalendarCrontroller {
 		byte[] findImage = calenderService.findImage(i);
 		System.out.println(findImage);
 		System.out.println(findImage.length);
-		
+
 		response.setContentType("image/*");
 		InputStream is = new ByteArrayInputStream(findImage);
 		IOUtils.copy(is, response.getOutputStream());
@@ -170,13 +169,13 @@ public class CalendarCrontroller {
 
 		System.out.println("calender**********");
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/calendar/calendar copy.html");
+		mv.setViewName("/calendar/calendar");
 		return mv;
 	}
 
 	/**
 	 * 增加健身計畫
-	 * @param paramsMap
+	 * @param paramsMap 日期
 	 */
 	@RequestMapping("/addActivity")
 //	@ResponseBody
@@ -188,7 +187,7 @@ public class CalendarCrontroller {
 		System.out.println(day);
 		List<String> activities = (List<String>) paramsMap.get("activity");
 
-		calenderService.addActivities(41, day, activities);
+		calenderService.addActivities( day, activities);
 
 
 		System.out.println("addActivity finish \n");
@@ -200,29 +199,116 @@ public class CalendarCrontroller {
 
 	/**
 	 * 找某部位的健身動作
-	 * @param bodyPartSelect
+	 * 判斷使用者，轉發不同控制器
+	 *  @return 不同權限方法
 	 */
-	@RequestMapping("findActivities")
-	@ResponseBody
-	public String findActivities(@RequestParam String bodyPartSelect) throws JsonProcessingException {
-		System.out.println("findActivities in");
+	@RequestMapping({"/findActivities"})
+	public ModelAndView findActivities(@RequestParam String bodyPartSelect ,
+									   RedirectAttributes redirectAttributes) {
+		logger.info("findActivities --->  ",bodyPartSelect);
 		System.out.println(bodyPartSelect);
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		for (GrantedAuthority authority : authorities) {
+			String authority1 = authority.getAuthority();
+			System.out.println(authority1);
+		}
+
+		ModelAndView modelAndView = null;
+		if (authentication != null &&
+				authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_PRIME"))) {
+			logger.info("付費會員");
+			redirectAttributes.addFlashAttribute("bodyPartSelect", bodyPartSelect);
+			modelAndView = new ModelAndView("redirect:findAllActivities");
+//			modelAndView.addObject("bodyPartSelect", bodyPartSelect);
+//			return "forward:/findAllActivities";
+		} else {
+			logger.info("一般會員");
+//			modelAndView.addObject("bodyPartSelect", bodyPartSelect);
+			redirectAttributes.addFlashAttribute("bodyPartSelect",bodyPartSelect);
+			modelAndView = new ModelAndView("redirect:findOneActivities");
+//			return "forward:/findOneActivities";
+		}
+		return modelAndView;
+	}
+
+	/**
+	 * 付費會員方法
+	 * @param bodyPartSelect
+	 * @return
+	 * @throws JsonProcessingException
+	 */
+	@RequestMapping(value = {"/findAllActivities"} )
+	@ResponseBody
+	public String findAllActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect) throws JsonProcessingException {
+		logger.info("find All Activities in");
+		logger.info(bodyPartSelect);
 		List<FitActivity> activities = calenderService.findActivities(bodyPartSelect);
 
 		ObjectMapper mapper = new ObjectMapper();
 		String s = mapper.writeValueAsString(activities);
 
-		System.out.println("findActivities out");
+		logger.info("findActivities out");
 		return s;
 	}
 
-	@RequestMapping("/addFit")
-	public ModelAndView addFit(@RequestParam Map<String,Object> paramsMap){
-		System.out.println("addFit");
-		System.out.println(paramsMap);
-		for (String s : paramsMap.keySet()) {
-			System.out.println(s);
+	/**
+	 * 一般會員方法
+	 * @param bodyPartSelect
+	 * @return
+	 * @throws JsonProcessingException
+	 */
+	@RequestMapping({"/findOneActivities"})
+	@ResponseBody
+	@PreAuthorize("hasRole('PRIME')")
+	public String findOneActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect) throws JsonProcessingException {
+		logger.info("find One Activities in");
+		logger.info(bodyPartSelect);
+		List<FitActivity> activities = calenderService.findActivities(bodyPartSelect);
+		List<Object> activity1 = new ArrayList<>();
+		int i = 1;
+		for (FitActivity activity : activities) {
+			System.out.println(activity);
+			if (i == 1 ){
+				activity1.add(activity);
+			}
+			i++;
 		}
+		activity1.add(new AddMemberInfo());
+		ObjectMapper mapper = new ObjectMapper();
+		String s = mapper.writeValueAsString(activity1);
+
+		logger.info("findActivities out");
+		return s;
+//		List<FitActivity> activities = this.calenderService.findActivities(bodyPartSelect);
+//		ObjectMapper mapper = new ObjectMapper();
+//
+//		FitActivity var5;
+//		for(Iterator var4 = activities.iterator(); var4.hasNext(); var5 = (FitActivity)var4.next()) {
+//		}
+//
+//		String s = mapper.writeValueAsString(activities.get(0));
+//		logger.info("findActivities out");
+//		return s;
+	}
+
+	/**
+	 * 棄用
+	 * @param paramsMap
+	 * @return
+	 */
+	@RequestMapping({"/addFit"})
+	public ModelAndView addFit(@RequestParam Map<String, Object> paramsMap) {
+		logger.info("addFit");
+		logger.info(paramsMap);
+		Iterator var2 = paramsMap.keySet().iterator();
+
+		while(var2.hasNext()) {
+			String s = (String)var2.next();
+			logger.info(s);
+		}
+
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("index");
 		return mv;

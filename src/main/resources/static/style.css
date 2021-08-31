@@ -8,6 +8,10 @@ button {
   font-family: 'Montserrat', sans-serif;
 }
 :root {
+  --btn-l-height: 160px;
+  --padding-def: 40px;
+  --padding-hef: 20px;
+
   --purple1: #2e1ed3;
   --purple2: #6460ff;
   --purple3: #ccccff;
@@ -32,7 +36,7 @@ button {
   --input-border-radius: 10px;
   --border-def: 1px solid var(--purple1);
 
-  --margin-list: 2px;
+  --margin-list: 10px;
   --margin-horizon: 1rem;
   --padding-def: 40px;
 
@@ -40,9 +44,9 @@ button {
 
   --font-size-d: 1.25rem;
   --font-size-l: 1.5rem;
+  --font-size-xl: 2.5rem;
   --font-weight-blod: 700;
 }
-
 /* div --------------------------------------------------------- */
 /* 檢查 */
 /* div {

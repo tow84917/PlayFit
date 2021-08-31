@@ -21,5 +21,5 @@ public interface CalendarService {
 
     List<FitActivity> findActivities(String bodyPartSelect);
 
-    void addActivities(int loginUserId, String day, List<String> activities) throws ParseException;
+    void addActivities( String day, List<String> activities) throws ParseException;
 }

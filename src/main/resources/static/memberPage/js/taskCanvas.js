@@ -30,10 +30,9 @@ function drawTaskAnimation(taskGraphicLen) {
 }
 
 let changeNumber = document.getElementById("progressNumber");
-let progressData = taskCanvas.textContent;
 
 // 動態數字配合 ProgressBar
-function dynamicNumber(){
+function dynamicNumber(progressData){
     let num = 0 ;
     // 每次增加數字
     let perNum = (progressData / 8).toFixed(1); 
@@ -51,18 +50,54 @@ function dynamicNumber(){
 } 
 
 
+// 今天日期、格式化
+let date = new Date();
+let today = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+
+// ajax 取當日運動完成率
+async function getTaskCompletionRate(){
+	
+	// 傳送今日日期
+	fetch('/ajaxTaskCompletionRate', {
+        method : 'POST',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body :JSON.stringify(date),
+    })
+    .then(response => {
+//    	console.log(response);
+    	return response.json()
+    })
+    .then(data => {
+      console.log(data);
+	  
+	  // 取進度%數
+      let progressData = data["completionRate"];
+      
+      // 換算畫圖長度
+      let taskGraphicLen = progressData * (490 / 100);
+      
+      drawTaskAnimation(taskGraphicLen);
+      dynamicNumber(progressData);
+    })
+}
 
 function doFirst(){
-    // 取進度%數
-    // let progressData = taskCanvas.text();
-    // 換算畫圖長度
-    let taskGraphicLen = progressData * (490 / 100);
-    // 確認資訊
-    // console.log(taskCanvas);
-    // console.log(progressData);
-    // console.log(taskGraphicLen);
-    drawTaskAnimation(taskGraphicLen);
-    dynamicNumber();
+	
+	getTaskCompletionRate();
+	
 }
 
 window.addEventListener("load", doFirst);
+
+
+
+
+
+
+
+
+
+
+

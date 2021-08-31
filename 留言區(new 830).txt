@@ -1,0 +1,2 @@
+Model HealthRecord 熱量赤字欄位換成 Double , SQL int => float 
+Model User 增加 String role , SQL檔已更新, 使用前建議重跑 感恩

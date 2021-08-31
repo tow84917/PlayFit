@@ -1,21 +1,20 @@
 package com.java016.playfit.serviceimpl;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import com.java016.playfit.dao.UserRepository;
+import com.java016.playfit.model.User;
+import com.java016.playfit.security.CustomUserDetails;
+import com.java016.playfit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.java016.playfit.dao.UserRepository;
-import com.java016.playfit.model.User;
-import com.java016.playfit.service.UserService;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -43,6 +42,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	// 註冊用
+	@Transactional
 	@Override
 	public void saveUser(User user) {
 
@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
 	 * @param id
 	 * @param password
 	 */
+	@Transactional
 	@Override
 	public void updateUserPassword(Integer id, String password) {
 		String encodedPassword = passwordEncoder.encode(password); // 加密
@@ -70,10 +71,22 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	/**
+	 * 更新使用者啟用狀態
+	 * @param id
+	 * @param password
+	 */
+	@Transactional
+	@Override
+	public void updateUserCertificationStatus(Integer id, Integer certificationStatus) {
+		userRepo.updateUserCertificationStatus(id, certificationStatus);
+	}
+	
+	/**
 	 * 更新使用者名稱
 	 * @param id
 	 * @param fullName
 	 */
+	@Transactional
 	@Override
 	public void updateUserName(Integer id, String fullName) {
 		userRepo.updateUserName(id, fullName);
@@ -98,9 +111,11 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public int getLoginUserId() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) authentication.getPrincipal();
-		return user.getId();
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		Object principal = authentication.getPrincipal();
+		CustomUserDetails customUserDetails = (CustomUserDetails) principal;
+		return customUserDetails.getUser().getId();
 	}
 
 	/**
@@ -110,9 +125,11 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public String getLoginUserName() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) authentication.getPrincipal();
-		return user.getFullName();
+		Authentication authentication = 
+				SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetails customUserDetails = 
+				(CustomUserDetails) authentication.getPrincipal();
+		return customUserDetails.getUser().getFullName();
 	}
 	
 	/**
@@ -122,9 +139,11 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public String getLoginUserEmail() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) authentication.getPrincipal();
-		return user.getEmail();
+		Authentication authentication = 
+				SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetails customUserDetails = 
+				(CustomUserDetails) authentication.getPrincipal();
+		return customUserDetails.getUser().getEmail();
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -82,6 +83,32 @@ public class HomeController {
 //	public String login() {
 //		return "/login_signup";
 //	}
+	
+	// 登入失敗處理
+	@RequestMapping("/login/failure")
+	public String loginFailure(
+			@RequestParam(name = "errorMessage") String errorMessage, Model model 
+			) {
+		
+//		System.out.println(errorMessage);
+		
+		// 帳號錯誤
+		if (errorMessage.equals("rgrdsgdfhgnot found")) {
+			model.addAttribute("error", true);
+		}
+		
+		// 密碼錯誤
+		if (errorMessage.equals("Bad credentials")) {
+			model.addAttribute("error", true);
+		}
+		
+		// 尚未啟用
+		if (errorMessage.equals("Disabled")) {
+			model.addAttribute("isEnabled", true);
+		}
+		
+		return "login";
+	}
 	
 	@GetMapping("/showFormForUpdate/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") int id, Model model) {

@@ -122,8 +122,6 @@ public class Avatar {
 		builder.append(fileName);
 		builder.append(", mimeType=");
 		builder.append(mimeType);
-		builder.append(", users=");
-		builder.append(users);
 		builder.append("]");
 		return builder.toString();
 	}

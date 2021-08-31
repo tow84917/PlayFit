@@ -7,8 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,42 +16,51 @@ import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.FitActivity;
+import com.java016.playfit.model.User;
 import com.java016.playfit.service.MemberService;
 
 @Service
-@Transactional
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	DailyRecordRepository dailyRecordRepo;
-	
+
 	@Autowired
 	UserRepository userRepo;
-	
+
 	@Autowired
 	HealthRecordRepository healthRecordRepo;
-	
-	// 會員頁日期表示法
+
+	/**
+	 * 會員頁日期表示法
+	 * 
+	 * @return String
+	 */
 	@Override
 	public String getFormatMemberPageDate() {
 		java.util.Date utilDate = new java.util.Date();
 		String weekDay = utilDate.toString().split(" ")[0];
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		String today = sdf.format(utilDate) + " " + weekDay + " ." ;
+		String today = sdf.format(utilDate) + " " + weekDay + " .";
 		return today;
 	}
-	
-	// 任務項目完成 % 數
+
+	/**
+	 * 任務項目完成 % 數
+	 * 
+	 * @param todayRecord
+	 * @return Double
+	 */
 	@Override
 	public Double getTaskCompletionRate(DailyRecord todayRecord) {
 		double completionRate = 0;
 		List<FitAchieve> achieves = todayRecord.getFitAchieves();
-		
+
 		int taskNum = achieves.size();
 		int completeNum = taskNum;
-		
+
 		if (taskNum == 0) {
-			return 0.0 ;
+			return 0.0;
 		}
 
 		for (FitAchieve achieve : achieves) {
@@ -66,13 +73,23 @@ public class MemberServiceImpl implements MemberService {
 		return Math.round(completionRate * 10) / 10.0;
 	}
 
-	// 取今日運動項目及完成狀態
+	/**
+	 * 取今日運動項目及完成狀態
+	 * 
+	 * @param todayRecord
+	 * @return LinkedHashMap<FitActivity, String>
+	 */
 	@Override
-	public LinkedHashMap<FitActivity, String> getTodayActivityAndStatus(DailyRecord todayRecord) {
+	public LinkedHashMap<FitActivity, String> getTodayActivityAndStatus(
+			DailyRecord todayRecord) {
 		List<FitAchieve> achieves = todayRecord.getFitAchieves();
-		LinkedHashMap<FitActivity, String> activityStatus = new LinkedHashMap<FitActivity, String>();
+		
+		LinkedHashMap<FitActivity, String> activityStatus = 
+				new LinkedHashMap<FitActivity, String>();
+		
 		// 未完成List
 		List<FitActivity> unDoneActivity = new LinkedList<FitActivity>();
+		
 		// 按順序排列
 		// 先加入完成項目
 		for (FitAchieve achieve : achieves) {
@@ -86,6 +103,7 @@ public class MemberServiceImpl implements MemberService {
 				unDoneActivity.add(achieve.getFitActivity());
 			}
 		}
+		
 		// 最後加入未完成
 		for (FitActivity activity : unDoneActivity) {
 			activityStatus.put(activity, "undone");
@@ -94,44 +112,92 @@ public class MemberServiceImpl implements MemberService {
 		return activityStatus;
 	}
 
-	// 取得今日所有運動項目
+	/**
+	 * 取得今日所有運動項目
+	 * 
+	 * @param todayRecord
+	 * @return List<FitActivity>
+	 */
 	@Override
 	public List<FitActivity> getTodayActivity(DailyRecord todayRecord) {
+		
 		List<FitAchieve> achieves = todayRecord.getFitAchieves();
 		List<FitActivity> activitys = new LinkedList<FitActivity>();
 
 		for (FitAchieve achieve : achieves) {
 			activitys.add(achieve.getFitActivity());
 		}
+		
 		return activitys;
 	}
 
-	// response 自訂格式化
+	/**
+	 * 算某日到某日差幾天
+	 * 
+	 * @param dateStart
+	 * @param dateEnd
+	 * @return Integer
+	 */
+	public Integer getDiscrepantDays(Date dateStart, Date dateEnd) {
+		return (int) ((dateEnd.getTime() - dateStart.getTime()) / 1000 / 60 / 60 / 24) ;
+	}
+
+	/**
+	 * response 自訂格式化
+	 * 
+	 * @param day
+	 * @param kcal
+	 * @return String[]
+	 */
 	@Override
 	public String[] getFormatDataForResponse(String day, Integer kcal) {
 		return new String[] { day.replaceAll("-", "/").substring(5), String.valueOf(kcal) };
 	}
 
-	// 回傳日期區間運動卡洛里資料(*之後會變更區間)
-	@Transactional
+	/**
+	 * 回傳日期區間運動卡洛里資料
+	 * 
+	 * @param user
+	 * @return Map<Integer, String[]>
+	 */
 	@Override
-	public Map<Integer, String[]> getWeekExerciseData(Integer userId) {
-
+	public Map<Integer, String[]> getWeekExerciseData(User user) {
+		
+		// 一周區間為已註冊日為基準每七天為一個區間
+		
 		long now = System.currentTimeMillis();
-		long weekMillis = 86400 * 7 * 1000;
 		long dayMillis = 86400 * 1000;
 
+		// 註冊日
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date registerDate = Date.valueOf(sdf.format(user.getCreatedAt()));
+		
+		// 今天的日期
+		java.util.Date utilDate = new java.util.Date();
+		// 把日期轉成SQL型態的Date
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		
+		// 相差天數
+		int discrepantDays = getDiscrepantDays(registerDate, sqlDate);
+//		System.out.println(discrepantDays);
+		
+		// 區間定位
+		int weekPos = discrepantDays % 7 ;
+		
 		// 日期區間
-		Date startDate = new Date(now);
-		Date endDate = new Date(now + weekMillis);
+		Date startDate = new Date(now - weekPos * dayMillis); 
+//		System.out.println(startDate);
+		Date endDate = new Date(now + (7 - weekPos) * dayMillis);
+//		System.out.println(endDate);
 
 		// 取資料庫區間資料
-		List<DailyRecord> dailys = dailyRecordRepo.findByUserIdAndDateBetween(userId, startDate, endDate);
+		List<DailyRecord> dailys = 
+				dailyRecordRepo.findByUserIdAndDateBetween(user.getId(), startDate, endDate);
 
 		// For response and check date
 		String[] days = new String[7];
 		for (int i = 0; i < days.length; i++) {
-			days[i] = String.valueOf(new Date(now + dayMillis * i));
+			days[i] = String.valueOf(new Date(startDate.getTime() + dayMillis * i));
 		}
 
 		// 核對資料 並加入 Json
@@ -158,4 +224,15 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return exerciseData;
 	}
+
 }
+
+
+
+
+
+
+
+
+
+

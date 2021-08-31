@@ -1,8 +1,6 @@
 package com.java016.playfit.model;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -20,25 +18,28 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name="users")
-public class User implements UserDetails, Serializable{
+@Table(
+		name = "users"
+)
+public class User {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(
+			strategy = GenerationType.IDENTITY
+	)
 	private Integer id;
-	
-	@Column(name="full_name")
+	@Column(
+			name = "full_name"
+	)
 	private String fullName;
 	
 	private String password;
 	
-	@Column(name="nickname")
+	@Column(
+			name = "nickname"
+	)
 	private String nickName;
 	
 	private String gender;
@@ -49,35 +50,61 @@ public class User implements UserDetails, Serializable{
 	
 	private String address;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd") // 表單傳 String
+	@DateTimeFormat(
+			pattern = "yyyy-MM-dd"
+	)
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
 	
-	@Column(name="created_at", 
-			nullable=false, 
-			updatable=false, 
-			insertable=false, 
-			columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")	
+	@Column(
+			name = "created_at",
+			nullable = false,
+			updatable = false,
+			insertable = false,
+			columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+	)
 	private Timestamp createdAt;
 	
-	@Column(name="certification_status")
+	@Column(
+			name = "certification_status"
+	)
 	private int certificationStatus;
 	
 	@ManyToOne
-	@JoinColumn(name = "avatar_id", referencedColumnName = "id")
+	@JoinColumn(
+			name = "avatar_id",
+			referencedColumnName = "id"
+	)
 	private Avatar avatar;
 	
-	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+	@OneToMany(
+			mappedBy = "user",
+			cascade = {CascadeType.ALL}
+	)
 	private List<HealthRecord> healthRecords;
 	
-	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+	@OneToMany(
+			mappedBy = "user",
+			cascade = {CascadeType.ALL}
+	)
 	private List<PersonalGoal> PersonalGoals;
-
-	@OneToMany(mappedBy = "user")
+	
+	@OneToMany(
+			mappedBy = "user"
+	)
 	private List<DailyRecord> dailyRecords;
+	
+	@Column(
+			name = "role"
+	)
+	private String role;
+	
+	public User() {}
+
+//  public User(User user) {}
 
 	public List<DailyRecord> getDailyRecords() {
-		return dailyRecords;
+		return this.dailyRecords;
 	}
 
 	public void setDailyRecords(List<DailyRecord> dailyRecords) {
@@ -85,16 +112,15 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	@Override
+
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -102,7 +128,7 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public String getGender() {
-		return gender;
+		return this.gender;
 	}
 
 	public void setGender(String gender) {
@@ -110,7 +136,7 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -118,7 +144,7 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
 	public void setPhone(String phone) {
@@ -126,7 +152,7 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public Date getBirthday() {
-		return birthday;
+		return this.birthday;
 	}
 
 	public void setBirthday(Date birthday) {
@@ -134,7 +160,7 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
 	public void setAddress(String address) {
@@ -142,7 +168,7 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public Timestamp getCreatedAt() {
-		return createdAt;
+		return this.createdAt;
 	}
 
 	public void setCreatedAt(Timestamp createdAt) {
@@ -150,7 +176,7 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public int getCertificationStatus() {
-		return certificationStatus;
+		return this.certificationStatus;
 	}
 
 	public void setCertificationStatus(int certificationStatus) {
@@ -158,7 +184,7 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public String getFullName() {
-		return fullName;
+		return this.fullName;
 	}
 
 	public void setFullName(String fullName) {
@@ -166,7 +192,7 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public String getNickName() {
-		return nickName;
+		return this.nickName;
 	}
 
 	public void setNickName(String nickName) {
@@ -174,7 +200,7 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public Avatar getAvatar() {
-		return avatar;
+		return this.avatar;
 	}
 
 	public void setAvatar(Avatar avatar) {
@@ -182,103 +208,55 @@ public class User implements UserDetails, Serializable{
 	}
 
 	public List<HealthRecord> getHealthRecords() {
-		return healthRecords;
+		return this.healthRecords;
 	}
 
 	public void setHealthRecords(List<HealthRecord> healthRecords) {
 		this.healthRecords = healthRecords;
 	}
-	
+
 	public List<PersonalGoal> getPersonalGoals() {
-		return PersonalGoals;
+		return this.PersonalGoals;
 	}
 
 	public void setPersonalGoals(List<PersonalGoal> personalGoals) {
-		PersonalGoals = personalGoals;
+		this.PersonalGoals = personalGoals;
 	}
-	
-	@Override
+
+	public String getRole() {
+		return this.role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("User [id=");
-		builder.append(id);
+		builder.append(this.id);
 		builder.append(", fullName=");
-		builder.append(fullName);
+		builder.append(this.fullName);
 		builder.append(", password=");
-		builder.append(password);
+		builder.append(this.password);
 		builder.append(", nickName=");
-		builder.append(nickName);
+		builder.append(this.nickName);
 		builder.append(", gender=");
-		builder.append(gender);
+		builder.append(this.gender);
 		builder.append(", email=");
-		builder.append(email);
+		builder.append(this.email);
 		builder.append(", phone=");
-		builder.append(phone);
+		builder.append(this.phone);
 		builder.append(", address=");
-		builder.append(address);
+		builder.append(this.address);
 		builder.append(", birthday=");
-		builder.append(birthday);
+		builder.append(this.birthday);
 		builder.append(", createdAt=");
-		builder.append(createdAt);
+		builder.append(this.createdAt);
 		builder.append(", certificationStatus=");
-		builder.append(certificationStatus);
-		builder.append(", avatar=");
-//		builder.append(avatar);
-		builder.append(", healthRecords=");
-//		builder.append(healthRecords.hashCode());
-		builder.append(", PersonalGoals=");
-//		builder.append(PersonalGoals.hashCode());
+		builder.append(this.certificationStatus);
 		builder.append("]");
 		return builder.toString();
 	}
 
-	// 以下為 UserDetails
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null; // 未設	
-	}
-	
-	@Override
-	public String getUsername() {
-		return this.fullName; // 用戶全名
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true; // 帳號是否未過期
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true; // 用戶是否未被鎖
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true; // 憑證是否未過期
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true; // 用戶是否啟用
-	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
