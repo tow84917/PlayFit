@@ -1,23 +1,115 @@
 window.onload = function () {
 
-	
+	//全部的fitActivity
 	var fitActivityList = [];
+    //全部的fitActivity 但是存成二維陣列 [Array(8), Array(8)]
 	var fitActivityGrouped = [];
-	
-    //上一頁按鈕(清單頁)
-    var previousSlideBtn = document.getElementsByClassName("fit-button-left");
+    //只存部位為Upper的fitActivity
+	var upperFitActivity = [];
+    //只存部位為Core的fitActivity
+    var coreFitActivity = [];
+    //只存部位為Lower的fitActivity
+    var lowerFitActivity = [];
+    //只存部位為HIIT的fitActivity
+    var HIITFitActivity = [];
+
+    var upperPartPoint = document.getElementById("upperPartPoint");
+    upperPartPoint.addEventListener("click",function(){
+        if(currentPart == "UPPER"){
+            this.style.backgroundColor = "transparent";
+            currentPart = "ALL TRAINING";
+            fitCategory.innerHTML = currentPart;
+            generateAllFitActivityBtn();
+        }else{
+            corePartPoint.style.backgroundColor = 'transparent';
+            HIITPartPoint.style.backgroundColor = 'transparent';
+            lowerPartPoint.style.backgroundColor = 'transparent';
+            this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
+            $('.fit-name').remove();
+            currentPart = 1
+            currentPart = "UPPER";
+            fitCategory.innerHTML = currentPart;
+            generateFitActivityBtnByBodyPartActivity(upperFitActivity);
+            console.log("刪除");
+        }
+
+    });
+
+    var corePartPoint = document.getElementById("corePartPoint");
+    corePartPoint.addEventListener("click",function(){
+        if(currentPart == "CORE"){
+            this.style.backgroundColor = "transparent";
+            currentPart = "ALL TRAINING";
+            fitCategory.innerHTML = currentPart;
+            generateAllFitActivityBtn();
+        }else{
+            upperPartPoint.style.backgroundColor = 'transparent';
+            HIITPartPoint.style.backgroundColor = 'transparent';
+            lowerPartPoint.style.backgroundColor = 'transparent';
+            this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
+            $('.fit-name').remove();
+            currentPage = 1
+            currentPart = "CORE";
+            fitCategory.innerHTML = currentPart;
+            generateFitActivityBtnByBodyPartActivity(coreFitActivity);
+            console.log("刪除");
+        }
+    });
+    
+    var HIITPartPoint = document.getElementById("HIITPartPoint");
+    HIITPartPoint.addEventListener("click",function(){
+        if(currentPart == "HIIT"){
+            this.style.backgroundColor = "transparent";
+            currentPart = "ALL TRAINING";
+            fitCategory.innerHTML = currentPart;
+            generateAllFitActivityBtn();
+        }else{
+            upperPartPoint.style.backgroundColor = 'transparent';
+            corePartPoint.style.backgroundColor = 'transparent';
+            lowerPartPoint.style.backgroundColor = 'transparent';
+            this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
+            $('.fit-name').remove();
+            currentPage = 1
+            currentPart = "HIIT";
+            fitCategory.innerHTML = currentPart;
+            generateFitActivityBtnByBodyPartActivity(HIITFitActivity);
+            console.log("刪除");
+        }
+    });
+
+    var lowerPartPoint = document.getElementById("lowerPartPoint");
+    lowerPartPoint.addEventListener("click",function(){
+        if(currentPart == "LOWER"){
+            this.style.backgroundColor = "transparent";
+            currentPart = "ALL TRAINING";
+            fitCategory.innerHTML = currentPart;
+            generateAllFitActivityBtn();
+        }else{
+            upperPartPoint.style.backgroundColor = 'transparent';
+            corePartPoint.style.backgroundColor = 'transparent';
+            HIITPartPoint.style.backgroundColor = 'transparent';
+            this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
+            $('.fit-name').remove();
+            currentPage = 1
+            currentPart = "LOWER";
+            fitCategory.innerHTML = currentPart;
+            generateFitActivityBtnByBodyPartActivity(lowerFitActivity);
+            console.log("刪除");
+        }
+    });
+
+    //上一頁按鈕(清單頁)    
+    var previousSlideBtn = document.getElementById("svg-arrow-left");
     //上一頁按鈕點擊事件
-    previousSlideBtn[0].addEventListener("click",function(){
-        previousSlide();
+    previousSlideBtn.addEventListener("click",function(){
+        if(currentPart == "ALL TRAINING") previousSlide();
     });
-
     //下一頁按鈕(清單頁)
-    var nextSlideBtn = document.getElementsByClassName("fit-button-right");
+    var nextSlideBtn = document.getElementById("svg-arrow-right");
     //下一頁按鈕點擊事件
-    nextSlideBtn[0].addEventListener("click",function(){
-        nextSlide();
+    nextSlideBtn.addEventListener("click",function(){
+        if(currentPart == "ALL TRAINING") nextSlide();
     });
-
 
 
 
@@ -25,7 +117,8 @@ window.onload = function () {
     const f = document.getElementsByClassName("fit-category");
     const fitCategory = f[0];
     
-    var currnetPage = 1;
+    var currentPage = 1;
+    var currentPart = "ALL TRAINING";
     
 	$.ajax({
 	    url: "/FitActivities",
@@ -34,31 +127,40 @@ window.onload = function () {
 	    dataType: "json",
 	    success: function(response) {
 	      	//Do Something on successful Ajax call	      	
-	      	
+	      	console.log(response);
 			$.each(response,function(index, value){
 
+                //fitActivityList裝全部的健身項目
 				fitActivityList.push(value);
-			    
+                //以下在個別以健身部位做分類
+			    switch (value.bodyPart) {
+                    case 'Upper':
+                        upperFitActivity.push(value);
+                        break;
+                    case 'Core':
+                        coreFitActivity.push(value);
+                        break;
+                    case 'Lower':
+                        lowerFitActivity.push(value);
+                        break;
+                    case 'HIIT':
+                        HIITFitActivity.push(value);
+                        break;
+                    default:
+                        console.log(`Sorry, we are out of ${value.bodyPart}.`);
+                  }
 			}); 	
             
         
-            
+            //全部的fitActivity 但是存成二維陣列 [Array(8), Array(8)]
 			fitActivityGrouped = splitIntoGroups(fitActivityList,8);
 
             console.log(fitActivityGrouped);
 
-            // for(var i=fitActivityGrouped[0].length-1;i>=0;i--){
-            //     let newButton = document.createElement("Button");
-            //     newButton.className = "fit-name";
-            //     newButton.innerText = fitActivityGrouped[0][i].name;
-            //     newButton.value = fitActivityGrouped[0][i].id;
-            //     newButton.addEventListener("click",function(){
-            //     	console.log(fitActivityGrouped);
-            //     	alert(this.value);
-            //     });
-            //     insertAfter(newButton, fitCategory);
-            //     console.log(fitActivityGrouped[0][i].id);
-            // }
+            console.log(upperFitActivity);
+            console.log(coreFitActivity);
+            console.log(lowerFitActivity);
+            console.log(HIITFitActivity);
 
             generateAllFitActivityBtn();
             
@@ -79,6 +181,7 @@ window.onload = function () {
   		
 	});
 	
+    //把陣列a[]以size分組
     function splitIntoGroups(a,size){
 
         var arrays = [];
@@ -98,6 +201,8 @@ window.onload = function () {
     fitNames.forEach(fitName => {
         fitName.addEventListener("click", function() {
             console.log(fitActivityList);
+            
+            //window.location.href=""
         });
     });
 
@@ -108,37 +213,55 @@ window.onload = function () {
     function previousSlide(){
 
         
-        if(currnetPage == 1){
+        if(currentPage == 1){
             console.log("已是第一頁");
         }else{
             $('.fit-name').remove();
             console.log("刪除");
-            currnetPage -= 1;
+            currentPage -= 1;
             generateAllFitActivityBtn();
         }
-        console.log(currnetPage + "  " + fitActivityGrouped.length);
+        console.log(currentPage + "  " + fitActivityGrouped.length);
     }
 
     function nextSlide(){
-        if(currnetPage == fitActivityGrouped.length){
+        if(currentPage == fitActivityGrouped.length){
             console.log("已是最後頁");
         }else{
             $('.fit-name').remove();
             console.log("刪除");
-            currnetPage += 1;
+            currentPage += 1;
             generateAllFitActivityBtn();
         }
-        console.log(currnetPage + "  " + fitActivityGrouped.length);
+        console.log(currentPage + "  " + fitActivityGrouped.length);
     }
 
+    
     function generateAllFitActivityBtn(){
-        for(var i=fitActivityGrouped[currnetPage-1].length-1;i>=0;i--){
+        $('.fit-name').remove();
+        for(var i=fitActivityGrouped[currentPage-1].length-1;i>=0;i--){
             let newButton = document.createElement("Button");
             newButton.className = "fit-name";
-            newButton.innerText = fitActivityGrouped[currnetPage-1][i].name;
-            newButton.value = fitActivityGrouped[currnetPage-1][i].id;
+            newButton.innerText = fitActivityGrouped[currentPage-1][i].name;
+            newButton.value = fitActivityGrouped[currentPage-1][i].id;
             newButton.addEventListener("click",function(){
-                alert(this.value);
+                //alert(this.value);
+                window.location.href="/fit-activity/" + this.value + "/" + this.innerText;
+                console.log(contextPath);
+            });
+            insertAfter(newButton, fitCategory);
+        }
+    }
+
+    function generateFitActivityBtnByBodyPartActivity(bodyPartFitActivity){
+        for(var i=bodyPartFitActivity.length-1;i>=0;i--){
+            let newButton = document.createElement("Button");
+            newButton.className = "fit-name";
+            newButton.innerText = bodyPartFitActivity[i].name;
+            newButton.value = bodyPartFitActivity[i].id;
+            newButton.addEventListener("click",function(){
+                window.location.href="/fit-activity/" + this.value + "/" + this.innerText;
+                console.log(contextPath);
             });
             insertAfter(newButton, fitCategory);
         }

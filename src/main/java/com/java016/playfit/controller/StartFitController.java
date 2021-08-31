@@ -1,10 +1,12 @@
 package com.java016.playfit.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,6 +47,16 @@ public class StartFitController {
 		});
 		
 		return fitActivities;
+	}
+	
+	//點擊要健身的項目
+	@GetMapping("/fit-activity/{fitId}/{fitName}")
+	@ResponseBody
+	public String fitActivityClicked(@PathVariable("fitName") String fitName,
+									@PathVariable("fitId") String fitId,
+									Principal principal) {
+		
+		return fitId + " <br>" + fitName + " <br>" + principal.getName();
 	}
 
 }
