@@ -52,6 +52,7 @@ public class LoggingAspect {
 		String argString = "";
 		
 		int count = 0 ;
+		
 		for(Object arg : args) {
 			argString += String.valueOf(arg) ;
 			count ++ ;
@@ -59,6 +60,7 @@ public class LoggingAspect {
 				argString += ", " ;				
 			}
 		}
+		
 		
 		myLogger.info("Calling method : " + method + ", args : (" + argString + ")");
 //		System.out.println("Calling method : " + method + ", args : (" + argString + ")");

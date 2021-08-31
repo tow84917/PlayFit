@@ -79,10 +79,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID")
 					.logoutSuccessUrl("/login") // 登出跳轉
-					.permitAll()
-				.and()
-				.csrf()
-				.ignoringAntMatchers("/ajax**"); // 防 ajax POST 會被 csrf 擋下
+					.permitAll();
+//				.and()
+//				.csrf()
+//				.ignoringAntMatchers("/ajax**"); // 防 ajax POST 會被 csrf 擋下
 //				.and()
 //				.csrf().disable();
 	}

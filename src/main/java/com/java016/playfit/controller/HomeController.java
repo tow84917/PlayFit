@@ -79,6 +79,14 @@ public class HomeController {
 		return mv;
 	}
 	
+	@RequestMapping("/register")
+	 public ModelAndView ShowRegistrationForm() {
+	  ModelAndView mv = new ModelAndView();
+	  mv.addObject("user",new User());
+	  mv.setViewName("signup_form");
+	  return mv;
+	 }
+	
 //	@GetMapping("/login")
 //	public String login() {
 //		return "/login_signup";
