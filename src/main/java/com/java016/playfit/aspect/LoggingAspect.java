@@ -19,7 +19,7 @@ public class LoggingAspect {
 	// pointcut Controller (package內任何 回傳型態、類別、方法、參數)
 	@Pointcut("execution(* com.java016.playfit.controller.*.*(..))")
 	private void forControllerPackage() {
-		
+		 
 	}
 	
 	// pointcut Dao && Service
