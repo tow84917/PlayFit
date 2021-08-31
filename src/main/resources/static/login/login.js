@@ -23,7 +23,7 @@ function doFirst(){
     let signUpSubmit = document.getElementById('signUpSubmit');
     signUpSubmit.addEventListener('click',e =>{
         step2.style.display = 'inline';
-        // e.preventDefault();
+       
     })
 }
 

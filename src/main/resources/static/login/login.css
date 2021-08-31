@@ -112,8 +112,9 @@ input {
 /* #signUpSubmit{
     margin: 0 auto;
     text-align: center;
-    line-height: auto;
+    line-height: 5rem;
 } */
+
 
 input::placeholder{
     text-align: left;
@@ -141,6 +142,10 @@ form .input{
 form .button{
     width: 100%;
     align-self:flex-end;
+   
+    display :flex;
+    justify-content: center;
+    align-items:center;
 }
 
 .swiftBox{
@@ -200,6 +205,12 @@ form .button{
     box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
     cursor: pointer;
     transition: 0.3s ease;
+    
+    text-align: left;
+    display :flex;
+    justify-content: center;
+    align-items:center;
+    flex-wrap: wrap;
 }
 
 #signUpSubmit:hover,#logInSubmit:hover{

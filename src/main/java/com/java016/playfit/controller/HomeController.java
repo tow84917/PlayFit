@@ -55,6 +55,7 @@ public class HomeController {
 		mv.addObject("healthRecord", new HealthRecord());
 		mv.addObject("user",new User());
 		mv.setViewName("login_signup");
+		System.out.println("----------------");
 		return mv;
 	}
 	

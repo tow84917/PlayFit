@@ -21,7 +21,7 @@
                         <!-- 註冊step1 -->
                         <div class="input"> 
                             <input type="email" name="email" th:value="${user.email}" placeholder="Email*">
-                            <input type="password" name="fullName" th:value="${user.fullName}" placeholder="Full Name*">
+                            <input type="text" name="fullName" th:value="${user.fullName}" placeholder="Full Name*">
                             <input type="text" name="nickName" th:value="${user.nickName}" placeholder="Nickname">
                             <input type="password" name="password"  th:value="${user.password}" placeholder="Password*">
                             <!-- <input type="password" name="confirmPassword"  th:field="*{password}" placeholder="Confirm Password*"> -->
@@ -57,9 +57,10 @@
 					    	    <option value="HeavyExercise">Heavy Exercise</option>
 					    	    <option value="Athlete">Athlete</option>
 					        </select>
-
-                            <button  id="nextStep">Next Step</button>
+                            <!-- <button  type="submit" id="nextStep">Next Step</button> -->
+                            <input type="submit" value="sss">
                         </div> 
+                        
                         
                         
 
