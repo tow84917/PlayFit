@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/", "/login/failure" , "/register","/**/*.js", "/**/*.css").permitAll() // 失敗請求、首頁不須登入
+				.antMatchers("/", "/process_register" ,"/login/failure" , "/register","/**/*.js", "/**/*.css").permitAll() // 失敗請求、首頁不須登入
 				.anyRequest().authenticated() // 除了上行請求皆須登入
 				.and()
 				.formLogin()
