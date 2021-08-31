@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/", "/login/failure" , "/register").permitAll() // 失敗請求、首頁不須登入
+				.antMatchers("/", "/process_register" ,"/login/failure" , "/register","/**/*.js", "/**/*.css").permitAll() // 失敗請求、首頁不須登入
 				.anyRequest().authenticated() // 除了上行請求皆須登入
 				.and()
 				.formLogin()
@@ -73,7 +73,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and()
 				.logout()
 					.logoutUrl("/logout")
-					//如果是用get請求訪問/logout的話必須加以下這一行
+					//如果是用get請求訪問/logout的話必須s加以下這一行
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 					.clearAuthentication(true)
 					.invalidateHttpSession(true)

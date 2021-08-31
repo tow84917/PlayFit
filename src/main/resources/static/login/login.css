@@ -1,0 +1,280 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap');
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 62.5%;
+	font-family: 'Montserrat', sans-serif;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* ------------------------------------------ */
+header{
+    width: 100%;
+    height: 80px;
+    /* border: 1px solid red; */
+}
+main{
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+.container{
+    display:flex;
+    width: 46%;
+    height: 550px;
+    border-radius: 30px;
+    margin: 150px auto;
+    background: #EBEEF8;
+    box-shadow: 3px 5px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.leftBox,.rightBox{
+    width: 50%;
+    height: 550px;
+}
+
+form{
+    width: 80%;
+    height: 80%;
+    margin:auto;
+    margin-top: 60px;
+    /* border: 1px solid blue; */
+    text-align: center;
+    display :flex;
+    justify-content: center;
+    align-items:center;
+    flex-wrap: wrap;
+}
+
+h3{
+    font-size: 4.4rem;
+    font-weight: 800;
+    color: #18191F;
+}
+
+input {
+    width: 80%;
+    margin: 1.5rem;
+    font-size: 2.4rem;
+  
+    background: none;
+    border: 2px #18191F solid;
+    border-radius: 2px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 0px;  
+
+}
+
+/* #signUpSubmit{
+    margin: 0 auto;
+    text-align: center;
+    line-height: 5rem;
+} */
+
+
+input::placeholder{
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #8A919B;
+}
+input:focus{
+    outline: none;
+}
+
+form h3{
+    width: 100%;
+    align-self: flex-start;
+}
+
+form .input{
+    width: 100%;
+    height: 300px;
+}
+.logIn input{
+    margin-top: 4rem;
+}
+
+form .button{
+    width: 100%;
+    align-self:flex-end;
+   
+    display :flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.swiftBox{
+    width: 23%;
+    height: 550px;
+    position: absolute;
+    background: #2E1ED3;
+    border-radius: 30px;
+    transition: 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 3;
+}
+.swiftContent{
+    width: 80%;
+    height: 80%;
+    margin:auto;
+    margin-top: 60px;
+    /* border: 1px solid white; */
+    text-align: left;
+    display :flex;
+    justify-content: center;
+    align-items:center;
+    flex-wrap: wrap;
+}
+.swiftText{
+    width: 90%;
+    align-self: flex-start; 
+}
+
+.swiftText h3{
+    color: #ffffff;
+    line-height: 1.2;
+}
+.swiftText p{
+    color: #ffffff;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 2.4rem;
+    width: 100%;
+    line-height: 1.2;
+}
+
+.swiftContent button{
+    align-self: flex-end;
+}
+
+
+#signUpSubmit,#logInSubmit{
+    background-color: #EBEEF8;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    color: var(--primary-dark);
+    border: none;
+    width: 15rem;
+    height: 4rem;
+    border-radius: 1rem;
+    box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+    cursor: pointer;
+    transition: 0.3s ease;
+    
+    text-align: left;
+    display :flex;
+    justify-content: center;
+    align-items:center;
+    flex-wrap: wrap;
+}
+
+#signUpSubmit:hover,#logInSubmit:hover{
+    color: var(--primary);
+}
+#signUpSubmit:active,#logInSubmit:active{
+    box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+}
+
+
+#swiftButton, #nextStep{
+    background: var(--primary-dark);
+    box-shadow: 0.2rem 0.2rem 0.4rem rgba(0, 0, 0, 0.3), -0.2rem -0.2rem 0.4rem rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    border: none;
+    width: 15rem;
+    height: 4rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease;   
+}
+#swiftButton:hover{
+    color: var(--primary-light);
+}
+#swiftButton:active{
+    box-shadow: inset 0.2rem 0.2rem 0.4rem rgba(0, 0, 0, 0.3), inset -0.2rem -0.2rem 0.5rem rgba(255, 255, 255, 0.1);
+}
+
+
+:root {
+    --primary-light: #ccccff;
+    --primary: #6460FF;
+    --primary-dark: #2E1ED3;
+    --white: #ffffff;
+    --greyLight-1: #e4ebf5;
+    --greyLight-2: #c8d0e7;
+    --greyLight-3: #bec8e4;
+    --greyDark: #9baacf;
+}
+
+
+
+/* step2 */
+#step2{
+    position: absolute;
+    left: 10%;
+    border: 1px solid red;
+    border-radius: 1rem;
+    width: 40%;
+    /* height: 550px; */
+    z-index: 4;
+    background-color: var(--primary-light);
+    display: none;
+    font-weight: 700;
+    font-size: 4rem;
+}
+#step2 input{
+    width: 30%;
+}
+#step2 select{
+    width: 30%;
+    font-size: 2.4rem;
+    font-family: 'Montserrat', sans-serif;
+}
