@@ -133,7 +133,7 @@ public class MemberPageController {
 	}
 	
 	// 當日項目完成率
-	@PostMapping(value = "/ajaxTaskCompletionRate",
+	@PostMapping(value = "/taskCompletionRate",
 			consumes = { "application/json" },
 			produces = { "application/json" })
 	@ResponseBody

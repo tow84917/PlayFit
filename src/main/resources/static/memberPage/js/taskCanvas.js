@@ -54,15 +54,28 @@ function dynamicNumber(progressData){
 let date = new Date();
 let today = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 
+
+// 403 錯誤
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+$(document).ajaxSend(function (e, xhr, options) {
+    xhr.setRequestHeader(header, token);
+});
+// 403 錯誤
+
 // ajax 取當日運動完成率
 async function getTaskCompletionRate(){
 	
 	// 傳送今日日期
-	fetch('/ajaxTaskCompletionRate', {
+	fetch('/taskCompletionRate', {
         method : 'POST',
         headers : {
-            'Content-Type' : 'application/json'
+            'Content-Type' : 'application/json',
+            "Accept": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+        	"X-CSRF-Token": token
         },
+        credentials: "same-origin",
         body :JSON.stringify(date),
     })
     .then(response => {
@@ -83,9 +96,37 @@ async function getTaskCompletionRate(){
     })
 }
 
+function getTaskCompletionRate(){
+	
+	$.ajax({
+        url:'/taskCompletionRate' , 
+        type: "POST" , 
+        async:false ,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(date),
+        success: function (data) {
+          console.log('data: ', data);
+          // 取進度%數
+      	  let progressData = data["completionRate"];
+      
+		  // 換算畫圖長度
+		  let taskGraphicLen = progressData * (490 / 100);
+      
+	      drawTaskAnimation(taskGraphicLen);
+	      dynamicNumber(progressData);
+	      
+        },
+        error: function () {
+            console.log("error ---------->>>>>>>>>>>");
+        },
+    })
+
+}
+
 function doFirst(){
 	
 	getTaskCompletionRate();
+//	getTaskCompletionRate2();
 	
 }
 

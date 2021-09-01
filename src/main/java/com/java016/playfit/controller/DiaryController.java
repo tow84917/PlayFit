@@ -126,7 +126,7 @@ public class DiaryController {
 	
 	//日記的首頁
 	@RequestMapping("/diary_homepage/{pageNumber}")
-	public ModelAndView diary_homepage(@PathVariable("pageNumber") int currentPage) {
+	public ModelAndView diary_homepage(@PathVariable("pageNumber") int currentPage,HttpSession session) {
 
 		ModelAndView mv = new ModelAndView();
 		//登入的使用者帳號(電子信箱)
@@ -143,14 +143,35 @@ public class DiaryController {
 		
 		//用戶今天的日常紀錄是否已經成為日記
 		boolean isDiary = dailyRecordService.isDailyRecordBecomeDairy(todayDailyRecord);
-
+		//如果目前用戶沒有今天的日常紀錄
+		if(todayDailyRecord == null) {
+			//new一個日常紀錄的物件
+			todayDailyRecord = new DailyRecord();
+			//擁有者設為目前用戶
+			todayDailyRecord.setUser(user);
+			//日期設今天
+			todayDailyRecord.setCreatedDate(sqlDate);
+			//狀態設為0
+			todayDailyRecord.setStatus(0);
+		}
+		//此日常紀錄存在session裡面
+		session.setAttribute("todayDailyRecord", todayDailyRecord);
 		
 		//取出目前用戶全部的日常紀錄
 		Page<DailyRecord> page = dailyRecordService.getAllDailyRecordByUserAndPage(user,currentPage);
 		List<DailyRecord> dailyRecords = page.getContent();
 		long totalItems = page.getTotalElements();
 		int totalPages = page.getTotalPages();
+		//取出全部的飲食時段
+		List<TimePeriod> timePeriods = timePeriodService.getAllTimePeriod();
+		//取出全部的食物品項
+		List<Food> foods = foodService.getAllFood();
+		//取出今天的日常紀錄裡的所有飲食紀錄
+		List<Meal> meals = todayDailyRecord.getMeals();
 		
+		mv.addObject("timePeriods",timePeriods);
+		mv.addObject("meals", meals);
+		mv.addObject("foods",foods);
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("totalItems", totalItems);
 		mv.addObject("totalPages", totalPages);
