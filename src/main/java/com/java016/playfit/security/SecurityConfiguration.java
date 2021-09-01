@@ -69,8 +69,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.formLogin()
 				.usernameParameter("email")
 				.loginPage("/login")
-				.failureHandler(customAuthenticationFailureHandler()) //失敗處理,認證信後改
-//				.failureUrl("/login?error=true") // 回傳有誤
+//				.failureHandler(customAuthenticationFailureHandler()) //失敗處理,認證信後改
+				.failureUrl("/login?error=true") // 回傳有誤
 				.defaultSuccessUrl("/") // 回到首頁 或 跳轉原拜訪頁
 				.permitAll()
 				.and()
