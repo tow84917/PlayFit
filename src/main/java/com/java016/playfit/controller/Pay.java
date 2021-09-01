@@ -36,6 +36,12 @@ public class Pay {
         return "subscription";
     }
 
+    /**
+     * 定期定額
+     * @param model
+     * @param paramsMap
+     * @return
+     */
     @RequestMapping({"/period"})
     @ResponseBody
     public String period(Model model,
@@ -53,6 +59,12 @@ public class Pay {
         return check;
     }
 
+    /**
+     * 單次付款
+     * @param model
+     * @param paramsMap
+     * @return
+     */
     @RequestMapping("/checkOut")
     @ResponseBody
     public String checkOut(Model model,
@@ -70,6 +82,11 @@ public class Pay {
         return check;
     }
     
+    /**
+     * 測試用
+     * @param model
+     * @return
+     */
     @RequestMapping({"/p"})
     public String p(Model model) {
         System.out.println("-->> ");
@@ -80,5 +97,8 @@ public class Pay {
         model.addAttribute("check", check);
         return "pay";
     }
-
 }
+
+
+
+

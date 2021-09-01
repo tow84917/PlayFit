@@ -25,71 +25,38 @@
     <!-- <link rel="stylesheet" th:href="@{style.css}" href="../../static/style.css"> -->
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+    <link rel="stylesheet" th:href="@{/pay/pay.css}" href="../static/pay/pay.css">
     <style>
-        * {
-            text-align: center;
-        }
 
-        div {
-            box-shadow: 0 0 0px 1px gold inset;
-        }
-
-        .sub {
-            height: fit-content;
-            border: 1px solid red;
-        }
-
-        .sub2 {
-            height: 300px;
-            border: 1px solid blue;
-            margin: 5px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .sub2 div {
-            margin-top: 20px;
-        }
-
-        .btn {
-            color: var(--white);
-            font-size: var(--font-size-d);
-            font-weight: var(--font-weight-blod);
-
-            width: fit-content;
-            height: var(--btn-width-height);
-            background: var(--purple1);
-            border: 0;
-            margin-right: 0;
-
-            filter: var(--default-filter);
-        }
     </style>
 </head>
 
 <body id="body">
+    <header th:replace="fragments/header::myHeader"></header>
+    <div class="br"></div>
+
+
     <div class="container sub">
         <!-- <div class="col-4 sub2 ">
             <div>免費</div>
 
         </div> -->
-        <div class="col-4 sub2 ">
-
+        <div class="div col-4 sub2 ">
             <div>
-                <h1>
-                    月付
+                <h1 class="item">
+                    Monthly payment
                 </h1>
             </div>
             <div class="month">
-                <button type="button" class="btn " value="3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    3月</button>
-                <button type="button" class="btn " value="6" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    6月</button>
-                <button type="button" class="btn " value="12" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    12月</button>
+                <button type="button" class="btn pay-item" value="3" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    3 months</button>
+                <button type="button" class="btn pay-item" value="6" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    6 months</button>
+                <button type="button" class="btn pay-item" value="12" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    12 months</button>
                 <!-- <input id="month" type="number" value="1"> -->
 
             </div>
@@ -102,33 +69,41 @@
 
 
         </div>
-        <div class="col-4 sub2 ">
+        <div class="div col-4 sub2 ">
             <div>
-                <h1>
-                    年付
+                <h1 class="item">
+                    Yearly payment
                 </h1>
             </div>
             <div class="year">
-                <button type="button" class="btn" value="1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    1年</button>
-                <button type="button" class="btn" value="3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    3年</button>
-                <button type="button" class="btn" value="5" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    5年</button>
+                <button type="button" class="btn pay-item" value="1" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    1 year</button>
+                <button type="button" class="btn pay-item" value="3" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    3 years</button>
+                <button type="button" class="btn pay-item" value="5" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    5 years</button>
             </div>
         </div>
     </div>
+
+    <footer th:replace="fragments/footer::myFooter"></footer>
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <!-- <h5 class="modal-title" id="exampleModalLabel"></h5> -->
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
                 <div class="modal-body">
-                    ...
+                    <h4 class="chick">
+                        確定付款？
+                    </h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
