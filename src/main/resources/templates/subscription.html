@@ -24,18 +24,107 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <style>
+        * {
+            text-align: center;
+        }
+
+        div {
+            border: 1px solid gold;
+        }
+
         .sub {
-            height: 300px;
+            height: fit-content;
             border: 1px solid red;
+        }
+
+        .sub2 {
+            height: 300px;
+            border: 1px solid blue;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sub2 div {
+            margin-top: 20px;
+        }
+
+        .btn {
+            color: var(--white);
+            font-size: var(--font-size-d);
+            font-weight: var(--font-weight-blod);
+
+            width: fit-content;
+            height: var(--btn-width-height);
+            background: var(--purple1);
+            border: 0;
+            margin-right: 0;
+
+            filter: var(--default-filter);
         }
     </style>
 </head>
 
 <body>
-    <div class="container-fluid sub"></div>
+    <div class="container sub">
+        <div class="col-4 sub2 ">
+            <div>免費</div>
 
-    <div class="container-fluid  sub">
+        </div>
+        <div class="col-4 sub2 ">
+            <form action="">
+                <div>
+                    <h1>
+                        單月訂閱
+                    </h1>
+                </div>
+                <div>
+                    <div>幾個月</div>
+                    <input id="month" type="number">
 
+                </div>
+                <div>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Launch demo modal
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-4 sub2 ">
+            訂閱一年
+        </div>
+    </div>
+
+    <!-- Vertically centered modal -->
+    <div class="modal-dialog modal-dialog-centered">
+        ...
+    </div>
+
+    <!-- Vertically centered scrollable modal -->
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        ...
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -44,6 +133,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
         integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 
+    <script>
+        var myModal = document.getElementById('myModal')
+        var myInput = document.getElementById('myInput')
+
+        myModal.addEventListener('shown.bs.modal', function () {
+            myInput.focus()
+        })
+    </script>
 </body>
 
 </html>

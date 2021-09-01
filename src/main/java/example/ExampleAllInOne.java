@@ -2,6 +2,7 @@ package example;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -261,6 +262,42 @@ public class ExampleAllInOne {
      * ExecTimes=12
      * @return
      */
+    public static String genAioCheckOutPeriod(Map<String,Object> paramsMap) {
+        AioCheckOutPeriod obj = new AioCheckOutPeriod();
+        UUID uid = UUID.randomUUID();
+        obj.setMerchantTradeNo(uid.toString().replaceAll("-", "").substring(0, 20));
+//        obj.setMerchantTradeNo("testCompany05009"); // 訂單編號 特店交易編號(由特店提供)
+        obj.setMerchantTradeDate("2017/01/01 08:05:23");
+
+        String price = (String) paramsMap.get("price");
+        obj.setTotalAmount(price);  // 交易金額
+
+        String itemName = (String) paramsMap.get("itemName");
+        obj.setTradeDesc(itemName); // 交易描述
+        obj.setItemName(itemName); // 商品名稱
+
+        obj.setReturnURL("http://211.23.128.214:5000");
+        obj.setNeedExtraPaidInfo("N");
+
+        obj.setPeriodAmount(price); // 每次授權金額
+
+        String period = (String) paramsMap.get("period");
+        obj.setPeriodType(period);    // 週期種類 D M Y 年月日
+        obj.setFrequency("1");     // 此參數用來定義多久要執行一次 至少要大於等於 1 次以上。
+		/*
+		PeriodType 設為 D 時，最多可設 365次。
+        PeriodType 設為 M 時，最多可設 12次。
+        PeriodType 設為 Y 時，最多可設 1 次。
+		 */
+        String exectimes = (String) paramsMap.get("exectimes");
+        obj.setExecTimes(exectimes);    // 執行次數
+
+
+        obj.setOrderResultURL("http://localhost:8080"); //付款完，跳轉到哪個頁面
+        String form = all.aioCheckOut(obj, null);
+        return form;
+    }
+    /*
     public static String genAioCheckOutPeriod() {
         AioCheckOutPeriod obj = new AioCheckOutPeriod();
         UUID uid = UUID.randomUUID();
@@ -276,11 +313,7 @@ public class ExampleAllInOne {
         obj.setPeriodAmount("50"); // 每次授權金額
         obj.setPeriodType("D");    // 週期種類 D M Y 年月日
         obj.setFrequency("1");     // 此參數用來定義多久要執行一次 至少要大於等於 1 次以上。
-		/*
-		PeriodType 設為 D 時，最多可設 365次。
-        PeriodType 設為 M 時，最多可設 12次。
-        PeriodType 設為 Y 時，最多可設 1 次。
-		 */
+
         obj.setExecTimes("12");    // 執行次數
 
 
@@ -288,4 +321,5 @@ public class ExampleAllInOne {
         String form = all.aioCheckOut(obj, null);
         return form;
     }
+     */
 }

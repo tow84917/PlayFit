@@ -7,8 +7,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 @Controller
 public class Pay {
@@ -38,11 +41,11 @@ public class Pay {
     }
 
     @RequestMapping({"/period"})
-    public String period(Model model, String price) {
+    public String period(Model model, @RequestBody Map<String,Object> paramsMap) {
         System.out.println("period in -->> ");
         ExampleAllInOne exampleAllInOne = new ExampleAllInOne();
         ExampleAllInOne.initial();
-        String check = ExampleAllInOne.genAioCheckOutPeriod();
+        String check = ExampleAllInOne.genAioCheckOutPeriod(paramsMap);
         System.out.println(check);
         model.addAttribute("check", check);
         return "pay";

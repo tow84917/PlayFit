@@ -472,7 +472,7 @@ bodyPart.addEventListener('click', (e) => {
             // ------------------------------------------------------------
             let b = document.createElement('div');
             b.setAttribute('class', 'fit-a-button');
-            b.innerHTML = element.name;
+            b.innerHTML = '&nbsp &nbsp' + element.name;
             
             // ------------------------------------------------------------
 
