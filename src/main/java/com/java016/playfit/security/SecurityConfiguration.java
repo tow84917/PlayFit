@@ -41,7 +41,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
 	public AuthenticationProvider customAuthenticationProvider(){
 		AuthenticationProvider authenticationProvider = 
-				new CustomAuthenticationProvider(userDetailsService(), passwordEncoder());
+				new CustomAuthenticationProvider(
+						userDetailsService(), passwordEncoder()
+						);
 		return authenticationProvider;
 	}
     
@@ -60,14 +62,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/", "/process_register" ,"/login/failure" , "/register","/**/*.js", "/**/*.css").permitAll() // 失敗請求、首頁不須登入
+				.antMatchers("/", "/process_register" ,"/login/failure" 
+						, "/register","/**/*.js", "/**/*.css").permitAll() // void not css、html 
 				.anyRequest().authenticated() // 除了上行請求皆須登入
 				.and()
 				.formLogin()
 				.usernameParameter("email")
 				.loginPage("/login")
-//				.failureHandler(customAuthenticationFailureHandler()) //失敗處理,認證信後改
-				.failureUrl("/login?error=true") // 回傳有誤
+				.failureHandler(customAuthenticationFailureHandler()) //失敗處理,認證信後改
+//				.failureUrl("/login?error=true") // 回傳有誤
 				.defaultSuccessUrl("/") // 回到首頁 或 跳轉原拜訪頁
 				.permitAll()
 				.and()

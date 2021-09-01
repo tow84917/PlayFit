@@ -17,14 +17,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	private final UserDetailsService userDetailsService;
 	
 	private BCryptPasswordEncoder passwordEncoder;
-
+	
 	public CustomAuthenticationProvider(UserDetailsService userDetailsService, 
 			BCryptPasswordEncoder passwordEncoder) {
 		super();
 		this.userDetailsService = userDetailsService;
 		this.passwordEncoder = passwordEncoder;
 	}
-
+	
 	@Override
 	public Authentication authenticate(Authentication authentication) {
 
@@ -59,7 +59,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		if (!comparePassword) {
 			throw new BadCredentialsException("Bad credentials");
 		}
-
+		
 		// 檢查其他認證
 		if (!userDetails.isEnabled()) {
 			throw new DisabledException("Disabled");

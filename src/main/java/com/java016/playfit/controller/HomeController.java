@@ -93,12 +93,12 @@ public class HomeController {
 //	}
 	
 	// 登入失敗處理
-	@RequestMapping("/login/failure")
+	@RequestMapping(value = "/login/failure")
 	public String loginFailure(
 			@RequestParam(name = "errorMessage") String errorMessage, Model model 
 			) {
 		
-//		System.out.println(errorMessage);
+		System.out.println(errorMessage);
 		
 		// 帳號錯誤
 		if (errorMessage.equals("rgrdsgdfhgnot found")) {
@@ -115,7 +115,7 @@ public class HomeController {
 			model.addAttribute("isEnabled", true);
 		}
 		
-		return "login";
+		return "redirect:/login";
 	}
 	
 	@GetMapping("/showFormForUpdate/{id}")

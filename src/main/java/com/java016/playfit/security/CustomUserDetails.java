@@ -87,7 +87,7 @@ public class CustomUserDetails implements UserDetails {
 //		if (user.getCertificationStatus() == 0) {
 //			return false ;
 //		}
-    	
+//    	
         return true;
     }
 
