@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <header></header>
+    <!-- <header th:replace="fragments/header::myHeader"></header> -->
     <main>
         <div class="container">
             <div class="leftBox">
@@ -30,19 +30,27 @@
                             <div id="signUpSubmit">SIGN UP</div>
                         </div>
 
-                        <!-- 註冊step2 -->
+                        <!-- 註冊step2   basic info-->
                         <div id="step2">
                             <p>Your Basic Info</p>
+                            <hr>
+                            <label for="male">Male</label>
+                            <input type="radio" id="male"
+                            name="gender" value="Male">
+                           &nbsp
+                            <label for="female">Female</label>  
+                           <input type="radio" id="female"
+                            name="gender" value="Female">
+                            <br>   
 
-							
                             <label for="targetWeight">Target Weight</label>
-                            <input type="text" name="targetWeight" th:value="${personalGoal.goalWeight}" id="targetWeight" />
+                            <input type="text" name="targetWeight" th:value="${personalGoal.goalWeight}" id="targetWeight" placeholder="kg" />
                             <br>
                             <label for="currentWeight">Current Weight</label>
-                            <input type="text" name="currentWeight" th:value="${healthRecord.weight}" id="currentWeight" />
+                            <input type="text" name="currentWeight" th:value="${healthRecord.weight}" id="currentWeight" placeholder="kg"/>
                             <br>
                             <label for="height">Your Height</label>
-                            <input type="text" name="height"  th:value="${healthRecord.height}" id="height" />
+                            <input type="text" name="height"  th:value="${healthRecord.height}" id="height" placeholder="cm" />
                             
                             <br>
                             <label for="birthday">Date Of Birth</label>
@@ -50,15 +58,16 @@
 
                             <br>
                             <span>Activity Level</span>
-					        <select name="activityLevel" class="editColumn" th:value="${healthRecord.exerciseFrequency}">
+					        <select name="activityLevel" th:value="${healthRecord.exerciseFrequency}">
                                 <option value="Sedentary">Sedentary(office job)</option>
 					    	    <option value="LightExercise">Light Exercise</option>
 					    	    <option value="ModerateExercise">Moderate Exercise</option>
 					    	    <option value="HeavyExercise">Heavy Exercise</option>
 					    	    <option value="Athlete">Athlete</option>
 					        </select>
-                            <!-- <button  type="submit" id="nextStep">Next Step</button> -->
-                            <input type="submit" value="sss">
+                            <br><br>
+                            <button  type="submit" id="nextStep">Next Step</button>
+                            
                         </div> 
                         
                         
@@ -119,6 +128,7 @@
            	[[${upadtePasswordOK}]]
         </div> -->
     </main>
+     <!-- <footer th:replace="fragments/footer::myFooter"></footer> -->
 </body>
 
 </html>

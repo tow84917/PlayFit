@@ -71,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl("/") // 回到首頁 或 跳轉原拜訪頁
 				.permitAll()
 				.and()
-				.logout()
+				.logout()																												
 					.logoutUrl("/logout")
 					//如果是用get請求訪問/logout的話必須s加以下這一行
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

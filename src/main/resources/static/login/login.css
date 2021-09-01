@@ -15,7 +15,7 @@ dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+figure, figcaption, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -66,6 +66,7 @@ main{
     height: 550px;
     border-radius: 30px;
     margin: 150px auto;
+    /* margin-top: 10px; */
     background: #EBEEF8;
     box-shadow: 3px 5px 6px 0px rgba(0, 0, 0, 0.15);
 }
@@ -259,9 +260,9 @@ form .button{
 /* step2 */
 #step2{
     position: absolute;
-    left: 10%;
+    left: 30%;
     border: 1px solid red;
-    border-radius: 1rem;
+    border-radius: 2rem;
     width: 40%;
     /* height: 550px; */
     z-index: 4;
@@ -278,3 +279,17 @@ form .button{
     font-size: 2.4rem;
     font-family: 'Montserrat', sans-serif;
 }
+
+/* 暫時的 */
+#step2 p{
+    margin-top: 2rem;
+}
+
+#nextStep{
+    margin-bottom: 2rem;
+}
+
+#step2>input[type=radio]{
+    width: 1rem;
+}
+
