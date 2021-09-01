@@ -153,7 +153,7 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 
 	}
 
-	@Scheduled(cron = "00 5 2 * * *") // 指定時間執行 0時(24)
+	@Scheduled(cron = "00 13 2 * * *") // 指定時間執行 0時(24)
 	public void checkDateLine(){
 		List<User> userList = userRepository.findAll();
 		for (User user : userList) {
@@ -163,8 +163,10 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 			}
 			if (dateline.getTime() <= new Date().getTime()){
 				if (user.getRole() == "ROLE_DEF"){
+					System.out.println("def--->");
 					continue;
 				}
+				System.out.println("過期");
 				userRepository.updateUserRole(user.getId(), "ROLE_DEF");
 			}
 		}

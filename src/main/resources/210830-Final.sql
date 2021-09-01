@@ -481,6 +481,7 @@ CREATE TABLE `Users` (
   `avatar_id` int DEFAULT NULL,
   `certification_status` int NOT NULL,
   `role` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dateline` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `avatar_id` (`avatar_id`),
