@@ -113,7 +113,7 @@ public class EditPersonalInfoController {
 		String fileNameClose = "eyeclosed.png";
 		String path = "static/editProfileForm/img/"; 
 		
-//		System.out.println(type);
+		System.out.println(type);
 		
 		InputStream is = null ;
 		

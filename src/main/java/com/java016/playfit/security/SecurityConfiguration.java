@@ -41,7 +41,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
 	public AuthenticationProvider customAuthenticationProvider(){
 		AuthenticationProvider authenticationProvider = 
-				new CustomAuthenticationProvider(userDetailsService(), passwordEncoder());
+				new CustomAuthenticationProvider(
+						userDetailsService(), passwordEncoder()
+						);
 		return authenticationProvider;
 	}
     
@@ -60,7 +62,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/", "/process_register" ,"/login/failure" , "/register","/**/*.js", "/**/*.css").permitAll() // 失敗請求、首頁不須登入
+				.antMatchers("/", "/process_register" ,"/login/failure" 
+						, "/register","/**/*.js", "/**/*.css").permitAll() // void not css、html 
 				.anyRequest().authenticated() // 除了上行請求皆須登入
 				.and()
 				.formLogin()
@@ -79,10 +82,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID")
 					.logoutSuccessUrl("/login") // 登出跳轉
-					.permitAll()
-				.and()
-				.csrf()
-				.ignoringAntMatchers("/ajax**"); // 防 ajax POST 會被 csrf 擋下
+					.permitAll();
+//				.and()
+//				.csrf()
+//				.ignoringAntMatchers("/ajax**"); // 防 ajax POST 會被 csrf 擋下
 //				.and()
 //				.csrf().disable();
 	}
