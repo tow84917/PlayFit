@@ -243,8 +243,35 @@ chooseHatWhite.addEventListener('click',e => {
 
 
 
+let doneBtn = document.getElementById('doneBtn');
+doneBtn.addEventListener('click', e => {
+    let data = getPictureData();
+    // let DOMURL = window.URL || window.webkitURL || window;
+    let svg = new Blob([data],{type: 'image/svg+xml;charset=utf-8'});
+    // let url = DOMURL.createObjectURL(svg);
+    // console.log(svg);
+    fetch('/process_avatar', {
+        method : 'POST',
+        headers : {
+            'Content-Type' : 'application/json',
+            "Accept": "application/json",
+        },
+        body :data,
+    })
+    .then(response => {
+    // console.log(response); 
+    console.log(data);
+	console.log(response.text()); 
+    // return response.json();
+    })
+    
+});
+
+
+
 
 //下載
+
 // let downloadBtn = document.querySelector(".downloadBtn");
 // downloadBtn.addEventListener("click", downloadFile);
 
@@ -262,51 +289,70 @@ chooseHatWhite.addEventListener('click',e => {
 
 //   document.body.removeChild(link);
 // }
+}
+
+
+
+
+
+    // const xhr = new XMLHttpRequest();
+
+    // // 進度監聽
+    // xhr.upload.addEventListener('progress', (e)=>{
+    //     console.log(e, e.loaded , e.total); // 可以利用這兩個對象算出目前的傳輸比例
+    // }, false);
+
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState === 4) {
+    //         const result = JSON.parse(xhr.responseText);
+    //         if (xhr.status === 200) {
+    //             // 上傳成功
+    //             console.log(result);
+    //         } else {
+    //             // 上傳失敗
+    //         }
+    //     }
+    // };
+    // xhr.open('POST', '/upload' , true); // 中間"/upload"為後臺上傳地址(如果需要兼容性強可以使用限制的ajax庫)
+    // xhr.send(formData); // 發送到後臺
+
 
 //資料
 function getPictureData() {
-  let header = `<?xml version="1.0" encoding="utf-8"?>
-                <svg version="1.1" id="avatarPic" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-                viewBox="0 0 300 350" xml:space="preserve">`;
-  let style = `<style type="text/css">
-.st0{fill:#A52224;}
-.st1{fill:#D93030;}
-.st2{fill:none;stroke:#040000;stroke-width:5.3533;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-.st3{fill:#E83C3C;}
-.st4{fill:#F08E93;}
-.st5{fill:none;stroke:#040000;stroke-width:4.6992;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-.st6{fill:#040000;}
-.st7{fill:#DB9451;}
-.st8{fill:#F4B55E;}
-.st9{fill:#EC6519;}
-.st10{fill:#EF7C33;}
-.st11{fill:#CCCCCC;}
-.st12{fill:#E6E6E5;}
-.st13{fill:#B75320;}
-.st14{fill:#B3B3B3;}
-.st15{fill-rule:evenodd;clip-rule:evenodd;fill:#4D4D4D;}
-.st16{fill:#4D4D4D;}
-.st17{fill:#323333;}
-.st18{fill:#9C4623;}
-.st19{fill-rule:evenodd;clip-rule:evenodd;fill:#CBE8F0;}
-.st20{fill-rule:evenodd;clip-rule:evenodd;fill:#E1F0F3;}
-.st21{fill-rule:evenodd;clip-rule:evenodd;fill:#9ECCD5;}
-.st22{fill-rule:evenodd;clip-rule:evenodd;fill:#323333;}
-.st23{fill-rule:evenodd;clip-rule:evenodd;fill:#666666;}
-.st24{fill:none;stroke:#F4B55E;stroke-width:2.378;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-               </style>`;
-  let data = avatarPic.innerHTML;
-
-  return header + style + data + `</svg>`;
-}
-
-
-
-
-
-    
-}
-
+    let header = `<?xml version="1.0" encoding="utf-8"?>
+                  <svg version="1.1" id="avatarPic" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                  viewBox="0 0 300 350" xml:space="preserve">`;
+    let style = `<style type="text/css">
+  .st0{fill:#A52224;}
+  .st1{fill:#D93030;}
+  .st2{fill:none;stroke:#040000;stroke-width:5.3533;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+  .st3{fill:#E83C3C;}
+  .st4{fill:#F08E93;}
+  .st5{fill:none;stroke:#040000;stroke-width:4.6992;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+  .st6{fill:#040000;}
+  .st7{fill:#DB9451;}
+  .st8{fill:#F4B55E;}
+  .st9{fill:#EC6519;}
+  .st10{fill:#EF7C33;}
+  .st11{fill:#CCCCCC;}
+  .st12{fill:#E6E6E5;}
+  .st13{fill:#B75320;}
+  .st14{fill:#B3B3B3;}
+  .st15{fill-rule:evenodd;clip-rule:evenodd;fill:#4D4D4D;}
+  .st16{fill:#4D4D4D;}
+  .st17{fill:#323333;}
+  .st18{fill:#9C4623;}
+  .st19{fill-rule:evenodd;clip-rule:evenodd;fill:#CBE8F0;}
+  .st20{fill-rule:evenodd;clip-rule:evenodd;fill:#E1F0F3;}
+  .st21{fill-rule:evenodd;clip-rule:evenodd;fill:#9ECCD5;}
+  .st22{fill-rule:evenodd;clip-rule:evenodd;fill:#323333;}
+  .st23{fill-rule:evenodd;clip-rule:evenodd;fill:#666666;}
+  .st24{fill:none;stroke:#F4B55E;stroke-width:2.378;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+                 </style>`;
+    let data = avatarPic.innerHTML;
+  
+    return header + style + data + `</svg>`;
+  }
 
 
 
