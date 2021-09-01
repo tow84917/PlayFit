@@ -20,7 +20,6 @@ function dofirst() {
 }
 
 window.addEventListener('load', dofirst);
-
 // scheduled = [10, 20];  // 測試
 // scheduled = [];
 

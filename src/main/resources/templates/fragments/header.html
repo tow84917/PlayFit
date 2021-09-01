@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-				xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>headerAndFooter</title>
 </head>
+
 <body>
-     <!-- Menu Start -->
+    <!-- Menu Start -->
     <header th:fragment="myHeader" class="header">
         <nav class="navbar">
             <a href="#" class="nav-logo"><img src="/header&Footer/images/bluelogo.svg" alt=""></a>
@@ -20,19 +22,19 @@
                     <a href="#" class="nav-link">CALCULATOR</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">PLALENDAR</a>
+                    <a href="/calendar/calendar" class="nav-link">PLALENDAR</a>
                 </li>
                 <li class="nav-item">
-                <a href="#" class="nav-link">ABOUT US</a>
-            </li>
+                    <a href="#" class="nav-link">ABOUT US</a>
+                </li>
                 <li class="nav-item">
-<!--                 	登入=> MemberPage -->
-                    <a sec:authorize="isAuthenticated()"  href="/MemberPage" class="nav-icon">
-                    	<img th:src="@{\header&Footer\images\plyFitIcon.svg}" alt="plyFitIcon.svg">
+                    <!--                 	登入=> MemberPage -->
+                    <a sec:authorize="isAuthenticated()" href="/MemberPage" class="nav-icon">
+                        <img th:src="@{\header&Footer\images\plyFitIcon.svg}" alt="plyFitIcon.svg">
                     </a>
-<!--                 	未登入=> login -->           
+                    <!--                 	未登入=> login -->
                     <a sec:authorize="isAnonymous()" href="/login" class="nav-icon">
-                    	<img th:src="@{\header&Footer\images\plyFitIcon.svg}" alt="plyFitIcon.svg">
+                        <img th:src="@{\header&Footer\images\plyFitIcon.svg}" alt="plyFitIcon.svg">
                     </a>
                 </li>
             </ul>
@@ -43,10 +45,11 @@
             </div>
         </nav>
         <link rel="stylesheet" th:href="@{\header&Footer\css\header&Footer_style.css}">
-    	<link href="https://fonts.googleapis.com/css?family=Montserrat:800" rel="stylesheet">
-    	<script src="/header&Footer/js/header&Footer_style.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:800" rel="stylesheet">
+        <script src="/header&Footer/js/header&Footer_style.js"></script>
     </header>
 
-<script src="../../static/header&Footer/js/header&Footer_style.js"></script>
+    <script src="../../static/header&Footer/js/header&Footer_style.js"></script>
 </body>
+
 </html>

@@ -252,6 +252,28 @@ public class ExampleAllInOne {
     }
 
     /**
+     * 單次付款
+     * @param paramsMap 結帳資訊
+     * @return form
+     */
+    public static String myGenAioCheckOutALL(Map<String,Object> paramsMap) {
+        UUID uid = UUID.randomUUID();
+        AioCheckOutALL obj = new AioCheckOutALL();
+        obj.setMerchantTradeNo(uid.toString().replaceAll("-", "").substring(0, 20));
+        obj.setMerchantTradeDate("2017/01/01 08:05:23");
+        String price = (String) paramsMap.get("price");
+        obj.setTotalAmount(price);
+        String itemName = (String) paramsMap.get("itemName");
+        obj.setTradeDesc(itemName);
+        obj.setItemName(itemName);
+        obj.setReturnURL("http://211.23.128.214:5000");
+        obj.setOrderResultURL("http://localhost:8080/"); //付款完，跳轉到哪個頁面
+        obj.setNeedExtraPaidInfo("N");
+        String form = all.aioCheckOut(obj, null);
+        return form;
+    }
+
+    /**
      * 當信用卡定期定額扣
      * 款為每個月扣 1 次
      * 500 元，總共要扣 12 次，
@@ -260,9 +282,9 @@ public class ExampleAllInOne {
      * PeriodType=M
      * Frequency=1
      * ExecTimes=12
-     * @return
+     * @return form
      */
-    public static String genAioCheckOutPeriod(Map<String,Object> paramsMap) {
+    public static String myGenAioCheckOutPeriod(Map<String,Object> paramsMap) {
         AioCheckOutPeriod obj = new AioCheckOutPeriod();
         UUID uid = UUID.randomUUID();
         obj.setMerchantTradeNo(uid.toString().replaceAll("-", "").substring(0, 20));
@@ -289,15 +311,15 @@ public class ExampleAllInOne {
         PeriodType 設為 M 時，最多可設 12次。
         PeriodType 設為 Y 時，最多可設 1 次。
 		 */
-        String exectimes = (String) paramsMap.get("exectimes");
-        obj.setExecTimes(exectimes);    // 執行次數
+        String execTimes = (String) paramsMap.get("execTimes");
+        obj.setExecTimes(execTimes);    // 執行次數 至少要大於 1 次以上。
 
 
-        obj.setOrderResultURL("http://localhost:8080"); //付款完，跳轉到哪個頁面
+        obj.setOrderResultURL("http://localhost:8080/"); //付款完，跳轉到哪個頁面
         String form = all.aioCheckOut(obj, null);
         return form;
     }
-    /*
+
     public static String genAioCheckOutPeriod() {
         AioCheckOutPeriod obj = new AioCheckOutPeriod();
         UUID uid = UUID.randomUUID();
@@ -321,5 +343,5 @@ public class ExampleAllInOne {
         String form = all.aioCheckOut(obj, null);
         return form;
     }
-     */
+
 }

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>subscription</title>
+
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
@@ -29,7 +32,7 @@
         }
 
         div {
-            border: 1px solid gold;
+            box-shadow: 0 0 0px 1px gold inset;
         }
 
         .sub {
@@ -67,45 +70,53 @@
     </style>
 </head>
 
-<body>
+<body id="body">
     <div class="container sub">
-        <div class="col-4 sub2 ">
+        <!-- <div class="col-4 sub2 ">
             <div>免費</div>
 
+        </div> -->
+        <div class="col-4 sub2 ">
+
+            <div>
+                <h1>
+                    月付
+                </h1>
+            </div>
+            <div class="month">
+                <button type="button" class="btn " value="3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    3月</button>
+                <button type="button" class="btn " value="6" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    6月</button>
+                <button type="button" class="btn " value="12" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    12月</button>
+                <!-- <input id="month" type="number" value="1"> -->
+
+            </div>
+
+            <!-- Button trigger modal -->
+            <!-- <button id="month-pay" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                Launch demo modal
+            </button> -->
+
+
         </div>
         <div class="col-4 sub2 ">
-            <form action="">
-                <div>
-                    <h1>
-                        單月訂閱
-                    </h1>
-                </div>
-                <div>
-                    <div>幾個月</div>
-                    <input id="month" type="number">
-
-                </div>
-                <div>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Launch demo modal
-                    </button>
-                </div>
-            </form>
+            <div>
+                <h1>
+                    年付
+                </h1>
+            </div>
+            <div class="year">
+                <button type="button" class="btn" value="1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    1年</button>
+                <button type="button" class="btn" value="3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    3年</button>
+                <button type="button" class="btn" value="5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    5年</button>
+            </div>
         </div>
-        <div class="col-4 sub2 ">
-            訂閱一年
-        </div>
-    </div>
-
-    <!-- Vertically centered modal -->
-    <div class="modal-dialog modal-dialog-centered">
-        ...
-    </div>
-
-    <!-- Vertically centered scrollable modal -->
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        ...
     </div>
 
     <!-- Modal -->
@@ -121,7 +132,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="check" data-bs-dismiss="modal">Check</button>
                 </div>
             </div>
         </div>
@@ -132,14 +143,14 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
         integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script th:src="@{pay/pay.js}" src="../static/pay/pay.js"></script>
     <script>
-        var myModal = document.getElementById('myModal')
-        var myInput = document.getElementById('myInput')
 
-        myModal.addEventListener('shown.bs.modal', function () {
-            myInput.focus()
-        })
+
+
+
     </script>
 </body>
 

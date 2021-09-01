@@ -15,7 +15,8 @@ public class PlayfitApplication {
 		System.out.println("PlayFit Start!!");
 	}
 	
-	// 自動開瀏覽器
+	
+	// 自動開瀏覽器 
 //	@EventListener({ApplicationReadyEvent.class})
 //	public void applicationReadyEvent() {
 //	    System.out.println("Application ready ... open Browser");

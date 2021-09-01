@@ -30,24 +30,55 @@ public class Pay {
     }
 
     @RequestMapping({"/pay"})
-    public String point(Model model, String price) {
+    public String point() {
         System.out.println("pay in1");
+
+        return "subscription";
+    }
+
+    @RequestMapping({"/period"})
+    @ResponseBody
+    public String period(Model model,
+                         @RequestBody Map<String,Object> paramsMap) {
+        System.out.println("period in -->> ");
+        logger.info(paramsMap.get("execTimes"));
+        logger.info(paramsMap.get("period"));
+        logger.info(paramsMap.get("price"));
+        logger.info(paramsMap.get("itemName"));
         ExampleAllInOne exampleAllInOne = new ExampleAllInOne();
         ExampleAllInOne.initial();
-        String check = ExampleAllInOne.genAioCheckOutALL("100", 41);
+        String check = ExampleAllInOne.myGenAioCheckOutPeriod(paramsMap);
+        System.out.println(check);
+        model.addAttribute("check", check);
+        return check;
+    }
+
+    @RequestMapping("/checkOut")
+    @ResponseBody
+    public String checkOut(Model model,
+                           @RequestBody Map<String,Object> paramsMap){
+        System.out.println("checkOut in -->> ");
+        logger.info(paramsMap.get("execTimes"));
+        logger.info(paramsMap.get("period"));
+        logger.info(paramsMap.get("price"));
+        logger.info(paramsMap.get("itemName"));
+        ExampleAllInOne exampleAllInOne = new ExampleAllInOne();
+        ExampleAllInOne.initial();
+        String check = ExampleAllInOne.myGenAioCheckOutALL(paramsMap);
+        System.out.println(check);
+        model.addAttribute("check", check);
+        return check;
+    }
+    
+    @RequestMapping({"/p"})
+    public String p(Model model) {
+        System.out.println("-->> ");
+        ExampleAllInOne exampleAllInOne = new ExampleAllInOne();
+        ExampleAllInOne.initial();
+        String check = ExampleAllInOne.genAioCheckOutPeriod();
         System.out.println(check);
         model.addAttribute("check", check);
         return "pay";
     }
 
-    @RequestMapping({"/period"})
-    public String period(Model model, @RequestBody Map<String,Object> paramsMap) {
-        System.out.println("period in -->> ");
-        ExampleAllInOne exampleAllInOne = new ExampleAllInOne();
-        ExampleAllInOne.initial();
-        String check = ExampleAllInOne.genAioCheckOutPeriod(paramsMap);
-        System.out.println(check);
-        model.addAttribute("check", check);
-        return "pay";
-    }
 }
