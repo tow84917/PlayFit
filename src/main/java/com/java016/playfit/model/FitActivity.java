@@ -35,6 +35,8 @@ public class FitActivity {
 	private String name;
 
 	private Time time;
+	
+	private Boolean role;
 
 	// bi-directional many-to-one association to FitAchieve
 	@JsonIgnore
@@ -123,6 +125,15 @@ public class FitActivity {
 	@JsonIgnore
 	public void setFitAchieves(List<FitAchieve> fitAchieves) {
 		this.fitAchieves = fitAchieves;
+	}
+
+	
+	public Boolean getRole() {
+		return role;
+	}
+
+	public void setRole(Boolean role) {
+		this.role = role;
 	}
 
 	public FitActivityVideo getFitActivityVideo() {
