@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
@@ -99,8 +100,14 @@ public class Pay {
     }
     
     @RequestMapping("/payFinish")
-    public String payFinish() {
+    public String payFinish(@RequestParam Map<String,Object> paramsMap) {
     	logger.info("payFinish-------->>");
+    	for (String keyString : paramsMap.keySet()) {
+    		System.out.println("----------------");
+    		System.out.println(keyString);
+			System.out.println(paramsMap.get(keyString));
+    		System.out.println("----------------");
+		}
     	return "payFinish";
     }
     
