@@ -1,8 +1,15 @@
 package com.java016.playfit.controller;
 
-//import java.sql.Date;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.batik.transcoder.TranscoderException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +26,13 @@ import com.java016.playfit.model.PersonalGoal;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.HealthRecordService;
 import com.java016.playfit.service.UserService;
+import com.java016.playfit.tool.CreateAvatar;
 
 @Controller
 public class HomeController {
+	
+	@Autowired
+	CreateAvatar createAvatar;
 	
 	@Autowired
 	UserService userService;
@@ -60,6 +71,38 @@ public class HomeController {
 		return mv;
 	}
 	
+	
+	
+	@PostMapping(value= "/process_avatar")
+		public void processAvatar(final HttpServletRequest request) throws IOException, TranscoderException {
+		InputStream is = request.getInputStream();
+		OutputStream os = new FileOutputStream(new File("/Users/Xuan/Downloads/s.svg"));
+		
+//		SVGDocument doc = new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName())
+//		.createSVGDocument("", is);
+//		TranscoderInput input = new TranscoderInput(doc);
+//		createAvatar.outputSvg(input, new File("/Users/Xuan/Downloads/s.svg"));
+		
+		
+//		os.write(is.readAllBytes());
+		
+		
+		
+		byte[] b = new byte[8192];
+		int len=0;
+		while((len= is.read(b))!= -1) {
+			os.write(b,0,len);
+		}
+			
+		
+		System.out.println(request == null);
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("errorXXX");
+//		return mv;
+	}
+	
+	
+	
 	@PostMapping("/process_register")
 	public ModelAndView processRegister(User user, PersonalGoal personalGoal,HealthRecord healthRecord) {
 		ModelAndView mv = new ModelAndView();
@@ -71,9 +114,6 @@ public class HomeController {
 		healthRecord.setUser(user);
 		System.out.println("controller > " + personalGoal);
 		System.out.println("controller > " + healthRecord);
-				
-		
-
 //		healthRecordService.saveHealthRecord(HealthRecord);
 		mv.setViewName("register_success");
 		return mv;

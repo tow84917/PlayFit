@@ -23,9 +23,17 @@ function doFirst(){
     let signUpSubmit = document.getElementById('signUpSubmit');
     signUpSubmit.addEventListener('click',e =>{
         step2.style.display = 'inline';
-       
+        // When the user clicks anywhere outside of the modal, close it
+    //     window.onclick = function(event) {
+    //     if (event.target == window) {
+    //         step2.style.display = "none";
+    //     }
+    // }
     })
 }
+
+
+
 
 
 function move(){

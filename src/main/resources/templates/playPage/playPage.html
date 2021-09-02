@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>playPage</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <link rel="stylesheet" href="/playPage/css/playPage.css">
+  <script type="text/javascript" src="/playPage/js/playPage.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:800" rel="stylesheet">
+</head>
+	
+<body>
+  <!-- Menu Start -->
+ <header th:replace="fragments/header::myHeader"></header>
+  <!-- Menu End -->
+  <!-- Main Start -->
+  <div class="container">
+    <div class="side w800">
+      <div class="character">
+        <img src="/playPage/img/avatar.png" alt="">
+      </div>
+      <!-- synchronousData -->
+      <div class="weightGoal">
+        <div>
+          <p>Current Weight</p>
+          <div class="boxTemplate">
+            <p>75kg</p>
+          </div>
+        </div>
+        <div>
+          <p> Start</p>
+          <div class="boxTemplate">
+            <p>75kg</p>
+          </div>
+        </div>
+        <div>
+          <p>Goal</p>
+          <div class="boxTemplate">
+            <p>75kg</p>
+          </div>
+        </div>
+      </div>
+      <h1>Directions</h1>
+      <div class="posture">
+        
+        <p>
+          • Going for a walk, bike, or run (join our indoor walking program).<br>
+          • Doing household chores.<br>
+          • Taking the stairs instead of the elevator.<br>
+          • Playing at the park.<br>
+          • Raking leaves or shovelling snow.<br>
+          • Going for a walk, bike, or run (join our indoor walking program).<br>
+          • Doing household chores.<br>
+          • Taking the stairs instead of the elevator.<br>
+          • Playing at the park.<br>
+          • Raking leaves or shovelling snow.<br>
+          
+          
+        </p>
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="content w800">
+      <div class="c-video w800">
+        <h1>16 min PSTT</h1>
+        <video class="video" src="/video/Alternating hands to elbows plank - Abdominal Exercise.mp4"></video>
+        <div class="controls">
+          <div class="orangeBar">
+            <div class="orangeJuice"></div>
+          </div>
+          <div class="buttons">
+            <button id="playPause"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main End -->
+
+
+  <!-- Copyright Start -->
+   <footer th:replace="fragments/footer::myFooter"></footer>
+  <!-- Copyright End -->
+  <script src="/playPage/js/playPage.js"></script>
+</body>
+
+</html>
