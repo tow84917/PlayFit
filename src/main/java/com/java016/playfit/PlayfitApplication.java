@@ -16,6 +16,9 @@ public class PlayfitApplication {
 	}
 	
 	
+	
+
+	
 	// 自動開瀏覽器 
 //	@EventListener({ApplicationReadyEvent.class})
 //	public void applicationReadyEvent() {

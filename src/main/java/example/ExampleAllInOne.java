@@ -3,13 +3,7 @@ package example;
 import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
 import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
-
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
