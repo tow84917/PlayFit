@@ -241,6 +241,7 @@ public class CalendarCrontroller {
 	 */
 	@RequestMapping(value = {"/findAllActivities"} )
 	@ResponseBody
+	@PreAuthorize("hasRole('PRIME')")
 	public String findAllActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect) throws JsonProcessingException {
 		logger.info("find All Activities in");
 		logger.info(bodyPartSelect);
@@ -261,7 +262,6 @@ public class CalendarCrontroller {
 	 */
 	@RequestMapping({"/findOneActivities"})
 	@ResponseBody
-	@PreAuthorize("hasRole('PRIME')")
 	public String findOneActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect) throws JsonProcessingException {
 		logger.info("find One Activities in");
 		logger.info(bodyPartSelect);

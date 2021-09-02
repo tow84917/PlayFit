@@ -64,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				.antMatchers("/", "/process_register" ,"/login/failure" ,"/process_avatar"
 						, "/register","/**/*.js", "/**/*.css", "/**/*.svg").permitAll() // void not css、html 
-//				.anyRequest().authenticated() // 除了上行請求皆須登入
+				.anyRequest().authenticated() // 除了上行請求皆須登入
 				.and()
 				.formLogin()
 				.usernameParameter("email")

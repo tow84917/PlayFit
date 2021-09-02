@@ -331,6 +331,7 @@ CREATE TABLE `Fit_activity` (
   `image_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `video_id` int NOT NULL,
   `time` time NOT NULL,
+  `role` TINYINT DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `video_id` (`video_id`),
   CONSTRAINT `Fit_activity_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `Fit_activity_video` (`id`)
@@ -713,6 +714,7 @@ CREATE TABLE `Users` (
   `avatar_id` int DEFAULT NULL,
   `certification_status` int NOT NULL,
   `role` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dateline` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `avatar_id` (`avatar_id`),

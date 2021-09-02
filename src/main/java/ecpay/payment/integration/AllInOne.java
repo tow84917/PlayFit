@@ -71,7 +71,7 @@ public class AllInOne extends AllInOneBase{
 	
 	/**
 	 * 檢查Hashtable中的檢查碼是否正確(確保資料未被竄改)
-	 * @param params params
+	 * @param Hashtable params
 	 * @return boolean 
 	 */
 	public boolean compareCheckMacValue(Hashtable<String, String> params){
@@ -93,7 +93,7 @@ public class AllInOne extends AllInOneBase{
 	
 	/**
 	 * Apple Pay信用卡授權作業
-	 * @param obj
+	 * @param CreateServerOrderobj
 	 * @return
 	 */
 	public String createServerOrder(CreateServerOrderObj obj){
@@ -353,9 +353,9 @@ public class AllInOne extends AllInOneBase{
 	
 	/**
 	 * 產生訂單Html form的方法
+	 * @param aioCheckOutObj
 	 * @param invoice
-	 * @param invoice
-	 * @param obj
+	 * @param String
 	 */
 	public String aioCheckOut(Object obj, InvoiceObj invoice){
 		StringBuilder out = new StringBuilder();

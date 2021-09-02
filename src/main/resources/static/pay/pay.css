@@ -1,0 +1,119 @@
+* {
+  text-align: center;
+}
+.br {
+  height: 140px;
+}
+
+div {
+  /* box-shadow: 0 0 0px 1px gold inset; */
+}
+
+.sub {
+  height: fit-content;
+  /* border: 1px solid red; */
+  margin-bottom: 80px;
+}
+
+.sub2 {
+  height: 400px;
+  /* border: 1px solid blue; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sub2 div {
+  margin: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn {
+  color: var(--white);
+  font-size: var(--font-size-d);
+  font-weight: var(--font-weight-blod);
+
+  width: fit-content;
+  height: var(--btn-width-height);
+  background: var(--purple1);
+  border: 0;
+  margin-right: 10px;
+  margin-left: 10px;
+  filter: var(--default-filter);
+}
+.item {
+  font-size: 2.5rem;
+}
+.pay-item {
+  margin: 10px;
+  width: 100%;
+  height: fit-content;
+  font-size: 1.5rem;
+  padding: 10px;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: 700;
+  /* color: var(--purple1); */
+}
+.chick {
+  color: var(--white);
+}
+/* model 彈出視窗 */
+.modal-content {
+  border-radius: var(--btn-border-radius);
+  background-color: var(--purple2);
+  border: 0;
+}
+
+.modal-header {
+  border-top-left-radius: var(--btn-border-radius);
+  border-top-right-radius: var(--btn-border-radius);
+  border: 0;
+}
+
+.modal-header,
+.modal-footer {
+  border: 0;
+  justify-content: center;
+}
+.modal-footer {
+  padding-bottom: 2rem;
+}
+
+/* 彈出視窗body */
+.body {
+  padding: 0;
+}
+
+/* 彈出視窗實際內容 */
+.modal-bg {
+  background-color: var(--purple2);
+  height: 300px;
+  padding: 10px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* flex-wrap: wrap; */
+  width: inherit;
+  /* 滾動 */
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}

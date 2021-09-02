@@ -1,7 +1,9 @@
 package com.java016.playfit.serviceimpl;
 
+import java.util.Date;
 import java.util.List;
 
+import com.java016.playfit.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,12 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	@Autowired
 	BodyCalculator bodyCalculator;
 
+	@Autowired
+	UserRepository userRepository;
+
+	/**
+	 * 檢查熱量赤字
+	 */
 	@Override
 	@Scheduled(cron = "0 0 0 * * ?") // 指定時間執行 0時(24)
 	public void upadteCalorieDeficit() {
@@ -143,6 +151,25 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 			}
 		}
 
+	}
+
+	@Scheduled(cron = "00 13 2 * * *") // 指定時間執行 0時(24)
+	public void checkDateLine(){
+		List<User> userList = userRepository.findAll();
+		for (User user : userList) {
+			Date dateline = user.getDateline();
+			if (dateline == null){
+				continue;
+			}
+			if (dateline.getTime() <= new Date().getTime()){
+				if (user.getRole() == "ROLE_DEF"){
+					System.out.println("def--->");
+					continue;
+				}
+				System.out.println("過期");
+				userRepository.updateUserRole(user.getId(), "ROLE_DEF");
+			}
+		}
 	}
 }
 
