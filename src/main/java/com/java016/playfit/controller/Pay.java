@@ -97,6 +97,14 @@ public class Pay {
         model.addAttribute("check", check);
         return "pay";
     }
+    
+    @RequestMapping("/payFinish")
+    public String payFinish() {
+    	logger.info("payFinish-------->>");
+    	return "payFinish";
+    }
+    
+    
 }
 
 

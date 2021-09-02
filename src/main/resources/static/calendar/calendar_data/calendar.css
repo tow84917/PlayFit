@@ -391,6 +391,10 @@ label {
   width: 100%;
 }
 
+.prime-activity {
+  opacity: 50%;
+}
+
 .model-submit {
   display: flex;
   align-items: center;

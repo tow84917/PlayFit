@@ -439,7 +439,7 @@ bodyPart.addEventListener('click', (e) => {
 
     // 找部位動作
     const allActivities = document.getElementById('all-activities');
-    allActivities.innerHTML = '';
+    // allActivities.innerHTML = '';
     $.post('findActivities' , {"bodyPartSelect": bodyPartSelect} , function (data) {
         console.log('data: ', data);
 
@@ -495,7 +495,7 @@ addAchivity.addEventListener('click' , () => {
         element.checked = false;
     }
     const allActivities = document.getElementById('all-activities');
-    allActivities.innerHTML = '';
+    // allActivities.innerHTML = '';
 })
 
 
