@@ -125,7 +125,7 @@ public class MemberPageController {
 	@GetMapping(value = "/weeklyExerciseData", 
 			produces = { "application/json" })
 	@ResponseBody
-	@PreAuthorize("hasRole('PRIME')")
+//	@PreAuthorize("hasRole('PRIME')")
 	public Map<Integer, String[]> weeklyExerciseData() {
 		Map<Integer, String[]> data = null;
 		int userId = userService.getLoginUserId();

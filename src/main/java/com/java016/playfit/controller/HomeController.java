@@ -5,12 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,11 +62,19 @@ public class HomeController {
 //		return mv;
 //	}
 	
-	// 首頁
+	// 首頁(舊的預設首頁)
 	@RequestMapping("/")
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("index");
+		return mv;
+	}
+	
+	// 首頁(新的正式)
+	@RequestMapping("/index")
+	public ModelAndView index2() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("indexOffical");
 		return mv;
 	}
 	
@@ -166,8 +172,6 @@ public class HomeController {
 		// 儲存新USER 進 Session
 		User newMember = userService.findByEmail(user.getEmail());
 		model.addAttribute("newMember",newMember) ;
-		System.out.println("save session");
-		System.out.println(model.getAttribute("newMember") == null);
 		
 		return mv;
 	}
@@ -183,7 +187,8 @@ public class HomeController {
 	// 登入失敗處理
 	@RequestMapping(value = "/login/failure")
 	public String loginFailure(
-			@RequestParam(name = "errorMessage") String errorMessage, Model model 
+			@RequestParam(name = "errorMessage") String errorMessage, 
+			Model model 
 			) {
 		
 		System.out.println(errorMessage);
