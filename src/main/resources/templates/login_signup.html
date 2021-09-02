@@ -5,6 +5,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+  	<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+  	
+  	<!-- jquery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet"  th:href="@{/login/style.css}">
     <link rel="stylesheet"  th:href="@{/login/avatar.css}"/>
@@ -48,13 +55,13 @@
                             <br>   
 
                             <label for="targetWeight">Target Weight</label>
-                            <input type="text" name="targetWeight" th:value="${personalGoal.goalWeight}" id="targetWeight" placeholder="kg" />
+                            <input type="text" name="goalWeight" th:value="${personalGoal.goalWeight}" id="targetWeight" placeholder="kg" />
                             <br>
                             <label for="currentWeight">Current Weight</label>
-                            <input type="text" name="currentWeight"   th:value="${healthRecord.weight}" id="currentWeight" placeholder="kg"/>
+                            <input type="number" name="weight" th:value="${healthRecord.weight}" id="currentWeight" placeholder="kg"/>
                             <br>
                             <label for="height">Your Height</label>
-                            <input type="text" name="height"   th:value="${healthRecord.height}" id="height" placeholder="cm" />
+                            <input type="number" name="height"   th:value="${healthRecord.height}" id="height" placeholder="cm" />
                             
                             <br>
                             <label for="birthday">Date Of Birth</label>
@@ -62,7 +69,7 @@
 
                             <br>
                             <span>Activity Level</span>
-					        <select name="activityLevel" th:value="${healthRecord.exerciseFrequency}">
+					        <select name="exerciseFrequency" th:value="${healthRecord.exerciseFrequency}">
                                 <option value="Sedentary">Sedentary(office job)</option>
 					    	    <option value="LightExercise">Light Exercise</option>
 					    	    <option value="ModerateExercise">Moderate Exercise</option>
