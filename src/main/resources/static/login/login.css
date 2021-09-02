@@ -15,7 +15,7 @@ dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+figure, figcaption, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -66,6 +66,7 @@ main{
     height: 550px;
     border-radius: 30px;
     margin: 150px auto;
+    /* margin-top: 10px; */
     background: #EBEEF8;
     box-shadow: 3px 5px 6px 0px rgba(0, 0, 0, 0.15);
 }
@@ -206,7 +207,7 @@ form .button{
     cursor: pointer;
     transition: 0.3s ease;
     
-    text-align: left;
+    
     display :flex;
     justify-content: center;
     align-items:center;
@@ -221,7 +222,7 @@ form .button{
 }
 
 
-#swiftButton, #nextStep{
+#swiftButton,#nextStep,#doneBtn{
     background: var(--primary-dark);
     box-shadow: 0.2rem 0.2rem 0.4rem rgba(0, 0, 0, 0.3), -0.2rem -0.2rem 0.4rem rgba(255, 255, 255, 0.2);
     color: var(--white);
@@ -234,11 +235,16 @@ form .button{
     border-radius: 1rem;
     cursor: pointer;
     transition: 0.3s ease;   
+
+    display :flex;
+    justify-content: center;
+    align-items:center;
+    flex-wrap: wrap;
 }
-#swiftButton:hover{
+#swiftButton:hover,#nextStep:hover,#doneBtn:hover{
     color: var(--primary-light);
 }
-#swiftButton:active{
+#swiftButton:active,#nextStep:active,#doneBtn:active{
     box-shadow: inset 0.2rem 0.2rem 0.4rem rgba(0, 0, 0, 0.3), inset -0.2rem -0.2rem 0.5rem rgba(255, 255, 255, 0.1);
 }
 
@@ -258,17 +264,18 @@ form .button{
 
 /* step2 */
 #step2{
+    text-align: center;
     position: absolute;
-    left: 10%;
-    border: 1px solid red;
-    border-radius: 1rem;
+    left: 30%;
+    border-radius: 2rem;
     width: 40%;
-    /* height: 550px; */
+    height: 550px;
     z-index: 4;
-    background-color: var(--primary-light);
+    background: #EBEEF8;
     display: none;
     font-weight: 700;
     font-size: 4rem;
+    border: 2px solid var(--primary-dark);
 }
 #step2 input{
     width: 30%;
@@ -277,4 +284,37 @@ form .button{
     width: 30%;
     font-size: 2.4rem;
     font-family: 'Montserrat', sans-serif;
+}
+
+/* 暫時的 */
+#step2 p{
+    margin: 2rem;
+}
+
+#nextStep{
+    margin: 1rem auto;
+    width: 30%;
+    position: relative;
+}
+
+#doneBtn{
+    margin: 1rem auto;
+    
+}
+
+#step2>input[type=radio]{
+    width: 1rem;
+}
+
+#step3{
+    position: absolute;
+    left: 30%;
+    border-radius: 2rem;
+    width: 40%;
+    height: 550px;
+    z-index: 5;
+    display: none;
+    background: #EBEEF8;
+    border: 2px solid var(--primary-dark);
+    
 }

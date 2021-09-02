@@ -62,9 +62,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/", "/process_register" ,"/login/failure" 
-						, "/register","/**/*.js", "/**/*.css").permitAll() // void not css、html 
-				.anyRequest().authenticated() // 除了上行請求皆須登入
+				.antMatchers("/", "/process_register" ,"/login/failure" ,"/process_avatar"
+						, "/register","/**/*.js", "/**/*.css", "/**/*.svg").permitAll() // void not css、html 
+//				.anyRequest().authenticated() // 除了上行請求皆須登入
 				.and()
 				.formLogin()
 				.usernameParameter("email")
@@ -74,7 +74,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl("/") // 回到首頁 或 跳轉原拜訪頁
 				.permitAll()
 				.and()
-				.logout()
+				.logout()																												
 					.logoutUrl("/logout")
 					//如果是用get請求訪問/logout的話必須s加以下這一行
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -82,12 +82,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID")
 					.logoutSuccessUrl("/login") // 登出跳轉
-					.permitAll();
+					.permitAll()
 //				.and()
 //				.csrf()
 //				.ignoringAntMatchers("/ajax**"); // 防 ajax POST 會被 csrf 擋下
-//				.and()
-//				.csrf().disable();
+				.and()
+				.csrf().disable();
 	}
 	
 }
