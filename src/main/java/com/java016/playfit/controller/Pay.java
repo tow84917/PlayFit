@@ -100,18 +100,48 @@ public class Pay {
     }
     
     @RequestMapping("/payFinish")
-    public String payFinish(@RequestParam Map<String,Object> paramsMap) {
+    public String payFinish(@RequestParam Map<String,Object> paramsMap ,
+                            Model model) {
     	logger.info("payFinish-------->>");
-    	for (String keyString : paramsMap.keySet()) {
-    		System.out.println("----------------");
-    		System.out.println(keyString);
-			System.out.println(paramsMap.get(keyString));
-    		System.out.println("----------------");
-		}
+    	if (paramsMap.get("RtnCode") == "1"){ // 交易成功
+            for (String s : paramsMap.keySet()) {
+                System.out.println("----------------");
+                System.out.println(s);
+                System.out.println(paramsMap.get(s));
+                System.out.println("----------------");
+
+                switch (s){
+                    case "MerchantTradeNo": // 訂單編號
+                        model.addAttribute("MerchantTradeNo", paramsMap.get(s));
+                        break;
+                    case "PaymentDate": // 付款時間
+                        model.addAttribute("PaymentDate", paramsMap.get(s));
+                        break;
+                    case "PaymentType": // 付款方式
+                        model.addAttribute("PaymentType", paramsMap.get(s));
+                        break;
+                    case "PaymentTypeChargeFee": // 手續費
+                        model.addAttribute("PaymentTypeChargeFee", paramsMap.get(s));
+                        break;
+                    case "TradeAmt": // 交易金額
+                        model.addAttribute("TradeAmt", paramsMap.get(s));
+                        break;
+                    case "TradeDate": // 訂單成立時間
+                        model.addAttribute("TradeDate", paramsMap.get(s));
+                        break;
+                    case "TradeNo": // 綠界的交易編號
+                        model.addAttribute("TradeNo", paramsMap.get(s));
+                        break;
+                }
+            }
+
+        } else {
+    	    // 交易失敗
+            Object rtnMsg = paramsMap.get("RtnMsg");
+            model.addAttribute("RtnMsg", rtnMsg);
+        }
     	return "payFinish";
     }
-    
-    
 }
 
 
