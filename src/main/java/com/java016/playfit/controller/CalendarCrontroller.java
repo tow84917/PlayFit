@@ -266,31 +266,19 @@ public class CalendarCrontroller {
 		logger.info("find One Activities in");
 		logger.info(bodyPartSelect);
 		List<FitActivity> activities = calenderService.findActivities(bodyPartSelect);
-		List<Object> activity1 = new ArrayList<>();
-		int i = 1;
-		for (FitActivity activity : activities) {
-			System.out.println(activity);
-			if (i == 1 ){
-				activity1.add(activity);
-			}
-			i++;
+		List<Object> activityDef = new ArrayList<>();
+	
+		for (int j = 0; j < 3; j++) {
+			FitActivity fitActivity = activities.get(j);
+			logger.info(fitActivity);
+			activityDef.add(fitActivity);
+
 		}
-		activity1.add(new AddMemberInfo());
 		ObjectMapper mapper = new ObjectMapper();
-		String s = mapper.writeValueAsString(activity1);
+		String s = mapper.writeValueAsString(activityDef);
 
 		logger.info("findActivities out");
 		return s;
-//		List<FitActivity> activities = this.calenderService.findActivities(bodyPartSelect);
-//		ObjectMapper mapper = new ObjectMapper();
-//
-//		FitActivity var5;
-//		for(Iterator var4 = activities.iterator(); var4.hasNext(); var5 = (FitActivity)var4.next()) {
-//		}
-//
-//		String s = mapper.writeValueAsString(activities.get(0));
-//		logger.info("findActivities out");
-//		return s;
 	}
 
 	/**

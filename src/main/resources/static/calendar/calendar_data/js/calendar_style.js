@@ -449,19 +449,14 @@ bodyPart.addEventListener('click', (e) => {
 
             let inputId = 'cb' + i;
             let input = document.createElement('input');
-            let a ;
-            if (element.role == 'PRIME') {
+       
+            if (element.role != true) {
                 
                 input.setAttribute('id', inputId);
                 input.setAttribute('type', 'checkbox');
                 input.setAttribute('name', 'activity');
                 input.setAttribute('value', element.id);
                 allActivities.appendChild(input);
-
-                
-            }else {
-                a = document.createElement('a');
-                a.setAttribute('href', '/pay')
             }
 
 
@@ -491,14 +486,18 @@ bodyPart.addEventListener('click', (e) => {
             // label ------------------------------------------------------------
 
             
-            if (element.role == 'PRIME') {
-               allActivities.appendChild(label);
-                
-            }else {
+            if (element.role == true) {
                 fitImg.setAttribute('class', 'fit-activity prime-fit')
-
+                b.setAttribute('class', 'fit-a-button prime-fit');
+                
+                let a = document.createElement('a');
+                a.setAttribute('href', '/pay');
                 a.appendChild(label);
                 allActivities.appendChild(a);
+                
+            }else {
+                allActivities.appendChild(label);
+                
             }
 
 
