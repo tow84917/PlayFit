@@ -298,13 +298,18 @@ div {
   background-color: var(--purplebg);
   height: 100%;
   width: 400px;
-  /* margin: 10px; */
+  border-radius: 20px;
+
   margin-left: 10px;
   margin-right: 10px;
   /* padding: 20px; */
   /* 水平內顯示為區塊 */
   display: inline-block;
   /* display: inline; */
+}
+/* 會員樣式 */
+.prime-fit {
+  opacity: 50%;
 }
 
 .fit-part:hover {
@@ -379,7 +384,7 @@ label {
 
   font-size: 2rem;
   font-weight: var(--font-weight-blod); */
-
+  color: black;
   position: sticky;
   font-size: 3rem;
   bottom: 20px;

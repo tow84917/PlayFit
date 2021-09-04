@@ -439,20 +439,31 @@ bodyPart.addEventListener('click', (e) => {
 
     // 找部位動作
     const allActivities = document.getElementById('all-activities');
-    // allActivities.innerHTML = '';
+    allActivities.innerHTML = '';
     $.post('findActivities' , {"bodyPartSelect": bodyPartSelect} , function (data) {
         console.log('data: ', data);
 
         for (let i = 0; i < data.length; i++) {
+        
             const element = data[i];
 
             let inputId = 'cb' + i;
             let input = document.createElement('input');
-            input.setAttribute('id', inputId);
-            input.setAttribute('type', 'checkbox');
-            input.setAttribute('name', 'activity');
-            input.setAttribute('value', element.id);
-            allActivities.appendChild(input);
+            let a ;
+            if (element.role == 'PRIME') {
+                
+                input.setAttribute('id', inputId);
+                input.setAttribute('type', 'checkbox');
+                input.setAttribute('name', 'activity');
+                input.setAttribute('value', element.id);
+                allActivities.appendChild(input);
+
+                
+            }else {
+                a = document.createElement('a');
+                a.setAttribute('href', '/pay')
+            }
+
 
             // label ------------------------------------------------------------
             let label = document.createElement('label');
@@ -479,8 +490,20 @@ bodyPart.addEventListener('click', (e) => {
             label.appendChild(b);
             // label ------------------------------------------------------------
 
-            allActivities.appendChild(label);
-        }
+            
+            if (element.role == 'PRIME') {
+               allActivities.appendChild(label);
+                
+            }else {
+                fitImg.setAttribute('class', 'fit-activity prime-fit')
+
+                a.appendChild(label);
+                allActivities.appendChild(a);
+            }
+
+
+           
+        } 
 
     },'json')
 })
@@ -495,7 +518,7 @@ addAchivity.addEventListener('click' , () => {
         element.checked = false;
     }
     const allActivities = document.getElementById('all-activities');
-    // allActivities.innerHTML = '';
+    allActivities.innerHTML = '';
 })
 
 
