@@ -325,9 +325,9 @@ input:checked + label:after {
 
 /* page --------------------------------------------------------- */
 .container {
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   /* height: 100vh; */
 }
 /* 外框 */

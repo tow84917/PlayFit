@@ -7,4 +7,6 @@ import java.util.Map;
 public interface OrderRecordService {
 
     OrderRecord saveOrderRecord(Map<String, Object> paramsMap, Integer userId);
+
+    void page();
 }
