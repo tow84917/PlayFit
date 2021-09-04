@@ -3,7 +3,6 @@ package com.java016.playfit.controller;
 import com.java016.playfit.dao.OrderRecordRepository;
 import com.java016.playfit.model.OrderRecord;
 import com.java016.playfit.model.User;
-import com.java016.playfit.security.CustomUserDetails;
 import com.java016.playfit.service.OrderRecordService;
 import com.java016.playfit.service.UserService;
 import ecpay.payment.integration.AllInOne;
@@ -11,9 +10,6 @@ import example.ExampleAllInOne;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,16 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 @Controller
-public class Pay {
-    private static final Logger logger = LogManager.getLogger(Pay.class);
+public class OrderController {
+    private static final Logger logger = LogManager.getLogger(OrderController.class);
     public static AllInOne all;
 
     UserService userService;
@@ -40,17 +31,15 @@ public class Pay {
     OrderRecordService orderRecordService;
 
     @Autowired
-    public Pay(UserService userService, OrderRecordService orderRecordService) {
+    public OrderController(UserService userService, OrderRecordService orderRecordService) {
         this.userService = userService;
         this.orderRecordService = orderRecordService;
     }
     @Autowired
     OrderRecordRepository orderRecordRepository;
 
-    public Pay() {
+    public OrderController() {
     }
-
-
 
     /**
      * 付款選項頁面
@@ -97,6 +86,12 @@ public class Pay {
         return "payFinish";
     }
 
+    @RequestMapping("/orderRecord")
+    public String orderRecord(Model model){
+        Long count = orderRecordService.findCountByUserId();
+        model.addAttribute("count" , count);
+        return "/pay/OrderRecord";
+    }
 
 
     /**

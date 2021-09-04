@@ -1,6 +1,5 @@
 package com.java016.playfit.serviceimpl;
 
-import com.java016.playfit.controller.Pay;
 import com.java016.playfit.dao.OrderRecordRepository;
 import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.OrderRecord;
@@ -120,8 +119,17 @@ public class OrderRecordServiceImpl implements OrderRecordService {
         Pageable firstPageWithTwoElements = PageRequest.of(0,1);
         Page<OrderRecord> page = orderRecordRepository.findAll(firstPageWithTwoElements);
 
+
         List<OrderRecord> content = page.getContent();
         System.out.println(content);
 
+    }
+
+    @Override
+    public Long findCountByUserId() {
+
+        Long count = orderRecordRepository.countByUserId(userService.getLoginUser());
+
+        return count;
     }
 }
