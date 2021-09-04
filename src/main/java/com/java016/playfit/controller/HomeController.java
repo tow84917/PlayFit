@@ -5,10 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,7 +76,7 @@ public class HomeController {
 	@RequestMapping("/index")
 	public ModelAndView index2() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("indexOffical");
+		mv.setViewName("/index/indexOffical");
 		return mv;
 	}
 	
@@ -94,19 +96,6 @@ public class HomeController {
 	@ResponseBody
 	public String processAvatar(final HttpServletRequest request) 
 			throws IOException {
-		InputStream is = request.getInputStream();
-		OutputStream os = 
-				new FileOutputStream(new File("C:\\Users\\USER\\Desktop\\Avatar_Test.svg"));
-		
-		byte[] b = new byte[8192];
-		int len=0;
-		while((len= is.read(b))!= -1) {
-			os.write(b,0,len);
-		}
-		
-		// 新Avatar
-		Avatar avatar = new Avatar();
-		avatar.setImagePath("C:\\Users\\USER\\Desktop\\Avatar_Test.svg");
 		
 		// 確認新 user 已存存
 		boolean isTempNewMember= false ;
@@ -118,10 +107,30 @@ public class HomeController {
 			}
 		}
 		
-		System.out.println("-----------------OK------------------------");
+		// 新會員已儲存
+		User newMember = userService.findByEmail(
+				((User)request.getSession().getAttribute("newMember")).getEmail());
+		
+		// 命名 & 路徑
+		String avatarFileName ="Avatar_" + newMember.getId()+ ".svg";
+		String path = "src/main/resources/static/images/Avatar/"; 
+		
+		// 輸出到系統內 Avatar Folder
+		InputStream is = request.getInputStream();
+		OutputStream os = 
+				new FileOutputStream(new File(path + avatarFileName));
+		
+		byte[] b = new byte[8192];
+		int len=0;
+		while((len= is.read(b))!= -1) {
+			os.write(b,0,len);
+		}
+		
+		// 新Avatar
+		Avatar avatar = new Avatar();
+		avatar.setImagePath("./images/Avatar/" + avatarFileName);
 		
 		// 儲存 Avatar
-		User newMember = (User) request.getSession().getAttribute("newMember");
 		avatar.setName(newMember.getFullName());
 		avatarService.saveAvatar(avatar);
 		
@@ -130,7 +139,6 @@ public class HomeController {
 		// 更新User Avatar
 		userService.saveUser(newMember);
 		
-//		System.out.println(request == null);
 		return "OK";
 	}
 			

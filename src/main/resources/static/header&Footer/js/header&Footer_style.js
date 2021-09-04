@@ -19,6 +19,6 @@ function closeMenu() {
 }
 
 
-if (height > 100) document.getElementById('footer').classList.add('footer-fixed');
+//if (height > 100) document.getElementById('footer').classList.add('footer-fixed');
 
 

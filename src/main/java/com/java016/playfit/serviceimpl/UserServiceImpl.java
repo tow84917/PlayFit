@@ -45,17 +45,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	@Override
 	public void saveUser(User user) {
-
-//		String encodedPassword = passwordEncoder.encode(user.getPassword());
-//		user.setPassword(encodedPassword);
-//		user.setGender("Male");
-//		user.setPhone("0900000000");
-//		user.setBirthday(new Date());
-//		user.setCreatedAt(new Timestamp(1627833600));
-//		user.setCertificationStatus(0);
-		System.out.println(user);
 		userRepo.save(user);
-
 	}
 	
 	/**
@@ -145,5 +135,30 @@ public class UserServiceImpl implements UserService {
 				(CustomUserDetails) authentication.getPrincipal();
 		return customUserDetails.getUser().getEmail();
 	}
+	
+	/**
+	 * 確認登入者是否啟用
+	 * @return isEnabled
+	 */
+	@Override
+	public boolean isLoginUserEnable() {
+		Authentication authentication = 
+				SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetails customUserDetails = 
+				(CustomUserDetails) authentication.getPrincipal();
+		return customUserDetails.isEnabled();
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
