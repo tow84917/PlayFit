@@ -39,7 +39,7 @@ div {
 
 .row {
   /* height: max-content; */
-  /* height: 100%; */
+  height: 100%;
 
   width: 100%;
   margin: 0;
@@ -52,7 +52,7 @@ div {
 .my-col {
   /* box-shadow: 0 0 0px 2px green inset; */
   /* height: 500px; */
-  height: min(900px);
+  height: min(1000px);
   /* >>左右間隔 */
   padding-left: var(--padding-hef);
   padding-right: var(--padding-hef);
@@ -72,7 +72,7 @@ div {
 
 .full-height {
   /* height: 100%; */
-  height: min(100%, 900px);
+  /* height: min(100%, 900px); */
 }
 
 .info-col {
