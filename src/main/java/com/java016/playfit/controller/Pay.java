@@ -48,13 +48,7 @@ public class Pay {
     public Pay() {
     }
 
-    @RequestMapping({"/test"})
-    @ResponseBody
-    @PreAuthorize("hasRole('PRIME')")
-    public String payTest() {
-        logger.info("test test test: ");
-        return "<h1>Welcome MY~~~~</h1>";
-    }
+
 
     /**
      * 付款選項頁面
@@ -70,7 +64,41 @@ public class Pay {
     }
 
     /**
-     * 定期定額
+     * 付款完成後畫面
+     * @param paramsMap
+     * @param model
+     * @param session
+     * @return
+     */
+    @RequestMapping("/payFinish")
+    public String payFinish(@RequestParam Map<String,Object> paramsMap ,
+                            Model model,
+                            HttpSession session) {
+        logger.info("payFinish-------->>");
+        // 從session讀取登入的userId
+        Integer userId = (Integer)session.getAttribute("userId");
+        logger.info(userId);
+
+        OrderRecord record = orderRecordService.saveOrderRecord(paramsMap, userId);
+
+        Integer RtnCode = Integer.parseInt((String)paramsMap.get("RtnCode"));
+        logger.info(RtnCode);
+
+        if (RtnCode == 1){ // 交易成功
+            logger.info("交易成功 payFinish-------->>");
+            model.addAttribute("msg", "交易成功");
+        } else { // 交易失敗
+            logger.info("交易失敗 payFinish-------->>");
+            model.addAttribute("msg", "交易失敗");
+        }
+        model.addAttribute("RenMsg" , record);
+        return "payFinish";
+    }
+
+
+
+    /**
+     * 測試定期定額
      * @param model
      * @param paramsMap
      * @return
@@ -93,7 +121,7 @@ public class Pay {
     }
 
     /**
-     * 單次付款
+     * 測試單次付款
      * @param model
      * @param paramsMap
      * @return
@@ -130,30 +158,7 @@ public class Pay {
         model.addAttribute("check", check);
         return "pay";
     }
-    
-    @RequestMapping("/payFinish")
-    public String payFinish(@RequestParam Map<String,Object> paramsMap ,
-                            Model model,
-                            HttpSession session) {
-    	logger.info("payFinish-------->>");
-        Integer userId = (Integer)session.getAttribute("userId");
-        logger.info(userId);
 
-        OrderRecord record = orderRecordService.saveOrderRecord(paramsMap, userId);
-
-    	Integer RtnCode = Integer.parseInt((String)paramsMap.get("RtnCode"));
-    	logger.info(RtnCode);
-    	if (RtnCode == 1){ // 交易成功
-    		logger.info("交易成功 payFinish-------->>");
-    		model.addAttribute("msg", "交易成功");
-        } else {
-    	    // 交易失敗
-        	logger.info("交易失敗 payFinish-------->>");
-        	model.addAttribute("msg", "交易失敗");
-        }
-        model.addAttribute("RenMsg" , record);
-    	return "payFinish";
-    }
 
     /**
      * 測試付款成功
@@ -170,6 +175,18 @@ public class Pay {
 		return "payFinish";
 		
 	}
+
+    /**
+     * 測試權限
+     * @return
+     */
+    @RequestMapping({"/test"})
+    @ResponseBody
+    @PreAuthorize("hasRole('PRIME')")
+    public String payTest() {
+        logger.info("test test test: ");
+        return "<h1>Welcome MY~~~~</h1>";
+    }
 }
 
 
