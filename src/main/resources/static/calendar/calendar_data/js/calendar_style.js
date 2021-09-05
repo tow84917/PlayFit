@@ -1,4 +1,5 @@
 function dofirst() {
+    todayFits = document.getElementById('today-fits');
     date = new Date();
     console.log('date: ', date);
     today = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
@@ -19,7 +20,7 @@ function dofirst() {
     // get 月份
 }
 
-window.addEventListener('load', dofirst());
+window.addEventListener('load', dofirst);
 // scheduled = [10, 20];  // 測試
 // scheduled = [];
 
@@ -303,7 +304,7 @@ day.addEventListener("click", (e) => {
 
 });
 
-todayFits = document.getElementById('today-fits');
+
 
 // 更新當天所選動作
 function findToday(today) {
