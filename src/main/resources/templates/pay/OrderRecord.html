@@ -47,28 +47,28 @@
 
         <!-- 分頁 -->
         <div class="row sub2">
-            <nav aria-label="Page  example" class="my-page ">
-                <ul class="pagination page-ul">
-                    <li class="page-item page-li">
-                        <a class="page-link page-del" href="#" aria-label="Previous">
-                            <svg width="11" height="18" viewBox="0 0 15 20" fill="none" transform="rotate(180)"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M1.49902 1.21179L9.268 7.22049C10.5166 8.19113 10.5166 9.80886 9.268 10.7795L1.49902 16.7882"
+            <nav aria-label="Page  example" class="my-page">
+                <ul class="pagination page-ul" id="page">
+                    <li class="page-item page-li" value="Previous">
+                        <a class="page-link page-del" id="Previous" aria-label="Previous">
+                            <svg id="Previous" width="12" height="20" viewBox="0 0 12 20" fill="none"
+                                transform="rotate(180)" xmlns="http://www.w3.org/2000/svg">
+                                <path id="Previous"
+                                    d="M1.49902 2.21179L9.268 8.22049C10.5166 9.19113 10.5166 10.8089 9.268 11.7795L1.49902 17.7882"
                                     stroke="#2E1ED3" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
                         </a>
                     </li>
-                    <li class="page-item page-li"><a class="page-link page-del" href="#">1</a></li>
-                    <li class="page-item page-li"><a class="page-link page-del" href="#">2</a></li>
-                    <li class="page-item page-li active"><a class="page-link page-del" href="#">3</a></li>
-                    <li class="page-item page-li">
-                        <a class="page-link page-del" href="#" aria-label="Next">
-                            <svg width="11" height="18" viewBox="0 0 15 20" fill="none" transform="rotate(0)"
+                    <li class="page-item page-li " value="1" id="1"><a class="page-link page-del">1</a></li>
+                    <li class="page-item page-li active" value="2" id="2"><a class="page-link page-del">2</a></li>
+                    <li class="page-item page-li " value="3" id="3"><a class="page-link page-del">3</a></li>
+                    <li class="page-item page-li" value="Next">
+                        <a class="page-link page-del" id="Next" aria-label="Next">
+                            <svg id="Next" width="12" height="20" viewBox="0 0 12 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M1.49902 1.21179L9.268 7.22049C10.5166 8.19113 10.5166 9.80886 9.268 10.7795L1.49902 16.7882"
+                                <path id="Next"
+                                    d="M1.49902 2.21179L9.268 8.22049C10.5166 9.19113 10.5166 10.8089 9.268 11.7795L1.49902 17.7882"
                                     stroke="#2E1ED3" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
@@ -82,12 +82,61 @@
 
     <footer th:replace="fragments/footer::myFooter"></footer>
 
-
-
-
     <script>
-        let count = [[${ count }]];
-        console.log('count: ', count);
+        // 所有訂單數
+        // let count = [[${ count }]];
+        // console.log('count: ', count);
+        // const pageTotal = parseInt(count / 4) + 1;
+        pageTotal = 3;
+        let currentPage = 1;
+
+        const page = document.getElementById('page');
+        console.log('page: ', page);
+        page.addEventListener('click', (e) => {
+            console.log('e.target: ', e.target.localName);
+            console.log('e.target: ', e.target.id);  // a svg paht
+
+            if (e.target.id == 'Next' || e.target.id == 'Previous') {
+                // let pageItem = e.target.parentNode.parentNode;
+                // console.log('pageItem: ', pageItem);
+                deleActive();
+                if (e.target.id == 'Next') {
+                    if (currentPage < pageTotal) {
+                        currentPage++;
+                    }
+
+                } else if (e.target.id == 'Previous') {
+                    if (currentPage > 1) {
+                        currentPage--;
+                    }
+                }
+                console.log('currentPage: ', currentPage);
+
+                let newPage = document.getElementById(currentPage);
+                newPage.setAttribute('class', 'page-item page-li active');
+
+            } else {
+
+                deleActive();
+
+                let pageNum = e.target.parentNode;
+                console.log('pageNum: ', pageNum);
+                console.log('pageNum.value', pageNum.value);
+                currentPage = pageNum.value;
+                // 增加選中的 active
+                pageNum.setAttribute('class', 'page-item page-li active');
+
+                console.log('currentPage: ', currentPage);
+            }
+        })
+
+        function deleActive() {
+            // 取消原本active
+            let active = document.querySelector('.active');
+            console.log('active: ', active);
+            active.setAttribute('class', 'page-item page-li');
+        }
+
 
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
