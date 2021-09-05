@@ -1,0 +1,17 @@
+OrderRecord
+{id=0, 
+merchantTradeNo='0d1f1a72fadb45bf8ae5', 
+paymentDate=java.util.GregorianCalendar[time=1630645996000,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="Asia/Taipei",offset=28800000,dstSavings=0,useDaylight=false,transitions=42,lastRule=null],firstDayOfWeek=1,minimalDaysInFirstWeek=1,ERA=1,YEAR=2021,MONTH=8,WEEK_OF_YEAR=36,WEEK_OF_MONTH=1,DAY_OF_MONTH=3,DAY_OF_YEAR=246,DAY_OF_WEEK=6,DAY_OF_WEEK_IN_MONTH=1,AM_PM=1,HOUR=1,HOUR_OF_DAY=13,MINUTE=13,SECOND=16,MILLISECOND=0,ZONE_OFFSET=28800000,DST_OFFSET=0], 
+paymentTypeChargeFee=6, 
+tradeAmt=300, 
+paymentType='Credit_CreditCard', 
+tradeDate=java.util.GregorianCalendar[time=1630645928000,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="Asia/Taipei",offset=28800000,dstSavings=0,useDaylight=false,transitions=42,lastRule=null],firstDayOfWeek=1,minimalDaysInFirstWeek=1,ERA=1,YEAR=2021,MONTH=8,WEEK_OF_YEAR=36,WEEK_OF_MONTH=1,DAY_OF_MONTH=3,DAY_OF_YEAR=246,DAY_OF_WEEK=6,DAY_OF_WEEK_IN_MONTH=1,AM_PM=1,HOUR=1,HOUR_OF_DAY=13,MINUTE=12,SECOND=8,MILLISECOND=0,ZONE_OFFSET=28800000,DST_OFFSET=0], 
+tradeNo='2109031312083455'}
+
+結帳後頁面
+    交易訊息
+    返回按鈕 -> fit now 
+
+
+查詢訂單記錄頁面
+    分頁

@@ -788,6 +788,25 @@ INSERT INTO `Users` VALUES
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
+-- 新增訂單記錄table
+DROP TABLE IF EXISTS `order_record`;
+CREATE TABLE `playfit`.`order_record` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `merchant_trade_no` VARCHAR(100) NULL DEFAULT NULL,
+  `payment_date` TIMESTAMP NULL,
+  `payment_type` VARCHAR(45) NULL,
+  `payment_type_charge_fee` INT NULL,
+  `trade_amt` INT NULL,
+  `trade_date` TIMESTAMP NULL,
+  `trade_no` VARCHAR(20) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `order_id_fk_1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `order_id_fk_1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `playfit`.`Users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
 --
 -- Dumping routines for database 'playfit'
 --

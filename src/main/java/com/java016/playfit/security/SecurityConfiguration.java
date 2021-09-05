@@ -63,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 //				.antMatchers("/", "/process_register" ,"/login/failure" ,"/process_avatar"
-//						, "/register","/**/*.js", "/**/*.css", "/**/*.svg").permitAll() // void not css、html 
+//						, "/register","/**/*.js", "/**/*.css", "/**/*.svg","/payFinish").permitAll() // void not css、html 
 //				.anyRequest().authenticated() // 除了上行請求皆須登入
 				.antMatchers("/MemberPage","/calendar/calendar").authenticated() // 特定請求須要登入
 				.anyRequest().permitAll() // 其他不用
@@ -84,10 +84,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID")
 					.logoutSuccessUrl("/login") // 登出跳轉
-					.permitAll();
-//				.and()
-//				.csrf()
-//				.ignoringAntMatchers("/ajax**"); // 防 ajax POST 會被 csrf 擋下
+					.permitAll()
+				.and()
+				.csrf()
+				.ignoringAntMatchers("/ajax**","/payFinish"); // 防 ajax POST 會被 csrf 擋下 
+				// 綠界結帳後跳轉的頁面會被擋下
 //				.and()
 //				.csrf().disable();
 	}

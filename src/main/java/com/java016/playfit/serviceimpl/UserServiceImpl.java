@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 更新使用者啟用狀態
 	 * @param id
-	 * @param password
+	 * @param certificationStatus
 	 */
 	@Transactional
 	@Override
@@ -90,8 +90,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getLoginUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) authentication.getPrincipal();
-		return user;
+		CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+		return user.getUser();
 	}
 
 	/**

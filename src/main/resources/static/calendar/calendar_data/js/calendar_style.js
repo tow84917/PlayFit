@@ -444,15 +444,21 @@ bodyPart.addEventListener('click', (e) => {
         console.log('data: ', data);
 
         for (let i = 0; i < data.length; i++) {
+        
             const element = data[i];
 
             let inputId = 'cb' + i;
             let input = document.createElement('input');
-            input.setAttribute('id', inputId);
-            input.setAttribute('type', 'checkbox');
-            input.setAttribute('name', 'activity');
-            input.setAttribute('value', element.id);
-            allActivities.appendChild(input);
+       
+            if (element.role != true) {
+                
+                input.setAttribute('id', inputId);
+                input.setAttribute('type', 'checkbox');
+                input.setAttribute('name', 'activity');
+                input.setAttribute('value', element.id);
+                allActivities.appendChild(input);
+            }
+
 
             // label ------------------------------------------------------------
             let label = document.createElement('label');
@@ -479,8 +485,24 @@ bodyPart.addEventListener('click', (e) => {
             label.appendChild(b);
             // label ------------------------------------------------------------
 
-            allActivities.appendChild(label);
-        }
+            
+            if (element.role == true) {
+                fitImg.setAttribute('class', 'fit-activity prime-fit')
+                b.setAttribute('class', 'fit-a-button prime-fit');
+                
+                let a = document.createElement('a');
+                a.setAttribute('href', '/pay');
+                a.appendChild(label);
+                allActivities.appendChild(a);
+                
+            }else {
+                allActivities.appendChild(label);
+                
+            }
+
+
+           
+        } 
 
     },'json')
 })
