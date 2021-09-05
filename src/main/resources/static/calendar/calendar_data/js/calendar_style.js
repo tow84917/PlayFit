@@ -19,7 +19,7 @@ function dofirst() {
     // get 月份
 }
 
-window.addEventListener('load', dofirst);
+window.addEventListener('load', dofirst());
 // scheduled = [10, 20];  // 測試
 // scheduled = [];
 

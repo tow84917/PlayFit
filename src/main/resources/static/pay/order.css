@@ -51,3 +51,7 @@ div {
   box-shadow: 0 0 0px 2px red inset;
   margin: 10px;
 }
+.item {
+  /* width: fit-content; */
+  display: flex;
+}

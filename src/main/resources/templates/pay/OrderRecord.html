@@ -60,9 +60,13 @@
                             </svg>
                         </a>
                     </li>
-                    <li class="page-item page-li " value="1" id="1"><a class="page-link page-del">1</a></li>
-                    <li class="page-item page-li active" value="2" id="2"><a class="page-link page-del">2</a></li>
-                    <li class="page-item page-li " value="3" id="3"><a class="page-link page-del">3</a></li>
+                    <div class="item">
+                        <!-- <li class="page-item page-li " value="1" id="1"><a class="page-link page-del">1</a></li>
+                        <li class="page-item page-li active" value="2" id="2"><a class="page-link page-del">2</a></li>
+                        <li class="page-item page-li " value="3" id="3"><a class="page-link page-del">3</a></li> -->
+
+                    </div>
+
                     <li class="page-item page-li" value="Next">
                         <a class="page-link page-del" id="Next" aria-label="Next">
                             <svg id="Next" width="12" height="20" viewBox="0 0 12 20" fill="none"
@@ -83,11 +87,35 @@
     <footer th:replace="fragments/footer::myFooter"></footer>
 
     <script>
-        // 所有訂單數
-        // let count = [[${ count }]];
-        // console.log('count: ', count);
-        // const pageTotal = parseInt(count / 4) + 1;
-        pageTotal = 3;
+        function dofirst() {
+            // 所有訂單數
+            // let count = [[${ count }]];
+            // console.log('count: ', count);
+            // let pageTotal = parseInt(count / 4) + 1;
+            pageTotal = 3;
+            const item = document.querySelector('.item');
+            for (let i = 1; i <= pageTotal; i++) {
+                let pageCount = document.createElement('li');
+                if (i == 1) {
+                    pageCount.setAttribute('class', 'page-item page-li active');
+                } else {
+                    pageCount.setAttribute('class', 'page-item page-li');
+                }
+                pageCount.setAttribute('value', i);
+                pageCount.setAttribute('id', i);
+
+                let pageA = document.createElement('a');
+                pageA.setAttribute('class', 'page-link page-del');
+                pageA.innerText = i;
+
+                pageCount.appendChild(pageA);
+
+                item.appendChild(pageCount);
+            }
+        }
+        window.addEventListener('load', dofirst());
+
+
         let currentPage = 1;
 
         const page = document.getElementById('page');
