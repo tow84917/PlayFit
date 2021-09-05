@@ -132,4 +132,20 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 
         return count;
     }
+
+    @Override
+    public Page<OrderRecord> findCurrentPage(Map<String, String> paramsMap) {
+        logger.info("findCurrentPage -->");
+        String onePageItems = paramsMap.get("onePageItems");
+        logger.info(onePageItems);
+        String currentPage = paramsMap.get("currentPage");
+        logger.info(currentPage);
+
+        Pageable firstPageWithTwoElements = PageRequest.of(Integer.parseInt((String) currentPage)-1
+                                                            ,Integer.parseInt((String) onePageItems));
+        Page<OrderRecord> allByUserId =
+                orderRecordRepository.findAllByUserId(userRepository.findById(41).get(), firstPageWithTwoElements);
+        System.out.println(allByUserId);
+        return allByUserId;
+    }
 }

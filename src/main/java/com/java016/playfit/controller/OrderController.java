@@ -1,5 +1,7 @@
 package com.java016.playfit.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java016.playfit.dao.OrderRecordRepository;
 import com.java016.playfit.model.OrderRecord;
 import com.java016.playfit.model.User;
@@ -10,6 +12,7 @@ import example.ExampleAllInOne;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,8 +92,18 @@ public class OrderController {
     @RequestMapping("/orderRecord")
     public String orderRecord(Model model){
         Long count = orderRecordService.findCountByUserId();
+        System.out.println(count);
         model.addAttribute("count" , count);
         return "/pay/OrderRecord";
+    }
+
+    @RequestMapping("/findCurrentPage")
+    @ResponseBody
+    public String findCurrentPage(@RequestBody Map<String,String> paramsMap) throws JsonProcessingException {
+        Page<OrderRecord> allByUserId = orderRecordService.findCurrentPage(paramsMap);
+        ObjectMapper mapper = new ObjectMapper();
+        String s = mapper.writeValueAsString(allByUserId.getContent());
+        return s;
     }
 
 

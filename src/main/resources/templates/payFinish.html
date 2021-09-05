@@ -66,9 +66,10 @@
             console.log('RenMsg: ', renMsg);
             let renMsgLable = document.querySelector('#ren-msg');
 
-            let h4 = document.createElement('h4');
-            h4.innertext = renMsg.tradeDate;
-            console.log('renMsg.tradeDate[YEAR]: ', renMsg.tradeDate.slice(0, 10));
+            // let h4 = document.createElement('h4');
+            // h4.innertext = renMsg.tradeDate;
+            // console.log('renMsg.tradeDate: ', renMsg.tradeDate.slice(0, 10));
+
             const orderNumber = document.createElement('h4');
             orderNumber.innerText = 'Order number: ' + renMsg.merchantTradeNo;
             renMsgLable.appendChild(orderNumber);
