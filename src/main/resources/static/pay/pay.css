@@ -12,7 +12,9 @@ div {
 .sub {
   height: fit-content;
   /* border: 1px solid red; */
-  margin-bottom: 80px;
+  /* margin-bottom: 80px; */
+  display: flex;
+  justify-content: center;
 }
 
 .sub2 {
