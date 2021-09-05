@@ -28,21 +28,23 @@
     <header th:replace="fragments/header::myHeader"></header>
     <div class="br"></div>
 
-
     <div class="container ">
         <div class="row sub1">
-            <div class="col-3 my-col">
+            <div class="col-6 my-col">
+                <div class="my-row">
+                    <h4>jsdlfja;dlsjfs;</h4>
+                    <h4>jsdlfja;dlsjfs;</h4>
+                    <h4>jsdlfja;dlsjfs;</h4>
+                    <h4>jsdlfja;dlsjfs;</h4>
+
+                </div>
+            </div>
+            <div class="col-6 my-col">
                 <div class="my-row"></div>
             </div>
-            <div class="col-3 my-col">
+            <div class="col-6 my-col">
                 <div class="my-row"></div>
             </div>
-            <div class="col-3 my-col">
-                <div class="my-row"></div>
-            </div>
-
-
-
         </div>
 
         <!-- 分頁 -->
@@ -84,94 +86,23 @@
         </div>
     </div>
 
+    <div class="br"></div>
     <footer th:replace="fragments/footer::myFooter"></footer>
 
+
+
     <script>
-        function dofirst() {
-            // 所有訂單數
-            // let count = [[${ count }]];
-            // console.log('count: ', count);
-            // let pageTotal = parseInt(count / 4) + 1;
-            pageTotal = 3;
-            const item = document.querySelector('.item');
-            for (let i = 1; i <= pageTotal; i++) {
-                let pageCount = document.createElement('li');
-                if (i == 1) {
-                    pageCount.setAttribute('class', 'page-item page-li active');
-                } else {
-                    pageCount.setAttribute('class', 'page-item page-li');
-                }
-                pageCount.setAttribute('value', i);
-                pageCount.setAttribute('id', i);
-
-                let pageA = document.createElement('a');
-                pageA.setAttribute('class', 'page-link page-del');
-                pageA.innerText = i;
-
-                pageCount.appendChild(pageA);
-
-                item.appendChild(pageCount);
-            }
-        }
-        window.addEventListener('load', dofirst());
-
-
-        let currentPage = 1;
-
-        const page = document.getElementById('page');
-        console.log('page: ', page);
-        page.addEventListener('click', (e) => {
-            console.log('e.target: ', e.target.localName);
-            console.log('e.target: ', e.target.id);  // a svg paht
-
-            if (e.target.id == 'Next' || e.target.id == 'Previous') {
-                // let pageItem = e.target.parentNode.parentNode;
-                // console.log('pageItem: ', pageItem);
-                deleActive();
-                if (e.target.id == 'Next') {
-                    if (currentPage < pageTotal) {
-                        currentPage++;
-                    }
-
-                } else if (e.target.id == 'Previous') {
-                    if (currentPage > 1) {
-                        currentPage--;
-                    }
-                }
-                console.log('currentPage: ', currentPage);
-
-                let newPage = document.getElementById(currentPage);
-                newPage.setAttribute('class', 'page-item page-li active');
-
-            } else {
-
-                deleActive();
-
-                let pageNum = e.target.parentNode;
-                console.log('pageNum: ', pageNum);
-                console.log('pageNum.value', pageNum.value);
-                currentPage = pageNum.value;
-                // 增加選中的 active
-                pageNum.setAttribute('class', 'page-item page-li active');
-
-                console.log('currentPage: ', currentPage);
-            }
-        })
-
-        function deleActive() {
-            // 取消原本active
-            let active = document.querySelector('.active');
-            console.log('active: ', active);
-            active.setAttribute('class', 'page-item page-li');
-        }
-
-
+        count = [[${ count }]];
+        console.log('count: ', count);
     </script>
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
         integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 
     <!-- ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script th:src="@{/pay/order.js}" src="../../static/pay/order.js"></script>
 </body>
 
 </html>
