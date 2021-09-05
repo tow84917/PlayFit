@@ -5,15 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,6 +79,14 @@ public class HomeController {
 		return mv;
 	}
 	
+	// 給認證信網頁
+	@GetMapping("/certificationEmail")
+	public ModelAndView certificationEmail() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("certificationEmail");
+		return mv;
+	}
+	
 	@RequestMapping("/login")
 	public ModelAndView login_signup() {
 		ModelAndView mv = new ModelAndView();
@@ -91,7 +98,7 @@ public class HomeController {
 		return mv;
 	}
 	
-	// 存取路徑之後要改 Resource 內
+	// 處理虛擬角色
 	@PostMapping(value= "/process_avatar")
 	@ResponseBody
 	public String processAvatar(final HttpServletRequest request) 
@@ -111,7 +118,7 @@ public class HomeController {
 		User newMember = userService.findByEmail(
 				((User)request.getSession().getAttribute("newMember")).getEmail());
 		
-		// 命名 & 路徑
+		// 命名 & 路徑(系統檔案內 refresh)
 		String avatarFileName ="Avatar_" + newMember.getId()+ ".svg";
 		String path = "src/main/resources/static/images/Avatar/"; 
 		

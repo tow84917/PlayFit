@@ -4,3 +4,6 @@ Model User 增加 String role , SQL檔已更新, 使用前建議重跑 感恩
 
 2021/9/04 - SQL檔更新,更改測試帳號 Email: playfit1234@gmail.com
 Google 帳密 playfit1234@gmail.com , playfit1234team2 (收信用)
+
+圖片不用 refresh 方式(註冊) : 
+window -> preferences -> workplace -> (tick) refresh using native hooks or polling.

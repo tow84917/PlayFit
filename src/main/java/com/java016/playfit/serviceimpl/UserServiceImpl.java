@@ -146,6 +146,11 @@ public class UserServiceImpl implements UserService {
 				SecurityContextHolder.getContext().getAuthentication();
 		CustomUserDetails customUserDetails = 
 				(CustomUserDetails) authentication.getPrincipal();
+		
+		// 確認更新後
+		User updateUser = userRepo.findByEmail(customUserDetails.getUser().getEmail());
+		customUserDetails = new CustomUserDetails(updateUser);
+		
 		return customUserDetails.isEnabled();
 	}
 

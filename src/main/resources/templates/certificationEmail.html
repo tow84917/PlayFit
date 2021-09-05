@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+  	<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    
+    <script th:src="@{/jquery-3.6.0.js}"></script>
+    <title>CertificationEmail</title>
+    <link rel="stylesheet" th:href="@{/certificationEmail/css/certificationEmail.css}">
+</head>
+<body>
+    <div class="myHeader">
+    	<header th:replace="fragments/header::myHeader"></header>
+    </div>
+    
+    <div class="main">
+        <div class="range">
+            <!-- 標題 -->
+            <label class="title">Certification Email</label>
+            <!-- 輸入框 -->
+            <div class="check-div">
+            <!-- 提示訊息 -->
+                <div class="infoRange">
+                    <div class="result hidden">
+                        123
+                    </div>
+                </div>
+                <h1>Enter verification code</h1>
+                <div class="input-div">
+                    
+                    <input type="text" class="inputItem0" data-index="0" maxlength="1" autofocus /> 
+                    <input type="text" class="inputItem1" data-index="1" maxlength="1" />
+                    <input type="text" class="inputItem2" data-index="2" maxlength="1" />
+                    <input type="text" class="inputItem3" data-index="3" maxlength="1" />
+                    <input type="text" class="inputItem4" data-index="4" maxlength="1" />
+                    <input type="text" class="inputItem5" data-index="5" maxlength="1" />
+                    
+                </div>
+            </div>
+            <!-- 送出 -->
+            <button id="confirmSubmit">Submit</button>
+            
+        </div>
+    </div>
+    <footer th:replace="fragments/footer::myFooter"></footer>
+
+    <script th:src="@{certificationEmail/js/certificationEmail.js}"></script>
+</body>
+</html>
+
+
+
+
+
+

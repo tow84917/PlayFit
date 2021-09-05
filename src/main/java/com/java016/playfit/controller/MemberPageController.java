@@ -64,7 +64,7 @@ public class MemberPageController {
 		
 		// 未啟用轉認證畫面
 		if (!isEnable) {
-			return "certificationEmail";
+			return "redirect:/certificationEmail";
 		}
 		
 		// 目前登入者 + Id

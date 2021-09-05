@@ -30,10 +30,10 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 			response.sendRedirect("/login/failure?errorMessage=" + errorMessage);
 		}
 		
-		// 尚未啟用
-		if (errorMessage.equals("Disabled")) {
-			response.sendRedirect("/login/failure?errorMessage=" + errorMessage);
-		}
+		// 尚未啟用 (改由登入後自行處理)
+//		if (errorMessage.equals("Disabled")) {
+//			response.sendRedirect("/login/failure?errorMessage=" + errorMessage);
+//		}
 		
 		// 失敗處理,認證信後 前端需要字樣
 //		<!--         <div th:if="${isEnabled}"> -->

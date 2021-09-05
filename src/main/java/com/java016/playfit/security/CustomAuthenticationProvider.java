@@ -62,7 +62,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		
 		// 檢查其他認證
 		if (!userDetails.isEnabled()) {
-			throw new DisabledException("Disabled");
+//			throw new DisabledException("Disabled"); (不丟例外,改由登入後自行處理)
 		} else if (!userDetails.isAccountNonExpired()) {
 			throw new AccountExpiredException("AccountExpired");
 		} else if (!userDetails.isAccountNonLocked()) {
