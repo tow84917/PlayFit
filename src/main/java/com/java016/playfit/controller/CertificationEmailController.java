@@ -114,7 +114,7 @@ public class CertificationEmailController {
 		return "{\"emailResult\" : \"sendSuccess\"}"; // 字串JSON
 	}
 	
-	// 接收 User 連結回應 
+	// 接收 User 回應 
 	@PostMapping(value = "/activateAccount", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public String activateAccount(

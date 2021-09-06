@@ -7,3 +7,5 @@ Google 帳密 playfit1234@gmail.com , playfit1234team2 (收信用)
 
 圖片不用 refresh 方式(註冊) : 
 window -> preferences -> workplace -> (tick) refresh using native hooks or polling.
+
+network Disable cache or clean cache => 網站圖示 
