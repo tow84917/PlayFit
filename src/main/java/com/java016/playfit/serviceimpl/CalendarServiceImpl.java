@@ -215,7 +215,7 @@ public class CalendarServiceImpl implements CalendarService {
 
 			FitActivity activity = fitActivityRepository.findById(id).get();
 
-			FitAchieve fitAchieve = new FitAchieve("未執行", 1, activity.getKcalBurn(), dailyRecord , activity);
+			FitAchieve fitAchieve = new FitAchieve("尚未執行", 1, activity.getKcalBurn(), dailyRecord , activity);
 			System.out.println(fitAchieve);
 
 			fitAchieveRepository.save(fitAchieve);
