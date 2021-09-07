@@ -79,6 +79,14 @@ public class HomeController {
 		return mv;
 	}
 	
+	// 計算機頁面
+	@RequestMapping("/calculator")
+	public ModelAndView calculator() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("calculator");
+		return mv;
+	}
+	
 	// 給認證信網頁
 	@GetMapping("/certificationEmail")
 	public ModelAndView certificationEmail() {

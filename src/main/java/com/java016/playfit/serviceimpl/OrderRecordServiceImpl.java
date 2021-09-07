@@ -144,7 +144,7 @@ public class OrderRecordServiceImpl implements OrderRecordService {
         Pageable firstPageWithTwoElements = PageRequest.of(Integer.parseInt((String) currentPage)-1
                                                             ,Integer.parseInt((String) onePageItems));
         Page<OrderRecord> allByUserId =
-                orderRecordRepository.findAllByUserId(userRepository.findById(41).get(), firstPageWithTwoElements);
+                orderRecordRepository.findAllByUserId(userRepository.findById( userService.getLoginUserId() ).get(), firstPageWithTwoElements);
         System.out.println(allByUserId);
         return allByUserId;
     }
