@@ -39,7 +39,7 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	 * 檢查熱量赤字
 	 */
 	@Override
-	@Scheduled(cron = "10 06 17 * * ?") // 指定時間執行 0時(24)
+	@Scheduled(cron = "0 0 0 * * ?") // 指定時間執行 0時(24)
 	public void upadteCalorieDeficit() {
 
 		long now = System.currentTimeMillis();

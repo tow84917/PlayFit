@@ -84,10 +84,10 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() { // 用戶是否啟用
     	
 		// 認證信用
-//		if (user.getCertificationStatus() == 0) {
-//			return false ;
-//		}
-//    	
+		if (user.getCertificationStatus() == 0) {
+			return false ;
+		}
+    	
         return true;
     }
 

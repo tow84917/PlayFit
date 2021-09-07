@@ -58,7 +58,15 @@ public class MemberPageController {
 	// 會員頁面
 	@RequestMapping("/MemberPage") // 須同時支援GET、POST(forward:/)
 	public String showMemberPage(Model model, RedirectAttributes ra, HttpServletRequest request) {
-
+		
+		// 確認帳號是否啟用
+		boolean isEnable = userService.isLoginUserEnable();
+		
+		// 未啟用轉認證畫面
+		if (!isEnable) {
+			return "redirect:/certificationEmail";
+		}
+		
 		// 目前登入者 + Id
 		int userId = userService.getLoginUserId();
 		User user = userService.getUserById(userId);
@@ -125,7 +133,7 @@ public class MemberPageController {
 	@GetMapping(value = "/weeklyExerciseData", 
 			produces = { "application/json" })
 	@ResponseBody
-	@PreAuthorize("hasRole('PRIME')")
+//	@PreAuthorize("hasRole('PRIME')")
 	public Map<Integer, String[]> weeklyExerciseData() {
 		Map<Integer, String[]> data = null;
 		int userId = userService.getLoginUserId();

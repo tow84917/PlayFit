@@ -5,34 +5,34 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.batik.transcoder.TranscoderException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.java016.playfit.model.Avatar;
 import com.java016.playfit.model.HealthRecord;
 import com.java016.playfit.model.PersonalGoal;
 import com.java016.playfit.model.User;
+import com.java016.playfit.service.AvatarService;
 import com.java016.playfit.service.HealthRecordService;
+import com.java016.playfit.service.PersonalGoalService;
 import com.java016.playfit.service.UserService;
-import com.java016.playfit.tool.CreateAvatar;
+import com.java016.playfit.tool.BodyCalculator;
 
 @Controller
+@SessionAttributes("newMember")
 public class HomeController {
-	
-	@Autowired
-	CreateAvatar createAvatar;
 	
 	@Autowired
 	UserService userService;
@@ -40,23 +40,50 @@ public class HomeController {
 	@Autowired
     HealthRecordService healthRecordService;
 	
-
-	@RequestMapping("/users")
-	@ResponseBody
-	public ModelAndView Users() {
-		ModelAndView mv = new ModelAndView();
-		List<User> listUser = userService.findAll();
+	@Autowired
+	PersonalGoalService personalGoalService;
 	
-		mv.addObject("objs",listUser);
-		mv.setViewName("home");
-		return mv;
-	}
+	@Autowired
+	AvatarService avatarService;
 	
-	// 首頁
+	@Autowired
+	BodyCalculator bodyCalculator;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
+//	@RequestMapping("/users")
+//	@ResponseBody
+//	public ModelAndView Users() {
+//		ModelAndView mv = new ModelAndView();
+//		List<User> listUser = userService.findAll();
+//	
+//		mv.addObject("objs",listUser);
+//		mv.setViewName("home");
+//		return mv;
+//	}
+	
+	// 首頁(舊的預設首頁)
 	@RequestMapping("/")
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("index");
+		return mv;
+	}
+	
+	// 首頁(新的正式)
+	@RequestMapping("/index")
+	public ModelAndView index2() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/index/indexOffical");
+		return mv;
+	}
+	
+	// 給認證信網頁
+	@GetMapping("/certificationEmail")
+	public ModelAndView certificationEmail() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("certificationEmail");
 		return mv;
 	}
 	
@@ -67,75 +94,116 @@ public class HomeController {
 		mv.addObject("healthRecord", new HealthRecord());
 		mv.addObject("user",new User());
 		mv.setViewName("login_signup");
-		System.out.println("----------------");
+//		System.out.println("----------------");
 		return mv;
 	}
 	
-	
-	
+	// 處理虛擬角色
 	@PostMapping(value= "/process_avatar")
-		public void processAvatar(final HttpServletRequest request) throws IOException, TranscoderException {
+	@ResponseBody
+	public String processAvatar(final HttpServletRequest request) 
+			throws IOException {
+		
+		// 確認新 user 已存存
+		boolean isTempNewMember= false ;
+		
+		// 等待 /process_register 處理完畢
+		while (!isTempNewMember) {
+			if (request.getSession().getAttribute("newMember") != null) {
+				isTempNewMember = true ;
+			}
+		}
+		
+		// 新會員已儲存
+		User newMember = userService.findByEmail(
+				((User)request.getSession().getAttribute("newMember")).getEmail());
+		
+		// 命名 & 路徑(系統檔案內 refresh)
+		String avatarFileName ="Avatar_" + newMember.getId()+ ".svg";
+		String path = "src/main/resources/static/images/Avatar/"; 
+		
+		// 輸出到系統內 Avatar Folder
 		InputStream is = request.getInputStream();
-		OutputStream os = new FileOutputStream(new File("/Users/Xuan/Downloads/s.svg"));
-		
-//		SVGDocument doc = new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName())
-//		.createSVGDocument("", is);
-//		TranscoderInput input = new TranscoderInput(doc);
-//		createAvatar.outputSvg(input, new File("/Users/Xuan/Downloads/s.svg"));
-		
-		
-//		os.write(is.readAllBytes());
-		
-		
+		OutputStream os = 
+				new FileOutputStream(new File(path + avatarFileName));
 		
 		byte[] b = new byte[8192];
 		int len=0;
 		while((len= is.read(b))!= -1) {
 			os.write(b,0,len);
 		}
-			
 		
-		System.out.println(request == null);
-//		ModelAndView mv = new ModelAndView();
-//		mv.setViewName("errorXXX");
-//		return mv;
+		// 新Avatar
+		Avatar avatar = new Avatar();
+		avatar.setImagePath("./images/Avatar/" + avatarFileName);
+		
+		// 儲存 Avatar
+		avatar.setName(newMember.getFullName());
+		avatarService.saveAvatar(avatar);
+		
+		// 把 Avatar 給 newMember
+		newMember.setAvatar(avatar);
+		// 更新User Avatar
+		userService.saveUser(newMember);
+		
+		return "OK";
 	}
-	
-	
-	
+			
 	@PostMapping("/process_register")
-	public ModelAndView processRegister(User user, PersonalGoal personalGoal,HealthRecord healthRecord) {
+	public ModelAndView processRegister(User user, 
+			PersonalGoal personalGoal, HealthRecord healthRecord, Model model) {
+		
 		ModelAndView mv = new ModelAndView();
-		System.out.println("controller > " + user);
-		user.setCertificationStatus(0);
-		user.setGender("Male");
-		userService.saveUser(user);
-		personalGoal.setUser(user);
-		healthRecord.setUser(user);
-		System.out.println("controller > " + personalGoal);
-		System.out.println("controller > " + healthRecord);
-//		healthRecordService.saveHealthRecord(HealthRecord);
 		mv.setViewName("register_success");
+		
+		// 今天的日期
+		java.util.Date utilDate = new java.util.Date();
+		// 把日期轉成SQL型態的Date
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		
+		System.out.println("controller > " + user);
+		System.out.println("controller > " + healthRecord);
+		System.out.println("controller > " + personalGoal);
+		
+		// 儲存 User
+		user.setCertificationStatus(0);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userService.saveUser(user);
+		
+		// 儲存健康紀錄
+		healthRecord.setUser(user);
+		healthRecord.setDate(sqlDate);
+		healthRecord.setCalorieDeficit(0.0);
+		healthRecord = bodyCalculator.calAll(healthRecord, user);
+		healthRecordService.saveHealthRecord(healthRecord);
+		
+		// 儲存個人目標
+		personalGoal.setUser(user);
+		personalGoal.setCreateDate(sqlDate);
+		personalGoal.setStartWeight(healthRecord.getWeight());
+		personalGoal.setTotalLost(0);
+		personalGoalService.savePersonalGoal(personalGoal);
+		
+		// 儲存新USER 進 Session
+		User newMember = userService.findByEmail(user.getEmail());
+		model.addAttribute("newMember",newMember) ;
+		
 		return mv;
 	}
 	
-	@RequestMapping("/register")
-	 public ModelAndView ShowRegistrationForm() {
-	  ModelAndView mv = new ModelAndView();
-	  mv.addObject("user",new User());
-	  mv.setViewName("signup_form");
-	  return mv;
-	 }
-	
-//	@GetMapping("/login")
-//	public String login() {
-//		return "/login_signup";
-//	}
+//	@RequestMapping("/register")
+//	 public ModelAndView ShowRegistrationForm() {
+//	  ModelAndView mv = new ModelAndView();
+//	  mv.addObject("user",new User());
+//	  mv.setViewName("signup_form");
+//	  return mv;
+//	 }
 	
 	// 登入失敗處理
 	@RequestMapping(value = "/login/failure")
 	public String loginFailure(
-			@RequestParam(name = "errorMessage") String errorMessage, Model model 
+			@RequestParam(name = "errorMessage") String errorMessage, 
+			Model model 
 			) {
 		
 		System.out.println(errorMessage);
@@ -158,22 +226,22 @@ public class HomeController {
 		return "redirect:/login";
 	}
 	
-	@GetMapping("/showFormForUpdate/{id}")
-	public String showFormForUpdate(@PathVariable(value = "id") int id, Model model) {
-		
-		User user = userService.getUserById(id);
-		model.addAttribute("user",user);
-		return "update_user";
-	}
-	
-	@PostMapping("/processUserUpdate")
-	public ModelAndView processUserUpdate(User user) {
-		ModelAndView mv = new ModelAndView();
-		userService.updateUserName(user.getId(), user.getFullName());
-		List<User> listUser = userService.findAll();
-		
-		mv.addObject("objs",listUser);
-		mv.setViewName("home");
-		return mv;
-	}
+//	@GetMapping("/showFormForUpdate/{id}")
+//	public String showFormForUpdate(@PathVariable(value = "id") int id, Model model) {
+//		
+//		User user = userService.getUserById(id);
+//		model.addAttribute("user",user);
+//		return "update_user";
+//	}
+//	
+//	@PostMapping("/processUserUpdate")
+//	public ModelAndView processUserUpdate(User user) {
+//		ModelAndView mv = new ModelAndView();
+//		userService.updateUserName(user.getId(), user.getFullName());
+//		List<User> listUser = userService.findAll();
+//		
+//		mv.addObject("objs",listUser);
+//		mv.setViewName("home");
+//		return mv;
+//	}
 }

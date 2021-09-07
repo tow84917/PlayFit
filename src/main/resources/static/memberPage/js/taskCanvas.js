@@ -67,7 +67,7 @@ $(document).ajaxSend(function (e, xhr, options) {
 async function getTaskCompletionRate(){
 	
 	// 傳送今日日期
-	fetch('/taskCompletionRate', {
+	await fetch('/taskCompletionRate', {
         method : 'POST',
         headers : {
             'Content-Type' : 'application/json',
@@ -96,12 +96,12 @@ async function getTaskCompletionRate(){
     })
 }
 
-function getTaskCompletionRate(){
+function getTaskCompletionRate2(){
 	
 	$.ajax({
         url:'/taskCompletionRate' , 
         type: "POST" , 
-        async:false ,
+        async:false , // Synchronous XMLHttpRequest on the main thread
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(date),
         success: function (data) {

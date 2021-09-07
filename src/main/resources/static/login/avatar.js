@@ -138,9 +138,6 @@ c-5-2.9-8.9-5.8-11.5-7.9c-2.5-0.5-8.1-1-9.4,2.6c0,0-2.3,5.8,7.5,12.5c0,0,15,10.5
 <path class="st9" d="M224.2,33.6l3.1-9.2c0,0,2.1-8.1-4.7-13.5c0,0-10.5-7.5-22.3-9.8c0,0-9.9-1.7-14.4,6.3l-5,9
 c2.5,2,6.1,4.6,10.6,7.3C199.1,27.9,210.4,32.9,224.2,33.6z"/>`;
 
-
-
-
 function doFirst(){
 
 //角色預覽畫面
@@ -242,27 +239,45 @@ chooseHatWhite.addEventListener('click',e => {
 });
 
 
+// 403 錯誤
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+$(document).ajaxSend(function (e, xhr, options) {
+    xhr.setRequestHeader(header, token);
+});
+// 403 錯誤
+
 
 let doneBtn = document.getElementById('doneBtn');
+
 doneBtn.addEventListener('click', e => {
+    
     let data = getPictureData();
+    
     // let DOMURL = window.URL || window.webkitURL || window;
+    
     let svg = new Blob([data],{type: 'image/svg+xml;charset=utf-8'});
+    
     // let url = DOMURL.createObjectURL(svg);
     // console.log(svg);
+    
     fetch('/process_avatar', {
         method : 'POST',
         headers : {
             'Content-Type' : 'application/json',
             "Accept": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+        	"X-CSRF-Token": token
         },
+        credentials: "same-origin",
         body :data,
     })
     .then(response => {
-    // console.log(response); 
-    console.log(data);
-	console.log(response.text()); 
-    // return response.json();
+       console.log(response); 
+       return response.json();
+    })
+    .then(data =>{ 
+    	console.log(data);
     })
     
 });

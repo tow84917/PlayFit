@@ -65,5 +65,17 @@ public interface UserService {
 	 * @return Email
 	 */
 	String getLoginUserEmail();
+	
+	/**
+	 * 確認登入者是否啟用
+	 * @return isEnabled
+	 */
+	boolean isLoginUserEnable();
 
 }
+
+
+
+
+
+

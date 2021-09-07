@@ -221,11 +221,25 @@ public class EditPersonalInfoController {
 			return "EditMemberInfo";
 		}
 
+		int userId = userService.getLoginUserId();
+		User user = userService.getUserById(userId);
+		
+		// 資料相同不更新
+		if (modifyUser.getFullName().equals(user.getFullName()) &&
+			modifyUser.getNickName().equals(user.getNickName()) &&	
+			modifyUser.getPhone().equals(user.getPhone()) 		&&
+			modifyUser.getEmail().equals(user.getEmail()) 		&&
+			modifyUser.getAddress().equals(user.getAddress()) 	&&
+			modifyUser.getGender().equals(user.getGender()) 	&&
+			modifyUser.getBirthday().equals(user.getBirthday()) 
+			
+				) {
+			return "redirect:/MemberPage";
+		}
+		
 		// 儲存User
 		userService.saveUser(modifyUser);
 
-		int userId = userService.getLoginUserId();
-		User user = userService.getUserById(userId);
 
 		// 取最近期健康紀錄
 		HealthRecord healthRecordLast = healthRecordService.findLastDateByUserId(userId);

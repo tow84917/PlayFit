@@ -1,3 +1,0 @@
-﻿Model HealthRecord 熱量赤字欄位換成 Double , SQL int => float 
-Model User 增加 String role , SQL檔已更新, 使用前建議重跑 感恩
-2021/8/31 - SQL檔更新,新增food的serving欄位, 以及加入實際的food資料
