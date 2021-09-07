@@ -26,13 +26,10 @@ import com.java016.playfit.model.PersonalGoal;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.HealthRecordService;
 import com.java016.playfit.service.UserService;
-import com.java016.playfit.tool.CreateAvatar;
 
 @Controller
 public class HomeController {
 	
-	@Autowired
-	CreateAvatar createAvatar;
 	
 	@Autowired
 	UserService userService;
@@ -76,7 +73,7 @@ public class HomeController {
 	@PostMapping(value= "/process_avatar")
 		public void processAvatar(final HttpServletRequest request) throws IOException, TranscoderException {
 		InputStream is = request.getInputStream();
-		OutputStream os = new FileOutputStream(new File("/Users/Xuan/Downloads/s.svg"));
+		OutputStream os = new FileOutputStream(new File("/Users/Xuan/Downloads/test.svg"));
 		
 //		SVGDocument doc = new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName())
 //		.createSVGDocument("", is);
@@ -85,8 +82,6 @@ public class HomeController {
 		
 		
 //		os.write(is.readAllBytes());
-		
-		
 		
 		byte[] b = new byte[8192];
 		int len=0;

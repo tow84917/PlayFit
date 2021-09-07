@@ -253,8 +253,8 @@ doneBtn.addEventListener('click', e => {
     fetch('/process_avatar', {
         method : 'POST',
         headers : {
-            'Content-Type' : 'application/json',
-            "Accept": "application/json",
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=utf-8',
+            "Accept": "application/x-www-form-urlencoded; charset=utf-8",
         },
         body :data,
     })
