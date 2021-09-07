@@ -34,10 +34,9 @@ public class EmailTool {
 				+ "  <h1 style=\"color: #6460ff;\">PlayFit Certification Letter</h1>" + "  <div>"
 				+ "      <p style=\"color:black; font-size: 14px\">" + "			Hello my friend " + newUserName
 				+ "		 </p>" + "      <p style=\"color:black; font-size: 14px\">"
-				+ "			Glad you joined, click the url below to activate account." + "</p>"
-				+ "      <p style=\"font-size: 14px;\">"
-				+ "			<a href=\"http://localhost:8080/verificationCode?code=" + verificationCode + "\"" + ">"
-				+ "			http://localhost:8080/verificationCode?code=" + verificationCode + "			</a>"
+				+ "			Glad you joined, Here is your verification code." + "</p>"
+				+ "      <p style=\"font-size: 18px;\">"
+				+ verificationCode
 				+ "		 </p>" + "      <p style=\"color: red;font-size: 14px\">Effective time 5 minutes.</p>"
 				+ "  </div>" + "</body>" + "</html>";
 

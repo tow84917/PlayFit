@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>order record</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+    <!-- 主要css -->
+    <link rel="stylesheet" th:href="@{/style.css}" href="../../static/style.css">
+
+    <link rel="stylesheet" th:href="@{/pay/order.css}" href="../../static/pay/order.css">
+</head>
+
+<body>
+    <header th:replace="fragments/header::myHeader"></header>
+    <div class="br"></div>
+
+    <div class="container ">
+        <div class="row sub1">
+            <div class="col-6 my-col">
+                <div class="my-row">
+                    <h4>jsdlfja;dlsjfs;</h4>
+                    <h4>jsdlfja;dlsjfs;</h4>
+                    <h4>jsdlfja;dlsjfs;</h4>
+                    <h4>jsdlfja;dlsjfs;</h4>
+
+                </div>
+            </div>
+            <div class="col-6 my-col">
+                <div class="my-row"></div>
+            </div>
+            <div class="col-6 my-col">
+                <div class="my-row"></div>
+            </div>
+        </div>
+
+        <!-- 分頁 -->
+        <div class="row sub2">
+            <nav aria-label="Page  example" class="my-page">
+                <ul class="pagination page-ul" id="page">
+                    <li class="page-item page-li" value="Previous">
+                        <a class="page-link page-del" id="Previous" aria-label="Previous">
+                            <svg id="Previous" width="12" height="20" viewBox="0 0 12 20" fill="none"
+                                transform="rotate(180)" xmlns="http://www.w3.org/2000/svg">
+                                <path id="Previous"
+                                    d="M1.49902 2.21179L9.268 8.22049C10.5166 9.19113 10.5166 10.8089 9.268 11.7795L1.49902 17.7882"
+                                    stroke="#2E1ED3" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </li>
+                    <div class="item">
+                        <!-- <li class="page-item page-li " value="1" id="1"><a class="page-link page-del">1</a></li>
+                        <li class="page-item page-li active" value="2" id="2"><a class="page-link page-del">2</a></li>
+                        <li class="page-item page-li " value="3" id="3"><a class="page-link page-del">3</a></li> -->
+
+                    </div>
+
+                    <li class="page-item page-li" value="Next">
+                        <a class="page-link page-del" id="Next" aria-label="Next">
+                            <svg id="Next" width="12" height="20" viewBox="0 0 12 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path id="Next"
+                                    d="M1.49902 2.21179L9.268 8.22049C10.5166 9.19113 10.5166 10.8089 9.268 11.7795L1.49902 17.7882"
+                                    stroke="#2E1ED3" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="br"></div>
+    <footer th:replace="fragments/footer::myFooter"></footer>
+
+
+
+    <script>
+        count = [[${ count }]];
+        console.log('count: ', count);
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
+        integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script th:src="@{/pay/order.js}" src="../../static/pay/order.js"></script>
+</body>
+
+</html>

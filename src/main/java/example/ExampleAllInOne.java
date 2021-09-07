@@ -2,13 +2,8 @@ package example;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
-import java.util.Random;
+import java.util.Map;
 import java.util.UUID;
-
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
@@ -251,6 +246,28 @@ public class ExampleAllInOne {
     }
 
     /**
+     * 單次付款
+     * @param paramsMap 結帳資訊
+     * @return form
+     */
+    public static String myGenAioCheckOutALL(Map<String,Object> paramsMap) {
+        UUID uid = UUID.randomUUID();
+        AioCheckOutALL obj = new AioCheckOutALL();
+        obj.setMerchantTradeNo(uid.toString().replaceAll("-", "").substring(0, 20));
+        obj.setMerchantTradeDate("2017/01/01 08:05:23");
+        String price = (String) paramsMap.get("price");
+        obj.setTotalAmount(price);
+        String itemName = (String) paramsMap.get("itemName");
+        obj.setTradeDesc(itemName);
+        obj.setItemName(itemName);
+        obj.setReturnURL("http://211.23.128.214:5000");
+        obj.setOrderResultURL("http://localhost:8080/payFinish"); //付款完，跳轉到哪個頁面
+        obj.setNeedExtraPaidInfo("N");
+        String form = all.aioCheckOut(obj, null);
+        return form;
+    }
+
+    /**
      * 當信用卡定期定額扣
      * 款為每個月扣 1 次
      * 500 元，總共要扣 12 次，
@@ -259,8 +276,44 @@ public class ExampleAllInOne {
      * PeriodType=M
      * Frequency=1
      * ExecTimes=12
-     * @return
+     * @return form
      */
+    public static String myGenAioCheckOutPeriod(Map<String,Object> paramsMap) {
+        AioCheckOutPeriod obj = new AioCheckOutPeriod();
+        UUID uid = UUID.randomUUID();
+        obj.setMerchantTradeNo(uid.toString().replaceAll("-", "").substring(0, 20));
+//        obj.setMerchantTradeNo("testCompany05009"); // 訂單編號 特店交易編號(由特店提供)
+        obj.setMerchantTradeDate("2017/01/01 08:05:23");
+
+        String price = (String) paramsMap.get("price");
+        obj.setTotalAmount(price);  // 交易金額
+
+        String itemName = (String) paramsMap.get("itemName");
+        obj.setTradeDesc(itemName); // 交易描述
+        obj.setItemName(itemName); // 商品名稱
+
+        obj.setReturnURL("http://211.23.128.214:5000");
+        obj.setNeedExtraPaidInfo("N");
+
+        obj.setPeriodAmount(price); // 每次授權金額
+
+        String period = (String) paramsMap.get("period");
+        obj.setPeriodType(period);    // 週期種類 D M Y 年月日
+        obj.setFrequency("1");     // 此參數用來定義多久要執行一次 至少要大於等於 1 次以上。
+		/*
+		PeriodType 設為 D 時，最多可設 365次。
+        PeriodType 設為 M 時，最多可設 12次。
+        PeriodType 設為 Y 時，最多可設 1 次。
+		 */
+        String execTimes = (String) paramsMap.get("execTimes");
+        obj.setExecTimes(execTimes);    // 執行次數 至少要大於 1 次以上。
+
+
+        obj.setOrderResultURL("http://localhost:8080/payFinish"); //付款完，跳轉到哪個頁面
+        String form = all.aioCheckOut(obj, null);
+        return form;
+    }
+
     public static String genAioCheckOutPeriod() {
         AioCheckOutPeriod obj = new AioCheckOutPeriod();
         UUID uid = UUID.randomUUID();
@@ -276,16 +329,13 @@ public class ExampleAllInOne {
         obj.setPeriodAmount("50"); // 每次授權金額
         obj.setPeriodType("D");    // 週期種類 D M Y 年月日
         obj.setFrequency("1");     // 此參數用來定義多久要執行一次 至少要大於等於 1 次以上。
-		/*
-		PeriodType 設為 D 時，最多可設 365次。
-        PeriodType 設為 M 時，最多可設 12次。
-        PeriodType 設為 Y 時，最多可設 1 次。
-		 */
+
         obj.setExecTimes("12");    // 執行次數
 
 
-        obj.setOrderResultURL("http://localhost:8080"); //付款完，跳轉到哪個頁面
+        obj.setOrderResultURL("http://localhost:8080/payFinish"); //付款完，跳轉到哪個頁面
         String form = all.aioCheckOut(obj, null);
         return form;
     }
+
 }

@@ -50,11 +50,12 @@ table {
 }
 
 /* ------------------------------------------ */
-header{
-    width: 100%;
+/*header{
+    width: 100%;	
     height: 80px;
-    /* border: 1px solid red; */
-}
+    border: 1px solid red;
+}*/
+
 main{
     width: 100%;
     /* border: 1px solid red; */

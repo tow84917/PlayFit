@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.java016.playfit.model.User;
 
+import java.util.Date;
+
 public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	/**
@@ -56,6 +58,22 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	public void updateUserCertificationStatus(
 			@Param(value = "id") Integer id, 
 			@Param(value="certificationStatus") Integer certificationStatus) ;
+
+	@Transactional(rollbackFor = RuntimeException.class)
+	@Modifying
+	@Query(value = "update users u set u.dataline = :dateline " +
+			"where u.id = :id", nativeQuery = true)
+	public void updateUserDateline(@Param(value = "id") Integer id,
+								   @Param(value = "dateline")Date dateline);
+
+	@Transactional(rollbackFor = RuntimeException.class)
+	@Modifying
+	@Query(value = "update users u set u.role = :role " +
+			"where u.id = :id", nativeQuery = true)
+	public void updateUserRole(@Param(value = "id") Integer id,
+								   @Param(value = "role")String role);
+
+
 }
 
 

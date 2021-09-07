@@ -3,30 +3,107 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+  /*font-size: 100%;*/
+  /*font: inherit;*/
+  /*vertical-align: baseline;*/
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
   display: block;
 }
 
@@ -34,17 +111,21 @@ body {
   line-height: 1;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
-blockquote, q {
+blockquote,
+q {
   quotes: none;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: "";
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
   content: none;
 }
 
@@ -67,7 +148,7 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
   overflow-y: scroll;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 @media only screen and (max-width: 768px) {
   html .nav-menu {
@@ -124,6 +205,7 @@ a {
   padding: 3px;
   backdrop-filter: blur(8px);
 }
+
 .header .navbar {
   display: flex;
   justify-content: space-between;
@@ -160,7 +242,7 @@ a {
   transform-origin: bottom left;
 }
 .header .navbar .nav-menu .nav-item .nav-link::before {
-  content: " ";
+  content: ' ';
   display: block;
   position: absolute;
   top: 0;
@@ -238,6 +320,7 @@ footer {
   text-align: center;
   color: white;
 }
+
 footer div ul li {
   padding-bottom: 50px;
 }
@@ -245,7 +328,7 @@ footer div ul li {
 :root {
   --primary-light: #8abdff;
   --primary: #6d5dfc;
-  --primary-dark: #2E1ED3;
+  --primary-dark: #2e1ed3;
   --white: #ffffff;
   --greyLight-1: #e4ebf5;
   --greyLight-2: #c8d0e7;
@@ -273,7 +356,8 @@ footer div ul li {
   width: 600px;
   height: auto;
   border-radius: 3rem;
-  box-shadow: 0.8rem 0.8rem 1.4rem var(--greyLight-2), -0.2rem -0.2rem 1.8rem var(--white);
+  box-shadow: 0.8rem 0.8rem 1.4rem var(--greyLight-2),
+    -0.2rem -0.2rem 1.8rem var(--white);
   padding: 4rem;
   display: grid;
   grid-template-columns: 17.6rem 19rem 20.4rem;
@@ -293,14 +377,19 @@ footer div ul li {
 .switch input {
   display: none;
 }
-.switch__1 input:checked ~ label, .switch__2 input:checked ~ label {
-  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+.switch__1 input:checked ~ label,
+.switch__2 input:checked ~ label {
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+    inset -0.2rem -0.2rem 0.5rem var(--white);
 }
-.switch__1 input:checked ~ label::after, .switch__2 input:checked ~ label::after {
+.switch__1 input:checked ~ label::after,
+.switch__2 input:checked ~ label::after {
   background: var(--primary);
 }
-.switch__1 label, .switch__2 label {
-  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+.switch__1 label,
+.switch__2 label {
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem var(--white);
   position: relative;
   display: flex;
   justify-content: center;
@@ -310,11 +399,13 @@ footer div ul li {
   height: 2.8rem;
   border-radius: 50%;
 }
-.switch__1 label:hover::after, .switch__2 label:hover::after {
+.switch__1 label:hover::after,
+.switch__2 label:hover::after {
   background: var(--primary);
 }
-.switch__1 label::after, .switch__2 label::after {
-  content: "";
+.switch__1 label::after,
+.switch__2 label::after {
+  content: '';
   position: absolute;
   width: 1.4rem;
   height: 1.4rem;
@@ -328,7 +419,8 @@ footer div ul li {
   width: 15rem;
   height: 4rem;
   border-radius: 1rem;
-  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem var(--white);
   justify-self: center;
   display: flex;
   align-items: center;
@@ -340,14 +432,17 @@ footer div ul li {
   grid-column: 1/2;
   grid-row: 2/3;
   background: var(--primary);
-  box-shadow: inset 0.2rem 0.2rem 1rem var(--primary-light), inset -0.2rem -0.2rem 1rem var(--primary-dark), 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: inset 0.2rem 0.2rem 1rem var(--primary-light),
+    inset -0.2rem -0.2rem 1rem var(--primary-dark),
+    0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
   color: var(--greyLight-1);
 }
 .bbtn__primary:hover {
   color: var(--white);
 }
 .bbtn__primary:active {
-  box-shadow: inset 0.2rem 0.2rem 1rem var(--primary-dark), inset -0.2rem -0.2rem 1rem var(--primary-light);
+  box-shadow: inset 0.2rem 0.2rem 1rem var(--primary-dark),
+    inset -0.2rem -0.2rem 1rem var(--primary-light);
 }
 .bbtn__secondary {
   grid-column: 1/2;
@@ -358,7 +453,8 @@ footer div ul li {
   color: var(--primary);
 }
 .bbtn__secondary:active {
-  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+    inset -0.2rem -0.2rem 0.5rem var(--white);
 }
 .bbtn p {
   font-size: 1.6rem;
@@ -391,12 +487,14 @@ footer div ul li {
   color: var(--primary);
   z-index: 300;
   background: var(--greyLight-1);
-  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem var(--white);
   cursor: pointer;
   position: relative;
 }
 .circle__btn.shadow {
-  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+    inset -0.2rem -0.2rem 0.5rem var(--white);
 }
 .circle__btn .play {
   position: absolute;
@@ -413,7 +511,8 @@ footer div ul li {
 .circle__btn .pause.visibility {
   opacity: 0;
 }
-.circle__back-1, .circle__back-2 {
+.circle__back-1,
+.circle__back-2 {
   grid-row: 1/2;
   grid-column: 1/2;
   width: 6rem;
@@ -423,15 +522,21 @@ footer div ul li {
   z-index: 100;
 }
 .circle__back-1 {
-  box-shadow: 0.4rem 0.4rem 0.8rem var(--greyLight-2), -0.4rem -0.4rem 0.8rem var(--white);
-  background: linear-gradient(to bottom right, var(--greyLight-2) 0%, var(--white) 100%);
+  box-shadow: 0.4rem 0.4rem 0.8rem var(--greyLight-2),
+    -0.4rem -0.4rem 0.8rem var(--white);
+  background: linear-gradient(
+    to bottom right,
+    var(--greyLight-2) 0%,
+    var(--white) 100%
+  );
   animation: waves 4s linear infinite;
 }
 .circle__back-1.paused {
   animation-play-state: paused;
 }
 .circle__back-2 {
-  box-shadow: 0.4rem 0.4rem 0.8rem var(--greyLight-2), -0.4rem -0.4rem 0.8rem var(--white);
+  box-shadow: 0.4rem 0.4rem 0.8rem var(--greyLight-2),
+    -0.4rem -0.4rem 0.8rem var(--white);
   animation: waves 4s linear 2s infinite;
 }
 .circle__back-2.paused {
@@ -450,7 +555,8 @@ footer div ul li {
   border-radius: 1rem;
   font-size: 1.4rem;
   padding-left: 1.4rem;
-  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+    inset -0.2rem -0.2rem 0.5rem var(--white);
   background: none;
   font-family: inherit;
   color: var(--greyDark);
@@ -460,7 +566,8 @@ footer div ul li {
 }
 .form__input:focus {
   outline: none;
-  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem var(--white);
 }
 
 /* 分段三選一健身計算 */
@@ -469,7 +576,8 @@ footer div ul li {
   grid-row: 1/2;
   width: 20.4rem;
   height: 4rem;
-  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem var(--white);
   border-radius: 1rem;
   display: flex;
   align-items: center;
@@ -482,7 +590,9 @@ footer div ul li {
   transition: all 0.5s ease;
   color: var(--primary);
 } */
-.segmented-control__1, .segmented-control__2, .segmented-control__3 {
+.segmented-control__1,
+.segmented-control__2,
+.segmented-control__3 {
   width: 6.8rem;
   height: 3.6rem;
   font-size: 1.4rem;
@@ -502,7 +612,8 @@ footer div ul li {
   width: 6.2rem;
   margin-left: 0.3rem;
   border-radius: 0.8rem;
-  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem var(--white);
   /* pointer-events: none; */
 }
 
@@ -531,11 +642,14 @@ footer div ul li {
   display: flex;
   justify-content: space-between;
 }
-.icon__more, .icon__plus, .icon__bulb {
+.icon__more,
+.icon__plus,
+.icon__bulb {
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem var(--white);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -544,11 +658,16 @@ footer div ul li {
   color: var(--greyDark);
   transition: all 0.5s ease;
 }
-.icon__more:active, .icon__plus:active, .icon__bulb:active {
-  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+.icon__more:active,
+.icon__plus:active,
+.icon__bulb:active {
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+    inset -0.2rem -0.2rem 0.5rem var(--white);
   color: var(--primary);
 }
-.icon__more:hover, .icon__plus:hover, .icon__bulb:hover {
+.icon__more:hover,
+.icon__plus:hover,
+.icon__bulb:hover {
   color: var(--primary);
 }
 
@@ -564,7 +683,8 @@ footer div ul li {
   width: 100%;
   height: 1rem;
   cursor: pointer;
-  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+    inset -0.2rem -0.2rem 0.5rem var(--white);
   border-radius: 1rem;
   position: relative;
   display: flex;
@@ -587,12 +707,13 @@ footer div ul li {
   opacity: 1;
 }
 .slider__btn::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 50%;
-  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+    inset -0.2rem -0.2rem 0.5rem var(--white);
 }
 .slider__color {
   height: 100%;
@@ -602,7 +723,12 @@ footer div ul li {
   z-index: 100;
   border-radius: inherit;
   background: var(--primary);
-  background: linear-gradient(-1deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+  background: linear-gradient(
+    -1deg,
+    var(--primary-dark) 0%,
+    var(--primary) 50%,
+    var(--primary-light) 100%
+  );
 }
 .slider__tooltip {
   position: absolute;
@@ -615,9 +741,8 @@ footer div ul li {
   align-items: center;
   font-size: 1.2rem;
   color: var(--primary);
-  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem var(--white);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-
-/*# sourceMappingURL=style.css.map */

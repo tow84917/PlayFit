@@ -55,6 +55,10 @@ public class User {
 	)
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date dateline;
 	
 	@Column(
 			name = "created_at",
@@ -229,6 +233,14 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public Date getDateline() {
+		return dateline;
+	}
+
+	public void setDateline(Date dateline) {
+		this.dateline = dateline;
 	}
 
 	public String toString() {

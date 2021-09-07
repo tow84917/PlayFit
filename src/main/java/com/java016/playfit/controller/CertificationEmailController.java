@@ -5,13 +5,14 @@ import java.util.Date;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.EmailService;
@@ -30,72 +31,98 @@ public class CertificationEmailController {
 	
 	EmailTool emailTool;
 	
-	BCryptPasswordEncoder passwordEncoder ;
-	
 	@Autowired
 	public CertificationEmailController(
 			UserService userService, EmailService emailService, 
-			EmailTool emailTool, BCryptPasswordEncoder passwordEncoder) {
+			EmailTool emailTool) {
 		this.userService = userService;
 		this.emailService = emailService;
 		this.emailTool = emailTool;
-		this.passwordEncoder = passwordEncoder;
 	}
 
 	// 寄認證信
-	@RequestMapping("/sendEmail")
+	@RequestMapping(value = "/sendCertificationEmail", 
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public String sendEmialTest(
 			Model model
 			) throws MessagingException {
 		
+		// 設定寄出時間(現在時間)
+		Date sendTime = new Date();
+		
+		// 2:59 內不會發出下一封
+		if (model.getAttribute("sendTime") != null && 
+				emailTool.getMinute((Date)model.getAttribute("sendTime"), sendTime) < 2) {
+			return "{\"emailResult\" : \"alreadySent\"}";
+		}
+		
 		String filePath = ""; // 目前沒用(無附件)
+		
+		// 寄給誰
+		String to = ""; 
+		
+		//驗證中User
+		User checkingUser = null ;
+		
+		// For 新註冊的 user
+		if (model.getAttribute("newMember") != null) {
+			// 取已經儲存之User
+			checkingUser = userService.findByEmail(
+					((User)model.getAttribute("newMember")).getEmail()
+					);
+			
+			// 儲存目前驗證中User
+			model.addAttribute("checkingUser", checkingUser);			
+			// 寄信對象
+			to = checkingUser.getEmail();
+		}
+		
+		// For 一開始未認證的 user
+		if (model.getAttribute("newMember") == null) {
+			// 目前登入者 + Id
+			int userId = userService.getLoginUserId();
+			checkingUser = userService.getUserById(userId);
+			
+			// 儲存目前驗證中User
+			model.addAttribute("checkingUser", checkingUser);
+			// 寄信對象
+			to = checkingUser.getEmail();
+			
+		}
+		
 		// 接收Email參數, 等前段請求待定
-		String to = "hcy0930527919@gmail.com"; 
-		String subject = "test";
-		
-//		User checkingUser = userService.findByEmail(to);
-		
-//		if (checkingUser == null) {
-//			return "Send faild";
-//		}
-		
-		// 驗證中USER加入session
-//		model.addAttribute("checkingUser", checkingUser);
+		String subject = "Play-Fit Certification Email";
 		
 		// 新用戶名、未認證用戶名
-//		String userName = checkingUser.getFullName(); // 先寫死 
-		String userName = "FrankHsiao"; // 先寫死 
+		String userName = checkingUser.getFullName();
 		
-		// 驗證碼(加密)
-		String verificationCode = passwordEncoder.encode(emailTool.generateVerCode()); 
+		// 驗證碼
+		String verificationCode = (emailTool.generateVerCode()); 
 		// 驗證碼加入session
 		model.addAttribute("verificationCode", verificationCode);
+		System.out.println("session code :" + verificationCode);
 		
 		// 產生已格式化信件
 		String text = emailTool.generateText(userName, verificationCode);
 		// 寄出
 		emailService.sendRichMail(to, subject, text, filePath);
 		
-		// 設定寄出時間
-		Date sendTime = new Date();
 		// 寄出時間加入session
 		model.addAttribute("sendTime", sendTime);
 		
-		System.out.println(sendTime);
-				
-		return "Send success";
+//		System.out.println(sendTime);
+		return "{\"emailResult\" : \"sendSuccess\"}"; // 字串JSON
 	}
 	
-	// 接收 User 連結回應 
-	@GetMapping("/verificationCode")
+	// 接收 User 回應 
+	@PostMapping(value = "/activateAccount", 
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public String activateAccount(
-			@RequestParam("code") String code,
-			Model model
+			@RequestBody String verificationCode,
+			Model model, SessionStatus status
 		) {
 		
-		String returnMessage = ""; 
-		
-		System.out.println(code); // 驗證碼
+		System.out.println(verificationCode); // 驗證碼
 		
 		// 現在時間
 		Date now = new Date();
@@ -105,25 +132,29 @@ public class CertificationEmailController {
 		// 超過5分鐘(4:59)測試
 		if (emailTool.getMinute(sendTime, now) > 4) {
 			System.out.println("驗證碼已失效");
-			returnMessage = "ActivateFaild";
+			return "{\"emailResult\" : \"verificationCodeExpired\"}";
 		}
 		
 		// 驗證碼
-		String verificationCode = String.valueOf(model.getAttribute("verificationCode"));
-		// 驗證中的使用者
-//		User checkingUser = (User) model.getAttribute("checkingUser");
+		String verificationCodeOrigin = String.valueOf(model.getAttribute("verificationCode"));
 		
-		if (code.equals(verificationCode)) {
+		// 取驗證中的使用者
+		User checkingUser = (User) model.getAttribute("checkingUser");
+		
+		if (verificationCode.equals(verificationCodeOrigin)) {
 			
 			// 驗證驗證成功改為啟用
-//			userService.updateUserCertificationStatus(checkingUser.getId(), 1);
+			userService.updateUserCertificationStatus(checkingUser.getId(), 1);
 			
 			System.out.println("Activate success!");
 			
-			returnMessage = "ActivateSuccess";
+			// 啟用成功移除 Controller上指定 SessionAttributes
+			status.setComplete();
+			
+			return "{\"emailResult\" : \"activateSuccess\"}";
 		}
 		
-		return returnMessage;
+		return "{\"emailResult\" : \"verificationCodeFalse\"}";
 	}
 }
 

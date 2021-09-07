@@ -55,22 +55,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider()); // old
-//		auth.authenticationProvider(customAuthenticationProvider()); //認證信後改
+//		auth.authenticationProvider(authenticationProvider()); // old
+		auth.authenticationProvider(customAuthenticationProvider()); //認證信後改
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/", "/process_register" ,"/login/failure" ,"/process_avatar"
-						, "/register","/**/*.js", "/**/*.css", "/**/*.svg").permitAll() // void not css、html 
-//				.anyRequest().authenticated() // 除了上行請求皆須登入
+						, "/register","/**/*.js", "/**/*.css", "/**/*.svg","/payFinish").permitAll() // void not css、html 
+				.anyRequest().authenticated() // 除了上行請求皆須登入
+//				.antMatchers("/MemberPage","/calendar/calendar").authenticated() // 特定請求須要登入
+//				.anyRequest().permitAll() // 其他不用
 				.and()
 				.formLogin()
 				.usernameParameter("email")
 				.loginPage("/login")
-//				.failureHandler(customAuthenticationFailureHandler()) //失敗處理,認證信後改
-				.failureUrl("/login?error=true") // 回傳有誤
+				.failureHandler(customAuthenticationFailureHandler()) //失敗處理,認證信後改
+//				.failureUrl("/login?error=true") // 回傳有誤
 				.defaultSuccessUrl("/") // 回到首頁 或 跳轉原拜訪頁
 				.permitAll()
 				.and()
@@ -83,11 +85,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.deleteCookies("JSESSIONID")
 					.logoutSuccessUrl("/login") // 登出跳轉
 					.permitAll()
-//				.and()
-//				.csrf()
-//				.ignoringAntMatchers("/ajax**"); // 防 ajax POST 會被 csrf 擋下
 				.and()
-				.csrf().disable();
+				.csrf()
+				.ignoringAntMatchers("/ajax**","/payFinish"); // 防 ajax POST 會被 csrf 擋下 
+				// 綠界結帳後跳轉的頁面會被擋下
+//				.and()
+//				.csrf().disable();
 	}
 	
 }

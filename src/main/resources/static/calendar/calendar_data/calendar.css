@@ -39,7 +39,7 @@ div {
 
 .row {
   /* height: max-content; */
-  /* height: 100%; */
+  height: 100%;
 
   width: 100%;
   margin: 0;
@@ -52,7 +52,7 @@ div {
 .my-col {
   /* box-shadow: 0 0 0px 2px green inset; */
   /* height: 500px; */
-  height: min(900px);
+  height: min(1000px);
   /* >>左右間隔 */
   padding-left: var(--padding-hef);
   padding-right: var(--padding-hef);
@@ -72,7 +72,7 @@ div {
 
 .full-height {
   /* height: 100%; */
-  height: min(100%, 900px);
+  /* height: min(100%, 900px); */
 }
 
 .info-col {
@@ -164,7 +164,7 @@ div {
 
   /* 固定在右下 */
   position: absolute;
-  right: var(--padding-hef);
+  left: var(--padding-hef);
   bottom: var(--padding-hef);
 }
 
@@ -298,13 +298,18 @@ div {
   background-color: var(--purplebg);
   height: 100%;
   width: 400px;
-  /* margin: 10px; */
+  border-radius: 20px;
+
   margin-left: 10px;
   margin-right: 10px;
-  padding: 20px;
+  /* padding: 20px; */
   /* 水平內顯示為區塊 */
   display: inline-block;
   /* display: inline; */
+}
+/* 會員樣式 */
+.prime-fit {
+  opacity: 50%;
 }
 
 .fit-part:hover {
@@ -365,26 +370,34 @@ label {
 .fit-a-top {
   /* background-color: grey; */
   width: 100%;
-  height: 70%;
+  height: 100%;
   display: flex;
   align-items: center;
 }
 
 .fit-a-button {
-  /* background-color: cadetblue; */
-  width: 100%;
-  height: 30%;
-  /* text-align: center; */
-  display: flex;
+  /* width: 100%;
+  height: 30%; */
+  /* display: flex;
   justify-content: center;
   align-items: center;
 
   font-size: 2rem;
+  font-weight: var(--font-weight-blod); */
+  color: black;
+  position: sticky;
+  font-size: 3rem;
+  bottom: 20px;
+  /* right: 30px; */
   font-weight: var(--font-weight-blod);
 }
 
 .fit-activity {
   width: 100%;
+}
+
+.prime-activity {
+  opacity: 50%;
 }
 
 .model-submit {
