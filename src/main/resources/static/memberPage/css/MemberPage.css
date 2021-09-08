@@ -63,7 +63,7 @@
 .down {
 	/*border: 1px red solid;*/
 	height: 77.5%;
-	margin-top: 2.3%;
+	margin-top: 1.5%;
 	display: flex;
 }
 /* 右下左 */
@@ -267,6 +267,7 @@
 	height: 310px;
 	background-color: rgb(235, 238, 248);
 	border-radius: 20px;
+	/*border: 1px red solid;*/
 }
 /* 目標欄上 */
 .goalUp {
@@ -361,7 +362,7 @@
 .canvasBox {
 	width: 540px;
 	height: 235px;
-	margin-top: 20px;
+	margin-top: 15px;
 	background-color: rgb(235, 238, 248);
 	border-radius: 20px;
 	display: flex;
@@ -408,7 +409,7 @@
 /* 今日訓練菜單 */
 .activityBox {
 	width: 100%;
-	height: 57%;
+	height: 59%;
 	/*border: 1px red solid;*/
 	margin-top: 6%;
 	/* display: flex;
@@ -444,7 +445,7 @@
 /* 活動項目 */
 .activity {
 	width: 232px;
-	height: 90px;
+	height: 95px;
 	margin-top: 4%;
 	/*border: 1px red solid;*/
 	border-radius: 20px;
@@ -452,10 +453,12 @@
 }
 
 /* 圖片 */
-.activity img {
-	width: 230px;
-	height: 85px;
-	opacity: 0.65;
+#activityPic {
+	width: 235px;
+	/*width: auto;*/
+	
+	/*height: 85px;*/
+	opacity: 0.6;
 }
 
 /* 說明文字 */
@@ -463,8 +466,18 @@
 	position: absolute;
 	right: 6%;
 	bottom: 3%;
-	font-size: 24px;
+	font-size: 20px;
 	color: white;
+}
+
+/* 完成勾勾 */
+#cmopletedPic {
+	width:22px;
+	
+	position: absolute;
+	left: 4%;
+	top: 7%;
+	z-index: 3;
 }
 
 /* 日曆連結 */

@@ -222,18 +222,21 @@
                             <!-- Thymeleaf will foreach here ; 
                                 assign background-color、src、activityName-->
 							<div class="activityBox" id="scrollbarStyle">
+<!-- 									<div th:if="${activityStatus}" th:each="task : ${activityStatus}" -->
+<!-- 										th:with="color1='#2e1ed3',color2='#6460ff'"> -->
 									<div th:if="${activityStatus}" th:each="task : ${activityStatus}"
-										th:with="color1='#2e1ed3',color2='#6460ff'">
+										th:with="color1='#ccccff',color2='#2e1ed3'">
 										<!--                             		done -->
 										<div class="activity" th:if="${task.value =='done'}"
 											th:style="'background-color:'+ ${color1}">
-											<img th:src="@{${task.key.imagePath}}" alt="activity_name">
+											<img id="cmopletedPic" th:src="@{/images/finishl.svg}" alt="cmopleted_Pic">
+											<img id="activityPic" th:src="@{${task.key.imagePath}}" alt="activity_Pic">
 											<p id="activityName" th:text="${task.key.name}"></p>
 										</div>
 										<!-- 	                                undone -->
 										<div class="activity" th:if="${task.value =='undone'}"
 											th:style="'background-color:'+ ${color2}">
-											<img th:src="@{${task.key.imagePath}}" alt="activity_name">
+											<img id="activityPic" th:src="@{${task.key.imagePath}}" alt="activity_Pic">
 											<p id="activityName" th:text="${task.key.name}"></p>
 										</div>
 									</div>

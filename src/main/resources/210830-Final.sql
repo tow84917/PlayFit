@@ -365,22 +365,22 @@ CREATE TABLE `Fit_activity` (
 LOCK TABLES `Fit_activity` WRITE;
 /*!40000 ALTER TABLE `Fit_activity` DISABLE KEYS */;
 INSERT INTO `Fit_activity` VALUES 
-(1,'10 min LISTT','Upper',NULL,90,NULL,'./images/Fit_activity/10_min_LISTT.png',1,'00:10:00',NULL),
-(2,'12 min LISTT','Upper',NULL,190,NULL,'./images/Fit_activity/12_min_LISTT.png',2,'00:12:00',NULL),
-(3,'16 min LISTT','Upper',NULL,210,NULL,'./images/Fit_activity/16_min_LISTT.png',3,'00:16:00',NULL),
-(4,'20 min ST','Upper',NULL,160,NULL,'./images/Fit_activity/20_min_ST.png',4,'00:20:00',NULL),
-(5,'10 min PT','Core',NULL,80,NULL,'./images/Fit_activity/10_min_PT.png',5,'00:10:00',NULL),
-(6,'10 min BLIT','Core',NULL,70,NULL,'./images/Fit_activity/10_min_BLIT.png',6,'00:10:00',NULL),
-(7,'12 min LISTT','Core',NULL,120,NULL,'./images/Fit_activity/12_min_LISTT.png',7,'00:12:00',NULL),
-(8,'18 min CLIPT','Core',NULL,170,NULL,'./images/Fit_activity/18_min_CLIPT.png',8,'00:18:00',NULL),
-(9,'10 min STE','Lower',NULL,110,NULL,'./images/Fit_activity/10_min_STE.png',9,'00:10:00',NULL),
-(10,'14 min LIPT','Lower',NULL,100,NULL,'./images/Fit_activity/14_min_LIPT.png',10,'00:14:00',NULL),
-(11,'16 min PSTT','Lower',NULL,231,NULL,'./images/Fit_activity/16_min_PSTT.png',11,'00:16:00',NULL),
-(12,'20 min LIPT','Lower',NULL,150,NULL,'./images/Fit_activity/20_min_LIPT.png',12,'00:20:00',NULL),
-(13,'10 min CHT','HIIT',NULL,110,NULL,'./images/Fit_activity/10_min_CHT.png',13,'00:10:00',NULL),
-(14,'16 min CHT','HIIT',NULL,190,NULL,'./images/Fit_activity/16_min_CHT.png',14,'00:16:00',NULL),
-(15,'16 min CH','HIIT',NULL,200,NULL,'./images/Fit_activity/16_min_CH.png',15,'00:16:00',NULL),
-(16,'20 min CHT','HIIT',NULL,260,NULL,'./images/Fit_activity/20_min_CHT.png',16,'00:20:00',NULL);
+(1,'10 min LISTT','Upper',NULL,90,NULL,'/images/Fit_activity/10_min_LISTT.svg',1,'00:10:00',NULL),
+(2,'12 min LISTT','Upper',NULL,190,NULL,'/images/Fit_activity/12_min_LISTT.svg',2,'00:12:00',NULL),
+(3,'16 min LISTT','Upper',NULL,210,NULL,'/images/Fit_activity/16_min_LISTT.svg',3,'00:16:00',NULL),
+(4,'20 min ST','Upper',NULL,160,NULL,'/images/Fit_activity/20_min_ST.svg',4,'00:20:00',NULL),
+(5,'10 min PT','Core',NULL,80,NULL,'/images/Fit_activity/10_min_PT.svg',5,'00:10:00',NULL),
+(6,'10 min BLIT','Core',NULL,70,NULL,'/images/Fit_activity/10_min_BLIT.svg',6,'00:10:00',NULL),
+(7,'12 min LISTT','Core',NULL,120,NULL,'/images/Fit_activity/12_min_LISTT.svg',7,'00:12:00',NULL),
+(8,'18 min CLIPT','Core',NULL,170,NULL,'/images/Fit_activity/18_min_CLIPT.svg',8,'00:18:00',NULL),
+(9,'10 min STE','Lower',NULL,110,NULL,'/images/Fit_activity/10_min_STE.svg',9,'00:10:00',NULL),
+(10,'14 min LIPT','Lower',NULL,100,NULL,'/images/Fit_activity/14_min_LIPT.svg',10,'00:14:00',NULL),
+(11,'16 min PSTT','Lower',NULL,231,NULL,'/images/Fit_activity/16_min_PSTT.svg',11,'00:16:00',NULL),
+(12,'20 min LIPT','Lower',NULL,150,NULL,'/images/Fit_activity/20_min_LIPT.svg',12,'00:20:00',NULL),
+(13,'10 min CHT','HIIT',NULL,110,NULL,'/images/Fit_activity/10_min_CHT.svg',13,'00:10:00',NULL),
+(14,'16 min CHT','HIIT',NULL,190,NULL,'/images/Fit_activity/16_min_CHT.svg',14,'00:16:00',NULL),
+(15,'16 min CH','HIIT',NULL,200,NULL,'/images/Fit_activity/16_min_CH.svg',15,'00:16:00',NULL),
+(16,'20 min CHT','HIIT',NULL,260,NULL,'/images/Fit_activity/20_min_CHT.svg',16,'00:20:00',NULL);
 /*!40000 ALTER TABLE `Fit_activity` ENABLE KEYS */;
 UNLOCK TABLES;
 
