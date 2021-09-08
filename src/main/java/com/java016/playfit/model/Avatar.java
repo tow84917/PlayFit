@@ -1,15 +1,16 @@
 package com.java016.playfit.model;
 
 import java.util.Arrays;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +23,17 @@ public class Avatar {
 
 	private String name;
 	
-	private String description;
+	@ManyToOne
+	@JoinColumn(name = "avatar_body_id", referencedColumnName = "id")
+	private AvatarBody avatarBody;
+	
+	@ManyToOne
+	@JoinColumn(name = "avatar_clothes_id", referencedColumnName = "id")
+	private AvatarClothes avatarClothes;
+	
+	@ManyToOne
+	@JoinColumn(name = "avatar_hat_id", referencedColumnName = "id")
+	private AvatarHat avatarHat;
 
 	@Lob
 	@Column(name = "image", columnDefinition = "BLOB")
@@ -38,8 +49,8 @@ public class Avatar {
 	private String mimeType;
 	
 	// bi
-	@OneToMany(mappedBy="avatar")
-	private List<User> users;
+	@OneToOne(mappedBy = "avatar")
+	private User user;
 
 	public Integer getId() {
 		return id;
@@ -57,13 +68,6 @@ public class Avatar {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public byte[] getImage() {
 		return image;
@@ -97,12 +101,36 @@ public class Avatar {
 		this.mimeType = mimeType;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public AvatarBody getAvatarBody() {
+		return avatarBody;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setAvatarBody(AvatarBody avatarBody) {
+		this.avatarBody = avatarBody;
+	}
+
+	public AvatarClothes getAvatarClothes() {
+		return avatarClothes;
+	}
+
+	public void setAvatarClothes(AvatarClothes avatarClothes) {
+		this.avatarClothes = avatarClothes;
+	}
+
+	public AvatarHat getAvatarHat() {
+		return avatarHat;
+	}
+
+	public void setAvatarHat(AvatarHat avatarHat) {
+		this.avatarHat = avatarHat;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
@@ -112,8 +140,6 @@ public class Avatar {
 		builder.append(id);
 		builder.append(", name=");
 		builder.append(name);
-		builder.append(", description=");
-		builder.append(description);
 		builder.append(", image=");
 		builder.append(Arrays.toString(image));
 		builder.append(", ImagePath=");
