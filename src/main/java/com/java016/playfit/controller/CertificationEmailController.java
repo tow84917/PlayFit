@@ -6,6 +6,9 @@ import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.java016.playfit.model.User;
+import com.java016.playfit.security.CustomUserDetails;
 import com.java016.playfit.service.EmailService;
 import com.java016.playfit.service.UserService;
 import com.java016.playfit.tool.EmailTool;
@@ -147,6 +151,19 @@ public class CertificationEmailController {
 			userService.updateUserCertificationStatus(checkingUser.getId(), 1);
 			
 			System.out.println("Activate success!");
+			
+			// 取經經被更新後的 User
+			User userUpdated = userService.findByEmail(checkingUser.getEmail());
+			
+			// 新 UserDetails 給 authentication 更新用
+			CustomUserDetails customUserDetails = new CustomUserDetails(userUpdated);
+			
+			// 更新 authentication 為更改後的 user
+			Authentication authentication = 
+					new UsernamePasswordAuthenticationToken
+					(customUserDetails, customUserDetails.getPassword(), 
+							customUserDetails.getAuthorities());
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 			
 			// 啟用成功移除 Controller上指定 SessionAttributes
 			status.setComplete();
