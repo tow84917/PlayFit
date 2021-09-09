@@ -6,14 +6,25 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.java016.playfit.dao.BodyTypeRepository;
 import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.HealthRecord;
 import com.java016.playfit.model.User;
 
 @Component
 public class BodyCalculator {
+	
+	@Autowired
+	BodyTypeRepository bodyTypeRepo;
+	
+	
+	// 體型列舉
+	enum BodyShape {
+		SKINNY, SLIM, NORMAL, OVERWEIGHT, OBESE
+	}
 	
 	/**
 	 * lackHealthRecord to completeHealthRecord.
@@ -32,6 +43,11 @@ public class BodyCalculator {
 		double BMI = calBMI(healthRecord);
 		healthRecord.setBMI(BMI);
 		
+		BodyShape bodyShape = judgeBodyShape(BMI);
+		healthRecord.setBodyType(
+				bodyTypeRepo.findByName(String.valueOf(bodyShape))
+				);
+		
 		double BMR = calBMR(healthRecord, gender);
 		healthRecord.setBMR(BMR);
 		
@@ -45,6 +61,39 @@ public class BodyCalculator {
 		healthRecord.setFFMI(FFMI);
 		
 		return healthRecord ;
+	}
+	
+	/**
+	 * check BodyShape
+	 * @param BMI
+	 * @return BodyShape
+	 */
+	public BodyShape judgeBodyShape(Double BMI) {
+		
+		BodyShape bodyShape = null;
+		
+		if (BMI < 16) {
+			bodyShape = BodyShape.SKINNY ;
+		}
+		
+		if (BMI >= 16 && BMI < 18.5) {
+			bodyShape = BodyShape.SLIM ;
+		}
+		
+		if (BMI >= 18.5 && BMI < 24.5) {
+			bodyShape = BodyShape.NORMAL ;
+		}
+		
+		if (BMI >= 24.5 && BMI < 32) {
+			bodyShape = BodyShape.OVERWEIGHT ;
+		}
+		
+		if (BMI >= 32) {
+			bodyShape = BodyShape.OBESE ;
+		}
+		
+		return bodyShape;
+		
 	}
 	
 	/**

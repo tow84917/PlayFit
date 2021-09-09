@@ -34,11 +34,11 @@ CREATE TABLE `body_type` (
 LOCK TABLES `body_type` WRITE;
 
 insert  into `body_type`(`id`,`name`,`description`) values 
-(1,'VeryThin','BMI : <16'),
-(2,'Thin','BMI : 16-18.5'),
-(3,'Normal','BMI : 18.5-24.5'),
-(4,'Fat','BMI : 25-32'),
-(5,'VeryFat','BMI : >32');
+(1,'SKINNY','BMI : <16'),
+(2,'SLIM','BMI : 16-18.5'),
+(3,'NORMAL','BMI : 18.5-24.5'),
+(4,'OVERWEIGHT','BMI : 25-32'),
+(5,'OBESE','BMI : >32');
 
 UNLOCK TABLES;
 
@@ -732,14 +732,11 @@ INSERT INTO food VALUES (103,'Tomato','Vegetables',20,'1 tomato (111 g)');
 /*!40000 ALTER TABLE `Food` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `Health_record`
---
+/*Table structure for table `health_record` */
 
-DROP TABLE IF EXISTS `Health_record`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Health_record` (
+DROP TABLE IF EXISTS `health_record`;
+
+CREATE TABLE `health_record` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `age` int DEFAULT NULL,
@@ -753,30 +750,30 @@ CREATE TABLE `Health_record` (
   `calorie_deficit` float DEFAULT NULL,
   `exercise_frequency` varchar(64) NOT NULL,
   `date` date DEFAULT NULL,
+  `body_shape` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `health_record_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `body_shape` (`body_shape`),
+  CONSTRAINT `health_record_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `health_record_ibfk_2` FOREIGN KEY (`body_shape`) REFERENCES `body_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `Health_record`
---
+/*Data for the table `health_record` */
 
-LOCK TABLES `Health_record` WRITE;
-/*!40000 ALTER TABLE `Health_record` DISABLE KEYS */;
-INSERT INTO `Health_record` VALUES 
-(1,1,26,164.8,66.3,24.41,1621.51,19.07,2594.42,19.76,6542,'ModerateExercise','2021-07-20'),
-(2,1,26,164.8,65.8,24.23,1614.66,23.2,2583.44,18.61,7235,'ModerateExercise','2021-07-16'),
-(3,2,28,177.5,88.2,27.99,1699.62,25.3,3059.32,20.91,5347,'HeavyExercise','2021-07-25'),
-(4,1,27,165.5,67,24.46,1627.8,19.36,2604.48,19.73,-6825,'ModerateExercise','2021-08-28'),
-(5,1,27,165.5,66,24.1,1614.1,18.93,2582.56,19.53,-3912.6,'ModerateExercise','2021-08-29'),
-(6,4,26,164.8,66.3,24.41,1621.51,19.07,2594.42,19.76,6542,'ModerateExercise','2021-07-20'),
-(7,5,26,164.8,65.8,24.23,1614.66,23.2,2583.44,18.61,7235,'ModerateExercise','2021-07-16'),
-(8,6,28,177.5,88.2,27.99,1699.62,25.3,3059.32,20.91,5347,'HeavyExercise','2021-07-25'),
-(9,7,27,165.5,67,24.46,1627.8,19.36,2604.48,19.73,-6825,'ModerateExercise','2021-08-28'),
-(10,8,27,165.5,66,24.1,1614.1,18.93,2582.56,19.53,-3912.6,'ModerateExercise','2021-08-29');
-/*!40000 ALTER TABLE `Health_record` ENABLE KEYS */;
+LOCK TABLES `health_record` WRITE;
+
+insert  into `health_record`(`id`,`user_id`,`age`,`height`,`weight`,`BMI`,`BMR`,`BFP`,`TDEE`,`FFMI`,`calorie_deficit`,`exercise_frequency`,`date`,`body_shape`) values 
+(1,1,26,164.8,66.3,24.41,1621.51,19.07,2594.42,19.76,6542,'ModerateExercise','2021-07-20',3),
+(2,1,26,164.8,65.8,24.23,1614.66,23.2,2583.44,18.61,7235,'ModerateExercise','2021-07-16',3),
+(3,2,28,177.5,88.2,27.99,1699.62,25.3,3059.32,20.91,5347,'HeavyExercise','2021-07-25',4),
+(4,1,27,165.5,67,24.46,1627.8,19.36,2604.48,19.73,-6825,'ModerateExercise','2021-08-28',3),
+(5,1,27,165.5,66,24.1,1614.1,18.93,2582.56,19.53,-3912.6,'ModerateExercise','2021-08-29',3),
+(6,4,26,164.8,66.3,24.41,1621.51,19.07,2594.42,19.76,6542,'ModerateExercise','2021-07-20',3),
+(7,5,26,164.8,65.8,24.23,1614.66,23.2,2583.44,18.61,7235,'ModerateExercise','2021-07-16',3),
+(8,6,28,177.5,88.2,27.99,1699.62,25.3,3059.32,20.91,5347,'HeavyExercise','2021-07-25',4),
+(9,7,27,165.5,67,24.46,1627.8,19.36,2604.48,19.73,-6825,'ModerateExercise','2021-08-28',3),
+(10,8,27,165.5,66,24.1,1614.1,18.93,2582.56,19.53,-3912.6,'ModerateExercise','2021-08-29',3);
+
 UNLOCK TABLES;
 
 --

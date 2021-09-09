@@ -49,6 +49,10 @@ public class HealthRecord {
 	
 	@Temporal(TemporalType.DATE)
 	private Date date;
+	
+	@ManyToOne
+	@JoinColumn(name = "body_shape", referencedColumnName = "id")
+	private BodyType bodyType;
 
 	public Integer getId() {
 		return id;
@@ -153,12 +157,22 @@ public class HealthRecord {
 	public void setCalorieDeficit(Double calorieDeficit) {
 		this.calorieDeficit = calorieDeficit;
 	}
+	
+	public BodyType getBodyType() {
+		return bodyType;
+	}
+
+	public void setBodyType(BodyType bodyType) {
+		this.bodyType = bodyType;
+	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("HealthRecord [id=");
 		builder.append(id);
+		builder.append(", user=");
+		builder.append(user);
 		builder.append(", age=");
 		builder.append(age);
 		builder.append(", height=");
@@ -184,7 +198,6 @@ public class HealthRecord {
 		builder.append("]");
 		return builder.toString();
 	}
-	
 }
 
 
