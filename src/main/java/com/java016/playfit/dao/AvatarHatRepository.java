@@ -16,7 +16,7 @@ public interface AvatarHatRepository extends JpaRepository<AvatarHat, Integer> {
 	 * @param typeId
 	 * @return AvatarHat
 	 */
-	@Query(value = "SELECT * FROM avatar_hat ah WHERE ac.name = "
+	@Query(value = "SELECT * FROM avatar_hat ah WHERE ah.name = "
 			+ ":name AND ah.type = :type", nativeQuery=true)
 	public AvatarHat findByNameAndType(
 			@Param("name")String name, @Param("type")Integer typeId);

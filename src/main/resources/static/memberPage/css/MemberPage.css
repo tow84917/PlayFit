@@ -389,9 +389,10 @@
 
 /* 訓練菜單 */
 .train {
-	left: 1%;
-	/* border: 1px red solid; */
-	width: 280px;
+	position:relative;
+	right: 2%;
+	/*border: 1px red solid;*/ 
+	width: 285px;
 	height: 560px;
 	padding: 12px 23px;
 	background-color: rgb(235, 238, 248);
@@ -402,18 +403,18 @@
 
 /* Training of today title */
 .train strong {
-	font-size: 36px;
+	font-size: 37px;
 	word-wrap: break-word;
 	line-height: 38px;
 }
 /* 今日訓練菜單 */
 .activityBox {
 	width: 100%;
-	height: 59%;
+	height: 62%;
 	/*border: 1px red solid;*/
 	margin-top: 6%;
 	/* display: flex;
-  flex-direction: column; */
+  	flex-direction: column; */
 	align-items: center;
 	overflow: scroll;
 	overflow-y: hidden;
@@ -444,8 +445,8 @@
 
 /* 活動項目 */
 .activity {
-	width: 232px;
-	height: 95px;
+	width: 240px;
+	height: 100px;
 	margin-top: 4%;
 	/*border: 1px red solid;*/
 	border-radius: 20px;

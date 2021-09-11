@@ -20,7 +20,6 @@ public class BodyCalculator {
 	@Autowired
 	BodyTypeRepository bodyTypeRepo;
 	
-	
 	// 體型列舉
 	enum BodyShape {
 		SKINNY, SLIM, NORMAL, OVERWEIGHT, OBESE

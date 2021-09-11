@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 @Entity
 @Table(
 		name = "users"
@@ -30,6 +31,7 @@ public class User {
 			strategy = GenerationType.IDENTITY
 	)
 	private Integer id;
+	
 	@Column(
 			name = "full_name"
 	)

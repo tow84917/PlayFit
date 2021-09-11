@@ -10,9 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -44,8 +44,13 @@ public class CertificationEmailController {
 		this.emailTool = emailTool;
 	}
 
-	// 寄認證信
-	@RequestMapping(value = "/sendCertificationEmail", 
+	/**
+	 * 寄認證信
+	 * @param model
+	 * @return CertificationEmail
+	 * @throws MessagingException
+	 */
+	@GetMapping(value = "/sendCertificationEmail", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public String sendEmialTest(
 			Model model
@@ -92,6 +97,7 @@ public class CertificationEmailController {
 			// 寄信對象
 			to = checkingUser.getEmail();
 			
+			
 		}
 		
 		// 接收Email參數, 等前段請求待定
@@ -118,7 +124,13 @@ public class CertificationEmailController {
 		return "{\"emailResult\" : \"sendSuccess\"}"; // 字串JSON
 	}
 	
-	// 接收 User 回應 
+	/**
+	 * 接收 User 回應 
+	 * @param verificationCode
+	 * @param model
+	 * @param status
+	 * @return 驗證結果
+	 */
 	@PostMapping(value = "/activateAccount", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public String activateAccount(

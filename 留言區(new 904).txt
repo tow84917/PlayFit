@@ -9,4 +9,4 @@ window -> preferences -> workplace -> (tick) refresh using native hooks or polli
 
 network Disable cache or clean cache => 網站圖示 
 
-2021/9/09 - SQL檔更新, 新增修改Avatar 相關model, health add body shape.
+2021/9/09 - SQL檔更新, 新增修改Avatar 相關model, healthRecord add body shape.

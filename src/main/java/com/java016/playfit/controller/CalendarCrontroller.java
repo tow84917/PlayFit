@@ -187,7 +187,7 @@ public class CalendarCrontroller {
 		System.out.println(day);
 		List<String> activities = (List<String>) paramsMap.get("activity");
 
-		calenderService.addActivities( day, activities);
+		calenderService.addActivities(day, activities);
 
 
 		System.out.println("addActivity finish \n");

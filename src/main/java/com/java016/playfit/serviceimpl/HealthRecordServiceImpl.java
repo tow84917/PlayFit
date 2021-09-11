@@ -81,5 +81,20 @@ public class HealthRecordServiceImpl implements HealthRecordService {
 	public void updateCalorieDeficit(Integer id, Double calorieDeficit) {
 		healthRecordRepo.updateCalorieDeficit(id, calorieDeficit);
 	}
+	
+	//找所有該日期紀錄
+	@Override
+	public List<HealthRecord> findByDate(Date date) {
+		return healthRecordRepo.findByDate(date);
+	}
 
 }
+
+
+
+
+
+
+
+
+

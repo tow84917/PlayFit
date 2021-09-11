@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java016.playfit.model.Avatar;
+import com.java016.playfit.model.BodyType;
 import com.java016.playfit.model.HealthRecord;
 import com.java016.playfit.model.PersonalGoal;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.AvatarService;
+import com.java016.playfit.service.BodyTypeService;
 import com.java016.playfit.service.HealthRecordService;
 import com.java016.playfit.service.PersonalGoalService;
 import com.java016.playfit.service.UserService;
@@ -45,6 +47,9 @@ public class HomeController {
 	
 	@Autowired
 	AvatarService avatarService;
+	
+	@Autowired
+	BodyTypeService bodyTypeService;
 	
 	@Autowired
 	BodyCalculator bodyCalculator;
@@ -232,6 +237,21 @@ public class HomeController {
 		}
 		
 		return "redirect:/login";
+	}
+	
+	// 體型、顏色、衣服、帽子 (前端要送) 新方式後端產圖 順便存取配件 Id
+	@RequestMapping("/createAvatar")
+	@ResponseBody
+	public String createAvatar() {
+		
+		// 找體型
+		BodyType bodyType = bodyTypeService.findByName("OVERWEIGHT");
+		
+		// 體型、顏色、衣服、帽子
+		avatarService.saveAvatarPic(
+				bodyType, "lightpurple", "Camera", "Fishermenhat", "Avatar_999");
+		
+		return "OK" ;
 	}
 	
 //	@GetMapping("/showFormForUpdate/{id}")
