@@ -296,6 +296,8 @@ form .button{
 
 
 /* step2 */
+
+
 #step2{
     text-align: center;
     position: absolute;
@@ -308,9 +310,7 @@ form .button{
     background: #EBEEF8;
     display: none;
     font-weight: 700;
-    font-size: 4rem;
-    
-    
+    font-size: 4rem; 
 }
 
 #step2 #flex{
@@ -389,16 +389,23 @@ form .button{
 
 /* step3 */
 #step3{
+    text-align: center;
     position: absolute;
-    left: 30%;
+    top:20%;
+    left: 27.5%;
     border-radius: 2rem;
     width: 40%;
-    height: 550px;
-    z-index: 5;
-    display: none;
+    height: 750px;
+    /* z-index: 4; */
     background: #EBEEF8;
-    border: 2px solid var(--primary-dark);
-    
+    display: none;
+    font-weight: 700;
+    font-size: 4rem; 
+}
+
+#step3 p{
+    margin: 4rem;
+    font-size: 3.6rem;
 }
 
 /* The Modal (background) */
@@ -414,6 +421,22 @@ form .button{
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    margin-right: 1rem;
+    font-size: 4.4rem;
+    font-weight: 600;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
   }
   
 

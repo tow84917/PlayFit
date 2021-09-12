@@ -14,25 +14,11 @@
 
 
 .selectBox{
-    width: 40%;
     text-align: center;
     margin: 0 auto;
 } 
-.segmented-control{
-    margin:auto;
-}
-
-/* #hat01,#hat02,#body01,#body02{
-    display: none;
-} */
 
 
-.white{
-    width: 50px;
-    height: 20px;
-    background-color: #ddd;
-    /* border: 2px solid black; */
-}
 
 
 

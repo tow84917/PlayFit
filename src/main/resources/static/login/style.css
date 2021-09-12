@@ -7,15 +7,15 @@
 
 /* 分段三選一健身計算 */
 .segmented-control {
-  grid-column: 2/3;
-  grid-row: 1/2;
-  width: 20.4rem;
-  height: 4rem;
+  margin: 2rem auto;
+  width: 40.8rem;
+  height: 6rem;
   box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
     -0.2rem -0.2rem 0.5rem var(--white);
   border-radius: 1rem;
   display: flex;
   align-items: center;
+  /* justify-content: center; */
   position: relative;
 }
 .segmented-control input {
@@ -27,7 +27,10 @@
 } */
 .segmented-control__1,
 .segmented-control__2,
-.segmented-control__3 {
+.segmented-control__3,
+.segmented-control__4,
+.segmented-control__5,
+.segmented-control__6 {
   width: 6.8rem;
   height: 3.6rem;
   font-size: 1.4rem;
@@ -43,30 +46,111 @@
 } */
 .segmented-control__color {
   position: absolute;
-  height: 3.4rem;
+  height: 5rem;
   width: 6.2rem;
   margin-left: 0.3rem;
-  border-radius: 0.8rem;
+  border-radius: 1rem;
   box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
     -0.2rem -0.2rem 0.5rem var(--white);
   /* pointer-events: none; */
 }
 
-#tab1-1:checked ~ .segmented-control__color,
-#tab2-1:checked ~ .segmented-control__color {
+#tab2-1:checked ~ .segmented-control__color,
+#tab3-1:checked ~ .segmented-control__color {
   transform: translateX(0);
   transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-#tab1-2:checked ~ .segmented-control__color,
-#tab2-2:checked ~ .segmented-control__color {
+#tab2-2:checked ~ .segmented-control__color,
+#tab3-2:checked ~ .segmented-control__color {
   transform: translateX(6.8rem);
   transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-#tab1-3:checked ~ .segmented-control__color,
-#tab2-3:checked ~ .segmented-control__color {
+#tab2-3:checked ~ .segmented-control__color,
+#tab3-3:checked ~ .segmented-control__color {
   transform: translateX(13.6rem);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab2-4:checked ~ .segmented-control__color,
+#tab3-4:checked ~ .segmented-control__color {
+  transform: translateX(20.4rem);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab2-5:checked ~ .segmented-control__color,
+#tab3-5:checked ~ .segmented-control__color {
+  transform: translateX(27.2rem);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab2-6:checked ~ .segmented-control__color,
+#tab3-6:checked ~ .segmented-control__color {
+  transform: translateX(34rem);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+
+.pink{
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  background-color: #FF9398;
+}
+
+
+/* 選角色顏色 */
+.red{
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  background-color: #FF353B;
+}
+
+.blue{
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  background-color: #23B5F3;
+}
+
+.purple{
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  background-color: #6460FF;
+}
+
+.lightpurple{
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  background-color: #CCCCFF;
+}
+
+#tab1-1:checked ~ .segmented-control__color{
+  transform: translateX(0);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab1-2:checked ~ .segmented-control__color{
+  transform: translateX(6.8rem);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab1-3:checked ~ .segmented-control__color{
+  transform: translateX(13.6rem);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab1-4:checked ~ .segmented-control__color{
+  transform: translateX(20.4rem);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab1-5:checked ~ .segmented-control__color{
+  transform: translateX(27.2rem);
   transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 

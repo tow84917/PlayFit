@@ -18,13 +18,24 @@ function doFirst(){
     swiftButton = document.getElementById('swiftButton');
     swiftButton.addEventListener('click',move);
 
+
+    
+    let signUpSubmit = document.getElementById('signUpSubmit');
     let step2Modal = document.getElementById("step2Modal");
     let step2 = document.getElementById('step2');
-    let signUpSubmit = document.getElementById('signUpSubmit');
+    
     signUpSubmit.addEventListener('click',e =>{
         step2Modal.style.display = "block";
         step2.style.display = 'inline';
     })
+
+    // Get the <span> element that closes the modal
+    let step2Span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    step2Span.onclick = function() {
+    step2Modal.style.display = "none";
+    }
 
 
 
@@ -46,18 +57,18 @@ nextStep.addEventListener('click',e =>{
     step3.style.display="inline";
     step2Modal.style.display = "none";
     console.log(weight.value);
-    if(weight.value>70){
-        plainAvatar.innerHTML= fat;      
-        body.innerHTML = ``;
-        hat.innerHTML = ``;
-        avatarSize = 2;  
+    // if(weight.value>70){
+    //     plainAvatar.innerHTML= fat;      
+    //     body.innerHTML = ``;
+    //     hat.innerHTML = ``;
+    //     avatarSize = 2;  
 
-    }else{
-         plainAvatar.innerHTML= thin;
-         body.innerHTML = ``;
-         hat.innerHTML = ``;
-         avatarSize = 1;  
-    }
+    // }else{
+    //      plainAvatar.innerHTML= thin;
+    //      body.innerHTML = ``;
+    //      hat.innerHTML = ``;
+    //      avatarSize = 1;  
+    // }
 
 })
 
@@ -67,67 +78,67 @@ nextStep.addEventListener('click',e =>{
 
 
 //角色的三個部位
-plainAvatar = document.getElementById('plainAvatar');
+clothes = document.getElementById('clothes');
 body = document.getElementById('body');
 hat = document.getElementById('hat');
 
 //radio選擇項
-chooseBodyWhite = document.getElementById("tab1-1");
-chooseBody1 = document.getElementById("tab1-2");
-chooseBody2 = document.getElementById("tab1-3");
-chooseHatWhite = document.getElementById("tab2-1");
-chooseHat1 = document.getElementById("tab2-2");
-chooseHat2 = document.getElementById("tab2-3");
+// chooseBodyWhite = document.getElementById("tab1-1");
+// chooseBody1 = document.getElementById("tab1-2");
+// chooseBody2 = document.getElementById("tab1-3");
+// chooseHatWhite = document.getElementById("tab2-1");
+// chooseHat1 = document.getElementById("tab2-2");
+// chooseHat2 = document.getElementById("tab2-3");
 
 
 
-chooseBody1.addEventListener('click',e => {  
-    if(avatarSize == 1){
-        body.innerHTML = thin_body1;
-    }else if(avatarSize == 2){
-        body.innerHTML = fat_body1;
-    }
-    console.log(avatarPic.innerHTML);
-});
+// chooseBody1.addEventListener('click',e => {  
+//     if(avatarSize == 1){
+//         body.innerHTML = thin_body1;
+//     }else if(avatarSize == 2){
+//         body.innerHTML = fat_body1;
+//     }
+//     console.log(avatarPic.innerHTML);
+// });
 
-chooseBody2.addEventListener('click',e => {  
-    if(avatarSize == 1){
-        body.innerHTML = thin_body2;
-    }else if(avatarSize == 2){
-        body.innerHTML = fat_body2;
-    }
-    // console.log(avatarPic.innerHTML);
+// chooseBody2.addEventListener('click',e => {  
+//     if(avatarSize == 1){
+//         body.innerHTML = thin_body2;
+//     }else if(avatarSize == 2){
+//         body.innerHTML = fat_body2;
+//     }
+//     // console.log(avatarPic.innerHTML);
 
-});
+// });
 
-chooseBodyWhite.addEventListener('click',e => {  
-    body.innerHTML = ``;
-    // console.log(avatarPic.innerHTML);
+// chooseBodyWhite.addEventListener('click',e => {  
+//     body.innerHTML = ``;
+//     // console.log(avatarPic.innerHTML);
 
-});
+// });
 
-chooseHat1.addEventListener('click',e => {  
-    if(avatarSize == 1){
-        hat.innerHTML = thin_hat1;
-    }else if(avatarSize == 2){
-        hat.innerHTML = fat_hat1;
-    }
-    // console.log(avatarPic.innerHTML);
-});
+// chooseHat1.addEventListener('click',e => {  
+//     if(avatarSize == 1){
+//         hat.innerHTML = thin_hat1;
+//     }else if(avatarSize == 2){
+//         hat.innerHTML = fat_hat1;
+//     }
+//     // console.log(avatarPic.innerHTML);
+// });
 
-chooseHat2.addEventListener('click',e => {  
-    if(avatarSize == 1){
-        hat.innerHTML = thin_hat2;
-    }else if(avatarSize == 2){
-        hat.innerHTML = fat_hat2;
-    }
-    // console.log(avatarPic.innerHTML);
-});
+// chooseHat2.addEventListener('click',e => {  
+//     if(avatarSize == 1){
+//         hat.innerHTML = thin_hat2;
+//     }else if(avatarSize == 2){
+//         hat.innerHTML = fat_hat2;
+//     }
+//     // console.log(avatarPic.innerHTML);
+// });
 
-chooseHatWhite.addEventListener('click',e => {  
-    hat.innerHTML = ``;
-    // console.log(avatarPic.innerHTML);
-});
+// chooseHatWhite.addEventListener('click',e => {  
+//     hat.innerHTML = ``;
+//     // console.log(avatarPic.innerHTML);
+// });
 
 
 // 403 錯誤
@@ -176,7 +187,7 @@ doneBtn.addEventListener('click', e => {
 
 
 
-//切換登入/註冊
+//切換登入-註冊
 function move(){
     changeTitle = document.getElementById('changeTitle');
     changeText = document.getElementById('changeText');
