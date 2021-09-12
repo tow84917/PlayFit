@@ -16,7 +16,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet"  th:href="@{/login/style.css}">
     <link rel="stylesheet"  th:href="@{/login/avatar.css}"/>
-    <script  th:src="@{/login/avatar.js}" ></script>
     <link rel="stylesheet"  th:href="@{/login/login.css}" href="/static/login/login.css"/>
     <script  th:src="@{/login/login.js}" src="/static/login/login.css"></script>
     <title>logIn/signUp</title>
@@ -49,63 +48,58 @@
                             <div id="signUpSubmit">SIGN UP</div>
                         </div>
 
+
                         <!-- 註冊step2   basic info-->
+                    <div id="step2Modal" class="modal">
                         <div id="step2">
                             <p>Your Basic Info</p>
-                            <hr>
-                            <br>
-                            <label for="male">Male</label>
                             <input type="radio" id="male"
                             name="gender" value="Male">
-                           &nbsp
-                            <label for="female">Female</label>  
+                            <label for="male">Male</label>
+                           
                            <input type="radio" id="female"
                             name="gender" value="Female">
+                            <label for="female">Female</label>  
                             <br>   
                             
-                        <!-- <div> -->
+                        
                             <!-- <label for="targetWeight">Target Weight</label> -->
-                            <input type="number" name="goalWeight" th:value="${personalGoal.goalWeight}" id="targetWeight" placeholder=" Target Weight" 
+                            <input type="number" name="goalWeight" th:value="${personalGoal.goalWeight}" id="targetWeight" placeholder="Target Weight (Kg)" 
                             min="35.00" max="300.00" step="0.01"/>
                             <br>
-                        <!-- </div> -->
-                            
-                        <!-- <div> -->
+                   
                             <!-- <label for="currentWeight">Current Weight</label> -->
-                            <input type="number" name="weight" th:value="${healthRecord.weight}" id="currentWeight" placeholder=" Current Weight"
+                            <input type="number" name="weight" th:value="${healthRecord.weight}" id="currentWeight" placeholder="Current Weight (Kg)"
                             min="35.00" max="300.00" step="0.01"/>
                             <br>
-                        <!-- </div> -->
                             
                             
-                        <!-- <div> -->
                             <!-- <label for="height">Your Height</label> -->
-                            <input type="number" name="height"   th:value="${healthRecord.height}" id="height" placeholder=" Height" 
+                            <input type="number" name="height"   th:value="${healthRecord.height}" id="height" placeholder="Height (Cm)" 
                             min="50.00" max="300.00" step="0.01"/>
                             <br>
-                        <!-- </div>     -->
                         
-                        <!-- <div> -->
                             <!-- <label for="birthday">Date Of Birth</label> -->
                             <!-- <br> -->
-                            <input type="text" name="birthday" id="birthday" th:value="${user.birthday}" placeholder=" Birthday" />
-                        <!-- </div> -->
+                            <input type="text" name="birthday" id="birthday" th:value="${user.birthday}" placeholder="Birthday (yyyy-mm-dd)" />
                             <br>
+
                             <!-- <span>Activity Level</span> -->
 					        <select name="exerciseFrequency" th:value="${healthRecord.exerciseFrequency}">
-                                <option> Activity Level</option>
-                                <option value="Sedentary"> Sedentary(office job)</option>
-					    	    <option value="LightExercise"> Light Exercise</option>
-					    	    <option value="ModerateExercise"> Moderate Exercise</option>
-					    	    <option value="HeavyExercise"> Heavy Exercise</option>
-					    	    <option value="Athlete"> Athlete</option>
+                                <option>Activity Level</option>
+                                <option value="Sedentary">Sedentary(office job)</option>
+					    	    <option value="LightExercise">Light Exercise</option>
+					    	    <option value="ModerateExercise">Moderate Exercise</option>
+					    	    <option value="HeavyExercise">Heavy Exercise</option>
+					    	    <option value="Athlete">Athlete</option>
 					        </select>
                             <br><br>
                             <div id="nextStep">Next Step</div>
-                            
                         </div> 
+                    </div>
                         
                         <!-- step3 創建角色-->
+                    <div id="step3Modal" class="modal">
                         <div id="step3">
                             <!-- 角色預覽 -->
                             <?xml version="1.0" encoding="utf-8"?>
@@ -158,8 +152,8 @@
                             <br>
                             <button  type="submit" id="doneBtn">DONE!</button>
                                 
-                        </div>    
-                          
+                        </div>
+                    </div>                       
                     </form>
             </div>     
             
