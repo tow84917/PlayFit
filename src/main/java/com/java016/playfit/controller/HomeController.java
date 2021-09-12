@@ -250,6 +250,9 @@ public class HomeController {
 		// 體型、顏色、衣服、帽子
 		avatarService.saveAvatarPic(
 				bodyType, "lightpurple", "Camera", "Fishermenhat", "Avatar_999");
+
+		//		avatarService.saveAvatarPic(
+//				bodyType, "lightpurple", "Camera", null, "Avatar_999");
 		
 		return "OK" ;
 	}
