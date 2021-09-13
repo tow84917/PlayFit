@@ -53,7 +53,7 @@ CREATE TABLE `avatar_body` (
   PRIMARY KEY (`id`),
   KEY `type` (`type`),
   CONSTRAINT `avatar_body_ibfk_1` FOREIGN KEY (`type`) REFERENCES `body_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `avatar_body` */
 
@@ -100,7 +100,7 @@ CREATE TABLE `avatar_clothes` (
   PRIMARY KEY (`id`),
   KEY `type` (`type`),
   CONSTRAINT `avatar_clothes_ibfk_1` FOREIGN KEY (`type`) REFERENCES `body_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `avatar_clothes` */
 
@@ -147,7 +147,7 @@ CREATE TABLE `avatar_hat` (
   PRIMARY KEY (`id`),
   KEY `type` (`type`),
   CONSTRAINT `avatar_hat_ibfk_1` FOREIGN KEY (`type`) REFERENCES `body_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `avatar_hat` */
 
@@ -206,7 +206,7 @@ CREATE TABLE `avatar` (
   CONSTRAINT `avatar_ibfk_4` FOREIGN KEY (`avatar_hat_id`) REFERENCES `avatar_hat` (`id`),
   CONSTRAINT `avatar_ibfk_5` FOREIGN KEY (`avatar_body_id`) REFERENCES `avatar_body` (`id`),
   CONSTRAINT `avatar_ibfk_6` FOREIGN KEY (`avatar_clothes_id`) REFERENCES `avatar_clothes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `avatar` */
 
@@ -942,7 +942,7 @@ CREATE TABLE `Users` (
   UNIQUE KEY `email` (`email`),
   KEY `avatar_id` (`avatar_id`),
   CONSTRAINT `Users_ibfk_1` FOREIGN KEY (`avatar_id`) REFERENCES `Avatar` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

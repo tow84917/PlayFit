@@ -25,7 +25,7 @@ import com.java016.playfit.tool.EmailTool;
 
 @RestController
 @SessionAttributes(
-		value = {"checkingUser", "verificationCode", "sendTime"} // 接收User回應確認用 
+		value = {"newMember","checkingUser", "verificationCode", "sendTime"} // 接收User回應確認用 
 		) 
 public class CertificationEmailController {
 	
@@ -167,10 +167,10 @@ public class CertificationEmailController {
 			// 取經經被更新後的 User
 			User userUpdated = userService.findByEmail(checkingUser.getEmail());
 			
-			// 新 UserDetails 給 authentication 更新用
+			// 新 UserDetails 給 authentication 
 			CustomUserDetails customUserDetails = new CustomUserDetails(userUpdated);
 			
-			// 更新 authentication 為更改後的 user
+			// 新增 authentication 
 			Authentication authentication = 
 					new UsernamePasswordAuthenticationToken
 					(customUserDetails, customUserDetails.getPassword(), 
