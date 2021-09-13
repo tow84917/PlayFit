@@ -59,13 +59,14 @@ public class MemberPageController {
 	@RequestMapping("/MemberPage") // 須同時支援GET、POST(forward:/)
 	public String showMemberPage(Model model, RedirectAttributes ra, HttpServletRequest request) {
 		
-		// 確認帳號是否啟用
-		boolean isEnable = userService.isLoginUserEnable();
-		
-		// 未啟用轉認證畫面
-		if (!isEnable) {
-			return "redirect:/certificationEmail";
-		}
+		// 改由攔截器 檢查
+//		// 確認帳號是否啟用
+//		boolean isEnable = userService.isLoginUserEnable();
+//		
+//		// 未啟用轉認證畫面
+//		if (!isEnable) {
+//			return "redirect:/certificationEmail";
+//		}
 		
 		// 目前登入者 + Id
 		int userId = userService.getLoginUserId();
