@@ -63,7 +63,20 @@ public class AvatarServiceImpl implements AvatarService {
 	public Avatar saveAvatar(Avatar avatar) {
 		return avatarRepo.save(avatar);
 	}
-
+	
+	public AvatarBody getAvatarBody(String color,Integer typeId) {
+		return avatarBodyRepo.findByColorAndType(color, typeId);
+	}
+	
+	public AvatarHat getAvatarHat(BodyType type,String name) {
+		return avatarHatRepo.findByNameAndType(name,type.getId());
+	}
+	
+	public AvatarClothes getAvatarClothes(BodyType type,String name) {
+		return avatarClothesRepo.findByNameAndType(name,type.getId());
+	}
+	
+	
 	/**
 	 * 儲存 Avatar "圖片"
 	 */

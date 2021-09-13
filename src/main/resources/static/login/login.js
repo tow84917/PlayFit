@@ -209,12 +209,6 @@ nextStep.addEventListener('click',e =>{
     }
 
 
-
-
-
-
-
-    
     //計算BMI
     let currentWeightVal = currentWeight.value;
     let heightVal = height.value;
@@ -229,19 +223,19 @@ nextStep.addEventListener('click',e =>{
         clothes.innerHTML = ``;
         avatarSize = 'OBESE';  
         // console.log(avatarSize);
-    }else if(BMI<24.5 && BMI>=32.0){
+    }else if(BMI<32.0 && BMI>=24.5){
         body.innerHTML= OVERWEIGHT_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
         avatarSize = 'OVERWEIGHT';  
         // console.log(avatarSize);
-    }else if(BMI<18.5 && BMI>=24.5){
+    }else if(BMI<24.5 && BMI>=18.5){
         body.innerHTML= NORMAL_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
         avatarSize = 'NORMAL';  
         // console.log(avatarSize);
-    }else if(BMI<16.0 && BMI>=18.5){
+    }else if(BMI<18.5 && BMI>=16.0){
         body.innerHTML= SLIM_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
@@ -572,7 +566,7 @@ doneBtn.addEventListener('click', e => {
     
     let data = getPictureData();
     
-    fetch('/process_avatar1', {
+    fetch('/process_avatar', {
         method : 'POST',
         headers : {
             'Content-Type' : 'application/json',
@@ -582,7 +576,7 @@ doneBtn.addEventListener('click', e => {
         },
         credentials: "same-origin",
         // body: data,
-        body :json.stringify({
+        body :JSON.stringify({
             "avatarSize":avatarSize,
             "colorInfo":colorInfo,
             "hatInfo":hatInfo,
