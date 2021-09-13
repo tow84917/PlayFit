@@ -86,6 +86,14 @@ public class HomeController {
 		return mv;
 	}
 	
+	// 關於我們
+	@RequestMapping("/aboutUs")
+	public ModelAndView aboutUs() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/aboutUs/aboutUs");
+		return mv;
+	}
+	
 	// 計算機頁面
 	@RequestMapping("/calculator")
 	public ModelAndView calculator() {
@@ -263,6 +271,9 @@ public class HomeController {
 		// 體型、顏色、衣服、帽子
 		avatarService.saveAvatarPic(
 				bodyType, "lightpurple", "Camera", "Fishermenhat", "Avatar_999");
+
+		//		avatarService.saveAvatarPic(
+//				bodyType, "lightpurple", "Camera", null, "Avatar_999");
 		
 		return "OK" ;
 	}

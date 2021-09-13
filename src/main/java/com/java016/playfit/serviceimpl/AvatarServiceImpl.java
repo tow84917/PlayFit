@@ -129,97 +129,101 @@ public class AvatarServiceImpl implements AvatarService {
 			}
 			
 			//--------------------------------------------
-			// 帽子
-			AvatarHat avatarHat = 
-					avatarHatRepo.findByNameAndType(hatName, bodyType.getId());
-			
-			// 帽子 總標籤
-			String[] hatPath = avatarHat.getPathLabel().split("\n");
-			String [][] avatarHatLabel = new String[hatPath.length][2] ;
-						
-			for (int i = 0; i < hatPath.length; i++) {
-							
-				String st = hatPath[i].split("%")[0];
-				String d = hatPath[i].split("%")[1];
-							
-				avatarHatLabel[i][0] = st;
-				avatarHatLabel[i][1] = d;
-			}
-			
-//			System.out.println(Arrays.deepToString(avatarHatLabel));
-			
-			// 存帽子的標籤
-			Element hat = doc.getElementById("hat");
-						
-			// 創造標籤
-			for (int i = 0; i < avatarHatLabel.length; i++) {
-							
-				Element path = 
-						doc.createElementNS(SVGDOMImplementation.SVG_NAMESPACE_URI, "path");
-							
-				for (int j = 0; j < 2; j++) {
-					// 存class (st)
-					if (j == 0) {
-						// noClass 沒有st
-						if (!avatarHatLabel[i][j].equalsIgnoreCase("noClass")) {
-							path.setAttribute("class", avatarHatLabel[i][j]);
-						}
-					}
-					// 存 d ("M85.1,11.4c0,0-5.2-3.7-.........)
-					if (j == 1) {
-						path.setAttribute("d", avatarHatLabel[i][j]);						
-					}
+			if (hatName != null) {
+				// 帽子
+				AvatarHat avatarHat = 
+						avatarHatRepo.findByNameAndType(hatName, bodyType.getId());
+				
+				// 帽子 總標籤
+				String[] hatPath = avatarHat.getPathLabel().split("\n");
+				String [][] avatarHatLabel = new String[hatPath.length][2] ;
+				
+				for (int i = 0; i < hatPath.length; i++) {
+					
+					String st = hatPath[i].split("%")[0];
+					String d = hatPath[i].split("%")[1];
+					
+					avatarHatLabel[i][0] = st;
+					avatarHatLabel[i][1] = d;
 				}
 				
-				// 依序加入帽子標籤
-				hat.appendChild(path);
+//			System.out.println(Arrays.deepToString(avatarHatLabel));
+				
+				// 存帽子的標籤
+				Element hat = doc.getElementById("hat");
+				
+				// 創造標籤
+				for (int i = 0; i < avatarHatLabel.length; i++) {
+					
+					Element path = 
+							doc.createElementNS(SVGDOMImplementation.SVG_NAMESPACE_URI, "path");
+					
+					for (int j = 0; j < 2; j++) {
+						// 存class (st)
+						if (j == 0) {
+							// noClass 沒有st
+							if (!avatarHatLabel[i][j].equalsIgnoreCase("noClass")) {
+								path.setAttribute("class", avatarHatLabel[i][j]);
+							}
+						}
+						// 存 d ("M85.1,11.4c0,0-5.2-3.7-.........)
+						if (j == 1) {
+							path.setAttribute("d", avatarHatLabel[i][j]);						
+						}
+					}
+					
+					// 依序加入帽子標籤
+					hat.appendChild(path);
+				}
 			}
 			
 			//--------------------------------------------
-			// 衣服配件
-			AvatarClothes avatarClothes = 
-					avatarClothesRepo.findByNameAndType(clothesName, bodyType.getId());
-			
-			// 衣服配件 總標籤
-			String[] clothesPath = avatarClothes.getPathLabel().split("\n");
-			String [][] avatarClothesLabel = new String[clothesPath.length][2] ;
-									
-			for (int i = 0; i < clothesPath.length; i++) {
-										
-				String st = clothesPath[i].split("%")[0];
-				String d = clothesPath[i].split("%")[1];
-										
-				avatarClothesLabel[i][0] = st;
-				avatarClothesLabel[i][1] = d;
-			}
-						
+			if (clothesName != null) {
+				// 衣服配件
+				AvatarClothes avatarClothes = 
+						avatarClothesRepo.findByNameAndType(clothesName, bodyType.getId());
+				
+				// 衣服配件 總標籤
+				String[] clothesPath = avatarClothes.getPathLabel().split("\n");
+				String [][] avatarClothesLabel = new String[clothesPath.length][2] ;
+				
+				for (int i = 0; i < clothesPath.length; i++) {
+					
+					String st = clothesPath[i].split("%")[0];
+					String d = clothesPath[i].split("%")[1];
+					
+					avatarClothesLabel[i][0] = st;
+					avatarClothesLabel[i][1] = d;
+				}
+				
 //			System.out.println(Arrays.deepToString(avatarClothesLabel));
-						
-			// 存衣服配件的標籤
-			Element body = doc.getElementById("body");
-									
-			// 創造標籤
-			for (int i = 0; i < avatarClothesLabel.length; i++) {
-										
-				Element path = 
-						doc.createElementNS(SVGDOMImplementation.SVG_NAMESPACE_URI, "path");
-										
-				for (int j = 0; j < 2; j++) {
-					// 存class (st)
-					if (j == 0) {
-						// noClass 沒有st
-						if (!avatarClothesLabel[i][j].equalsIgnoreCase("noClass")) {
-							path.setAttribute("class", avatarClothesLabel[i][j]);
+				
+				// 存衣服配件的標籤
+				Element body = doc.getElementById("body");
+				
+				// 創造標籤
+				for (int i = 0; i < avatarClothesLabel.length; i++) {
+					
+					Element path = 
+							doc.createElementNS(SVGDOMImplementation.SVG_NAMESPACE_URI, "path");
+					
+					for (int j = 0; j < 2; j++) {
+						// 存class (st)
+						if (j == 0) {
+							// noClass 沒有st
+							if (!avatarClothesLabel[i][j].equalsIgnoreCase("noClass")) {
+								path.setAttribute("class", avatarClothesLabel[i][j]);
+							}
+						}
+						// 存 d ("M85.1,11.4c0,0-5.2-3.7-.........)
+						if (j == 1) {
+							path.setAttribute("d", avatarClothesLabel[i][j]);						
 						}
 					}
-					// 存 d ("M85.1,11.4c0,0-5.2-3.7-.........)
-					if (j == 1) {
-						path.setAttribute("d", avatarClothesLabel[i][j]);						
-					}
+					
+					// 依序加入衣服配件標籤
+					body.appendChild(path);
 				}
-							
-				// 依序加入衣服配件標籤
-				body.appendChild(path);
 			}
 			
 			// 存取路徑

@@ -63,7 +63,7 @@
                             <p th:text ="${user.email}"/>
                         </div>
                         <!-- 日記連結 -->
-                        <a href="" class="dailypic">
+                        <a th:href="@{/diary_homepage/1}" class="dailypic">
                             <img th:src="@{/memberPage/img/PngItem_1145674.png}" width="42px" height="40px" alt="smallDaily_pic">
                         </a>
                     </div>
@@ -229,15 +229,19 @@
 										<!--                             		done -->
 										<div class="activity" th:if="${task.value =='done'}"
 											th:style="'background-color:'+ ${color1}">
-											<img id="cmopletedPic" th:src="@{/images/finishl.svg}" alt="cmopleted_Pic">
-											<img id="activityPic" th:src="@{${task.key.imagePath}}" alt="activity_Pic">
-											<p id="activityName" th:text="${task.key.name}"></p>
+											<a th:href="@{'/fit-activity/'+ ${task.key.id} + '/' + ${task.key.name}}">
+												<img id="cmopletedPic" th:src="@{/images/finishl.svg}" alt="cmopleted_Pic">
+												<img id="activityPic" th:src="@{${task.key.imagePath}}" alt="activity_Pic">
+												<p id="activityName" th:text="${task.key.name}"></p>
+											</a>
 										</div>
 										<!-- 	                                undone -->
 										<div class="activity" th:if="${task.value =='undone'}"
 											th:style="'background-color:'+ ${color2}">
-											<img id="activityPic" th:src="@{${task.key.imagePath}}" alt="activity_Pic">
-											<p id="activityName" th:text="${task.key.name}"></p>
+											<a th:href="@{'/fit-activity/'+ ${task.key.id} + '/' + ${task.key.name}}">
+												<img id="activityPic" th:src="@{${task.key.imagePath}}" alt="activity_Pic">
+												<p id="activityName" th:text="${task.key.name}"></p>
+											</a>
 										</div>
 									</div>
 								</div>
