@@ -131,6 +131,8 @@ h3{
     color: #18191F;
 }
 
+
+
 input {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -144,8 +146,7 @@ input {
     border-top: none;
     border-left: none;
     border-right: none;
-    padding: 0px;  
-
+    padding: 0px; 
 }
 
 input::placeholder{
@@ -156,8 +157,10 @@ input::placeholder{
 }
 
 
+
 input:focus{
     outline: none;
+    background-color: #EBEEF8;
 }
 
 form h3{

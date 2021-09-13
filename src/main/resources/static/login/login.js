@@ -19,14 +19,57 @@ function doFirst(){
     swiftButton.addEventListener('click',move);
 
 
+    //step1欄位
+    let email = document.getElementById('email');
+    let fullName = document.getElementById('fullName');
+    let password = document.getElementById('password');
+
+    //step2欄位
+    let currentWeight = document.getElementById('currentWeight');
+    let targetWeight = document.getElementById('targetWeight');
+    let height = document.getElementById('height');
+    let birthday = document.getElementById('birthday');
+    let activityLevel = document.getElementById('activityLevel');
+
+
     
     let signUpSubmit = document.getElementById('signUpSubmit');
     let step2Modal = document.getElementById("step2Modal");
     let step2 = document.getElementById('step2');
     
+    // if(email.value != ``){
+    //     email.style.background = '#EBEEF8';
+    // }
+    // if(fullName.value != ``){
+    //     fullName.style.background = '#EBEEF8';
+    // }
+    // if(password.value != ``){
+    //     password.style.background = '#EBEEF8';
+    // }
+
     signUpSubmit.addEventListener('click',e =>{
-        step2Modal.style.display = "block";
-        step2.style.display = 'inline';
+        let valid = true;
+
+        // 判斷step1必填是否為空值
+        if(email.value == `` ){
+            email.style.background = '#ffdddd';
+            valid = false;
+        }
+        if(fullName.value == `` ){
+            fullName.style.background = '#ffdddd';
+            valid = false;
+        }
+        if(password.value == `` ){
+            password.style.background = '#ffdddd';
+            valid = false;
+        }
+        
+        if(valid){
+            step2Modal.style.display = "block";
+            step2.style.display = 'inline';
+        }
+
+        
     })
 
     // Get the <span> element that closes the modal
@@ -44,7 +87,6 @@ clothes = document.getElementById('clothes');
 body = document.getElementById('body');
 hat = document.getElementById('hat');
 
-
 //step3元素
 let avatarSize;
 let step3Modal = document.getElementById('step3Modal');
@@ -52,44 +94,91 @@ let step3 = document.getElementById('step3');
 let nextStep = document.getElementById('nextStep');
 
 
+
 nextStep.addEventListener('click',e =>{
-    step3Modal.style.display = "block";
-    step3.style.display="inline";
-    step2Modal.style.display = "none";
+
+    //判斷step2是否有空值
+//     let gender =document.signUp.gender;
+// 　　 let flag=false;       
+// 　　 for(var i=0;i<gender.length;i++){               
+// 　　　　if(gender[i].checked){
+//             flag=true;
+//             break;
+//         }         
+// 　　 }        
+// 　　 if(!flag) {
+//             document.getElementById('male').style.background = '#ffbfc2';
+//             document.getElementById('female').style.background = '#ffbfc2';
+//             return false;
+//     }
+
+    if(currentWeight.value == `` ){
+        currentWeight.style.background = '#ffdddd';
+        valid = false;
+    }
+    if(targetWeight.value == `` ){
+        targetWeight.style.background = '#ffdddd';
+        valid = false;
+    }
+    if(height.value == `` ){
+        height.style.background = '#ffdddd';
+        valid = false;
+    }
+    if(birthday.value == `` ){
+        birthday.style.background = '#ffdddd';
+        valid = false;
+    }
+    if(activityLevel.value == `` ){
+        activityLevel.style.background = '#ffdddd';
+        valid = false;
+    }
+
+    if(valid){
+        step3Modal.style.display = "block";
+        step3.style.display="inline";
+        step2Modal.style.display = "none";
+    }
+
+
+
+
+
+
+    
     //計算BMI
-    let currentWeight = document.getElementById('currentWeight').value;
-    let height = document.getElementById('height').value;
-    console.log(currentWeight);
-    console.log(height);
-    let BMI = currentWeight/((height/100)*(height/100));
+    let currentWeightVal = currentWeight.value;
+    let heightVal = height.value;
+    console.log(currentWeightVal);
+    console.log(heightVal);
+    let BMI = currentWeightVal/((heightVal/100)*(heightVal/100));
     console.log(BMI);
     //角色初始預覽畫面
     if(BMI>=30.0){
-        body.innerHTML= ``;      
+        body.innerHTML= OBESE_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
         avatarSize = 5;  
         // console.log(avatarSize);
     }else if(BMI<30.0 && BMI>=27.0){
-        body.innerHTML= ``;      
+        body.innerHTML= OVERWEIGHT_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
         avatarSize = 4;  
         // console.log(avatarSize);
     }else if(BMI<27.0 && BMI>=24.0){
-        body.innerHTML= ``;      
+        body.innerHTML= NORMAL_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
         avatarSize = 3;  
         // console.log(avatarSize);
     }else if(BMI<24.0 && BMI>=18.5){
-        body.innerHTML= ``;      
+        body.innerHTML= SLIM_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
         avatarSize = 2;  
         // console.log(avatarSize);
     }else if(BMI<18.5){
-        body.innerHTML= ``;      
+        body.innerHTML= SKINNY_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
         avatarSize = 1;  
@@ -391,6 +480,11 @@ doneBtn.addEventListener('click', e => {
     	console.log(data);
     })
 });
+}
+
+
+function valid(){
+    
 }
 
 

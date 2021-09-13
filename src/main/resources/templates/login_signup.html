@@ -38,10 +38,10 @@
                         <h3>SIGN UP</h3>
                         <!-- 註冊step1 -->
                         <div class="input"> 
-                            <input type="email" name="email" th:value="${user.email}" placeholder="Email*">
-                            <input type="text" name="fullName" th:value="${user.fullName}" placeholder="Full Name*">
+                            <input type="email" name="email" id="email" th:value="${user.email}" placeholder="Email*">
+                            <input type="text" name="fullName" id="fullName" th:value="${user.fullName}" placeholder="Full Name*">
                             <input type="text" name="nickName" th:value="${user.nickName}" placeholder="Nickname">
-                            <input type="password" name="password"  th:value="${user.password}" placeholder="Password*">
+                            <input type="password" name="password"  id="password" th:value="${user.password}" placeholder="Password*">
                             <!-- <input type="password" name="confirmPassword"  th:field="*{password}" placeholder="Confirm Password*"> -->
                         </div>
                         <div class="button">
@@ -54,8 +54,9 @@
                         <div id="step2">
                             <span class="close">&times;</span>
                             <p>Your Basic Info</p>
+
                             <input type="radio" id="male"
-                            name="gender" value="Male">
+                            name="gender" value="Male" checked>
                             <label for="male">Male</label>
                            
                            <input type="radio" id="female"
@@ -86,8 +87,8 @@
                             <br>
 
                             <!-- <span>Activity Level</span> -->
-					        <select name="exerciseFrequency" th:value="${healthRecord.exerciseFrequency}">
-                                <option>Activity Level</option>
+					        <select name="exerciseFrequency" th:value="${healthRecord.exerciseFrequency}" id="activityLevel">
+                                <option value="">Activity Level</option>
                                 <option value="Sedentary">Sedentary(office job)</option>
 					    	    <option value="LightExercise">Light Exercise</option>
 					    	    <option value="ModerateExercise">Moderate Exercise</option>
