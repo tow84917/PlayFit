@@ -48,6 +48,7 @@ function doFirst(){
     // }
 
     // When the user starts to type something inside the password field
+    emailValidate = false;
     email.onkeyup = function() {
         emailValidate = false;
         email.style.background = '#EBEEF8';
@@ -70,10 +71,9 @@ function doFirst(){
 
 
     signUpSubmit.addEventListener('click',e =>{
-        // 判斷step1必填是否為空值
-        if(email.value == `` ){
+        // 判斷step1必填是否合法
+        if(!emailValidate){
             email.style.background = '#ffdddd';
-            emailValidate = false;
         }
         if(fullName.value == `` ){
             fullName.style.background = '#ffdddd';
@@ -88,7 +88,7 @@ function doFirst(){
             step2Modal.style.display = "block";
             step2.style.display = 'inline';
         }
-    })
+    });
 
     // Get the <span> element that closes the modal
     let step2Span = document.getElementsByClassName("close")[0];
@@ -96,6 +96,11 @@ function doFirst(){
     // When the user clicks on <span> (x), close the modal
     step2Span.onclick = function() {
     step2Modal.style.display = "none";
+    currentWeight.style.background = '#EBEEF8';
+    targetWeight.style.background = '#EBEEF8';
+    height.style.background = '#EBEEF8';
+    birthday.style.background = '#EBEEF8';
+    activityLevel.style.background = '#EBEEF8';
     }
 
 
@@ -112,50 +117,92 @@ let step3 = document.getElementById('step3');
 let nextStep = document.getElementById('nextStep');
 
 
+// When the user starts to type something inside the password field
+    currentWeightValidate = false;
+    currentWeight.onkeyup = function() {
+        currentWeightValidate = false;
+        currentWeight.style.color = 'black';
+        currentWeight.style.background = '#EBEEF8';    
+        if(currentWeight.value>=35 && currentWeight.value<=300){
+            currentWeight.style.color = '#2E1ED3';
+            currentWeightValidate = true;
+        }
+    }
+
+    targetWeightValidate = false;
+    targetWeight.onkeyup = function() {
+        targetWeightValidate = false;
+        targetWeight.style.color = 'black';
+        targetWeight.style.background = '#EBEEF8';    
+        if(targetWeight.value>=35 && targetWeight.value<=300){
+            targetWeight.style.color = '#2E1ED3';
+            targetWeightValidate = true;
+        }
+    }
+
+
+    heightValidate = false;
+    height.onkeyup = function() {
+        heightValidate = false;
+        height.style.color = 'black';
+        height.style.background = '#EBEEF8';    
+        if(height.value>=50 && height.value<=300){
+            height.style.color = '#2E1ED3';
+            heightValidate = true;
+        }
+    }
+
+    birthdayValidate = false;
+    birthday.onkeyup = function() {
+        birthdayValidate = false;
+        birthday.style.color = 'black';
+        birthday.style.background = '#EBEEF8';  
+        let dateReg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;  
+        if(birthday.value.match(dateReg)){
+            birthday.style.color = '#2E1ED3';
+            birthdayValidate = true;
+        }
+    }
+
+    let activityLevelValidate = false;
+    activityLevel.onblur = function() {
+        activityLevel.style.background = '#EBEEF8';    
+        if(activityLevel.value != ``){
+            activityLevelValidate = true;
+            activityLevel.style.color = '#2E1ED3';
+        }else{
+            activityLevelValidate = false;
+            activityLevel.style.color = 'black';
+        }
+    }
+
+
 
 nextStep.addEventListener('click',e =>{
 
-    //判斷step2是否有空值
-//     let gender =document.signUp.gender;
-// 　　 let flag=false;       
-// 　　 for(var i=0;i<gender.length;i++){               
-// 　　　　if(gender[i].checked){
-//             flag=true;
-//             break;
-//         }         
-// 　　 }        
-// 　　 if(!flag) {
-//             document.getElementById('male').style.background = '#ffbfc2';
-//             document.getElementById('female').style.background = '#ffbfc2';
-//             return false;
-//     }
-
-    if(currentWeight.value == `` ){
+    //判斷step2是否合法
+    if(!currentWeightValidate ){
         currentWeight.style.background = '#ffdddd';
-        valid = false;
     }
-    if(targetWeight.value == `` ){
+    if(!targetWeightValidate ){
         targetWeight.style.background = '#ffdddd';
-        valid = false;
     }
-    if(height.value == `` ){
+    if(!heightValidate ){
         height.style.background = '#ffdddd';
-        valid = false;
     }
-    if(birthday.value == `` ){
+    if(!birthdayValidate ){
         birthday.style.background = '#ffdddd';
-        valid = false;
     }
-    if(activityLevel.value == `` ){
+    if(!activityLevelValidate ){
         activityLevel.style.background = '#ffdddd';
-        valid = false;
     }
 
-    if(valid){
+    if(currentWeightValidate & targetWeightValidate & heightValidate & birthdayValidate &activityLevelValidate){
         step3Modal.style.display = "block";
         step3.style.display="inline";
         step2Modal.style.display = "none";
     }
+
 
 
 
@@ -171,31 +218,31 @@ nextStep.addEventListener('click',e =>{
     let BMI = currentWeightVal/((heightVal/100)*(heightVal/100));
     console.log(BMI);
     //角色初始預覽畫面
-    if(BMI>=30.0){
+    if(BMI>=32.0){
         body.innerHTML= OBESE_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
         avatarSize = 5;  
         // console.log(avatarSize);
-    }else if(BMI<30.0 && BMI>=27.0){
+    }else if(BMI<24.5 && BMI>=32.0){
         body.innerHTML= OVERWEIGHT_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
         avatarSize = 4;  
         // console.log(avatarSize);
-    }else if(BMI<27.0 && BMI>=24.0){
+    }else if(BMI<18.5 && BMI>=24.5){
         body.innerHTML= NORMAL_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
         avatarSize = 3;  
         // console.log(avatarSize);
-    }else if(BMI<24.0 && BMI>=18.5){
+    }else if(BMI<16.0 && BMI>=18.5){
         body.innerHTML= SLIM_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
         avatarSize = 2;  
         // console.log(avatarSize);
-    }else if(BMI<18.5){
+    }else if(BMI<16.0){
         body.innerHTML= SKINNY_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
