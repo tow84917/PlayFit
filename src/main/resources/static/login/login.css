@@ -160,7 +160,7 @@ input::placeholder{
 
 input:focus{
     outline: none;
-    background-color: #EBEEF8;
+    /* background-color: #EBEEF8; */
 }
 
 form h3{

@@ -47,29 +47,47 @@ function doFirst(){
     //     password.style.background = '#EBEEF8';
     // }
 
-    signUpSubmit.addEventListener('click',e =>{
-        let valid = true;
+    // When the user starts to type something inside the password field
+    email.onkeyup = function() {
+        emailValidate = false;
+        email.style.background = '#EBEEF8';
+        email.style.color = 'black';
+        //Regular expression Testing
+        let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+        if(email.value.match(emailRule)){
+            email.style.color = '#2E1ED3';
+            emailValidate = true;
+        }
+    }
+    fullName.onkeyup = function() {
+        fullName.style.background = '#EBEEF8';
+        fullNameValidate = true;
+    }
+    password.onkeyup = function() {
+        password.style.background = '#EBEEF8';
+        passwordValidate = true;
+    }
 
+
+    signUpSubmit.addEventListener('click',e =>{
         // 判斷step1必填是否為空值
         if(email.value == `` ){
             email.style.background = '#ffdddd';
-            valid = false;
+            emailValidate = false;
         }
         if(fullName.value == `` ){
             fullName.style.background = '#ffdddd';
-            valid = false;
+            fullNameValidate = false;
         }
         if(password.value == `` ){
             password.style.background = '#ffdddd';
-            valid = false;
+            passwordValidate = false;
         }
         
-        if(valid){
+        if(emailValidate & fullNameValidate & passwordValidate){
             step2Modal.style.display = "block";
             step2.style.display = 'inline';
         }
-
-        
     })
 
     // Get the <span> element that closes the modal
