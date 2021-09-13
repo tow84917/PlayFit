@@ -1,10 +1,6 @@
 package com.java016.playfit.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +19,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java016.playfit.model.Avatar;
+import com.java016.playfit.model.AvatarBody;
+import com.java016.playfit.model.AvatarClothes;
+import com.java016.playfit.model.AvatarHat;
 import com.java016.playfit.model.BodyType;
 import com.java016.playfit.model.HealthRecord;
 import com.java016.playfit.model.PersonalGoal;
@@ -122,66 +121,119 @@ public class HomeController {
 	}
 	
 	
-	@PostMapping(value= "/process_avatar1")
+	@PostMapping(value= "/process_avatar")
 	@ResponseBody
-	public String processAvatar1(@RequestBody Map<String, String> avatarInfo) 
+	public String processAvatar(@RequestBody Map<String, String> avatarInfo,  HttpServletRequest request) 
 			throws IOException {
-//		avatarInfo.get("avatarSize");
-		System.out.println(avatarInfo.get("avatarSize"));
+		
+		// 確認新 user 已存存
+				boolean isTempNewMember= false ;
+				
+				// 等待 /process_register 處理完畢
+				while (!isTempNewMember) {
+					if (request.getSession().getAttribute("newMember") != null) {
+						isTempNewMember = true ;
+					}
+				}
+				
+				// 新會員已儲存
+				User newMember = userService.findByEmail(
+						((User)request.getSession().getAttribute("newMember")).getEmail());
+				
+				String avatarSize = avatarInfo.get("avatarSize");
+				String colorInfo = avatarInfo.get("colorInfo");
+				String hatInfo = avatarInfo.get("hatInfo");
+				String clothesInfo = avatarInfo.get("clothesInfo");
+				
+				// 命名 & 路徑(系統檔案內 refresh)
+				String avatarFileName ="Avatar_" + newMember.getId();
+//				String path = "src/main/resources/static/images/Avatar/"; 
+				
+				
+				// 找體型
+				BodyType bodyType = bodyTypeService.findByName(avatarSize);
+				
+				// 體型、顏色、衣服、帽子
+				avatarService.saveAvatarPic(
+						bodyType, colorInfo, clothesInfo, hatInfo, avatarFileName);
+				
+				AvatarBody avatarBody = avatarService.getAvatarBody(colorInfo, bodyType.getId());
+				AvatarClothes avatarClothes = avatarService.getAvatarClothes(bodyType, clothesInfo);
+				AvatarHat avatarHat = avatarService.getAvatarHat(bodyType, hatInfo);
+				// 新Avatar
+				Avatar avatar = new Avatar();
+				avatar.setImagePath("./images/Avatar/" + avatarFileName + ".svg");
+				
+				avatar.setAvatarBody(avatarBody);
+				avatar.setAvatarClothes(avatarClothes);
+				avatar.setAvatarHat(avatarHat);
+				
+
+				// 儲存 Avatar
+				avatar.setName(newMember.getFullName());
+				avatarService.saveAvatar(avatar);
+				
+				// 把 Avatar 給 newMember
+				newMember.setAvatar(avatar);
+				// 更新User Avatar
+				userService.saveUser(newMember);
+				
+				
+//		System.out.println(avatarInfo.get("avatarSize"));
 		return "OK";
 	}
 	
 	
 	// 處理虛擬角色
-	@PostMapping(value= "/process_avatar")
-	@ResponseBody
-	public String processAvatar(final HttpServletRequest request) 
-			throws IOException {
-		
-		// 確認新 user 已存存
-		boolean isTempNewMember= false ;
-		
-		// 等待 /process_register 處理完畢
-		while (!isTempNewMember) {
-			if (request.getSession().getAttribute("newMember") != null) {
-				isTempNewMember = true ;
-			}
-		}
-		
-		// 新會員已儲存
-		User newMember = userService.findByEmail(
-				((User)request.getSession().getAttribute("newMember")).getEmail());
-		
-		// 命名 & 路徑(系統檔案內 refresh)
-		String avatarFileName ="Avatar_" + newMember.getId()+ ".svg";
-		String path = "src/main/resources/static/images/Avatar/"; 
-		
-		// 輸出到系統內 Avatar Folder
-		InputStream is = request.getInputStream();
-		OutputStream os = 
-				new FileOutputStream(new File(path + avatarFileName));
-		
-		byte[] b = new byte[8192];
-		int len=0;
-		while((len= is.read(b))!= -1) {
-			os.write(b,0,len);
-		}
-		
-		// 新Avatar
-		Avatar avatar = new Avatar();
-		avatar.setImagePath("./images/Avatar/" + avatarFileName);
-		
-		// 儲存 Avatar
-		avatar.setName(newMember.getFullName());
-		avatarService.saveAvatar(avatar);
-		
-		// 把 Avatar 給 newMember
-		newMember.setAvatar(avatar);
-		// 更新User Avatar
-		userService.saveUser(newMember);
-		
-		return "OK";
-	}
+//	@PostMapping(value= "/process_avatar")
+//	@ResponseBody
+//	public String processAvatar(final HttpServletRequest request) 
+//			throws IOException {
+//		
+//		// 確認新 user 已存存
+//		boolean isTempNewMember= false ;
+//		
+//		// 等待 /process_register 處理完畢
+//		while (!isTempNewMember) {
+//			if (request.getSession().getAttribute("newMember") != null) {
+//				isTempNewMember = true ;
+//			}
+//		}
+//		
+//		// 新會員已儲存
+//		User newMember = userService.findByEmail(
+//				((User)request.getSession().getAttribute("newMember")).getEmail());
+//		
+//		// 命名 & 路徑(系統檔案內 refresh)
+//		String avatarFileName ="Avatar_" + newMember.getId()+ ".svg";
+//		String path = "src/main/resources/static/images/Avatar/"; 
+//		
+//		// 輸出到系統內 Avatar Folder
+//		InputStream is = request.getInputStream();
+//		OutputStream os = 
+//				new FileOutputStream(new File(path + avatarFileName));
+//		
+//		byte[] b = new byte[8192];
+//		int len=0;
+//		while((len= is.read(b))!= -1) {
+//			os.write(b,0,len);
+//		}
+//		
+//		// 新Avatar
+//		Avatar avatar = new Avatar();
+//		avatar.setImagePath("./images/Avatar/" + avatarFileName);
+//		
+//		// 儲存 Avatar
+//		avatar.setName(newMember.getFullName());
+//		avatarService.saveAvatar(avatar);
+//		
+//		// 把 Avatar 給 newMember
+//		newMember.setAvatar(avatar);
+//		// 更新User Avatar
+//		userService.saveUser(newMember);
+//		
+//		return "OK";
+//	}
 			
 	@PostMapping("/process_register")
 	public ModelAndView processRegister(User user, 
