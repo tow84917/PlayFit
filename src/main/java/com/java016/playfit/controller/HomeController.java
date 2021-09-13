@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -110,6 +112,17 @@ public class HomeController {
 //		System.out.println("----------------");
 		return mv;
 	}
+	
+	
+	@PostMapping(value= "/process_avatar1")
+	@ResponseBody
+	public String processAvatar1(@RequestBody Map<String, String> avatarInfo) 
+			throws IOException {
+//		avatarInfo.get("avatarSize");
+		System.out.println(avatarInfo.get("avatarSize"));
+		return "OK";
+	}
+	
 	
 	// 處理虛擬角色
 	@PostMapping(value= "/process_avatar")

@@ -36,16 +36,6 @@ function doFirst(){
     let signUpSubmit = document.getElementById('signUpSubmit');
     let step2Modal = document.getElementById("step2Modal");
     let step2 = document.getElementById('step2');
-    
-    // if(email.value != ``){
-    //     email.style.background = '#EBEEF8';
-    // }
-    // if(fullName.value != ``){
-    //     fullName.style.background = '#EBEEF8';
-    // }
-    // if(password.value != ``){
-    //     password.style.background = '#EBEEF8';
-    // }
 
     // When the user starts to type something inside the password field
     emailValidate = false;
@@ -101,6 +91,21 @@ function doFirst(){
     height.style.background = '#EBEEF8';
     birthday.style.background = '#EBEEF8';
     activityLevel.style.background = '#EBEEF8';
+    }
+
+    // Get the <span> element that closes the modal
+    let step3Span = document.getElementsByClassName("close")[1];
+
+    // When the user clicks on <span> (x), close the modal
+    step3Span.onclick = function() {
+    step3Modal.style.display = "none";
+    colorInfo = 'pink';
+    hatInfo = null;
+    clothesInfo = null;
+    let cube = document.getElementsByClassName('segmented-control__color');
+    for(let i = 0; i < cube.length; i++){
+        cube[i].style.transform= 'translateX(0)';
+        }
     }
 
 
@@ -222,31 +227,31 @@ nextStep.addEventListener('click',e =>{
         body.innerHTML= OBESE_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
-        avatarSize = 5;  
+        avatarSize = 'OBESE';  
         // console.log(avatarSize);
     }else if(BMI<24.5 && BMI>=32.0){
         body.innerHTML= OVERWEIGHT_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
-        avatarSize = 4;  
+        avatarSize = 'OVERWEIGHT';  
         // console.log(avatarSize);
     }else if(BMI<18.5 && BMI>=24.5){
         body.innerHTML= NORMAL_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
-        avatarSize = 3;  
+        avatarSize = 'NORMAL';  
         // console.log(avatarSize);
     }else if(BMI<16.0 && BMI>=18.5){
         body.innerHTML= SLIM_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
-        avatarSize = 2;  
+        avatarSize = 'SLIM';  
         // console.log(avatarSize);
     }else if(BMI<16.0){
         body.innerHTML= SKINNY_pink;      
         hat.innerHTML = ``;
         clothes.innerHTML = ``;
-        avatarSize = 1;  
+        avatarSize = 'SKINNY';  
         // console.log(avatarSize);
     }
 
@@ -279,232 +284,273 @@ chooseClothes_greentie = document.getElementById("tab3-6");
 avatarPic = document.getElementById('avatarPic');
 
 //判斷換顏色-------------------------------------
+
+let colorInfo = `pink`;
 chooseColor_pink.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         body.innerHTML = OBESE_pink;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         body.innerHTML = OVERWEIGHT_pink;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         body.innerHTML = NORMAL_pink;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         body.innerHTML = SLIM_pink;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         body.innerHTML = SKINNY_pink;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    colorInfo = `pink`;
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 
 chooseColor_red.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         body.innerHTML = OBESE_red;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         body.innerHTML = OVERWEIGHT_red;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         body.innerHTML = NORMAL_red;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         body.innerHTML = SLIM_red;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         body.innerHTML = SKINNY_red;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    colorInfo = 'red';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 
 chooseColor_blue.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         body.innerHTML = OBESE_blue;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         body.innerHTML = OVERWEIGHT_blue;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         body.innerHTML = NORMAL_blue;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         body.innerHTML = SLIM_blue;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         body.innerHTML = SKINNY_blue;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    colorInfo = 'blue';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 
 chooseColor_purple.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         body.innerHTML = OBESE_purple;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         body.innerHTML = OVERWEIGHT_purple;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         body.innerHTML = NORMAL_purple;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         body.innerHTML = SLIM_purple;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         body.innerHTML = SKINNY_purple;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    colorInfo = 'purple';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 
 chooseColor_lightpurple.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         body.innerHTML = OBESE_lightpurple;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         body.innerHTML = OVERWEIGHT_lightpurple;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         body.innerHTML = NORMAL_lightpurple;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         body.innerHTML = SLIM_lightpurple;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         body.innerHTML = SKINNY_lightpurple;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    colorInfo = 'lightpurple';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 
 
 //判斷換帽子-------------------------------------
+
+let hatInfo = null;
 chooseHat_blank.addEventListener('click',e => {  
     hat.innerHTML=``;
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    hatInfo = null;
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 chooseHat_berets.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         hat.innerHTML = OBESE_berets;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         hat.innerHTML = OVERWEIGHT_berets;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         hat.innerHTML = NORMAL_berets;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         hat.innerHTML = SLIM_berets;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         hat.innerHTML = SKINNY_berets;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    hatInfo = 'Berets';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 chooseHat_orangehat.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         hat.innerHTML = OBESE_orangehat;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         hat.innerHTML = OVERWEIGHT_orangehat;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         hat.innerHTML = NORMAL_orangehat;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         hat.innerHTML = SLIM_orangehat;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         hat.innerHTML = SKINNY_orangehat;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    hatInfo = 'Orangehat';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 chooseHat_fishermenhat.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         hat.innerHTML = OBESE_fishermenhat;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         hat.innerHTML = OVERWEIGHT_fishermenhat;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         hat.innerHTML = NORMAL_fishermenhat;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         hat.innerHTML = SLIM_fishermenhat;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         hat.innerHTML = SKINNY_fishermenhat;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    hatInfo = 'Fishermenhat';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 chooseHat_gentlemenhat.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         hat.innerHTML = OBESE_gentlemenhat;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         hat.innerHTML = OVERWEIGHT_gentlemenhat;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         hat.innerHTML = NORMAL_gentlemenhat;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         hat.innerHTML = SLIM_gentlemenhat;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         hat.innerHTML = SKINNY_gentlemenhat;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    hatInfo = 'gentlemenhat';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 chooseHat_greenhat.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         hat.innerHTML = OBESE_greenhat;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         hat.innerHTML = OVERWEIGHT_greenhat;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         hat.innerHTML = NORMAL_greenhat;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         hat.innerHTML = SLIM_greenhat;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         hat.innerHTML = SKINNY_greenhat;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    hatInfo = 'GreeHat';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 
 //判斷換衣服-------------------------------------
+
+let clothesInfo = null;
 chooseClothes_blank.addEventListener('click',e => {  
     clothes.innerHTML=``;
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    clothesInfo = null;
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 chooseClothes_scarf.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         clothes.innerHTML = OBESE_scarf;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         clothes.innerHTML = OVERWEIGHT_scarf;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         clothes.innerHTML = NORMAL_scarf;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         clothes.innerHTML = SLIM_scarf;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         clothes.innerHTML = SKINNY_scarf;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    clothesInfo = 'Scarf';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 chooseClothes_camera.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         clothes.innerHTML = OBESE_camera;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         clothes.innerHTML = OVERWEIGHT_camera;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         clothes.innerHTML = NORMAL_camera;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         clothes.innerHTML = SLIM_camera;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         clothes.innerHTML = SKINNY_camera;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    clothesInfo = 'Camera';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 chooseClothes_bowknot.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         clothes.innerHTML = OBESE_bowknot;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         clothes.innerHTML = OVERWEIGHT_bowknot;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         clothes.innerHTML = NORMAL_bowknot;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         clothes.innerHTML = SLIM_bowknot;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         clothes.innerHTML = SKINNY_bowknot;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    clothesInfo = 'Bowknot';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 chooseClothes_bowtie.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         clothes.innerHTML = OBESE_bowtie;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         clothes.innerHTML = OVERWEIGHT_bowtie;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         clothes.innerHTML = NORMAL_bowtie;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         clothes.innerHTML = SLIM_bowtie;
     }else if(avatarSize == 1){
         clothes.innerHTML = SKINNY_bowtie;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    clothesInfo = 'Bowtie';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
 });
 chooseClothes_greentie.addEventListener('click',e => {  
-    if(avatarSize == 5){
+    if(avatarSize == 'OBESE'){
         clothes.innerHTML = OBESE_greentie;
-    }else if(avatarSize == 4){
+    }else if(avatarSize == 'OVERWEIGHT'){
         clothes.innerHTML = OVERWEIGHT_greentie;
-    }else if(avatarSize == 3){
+    }else if(avatarSize == 'NORMAL'){
         clothes.innerHTML = NORMAL_greentie;
-    }else if(avatarSize == 2){
+    }else if(avatarSize == 'SLIM'){
         clothes.innerHTML = SLIM_greentie;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         clothes.innerHTML = SKINNY_greentie;
     }
-    console.log(avatarPic.innerHTML);
+    // console.log(avatarPic.innerHTML);
+    clothesInfo = 'GreenTie';
+    console.log(avatarSize,hatInfo,clothesInfo,colorInfo);
+    
 });
 
 
@@ -526,7 +572,7 @@ doneBtn.addEventListener('click', e => {
     
     let data = getPictureData();
     
-    fetch('/process_avatar', {
+    fetch('/process_avatar1', {
         method : 'POST',
         headers : {
             'Content-Type' : 'application/json',
@@ -535,7 +581,12 @@ doneBtn.addEventListener('click', e => {
         	"X-CSRF-Token": token
         },
         credentials: "same-origin",
-        body :data,
+        // body: data,
+        body :json.stringify({
+            "avatarSize":avatarSize,
+            "colorInfo":colorInfo,
+            "hatInfo":hatInfo,
+            "clothesInfo":clothesInfo})
     })
     .then(response => {
        console.log(response); 
@@ -545,11 +596,6 @@ doneBtn.addEventListener('click', e => {
     	console.log(data);
     })
 });
-}
-
-
-function valid(){
-    
 }
 
 
