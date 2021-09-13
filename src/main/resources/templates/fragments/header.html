@@ -36,14 +36,22 @@
          			<a href="/pay" class="nav-link">PREMIUM</a>
       			 </li>		
                 <li class="nav-item">
-                    <!--                 	登入=> MemberPage -->
+                     <!--                 	登入=> MemberPage -->
                     <a sec:authorize="isAuthenticated()" href="/MemberPage" class="nav-icon">
                         <img th:src="@{\header&Footer\images\plyFitIcon.svg}" alt="plyFitIcon.svg">
+<!--                         <p th:case="'admin'"><img th:src="@{\header&Footer\images\plyFitIcon.svg}" alt="plyFitIcon.svg"></p> -->
+<!--   						<p th:case="#{roles.manager}"><img th:src="@{\header&Footer\images\plyFitIcon.svg}" alt="plyFitIcon.svg"></p> -->
                     </a>
                     <!--                 	未登入=> login -->
                     <a sec:authorize="isAnonymous()" href="/login" class="nav-icon">
-                        <img th:src="@{\header&Footer\images\plyFitIcon.svg}" alt="plyFitIcon.svg">
+                        <img th:src="@{\header&Footer\images\nonMember.svg}" alt="plyFitIcon.svg">
                     </a>
+                    
+<!--                     <div th:switch="${user.role}">  -->
+<!--   						<p th:case="'admin'">User is an administrator</p> -->
+<!--   						<p th:case="#{roles.manager}">User is a manager</p> -->
+<!--  						<p th:case="*">User is some other thing</p>  -->
+<!-- 					</div> -->
                 </li>
             </ul>
             <div class="hamburger">
