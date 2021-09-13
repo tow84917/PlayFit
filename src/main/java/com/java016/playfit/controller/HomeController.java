@@ -84,6 +84,14 @@ public class HomeController {
 		return mv;
 	}
 	
+	// 關於我們
+	@RequestMapping("/aboutUs")
+	public ModelAndView aboutUs() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/aboutUs/aboutUs");
+		return mv;
+	}
+	
 	// 計算機頁面
 	@RequestMapping("/calculator")
 	public ModelAndView calculator() {
