@@ -16,7 +16,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet"  th:href="@{/login/style.css}">
     <link rel="stylesheet"  th:href="@{/login/avatar.css}"/>
-    <script  th:src="@{/login/avatar.js}" ></script>
     <link rel="stylesheet"  th:href="@{/login/login.css}" href="/static/login/login.css"/>
     <script  th:src="@{/login/login.js}" src="/static/login/login.css"></script>
     <title>logIn/signUp</title>
@@ -39,127 +38,175 @@
                         <h3>SIGN UP</h3>
                         <!-- 註冊step1 -->
                         <div class="input"> 
-                            <input type="email" name="email" th:value="${user.email}" placeholder="Email*">
-                            <input type="text" name="fullName" th:value="${user.fullName}" placeholder="Full Name*">
+                            <input type="email" name="email" id="email" th:value="${user.email}" placeholder="Email*">
+                            <input type="text" name="fullName" id="fullName" th:value="${user.fullName}" placeholder="Full Name*">
                             <input type="text" name="nickName" th:value="${user.nickName}" placeholder="Nickname">
-                            <input type="password" name="password"  th:value="${user.password}" placeholder="Password*">
+                            <input type="password" name="password"  id="password" th:value="${user.password}" placeholder="Password*">
                             <!-- <input type="password" name="confirmPassword"  th:field="*{password}" placeholder="Confirm Password*"> -->
                         </div>
                         <div class="button">
                             <div id="signUpSubmit">SIGN UP</div>
                         </div>
 
+
                         <!-- 註冊step2   basic info-->
+                    <div id="step2Modal" class="modal">
                         <div id="step2">
+                            <span class="close">&times;</span>
                             <p>Your Basic Info</p>
-                            <hr>
-                            <br>
-                            <label for="male">Male</label>
+
                             <input type="radio" id="male"
-                            name="gender" value="Male">
-                           &nbsp
-                            <label for="female">Female</label>  
+                            name="gender" value="Male" checked>
+                            <label for="male">Male</label>
+                           
                            <input type="radio" id="female"
                             name="gender" value="Female">
+                            <label for="female">Female</label>  
                             <br>   
                             
-                        <!-- <div> -->
+                        
                             <!-- <label for="targetWeight">Target Weight</label> -->
-                            <input type="number" name="goalWeight" th:value="${personalGoal.goalWeight}" id="targetWeight" placeholder=" Target Weight" 
+                            <input type="number" name="goalWeight" th:value="${personalGoal.goalWeight}" id="targetWeight" placeholder="Target Weight (Kg)" 
                             min="35.00" max="300.00" step="0.01"/>
                             <br>
-                        <!-- </div> -->
-                            
-                        <!-- <div> -->
+                   
                             <!-- <label for="currentWeight">Current Weight</label> -->
-                            <input type="number" name="weight" th:value="${healthRecord.weight}" id="currentWeight" placeholder=" Current Weight"
+                            <input type="number" name="weight" th:value="${healthRecord.weight}" id="currentWeight" placeholder="Current Weight (Kg)"
                             min="35.00" max="300.00" step="0.01"/>
                             <br>
-                        <!-- </div> -->
                             
                             
-                        <!-- <div> -->
                             <!-- <label for="height">Your Height</label> -->
-                            <input type="number" name="height"   th:value="${healthRecord.height}" id="height" placeholder=" Height" 
+                            <input type="number" name="height"   th:value="${healthRecord.height}" id="height" placeholder="Height (Cm)" 
                             min="50.00" max="300.00" step="0.01"/>
                             <br>
-                        <!-- </div>     -->
                         
-                        <!-- <div> -->
                             <!-- <label for="birthday">Date Of Birth</label> -->
                             <!-- <br> -->
-                            <input type="text" name="birthday" id="birthday" th:value="${user.birthday}" placeholder=" Birthday" />
-                        <!-- </div> -->
+                            <input type="text" name="birthday" id="birthday" th:value="${user.birthday}" placeholder="Birthday (yyyy-mm-dd)" />
                             <br>
+
                             <!-- <span>Activity Level</span> -->
-					        <select name="exerciseFrequency" th:value="${healthRecord.exerciseFrequency}">
-                                <option> Activity Level</option>
-                                <option value="Sedentary"> Sedentary(office job)</option>
-					    	    <option value="LightExercise"> Light Exercise</option>
-					    	    <option value="ModerateExercise"> Moderate Exercise</option>
-					    	    <option value="HeavyExercise"> Heavy Exercise</option>
-					    	    <option value="Athlete"> Athlete</option>
+					        <select name="exerciseFrequency" th:value="${healthRecord.exerciseFrequency}" id="activityLevel">
+                                <option value="">Activity Level</option>
+                                <option value="Sedentary">Sedentary(office job)</option>
+					    	    <option value="LightExercise">Light Exercise</option>
+					    	    <option value="ModerateExercise">Moderate Exercise</option>
+					    	    <option value="HeavyExercise">Heavy Exercise</option>
+					    	    <option value="Athlete">Athlete</option>
 					        </select>
                             <br><br>
                             <div id="nextStep">Next Step</div>
-                            
                         </div> 
+                    </div>
                         
                         <!-- step3 創建角色-->
+                    <div id="step3Modal" class="modal">
                         <div id="step3">
+                            <span class="close">&times;</span>
+                            <p>Create Your Avatar</p>
                             <!-- 角色預覽 -->
                             <?xml version="1.0" encoding="utf-8"?>
                             <svg version="1.1" id="avatarPic" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                             viewBox="0 0 300 350" xml:space="preserve">
-                                <g id="plainAvatar"></g>
                                 <g id="body"></g>
-                                <g id="hat"></g>                     
+                                <g id="hat"></g>
+                                <g id="clothes"></g>                     
                             </svg>
 
-                            <!-- 選擇部件 -->
+                            <!-- 選擇角色部件 -->
                             <div class="selectBox">
+
+                                <!-- 顏色 -->
                                 <div class="segmented-control">
-                                    
-                                    <input type="radio" name="radio2" value="3" id="tab2-1"/>
-                                    <label for="tab2-1" class= "segmented-control__1">
-                                        <div id="hatWhite" class="white"></div></label>
-                                    
-                                    <input type="radio" name="radio2" value="4" id="tab2-2" />
-                                    <label for="tab2-2" class= "segmented-control__2">
-                                        <img id="hat1" th:src="@{/images/Avatar/Accessory/hat01.svg}"></label>
-                                    
-                                    <input type="radio" name="radio2" value="5" id="tab2-3" />
-                                    <label for="tab2-3" class= "segmented-control__3">
-                                        <img id="hat2" th:src="@{/images/Avatar/Accessory/hat02.svg}"></label>
-                                    
-                                    <div class="segmented-control__color"></div>
-                                </div>
-
-                                <br><br>
-
-
-                                <div class="segmented-control">
-                                    
-                                    <input type="radio" name="radio1" value="3" id="tab1-1"/>
+                                    <input type="radio"  name="color" value="pink" id="tab1-1" checked/>
                                     <label for="tab1-1" class= "segmented-control__1">
-                                        <div id="bodyWhite" class="white"></div></label>
+                                        <div class="pink"></div></label>
                                     
-                                    <input type="radio" name="radio1" value="4" id="tab1-2" />
+                                    <input type="radio"  name="color" value="red" id="tab1-2" />
                                     <label for="tab1-2" class= "segmented-control__2">
-                                        <img id="body1" th:src="@{/images/Avatar/Accessory/body01.svg}"></label>
+                                        <div class="red"></div></label>
                                     
-                                    <input type="radio" name="radio1" value="5" id="tab1-3" />
+                                    <input type="radio"  name="color" value="blue" id="tab1-3" />
                                     <label for="tab1-3" class= "segmented-control__3">
-                                        <img id="body2" th:src="@{/images/Avatar/Accessory/body02.svg}"></label>
+                                        <div class="blue"></div></label>
+
+                                    <input type="radio"  name="color" value="purple" id="tab1-4" />
+                                    <label for="tab1-4" class= "segmented-control__4">
+                                        <div class="purple"></div></label>
+                                    
+                                    <input type="radio"  name="color" value="lightpurple" id="tab1-5" />
+                                    <label for="tab1-5" class= "segmented-control__5">
+                                        <div class="lightpurple"></div></label>
                                     
                                     <div class="segmented-control__color"></div>
                                 </div>
+
+                                <!-- 帽子 -->
+                                <div class="segmented-control">
+                                    <input type="radio"  name="hat" value="" id="tab2-1" checked/>
+                                    <label for="tab2-1" class= "segmented-control__1">
+                                        <img id="hat_blank" th:src="@{/login/image/avatar/blank.svg}"></label>
+                                    
+                                    <input type="radio" name="hat" value="" id="tab2-2" />
+                                    <label for="tab2-2" class= "segmented-control__2">
+                                        <img id="hat_berets" th:src="@{/login/image/avatar/berets.svg}"></label>
+                                    
+                                    <input type="radio" name="hat" value="" id="tab2-3" />
+                                    <label for="tab2-3" class= "segmented-control__3">
+                                        <img id="hat_orangehat" th:src="@{/login/image/avatar/orangehat.svg}"></label>
+
+                                    <input type="radio"  name="hat" value="" id="tab2-4" />
+                                    <label for="tab2-4" class= "segmented-control__4">
+                                        <img id="hat_fishermenhat" th:src="@{/login/image/avatar/fishermenhat.svg}"></label>
+                                    
+                                    <input type="radio" name="hat" value="" id="tab2-5" />
+                                    <label for="tab2-5" class= "segmented-control__5">
+                                        <img id="hat_gentlemenhat" th:src="@{/login/image/avatar/gentlemenhat.svg}"></label>
+
+                                    <input type="radio" name="hat" value="" id="tab2-6" />
+                                    <label for="tab2-6" class= "segmented-control__6">
+                                        <img id="hat_greenhat" th:src="@{/login/image/avatar/greenhat.svg}"></label>
+                                    
+                                    <div class="segmented-control__color"></div>
+                                </div>
+
+                                <!-- 衣服 -->
+                                <div class="segmented-control">
+                                    <input type="radio" name="clothes" value="" id="tab3-1" checked/>
+                                    <label for="tab3-1" class= "segmented-control__1">
+                                        <img id="clothes_blank" th:src="@{/login/image/avatar/blank.svg}"></label>
+                                    
+                                    <input type="radio" name="clothes" value="" id="tab3-2" />
+                                    <label for="tab3-2" class= "segmented-control__2">
+                                        <img id="clothes_scarf" th:src="@{/login/image/avatar/scarf.svg}"></label>
+                                    
+                                    <input type="radio" name="clothes" value="" id="tab3-3" />
+                                    <label for="tab3-3" class= "segmented-control__3">
+                                        <img id="clothes_camera" th:src="@{/login/image/avatar/camera.svg}"></label>
+                                    
+                                    <input type="radio" name="clothes" value="" id="tab3-4" />
+                                    <label for="tab3-4" class= "segmented-control__2">
+                                        <img id="clothes_bowknot" th:src="@{/login/image/avatar/bowknot.svg}"></label>
+                                        
+                                    <input type="radio" name="clothes" value="" id="tab3-5" />
+                                    <label for="tab3-5" class= "segmented-control__2">
+                                        <img id="clothes_bowtie" th:src="@{/login/image/avatar/bowtie.svg}"></label>
+                                    
+                                    <input type="radio" name="clothes" value="" id="tab3-6" />
+                                    <label for="tab3-6" class= "segmented-control__2">
+                                        <img id="clothes_greentie" th:src="@{/login/image/avatar/greentie.svg}"></label>
+                                    
+                                    <div class="segmented-control__color"></div>
+                                </div>
+
+                                
                             </div>
                             <br>
                             <button  type="submit" id="doneBtn">DONE!</button>
                                 
-                        </div>    
-                          
+                        </div>
+                    </div>                       
                     </form>
             </div>     
             
