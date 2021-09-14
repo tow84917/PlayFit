@@ -156,7 +156,7 @@ public class CalendarServiceImpl implements CalendarService {
 			if (fitAchieves != null){									// 如果健身記錄不為空
 				for (FitAchieve fitAchieve : fitAchieves) {
 					String status = fitAchieve.getStatus();
-					if ("按計畫執行".equals(status) || "未執行".equals(status)){ // 如果有排計畫
+					if ("按計畫執行".equals(status) || "直接執行".equals(status) || "未執行".equals(status)){ // 如果有排計畫
 						Date createdDate = (Date) dailyRecord.getCreatedDate();
 						Calendar createdCalender = converter.convertToEntityAttribute(createdDate);
 						int i = createdCalender.get(Calendar.DAY_OF_MONTH);
@@ -215,7 +215,7 @@ public class CalendarServiceImpl implements CalendarService {
 
 			FitActivity activity = fitActivityRepository.findById(id).get();
 
-			FitAchieve fitAchieve = new FitAchieve("尚未執行", 1, activity.getKcalBurn(), dailyRecord , activity);
+			FitAchieve fitAchieve = new FitAchieve("未執行", 1, activity.getKcalBurn(), dailyRecord , activity);
 			System.out.println(fitAchieve);
 
 			fitAchieveRepository.save(fitAchieve);

@@ -62,16 +62,16 @@ public class HomeController {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
-	// 首頁(舊的預設首頁)
-	@RequestMapping("/")
-	public ModelAndView index() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("index");
-		return mv;
-	}
+//	// 首頁(舊的預設首頁)
+//	@RequestMapping("/")
+//	public ModelAndView index() {
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("index");
+//		return mv;
+//	}
 	
 	// 首頁(新的正式)
-	@RequestMapping("/index")
+	@RequestMapping(value = {"/index", "/"})
 	public ModelAndView index2() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/index/indexOffical");
@@ -102,6 +102,7 @@ public class HomeController {
 		return mv;
 	}
 	
+	// 給登入註冊頁
 	@RequestMapping("/login")
 	public ModelAndView login_signup() {
 		ModelAndView mv = new ModelAndView();
@@ -112,6 +113,7 @@ public class HomeController {
 		return mv;
 	}
 	
+	// 處理虛擬角色
 	@PostMapping(value= "/process_avatar")
 	@ResponseBody
 	public String processAvatar(
@@ -131,7 +133,8 @@ public class HomeController {
 				
 		User newStoredMember = userService.findByEmail(
 			((User)request.getSession().getAttribute("newMember")).getEmail());
-				
+		
+		// 前端傳 Avatar 各部件資訊
 		String avatarSize = avatarInfo.get("avatarSize");
 		String colorInfo = avatarInfo.get("colorInfo");
 		String hatInfo = avatarInfo.get("hatInfo");
@@ -142,12 +145,13 @@ public class HomeController {
 				
 		// 找體型
 		BodyType bodyType = bodyTypeService.findByName(avatarSize);
-				
-		// 找體型、顏色、衣服、帽子
+		
+		// 產生圖片
 		avatarService.saveAvatarPic(
 			bodyType, colorInfo, clothesInfo, hatInfo, avatarFileName);
 				
-		AvatarBody avatarBody = avatarService.getAvatarBody(colorInfo, bodyType.getId());
+		// 找體型、顏色、衣服、帽子
+		AvatarBody avatarBody = avatarService.getAvatarBody(colorInfo, bodyType);
 		AvatarClothes avatarClothes = avatarService.getAvatarClothes(bodyType, clothesInfo);
 		AvatarHat avatarHat = avatarService.getAvatarHat(bodyType, hatInfo);
 				
@@ -225,7 +229,8 @@ public class HomeController {
 //		
 //		return "OK";
 //	}
-			
+	
+	// 註冊處裡
 	@PostMapping("/process_register")
 	public String processRegister(User user, 
 			PersonalGoal personalGoal, HealthRecord healthRecord, Model model) {
@@ -267,11 +272,12 @@ public class HomeController {
 		// 給Security 登入資訊,未驗證(redirect:/MemberPage => MemberPage 檢查)
 		CustomUserDetails customUserDetails = new CustomUserDetails(newMember);
 		
-		// 更新 authentication 為更改後的 user
+		// 更新 authentication , 讓剛註冊者儲存登入資訊
 		Authentication authentication = 
 				new UsernamePasswordAuthenticationToken
 				(customUserDetails, customUserDetails.getPassword(), 
 						customUserDetails.getAuthorities());
+		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return "redirect:/MemberPage"; // 跳轉 Memberpage

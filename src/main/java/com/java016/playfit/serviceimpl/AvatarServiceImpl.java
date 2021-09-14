@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 import javax.transaction.Transactional;
 
@@ -64,16 +63,28 @@ public class AvatarServiceImpl implements AvatarService {
 		return avatarRepo.save(avatar);
 	}
 	
-	public AvatarBody getAvatarBody(String color,Integer typeId) {
-		return avatarBodyRepo.findByColorAndType(color, typeId);
+	/**
+	 * 找 Avatar Body
+	 */
+	@Override
+	public AvatarBody getAvatarBody(String color, BodyType type) {
+		return avatarBodyRepo.findByColorAndType(color, type.getId());
 	}
 	
-	public AvatarHat getAvatarHat(BodyType type,String name) {
-		return avatarHatRepo.findByNameAndType(name,type.getId());
+	/**
+	 * 找 Avatar Hat
+	 */
+	@Override
+	public AvatarHat getAvatarHat(BodyType type, String name) {
+		return avatarHatRepo.findByNameAndType(name, type.getId());
 	}
 	
-	public AvatarClothes getAvatarClothes(BodyType type,String name) {
-		return avatarClothesRepo.findByNameAndType(name,type.getId());
+	/**
+	 * 找 Avatar Clothes
+	 */
+	@Override
+	public AvatarClothes getAvatarClothes(BodyType type, String name) {
+		return avatarClothesRepo.findByNameAndType(name, type.getId());
 	}
 	
 	

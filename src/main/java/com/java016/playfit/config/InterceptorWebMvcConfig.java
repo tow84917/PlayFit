@@ -26,6 +26,7 @@ public class InterceptorWebMvcConfig implements WebMvcConfigurer {
 		path.add("/calendar/calendar");
 		path.add("/StartFit");
 		path.add("/diary_homepage/**");
+		path.add("/pay");
 		
 		registry.addInterceptor(isEnableInterceptor)
 		.addPathPatterns(path); 
