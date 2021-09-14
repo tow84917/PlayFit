@@ -1007,7 +1007,22 @@ CREATE TABLE `Fit_activity_video` (
 
 LOCK TABLES `Fit_activity_video` WRITE;
 /*!40000 ALTER TABLE `Fit_activity_video` DISABLE KEYS */;
-INSERT INTO `Fit_activity_video` VALUES (1,'voluptatum',NULL,'http://lorempixel.com/10/20/cats/','quo','text/prs.lines.tag','23:24:33'),(2,'blanditiis',NULL,'http://lorempixel.com/10/20/cats/','reiciendis','audio/x-pn-realaudio','12:12:01'),(3,'et',NULL,'http://lorempixel.com/10/20/cats/','sunt','video/jpeg','15:51:43'),(4,'nobis',NULL,'http://lorempixel.com/10/20/cats/','velit','application/vnd.sun.xml.impress','20:51:34'),(5,'atque',NULL,'http://lorempixel.com/10/20/cats/','repudiandae','message/rfc822','18:24:13'),(6,'quisquam',NULL,'http://lorempixel.com/10/20/cats/','ab','application/vnd.semd','23:19:15'),(7,'molestiae',NULL,'http://lorempixel.com/10/20/cats/','corrupti','video/3gpp','01:34:23'),(8,'delectus',NULL,'http://lorempixel.com/10/20/cats/','adipisci','application/vnd.dece.zip','18:18:17'),(9,'ea',NULL,'http://lorempixel.com/10/20/cats/','quis','application/vnd.las.las+xml','05:39:18'),(10,'quasi',NULL,'http://lorempixel.com/10/20/cats/','quia','application/vnd.ezpix-package','00:47:10'),(11,'tempore',NULL,'http://lorempixel.com/10/20/cats/','et','application/x-subrip','22:05:21'),(12,'iusto',NULL,'http://lorempixel.com/10/20/cats/','sint','application/x-tex','16:46:52'),(13,'officiis',NULL,'http://lorempixel.com/10/20/cats/','inventore','image/cgm','00:44:58'),(14,'vero',NULL,'http://lorempixel.com/10/20/cats/','voluptas','video/x-flv','14:45:20'),(15,'magnam',NULL,'http://lorempixel.com/10/20/cats/','adipisci','image/x-tga','19:04:12'),(16,'sunt',NULL,'http://lorempixel.com/10/20/cats/','eligendi','image/jpeg','06:49:17');
+INSERT INTO `Fit_activity_video` VALUES (1,'10 min LISTT',NULL,'/static/videos/Fit_activity/Upper/10_min_LISTT.mp4','10_min_LISTT','video/mp4','00:10:00'),
+(2,'12 min LISTT',NULL,'/static/videos/Fit_activity/Upper/12_min_LISTT.mp4','12_min_LISTT','video/mp4','00:12:00'),
+(3,'16 min LISTT',NULL,'/static/videos/Fit_activity/Upper/16_min_LISTT.mp4','16_min_LISTT','video/mp4','00:16:00'),
+(4,'20 min ST',NULL,'/static/videos/Fit_activity/Upper/20_min_ST.mp4','20_min_ST','video/mp4','00:20:00'),
+(5,'10 min PT',NULL,'/static/videos/Fit_activity/Core/10_min_PT.mp4','10_min_PT','video/mp4','00:10:00'),
+(6,'10 min BLIT',NULL,'/static/videos/Fit_activity/Core/10_min_BLIT.mp4','10_min_BLIT','video/mp4','00:10:00'),
+(7,'12 min LISTT',NULL,'/static/videos/Fit_activity/Core/12_min_LISTT.mp4','12_min_LISTT','video/mp4','00:12:00'),
+(8,'18 min CLIPT',NULL,'/static/videos/Fit_activity/Core/18_min_CLIPT.mp4','18_min_CLIPT','video/mp4','00:18:00'),
+(9,'10 min STE',NULL,'/static/videos/Fit_activity/Lower/10_min_STE.mp4','10_min_STE','video/mp4','00:10:00'),
+(10,'14 min LIPT',NULL,'/static/videos/Fit_activity/Lower/14_min_LIPT.mp4','14_min_LIPT','video/mp4','00:14:00'),
+(11,'16 min PSTT',NULL,'/static/videos/Fit_activity/Lower/16_min_PSTT.mp4','16_min_PSTT','video/mp4','00:16:00'),
+(12,'20 min LIPT',NULL,'/static/videos/Fit_activity/Lower/20_min_LIPT.mp4','20_min_LIPT','video/mp4','00:20:00'),
+(13,'10 min CHT',NULL,'/static/videos/Fit_activity/HIIT/10_min_CHT.mp4','10_min_CHT','video/mp4','00:10:00'),
+(14,'16 min CHT',NULL,'/static/videos/Fit_activity/HIIT/16_min_CHT.mp4','16_min_CHT','video/mp4','00:16:00'),
+(15,'16 min CH',NULL,'/static/videos/Fit_activity/HIIT/16_min_CH.mp4','16_min_CH','video/mp4','00:16:00'),
+(16,'20 min CHT',NULL,'/static/videos/Fit_activity/HIIT/20_min_CHT.mp4','20_min_CHT','video/mp4','00:20:00');
 /*!40000 ALTER TABLE `Fit_activity_video` ENABLE KEYS */;
 UNLOCK TABLES;
 
