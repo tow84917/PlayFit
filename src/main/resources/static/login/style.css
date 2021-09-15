@@ -21,6 +21,11 @@
 .segmented-control input {
   display: none;
 }
+
+
+.segmented-control:first-child {
+  padding-left:3.4rem;
+}
 /* .segmented-control > input:checked + label {
   transition: all 0.5s ease;
   color: var(--primary);
@@ -44,6 +49,10 @@
 /* .segmented-control__1:hover, .segmented-control__2:hover, .segmented-control__3:hover {
   background-color: var(--greyLight-3);
 } */
+
+
+
+
 .segmented-control__color {
   position: absolute;
   height: 5rem;
@@ -153,4 +162,3 @@
   transform: translateX(27.2rem);
   transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-

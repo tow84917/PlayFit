@@ -38,43 +38,48 @@ function doFirst(){
     let step2 = document.getElementById('step2');
 
     // When the user starts to type something inside the password field
-    emailValidate = false;
-    email.onkeyup = function() {
-        emailValidate = false;
+    emailValid = false;
+    email.addEventListener('keyup',emailValidate);
+    email.addEventListener('change',emailValidate);
+
+    function emailValidate() {
+        emailValid = false;
         email.style.background = '#EBEEF8';
         email.style.color = 'black';
         //Regular expression Testing
         let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
         if(email.value.match(emailRule)){
             email.style.color = '#2E1ED3';
-            emailValidate = true;
+            emailValid = true;
         }
     }
+
+
     fullName.onkeyup = function() {
         fullName.style.background = '#EBEEF8';
-        fullNameValidate = true;
+        fullNameValid = true;
     }
     password.onkeyup = function() {
         password.style.background = '#EBEEF8';
-        passwordValidate = true;
+        passwordValid = true;
     }
 
 
     signUpSubmit.addEventListener('click',e =>{
         // 判斷step1必填是否合法
-        if(!emailValidate){
+        if(!emailValid){
             email.style.background = '#ffdddd';
         }
         if(fullName.value == `` ){
             fullName.style.background = '#ffdddd';
-            fullNameValidate = false;
+            fullNameValid = false;
         }
         if(password.value == `` ){
             password.style.background = '#ffdddd';
-            passwordValidate = false;
+            passwordValid = false;
         }
         
-        if(emailValidate & fullNameValidate & passwordValidate){
+        if(emailValid & fullNameValid & passwordValid){
             step2Modal.style.display = "block";
             step2.style.display = 'inline';
         }
@@ -123,60 +128,74 @@ let nextStep = document.getElementById('nextStep');
 
 
 // When the user starts to type something inside the password field
-    currentWeightValidate = false;
-    currentWeight.onkeyup = function() {
-        currentWeightValidate = false;
+    currentWeightValid = false;
+    currentWeight.addEventListener('keyup',currentWeightValidate);
+    currentWeight.addEventListener('change',currentWeightValidate);
+
+    function currentWeightValidate() {
+        currentWeightValid = false;
         currentWeight.style.color = 'black';
         currentWeight.style.background = '#EBEEF8';    
         if(currentWeight.value>=35 && currentWeight.value<=300){
             currentWeight.style.color = '#2E1ED3';
-            currentWeightValidate = true;
+            currentWeightValid = true;
         }
     }
 
-    targetWeightValidate = false;
-    targetWeight.onkeyup = function() {
-        targetWeightValidate = false;
+    targetWeightValid = false;
+    targetWeight.addEventListener('keyup',targetWeightValidate);
+    targetWeight.addEventListener('change',targetWeightValidate);
+
+    // targetWeight.onkeyup = function(){a()};
+    // targetWeight.onchange = function(){a()};
+
+    function targetWeightValidate() {
+        targetWeightValid = false;
         targetWeight.style.color = 'black';
         targetWeight.style.background = '#EBEEF8';    
         if(targetWeight.value>=35 && targetWeight.value<=300){
             targetWeight.style.color = '#2E1ED3';
-            targetWeightValidate = true;
+            targetWeightValid = true;
         }
     }
 
+    heightValid = false;
+    height.addEventListener('keyup',heightValidate);
+    height.addEventListener('change',heightValidate);
 
-    heightValidate = false;
-    height.onkeyup = function() {
-        heightValidate = false;
+    function heightValidate() {
+        heightValid = false;
         height.style.color = 'black';
         height.style.background = '#EBEEF8';    
         if(height.value>=50 && height.value<=300){
             height.style.color = '#2E1ED3';
-            heightValidate = true;
+            heightValid = true;
         }
     }
 
-    birthdayValidate = false;
-    birthday.onkeyup = function() {
-        birthdayValidate = false;
+    birthdayValid = false;
+    birthday.addEventListener('keyup',birthdayValidate);
+    birthday.addEventListener('change',birthdayValidate);
+
+    function birthdayValidate() {
+        birthdayValid = false;
         birthday.style.color = 'black';
         birthday.style.background = '#EBEEF8';  
         let dateReg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;  
         if(birthday.value.match(dateReg)){
             birthday.style.color = '#2E1ED3';
-            birthdayValidate = true;
+            birthdayValid = true;
         }
     }
-
-    let activityLevelValidate = false;
-    activityLevel.onblur = function() {
+    
+    activityLevelValid = false;
+    activityLevel.onchange = function() {
         activityLevel.style.background = '#EBEEF8';    
         if(activityLevel.value != ``){
-            activityLevelValidate = true;
+            activityLevelValid = true;
             activityLevel.style.color = '#2E1ED3';
         }else{
-            activityLevelValidate = false;
+            activityLevelValid = false;
             activityLevel.style.color = 'black';
         }
     }
@@ -186,23 +205,23 @@ let nextStep = document.getElementById('nextStep');
 nextStep.addEventListener('click',e =>{
 
     //判斷step2是否合法
-    if(!currentWeightValidate ){
+    if(!currentWeightValid ){
         currentWeight.style.background = '#ffdddd';
     }
-    if(!targetWeightValidate ){
+    if(!targetWeightValid ){
         targetWeight.style.background = '#ffdddd';
     }
-    if(!heightValidate ){
+    if(!heightValid ){
         height.style.background = '#ffdddd';
     }
-    if(!birthdayValidate ){
+    if(!birthdayValid ){
         birthday.style.background = '#ffdddd';
     }
-    if(!activityLevelValidate ){
+    if(!activityLevelValid ){
         activityLevel.style.background = '#ffdddd';
     }
 
-    if(currentWeightValidate & targetWeightValidate & heightValidate & birthdayValidate &activityLevelValidate){
+    if(currentWeightValid & targetWeightValid & heightValid & birthdayValid & activityLevelValid){
         step3Modal.style.display = "block";
         step3.style.display="inline";
         step2Modal.style.display = "none";

@@ -67,18 +67,18 @@
                         
                             <!-- <label for="targetWeight">Target Weight</label> -->
                             <input type="number" name="goalWeight" th:value="${personalGoal.goalWeight}" id="targetWeight" placeholder="Target Weight (Kg)" 
-                            min="35.00" max="300.00" step="0.01"/>
+                            min="35.0" max="300.0" step="0.1"/>
                             <br>
                    
                             <!-- <label for="currentWeight">Current Weight</label> -->
                             <input type="number" name="weight" th:value="${healthRecord.weight}" id="currentWeight" placeholder="Current Weight (Kg)"
-                            min="35.00" max="300.00" step="0.01"/>
+                            min="35.0" max="300.0" step="0.1"/>
                             <br>
                             
                             
                             <!-- <label for="height">Your Height</label> -->
                             <input type="number" name="height"   th:value="${healthRecord.height}" id="height" placeholder="Height (Cm)" 
-                            min="50.00" max="300.00" step="0.01"/>
+                            min="50.0" max="300.0" step="0.1"/>
                             <br>
                         
                             <!-- <label for="birthday">Date Of Birth</label> -->
@@ -218,6 +218,13 @@
                             <input type="email" name="email" placeholder="Email*">
                             <input type="password" name="password" placeholder="password*">
                         </div>
+                        <!-- <div th:if="${param.error}" style="color: red"> 
+                        Invalid username and password.
+                        </div> 
+                        <div th:if="${param.logout}">
+                        You have been logged out.
+                        </div> -->
+                            
                         <div class="button">
                             <button type="submit" id="logInSubmit">LOG IN</button>
                         </div>
@@ -247,16 +254,7 @@
 	</ul> -->
 	
 <!-- 	錯誤訊息打算顯示在哪邊? -->
-<!-- 		<div th:if="${param.error}"> -->
-<!--             Invalid username and password. -->
-<!--         </div> -->
-<!--         <div th:if="${param.logout}"> -->
-<!--             You have been logged out. -->
-<!--         </div> -->
-<!--         <div th:if="${upadtePasswordOK}" style="color: green"> -->
-<!--            	[[${upadtePasswordOK}]] -->
-<!--         </div>  -->
-<!-- </div> -->
+
 
 <div class="blank"></div>
 
