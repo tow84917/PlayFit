@@ -218,12 +218,12 @@
                             <input type="email" name="email" placeholder="Email*">
                             <input type="password" name="password" placeholder="password*">
                         </div>
-                        <!-- <div th:if="${param.error}" style="color: red"> 
-                        Invalid username and password.
+                        <div th:if="${error}" style="color: red"> 
+                        Invalid username or password.
                         </div> 
                         <div th:if="${param.logout}">
                         You have been logged out.
-                        </div> -->
+                        </div>
                             
                         <div class="button">
                             <button type="submit" id="logInSubmit">LOG IN</button>
