@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.java016.playfit.model.DailyRecord;
+import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.FitActivity;
 import com.java016.playfit.model.User;
 
@@ -23,14 +24,14 @@ public interface MemberService {
 	 * @return Double
 	 */
 	Double getTaskCompletionRate(DailyRecord todayRecord);
-
+	
 	/**
-	 * 取今日運動項目及完成狀態
+	 * 取今日運動項目訂單及實際動作
 	 * @param todayRecord
 	 * @return LinkedHashMap<FitActivity, String>
 	 */
-	LinkedHashMap<FitActivity, String> getTodayActivityAndStatus(DailyRecord todayRecord);
-
+	LinkedHashMap<FitAchieve, FitActivity> getTodayAchieveAndActivity(DailyRecord todayRecord); 
+	
 	/**
 	 * 取得今日所有運動項目
 	 * @param todayRecord
@@ -62,3 +63,15 @@ public interface MemberService {
 	Map<Integer, String[]> getWeekExerciseData(User user);
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -226,23 +226,25 @@
 <!-- 										th:with="color1='#2e1ed3',color2='#6460ff'"> -->
 									<div th:if="${activityStatus}" th:each="task : ${activityStatus}"
 										th:with="color1='#ccccff',color2='#2e1ed3'">
+										
 										<!--                             		done -->
-										<div class="activity" th:if="${task.value =='done'}"
+										<div class="activity" th:if="${task.key.status != '未執行'}"
 											th:style="'background-color:'+ ${color1}">
-											<a th:href="@{'/fit-activity/'+ ${task.key.id} + '/' + ${task.key.name}}">
+											<a th:href="@{'/fit-activity/'+ ${task.key.id} }">
 												<img id="cmopletedPic" th:src="@{/images/finishl.svg}" alt="cmopleted_Pic">
-												<img id="activityPic" th:src="@{${task.key.imagePath}}" alt="activity_Pic">
-												<p id="activityName" th:text="${task.key.name}"></p>
+												<img id="activityPic" th:src="@{${task.value.imagePath}}" alt="activity_Pic">
+												<p id="activityName" th:text="${task.value.name}"></p>
 											</a>
 										</div>
 										<!-- 	                                undone -->
-										<div class="activity" th:if="${task.value =='undone'}"
+										<div class="activity" th:if="${task.key.status == '未執行'}"
 											th:style="'background-color:'+ ${color2}">
-											<a th:href="@{'/fit-activity/'+ ${task.key.id} + '/' + ${task.key.name}}">
-												<img id="activityPic" th:src="@{${task.key.imagePath}}" alt="activity_Pic">
-												<p id="activityName" th:text="${task.key.name}"></p>
+											<a th:href="@{'/fit-activity/'+ ${task.key.id} }">	
+												<img id="activityPic" th:src="@{${task.value.imagePath}}" alt="activity_Pic">
+												<p id="activityName" th:text="${task.value.name}"></p>
 											</a>
 										</div>
+									
 									</div>
 								</div>
 							<!-- 日曆連結 -->

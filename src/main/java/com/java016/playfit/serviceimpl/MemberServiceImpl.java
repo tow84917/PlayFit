@@ -72,23 +72,25 @@ public class MemberServiceImpl implements MemberService {
 		completionRate = 100 / taskNum * completeNum;
 		return Math.round(completionRate * 10) / 10.0;
 	}
-
+	
 	/**
-	 * 取今日運動項目及完成狀態
-	 * 
+	 * 取今日運動項目訂單及實際動作
 	 * @param todayRecord
 	 * @return LinkedHashMap<FitActivity, String>
 	 */
-	@Override
-	public LinkedHashMap<FitActivity, String> getTodayActivityAndStatus(
+	public LinkedHashMap<FitAchieve, FitActivity> getTodayAchieveAndActivity(
 			DailyRecord todayRecord) {
+		
+		// 今日所有運動項目訂單
 		List<FitAchieve> achieves = todayRecord.getFitAchieves();
 		
-		LinkedHashMap<FitActivity, String> activityStatus = 
-				new LinkedHashMap<FitActivity, String>();
+		// 要回傳Map
+		LinkedHashMap<FitAchieve, FitActivity> achievesAndActivities = 
+				new LinkedHashMap<FitAchieve, FitActivity>();
 		
-		// 未完成List
-		List<FitActivity> unDoneActivity = new LinkedList<FitActivity>();
+		// 未完成Map
+		LinkedHashMap<FitAchieve, FitActivity> undoneActivity = 
+				new LinkedHashMap<FitAchieve, FitActivity>();
 		
 		// 按順序排列
 		// 先加入完成項目
@@ -97,19 +99,19 @@ public class MemberServiceImpl implements MemberService {
 			String status = achieve.getStatus();
 
 			if (!(status.equals("未執行"))) {
-				activityStatus.put(achieve.getFitActivity(), "done");
+				achievesAndActivities.put(achieve, achieve.getFitActivity());
 			}
 			if (status.equals("未執行")) {
-				unDoneActivity.add(achieve.getFitActivity());
+				undoneActivity.put(achieve, achieve.getFitActivity());
 			}
 		}
 		
 		// 最後加入未完成
-		for (FitActivity activity : unDoneActivity) {
-			activityStatus.put(activity, "undone");
+		for (Map.Entry<FitAchieve, FitActivity> entry : undoneActivity.entrySet()) {
+			achievesAndActivities.put(entry.getKey(), entry.getValue());
 		}
 
-		return activityStatus;
+		return achievesAndActivities;
 	}
 
 	/**
