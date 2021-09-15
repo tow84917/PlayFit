@@ -47,6 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return authenticationProvider;
 	}
     
+    @Bean
+    public CustomLogoutHandler customLogoutHandler() {
+    	return new CustomLogoutHandler();
+    }
+    
     // 自訂失敗處理器
     @Bean
     public AuthenticationFailureHandler customAuthenticationFailureHandler() {
@@ -84,7 +89,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.clearAuthentication(true)
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID")
-					.logoutSuccessUrl("/login") // 登出跳轉
+					.addLogoutHandler(customLogoutHandler())
+//					.logoutSuccessUrl("/login") // 登出跳轉
 					.permitAll()
 				.and()
 				.csrf()

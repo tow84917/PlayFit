@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.java016.playfit.model.Avatar;
 import com.java016.playfit.model.AvatarBody;
@@ -104,16 +105,27 @@ public class HomeController {
 	
 	// 給登入註冊頁
 	@RequestMapping("/login")
-	public ModelAndView login_signup(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("personalGoal",new PersonalGoal());
-		mv.addObject("healthRecord", new HealthRecord());
-		mv.addObject("user",new User());
-		mv.setViewName("login_signup");
-		
-		System.out.println(request.getAttribute("error") + "--------------");
-		
-		return mv;
+	public String login_signup( Model model, RedirectAttributes ra, HttpServletRequest request,
+			                    @RequestParam(required = false, name = "logout") String rp) {
+//		ModelAndView mv = new ModelAndView();
+		model.addAttribute("personalGoal",new PersonalGoal());
+		model.addAttribute("healthRecord", new HealthRecord());
+		model.addAttribute("user",new User());
+//		mv.setViewName("login");
+		Object isError = request.getAttribute("error");
+		System.out.println(rp);
+//		ra.addAttribute("error", false);
+		if(isError != null) {
+			if((boolean)isError) {
+				ra.addFlashAttribute("error", true);
+				return "redirect:/login";
+			}
+		}
+		if(rp != null ) {
+			ra.addFlashAttribute("logout", true);
+			return "redirect:/login";		
+		}	
+		return "login";
 	}
 	
 	// 處理虛擬角色
@@ -289,9 +301,9 @@ public class HomeController {
 	// 登入失敗處理
 	@RequestMapping(value = "/login/failure")
 	public String loginFailure(
-			@RequestParam(name = "errorMessage") String errorMessage, 
-//			Model model ,
-			HttpServletRequest request 
+			@RequestParam(name = "errorMessage") String errorMessage,
+//			Model model 
+			HttpServletRequest request
 			) {
 		
 		System.out.println(errorMessage);
@@ -304,7 +316,7 @@ public class HomeController {
 		
 		// 密碼錯誤
 		if (errorMessage.equals("Bad credentials")) {
-//			request.setAttribute("error", true);
+//			model.addAttribute("error", true);
 			request.setAttribute("error", true);
 		}
 		

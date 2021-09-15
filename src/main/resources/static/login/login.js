@@ -187,7 +187,7 @@ let nextStep = document.getElementById('nextStep');
             birthdayValid = true;
         }
     }
-    
+
     activityLevelValid = false;
     activityLevel.onchange = function() {
         activityLevel.style.background = '#EBEEF8';    
@@ -541,7 +541,7 @@ chooseClothes_bowtie.addEventListener('click',e => {
         clothes.innerHTML = NORMAL_bowtie;
     }else if(avatarSize == 'SLIM'){
         clothes.innerHTML = SLIM_bowtie;
-    }else if(avatarSize == 1){
+    }else if(avatarSize == 'SKINNY'){
         clothes.innerHTML = SKINNY_bowtie;
     }
     // console.log(avatarPic.innerHTML);
