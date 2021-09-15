@@ -104,12 +104,15 @@ public class HomeController {
 	
 	// 給登入註冊頁
 	@RequestMapping("/login")
-	public ModelAndView login_signup() {
+	public ModelAndView login_signup(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("personalGoal",new PersonalGoal());
 		mv.addObject("healthRecord", new HealthRecord());
 		mv.addObject("user",new User());
 		mv.setViewName("login_signup");
+		
+		System.out.println(request.getAttribute("error") + "--------------");
+		
 		return mv;
 	}
 	
@@ -287,19 +290,22 @@ public class HomeController {
 	@RequestMapping(value = "/login/failure")
 	public String loginFailure(
 			@RequestParam(name = "errorMessage") String errorMessage, 
-			Model model 
+//			Model model ,
+			HttpServletRequest request 
 			) {
 		
 		System.out.println(errorMessage);
 		
 		// 帳號錯誤
 		if (errorMessage.equals("rgrdsgdfhgnot found")) {
-			model.addAttribute("error", true);
+//			model.addAttribute("error", true);
+			request.setAttribute("error", true);
 		}
 		
 		// 密碼錯誤
 		if (errorMessage.equals("Bad credentials")) {
-			model.addAttribute("error", true);
+//			request.setAttribute("error", true);
+			request.setAttribute("error", true);
 		}
 		
 		// 尚未啟用(已自行檢查)
@@ -307,7 +313,7 @@ public class HomeController {
 //			model.addAttribute("isEnabled", true);
 //		}
 		
-		return "redirect:/login";
+		return "forward:/login";
 	}
 	
 	// 體型、顏色、衣服、帽子 (前端要送) 新方式後端產圖 順便存取配件 Id

@@ -50,7 +50,7 @@ public class IsEnableInterceptor implements HandlerInterceptor {
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		
-		System.out.println("---帳號已經啟用---");
+		System.out.println("---此帳號已經啟用---");
 		
 	}
 	
