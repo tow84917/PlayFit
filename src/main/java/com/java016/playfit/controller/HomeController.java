@@ -120,6 +120,10 @@ public class HomeController {
 				ra.addFlashAttribute("error", true);
 				return "redirect:/login";
 			}
+		}
+		if(rp != null ) {
+			ra.addFlashAttribute("logout", true);
+			return "redirect:/login";		
 		}	
 		return "login";
 	}
