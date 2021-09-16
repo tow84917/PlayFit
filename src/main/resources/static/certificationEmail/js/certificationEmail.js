@@ -37,7 +37,7 @@ function showMessage(message){
     
     // 驗證碼過期
     if(message == "verificationCodeExpired") {
-    	result.result.innerHTML = `Verification code expired, already sent certification email again, 
+    	result.innerHTML = `Verification code expired, already sent certification email again, 
     	<br>please check your email.`
     	
     	// 過期再拿一次信
