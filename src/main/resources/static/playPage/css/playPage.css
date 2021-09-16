@@ -450,9 +450,9 @@ footer div ul li {
   padding-bottom: 50px;
 }
 
-/* 
+
 .modal {
-  display: none;
+  display: block;
   position: fixed;
   z-index: 1;
   padding-top: 100px;
@@ -467,13 +467,13 @@ footer div ul li {
 
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: rgba(235, 238, 248, 0.87);
   margin: auto;
   margin-top:10%;
   padding: 20px;
   border: 1px solid #888;
-  width: 20%;
-  height: 28%;
+  width: 40%;
+  height: 50%;
 }
 
 
@@ -489,4 +489,4 @@ footer div ul li {
   color: #000;
   text-decoration: none;
   cursor: pointer;
-} */
+}

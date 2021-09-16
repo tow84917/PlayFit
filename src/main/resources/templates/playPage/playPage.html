@@ -41,13 +41,13 @@
         <div>
           <p> Start</p>
           <div class="boxTemplate">
-            <p>75kg</p>
+            <p th:utext="${personalGoal.startWeight}">75kg</p>
           </div>
         </div>
         <div>
           <p>Goal</p>
           <div class="boxTemplate">
-            <p>75kg</p>
+            <p th:utext="${personalGoal.goalWeight}">75kg</p>
           </div>
         </div>
       </div>
@@ -76,7 +76,7 @@
       <div class="c-video w800">
         <h1 th:utext="${fitActivity.name}"></h1>
         <!-- <video class="video" preload="auto" th:src="'http://192.168.1.2:8081/video/stream/mp4/' + ${videoPath}" controls></video> -->
-        <video class="video" preload="auto" th:src="'http://localhost:8080/videos/Fit_activity/' + ${videoPath} + '.mp4' + '/ '" controls></video>
+        <video class="video" preload="auto" th:src="'/videos/Fit_activity/' + ${videoPath} + '.mp4' + '/ '" controls></video>
         <div class="controls">
           <div class="orangeBar">
             <div class="orangeJuice"></div>
@@ -93,16 +93,14 @@
 
 
 
-<!-- <div id="myModal" class="modal">
+<div id="myModal" class="modal">
 
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>之前有未完成的動作...要繼續之前的動作嗎?</p>
-    <button class="modal-left">繼續之前的動作</button>
-    <button class="modal-right">沒關係 我還是要執行目前的動作</button>
+    <p>歡迎</p>
   </div>
 
-</div> -->
+</div>
 
 
   <!-- Copyright Start -->

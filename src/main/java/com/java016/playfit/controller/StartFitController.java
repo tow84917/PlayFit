@@ -17,8 +17,10 @@ import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.FitActivity;
 import com.java016.playfit.model.FitActivityVideo;
 import com.java016.playfit.model.Food;
+import com.java016.playfit.model.PersonalGoal;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.FoodService;
+import com.java016.playfit.service.PersonalGoalService;
 import com.java016.playfit.service.StartFitService;
 import com.java016.playfit.service.UserService;
 import com.java016.playfit.service.VideoService;
@@ -35,6 +37,8 @@ public class StartFitController {
 	UserService userService;
 	@Autowired
 	VideoService videoService;
+	@Autowired
+	PersonalGoalService personalGoalService;
 	
 	@GetMapping("/StartFit")
 	public ModelAndView StartFitPage() {
@@ -69,21 +73,25 @@ public class StartFitController {
 	public ModelAndView fitActivityClicked(@PathVariable("fitName") String fitName,
 									@PathVariable("fitId") Integer fitId,
 									Principal principal,HttpSession session) throws NotFoundException {
-//		http://192.168.1.2:8081/video/stream/mp4/10_min 
-//		http://192.168.1.2:8081/video/stream/mp4/HIIT%2F10_min_CHT
-//		URL encoding '/' = %2F
+		
+		
+		//登入的使用者帳號(電子信箱)
+		String email = userService.getLoginUserEmail();
+		//用帳號抓出此用戶的Entity
+		User user = userService.findByEmail(email);
+		
+		Integer userId = user.getId();
+
 		ModelAndView mv = new ModelAndView();
 		FitActivity fitActivity = startFitService.getFitActivityById(fitId);
 		FitActivityVideo fitActivityVideo = videoService.getFitActivityVideoById(fitId);
 		String path = fitActivity.getBodyPart() + "/" + fitActivityVideo.getFileName();
 		System.out.println("Session id : " + session.getId());
 		
-//		long videoEndTimePoint = startFitService.getFitActivityFromNowEndTimeCalculation(fitActivityVideo);
-//		
-//		session.setAttribute("VideoEndTimePoint", videoEndTimePoint);
-//		session.setAttribute("FitActivityId", fitId);
 		
-		
+		// 取最近目標紀錄
+		PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(userId);
+		mv.addObject("personalGoal", personalGoal);
 		mv.addObject("fitActivity",fitActivity);
 		mv.addObject("fitAchieveId","");
 		mv.addObject("fitActivityId",fitId);
@@ -103,6 +111,8 @@ public class StartFitController {
 		//用帳號抓出此用戶的Entity
 		User user = userService.findByEmail(email);
 		
+		Integer userId = user.getId();
+		
 		FitAchieve fitAchieve = startFitService.getFitAchieveById(fitAchieveId);
 		System.out.println(fitAchieve.getStatus());
 //		if(!fitAchieve.getStatus().equals("未執行")) throw new NotFoundException("Current user try to access fitAchieve with illegal status");
@@ -116,12 +126,11 @@ public class StartFitController {
 
 		System.out.println("Session id : " + session.getId());
 		
-		
-//		long videoEndTimePoint = startFitService.getFitActivityFromNowEndTimeCalculation(fitActivityVideo);
-//		
-//		session.setAttribute("VideoEndTimePoint", videoEndTimePoint);
-//		session.setAttribute("FitActivityId", fitActivity.getId());
+
+		// 取最近目標紀錄
+		PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(userId);
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("personalGoal", personalGoal);
 		mv.addObject("fitActivity",fitActivity);
 		mv.addObject("fitAchieveId",fitAchieve.getId());
 		mv.addObject("fitActivityId",fitActivity.getId());
