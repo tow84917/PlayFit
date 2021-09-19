@@ -107,24 +107,30 @@ public class HomeController {
 	@RequestMapping("/login")
 	public String login_signup( Model model, RedirectAttributes ra, HttpServletRequest request,
 			                    @RequestParam(required = false, name = "logout") String rp) {
-//		ModelAndView mv = new ModelAndView();
+		
+		// 給註冊 model
 		model.addAttribute("personalGoal",new PersonalGoal());
 		model.addAttribute("healthRecord", new HealthRecord());
 		model.addAttribute("user",new User());
-//		mv.setViewName("login");
+		
+		// 取是否有錯誤訊息
 		Object isError = request.getAttribute("error");
-		System.out.println(rp);
-//		ra.addAttribute("error", false);
+//		System.out.println(rp);
+		
+		// 登入錯誤訊息
 		if(isError != null) {
 			if((boolean)isError) {
 				ra.addFlashAttribute("error", true);
 				return "redirect:/login";
 			}
 		}
+		
+		// 登出訊息
 		if(rp != null ) {
 			ra.addFlashAttribute("logout", true);
 			return "redirect:/login";		
 		}	
+		
 		return "login";
 	}
 	

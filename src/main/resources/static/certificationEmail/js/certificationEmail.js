@@ -23,7 +23,7 @@ var inputArr = document.getElementsByTagName("input");
 // 錯誤訊息
 let errorMessage = "";
 
-// 顯示錯誤
+// 顯示訊息
 function showMessage(message){
     result.classList.remove("hidden");
     result.classList.remove("success");
