@@ -54,7 +54,7 @@ public class CertificationEmailController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public String sendEmialTest(
 			Model model
-			) throws MessagingException {
+			) {
 		
 		// 設定寄出時間(現在時間)
 		Date sendTime = new Date();
@@ -100,7 +100,7 @@ public class CertificationEmailController {
 			
 		}
 		
-		// 接收Email參數, 等前段請求待定
+		// Email 標題
 		String subject = "Play-Fit Certification Email";
 		
 		// 新用戶名、未認證用戶名
@@ -113,9 +113,16 @@ public class CertificationEmailController {
 		System.out.println("session code :" + verificationCode);
 		
 		// 產生已格式化信件
-		String text = emailTool.generateText(userName, verificationCode);
+		String text = emailTool.generateCertificationText(userName, verificationCode);
+		
 		// 寄出
-		emailService.sendRichMail(to, subject, text, filePath);
+		try {
+			emailService.sendRichMail(to, subject, text, filePath);
+		} catch (MessagingException e) {
+			System.out.println("寄出失敗");
+			e.printStackTrace();
+			return "{\"emailResult\" : \"tryLater\"}";
+		}
 		
 		// 寄出時間加入session
 		model.addAttribute("sendTime", sendTime);

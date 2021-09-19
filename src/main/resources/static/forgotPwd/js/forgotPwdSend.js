@@ -25,6 +25,14 @@ function showMessage(message){
     	result.innerHTML = `We have sent a reset password link to your email. Please check.`
     }
     
+    // 輸入之 Email 無效
+    if(message == "notFound") result.textContent = "User not found."
+    
+    // 請求達到每日上限次數
+    if(message == "requestsLimit") result.innerHTML = `The number of requests today,<br> reached the limit, please try tomorrow`
+    
+    // 寄出失敗
+    if(message == "tryLater") result.textContent = "Failed to send, try again later"
 }
 
 // 拿信
@@ -39,7 +47,7 @@ async function getForgotPwdEmail(inputEmail){
 	    "X-CSRF-Token": token
 	    },
 	    credentials: "same-origin",
-	    body :JSON.inputEmail,	
+	    body :inputEmail,	
 	})
 	
     .then(response => {
@@ -48,7 +56,7 @@ async function getForgotPwdEmail(inputEmail){
     })
     
     .then(data => {
-//    console.log(data["forgetEmailResult"]);
+      console.log(data["forgetEmailResult"]);
       showMessage(data["forgetEmailResult"]);
     });
 }
@@ -88,6 +96,7 @@ submitBtn.addEventListener('click', ()=>{
         return ;
      }
 	 
+	 // 拿信
 	 getForgotPwdEmail(inputEmail);
 
 });

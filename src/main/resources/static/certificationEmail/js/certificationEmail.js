@@ -64,6 +64,9 @@ function showMessage(message){
     		window.location.replace('/MemberPage') // 成功跳轉會員頁
     	},3000)
     }
+    
+    // 寄出失敗
+    if(message == "tryLater") result.textContent = "Failed to send, try again later"
 
 }
 
