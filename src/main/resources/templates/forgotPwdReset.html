@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<!--     沒有登入 -->
+<!--     <meta th:name="_csrf" th:content="${_csrf.token}"/> -->
+<!--   	<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/> -->
+    
+    <script th:src="@{/jquery-3.6.0.js}"></script>
+    <title>Forgot Password Reset</title>
+    <link rel="stylesheet" th:href="@{/forgotPwd/css/forgotPwdReset.css}">
+</head>
+<body>
+    <div class="myHeader">
+    	<header th:replace="fragments/header::myHeader"></header>
+    </div>
+    
+    <div class="main">
+<!--             token有效 -->
+        <div th:if = "${token}"> 
+        	<div class="range">
+	            
+	            <!-- 標題 -->
+	            <label class="title">Reset Password</label>
+	            <!-- 輸入框 -->
+	            <div class="check-div">
+	            <!-- 提示訊息 -->
+	                <div class="infoRange">
+	                    <div class="result hidden">
+	                        Unknown error
+	                    </div>
+	                </div>
+	                
+	<!--                 Token -->
+	                <input type="hidden" name="token" id="resetToken" th:value="${token}" />
+					
+	<!-- 				Pwd -->
+					<div id="newPwdBox"> 
+						<p>New Password
+							<img class="eye1" alt="eye" src="./editProfileForm/img/eyeclosed.png"/>
+						</p>
+						<input type="password" name="newPwd" id="newPassword">
+						<div id='intension'>
+							<div> </div>
+							<div> </div>
+							<div> </div>
+							<div> </div>
+							<div> </div>
+						</div>
+					</div>
+	
+					<div id="confimPwdBox">
+						<p>Confirm Password
+							<img class="eye2" alt="eye" th:src="@{/editProfileForm/img/eyeclosed.png}"/>
+						</p>
+						<input type="password" name="confimPwd" id="confimPassword" class="editColumn">
+					</div>
+	
+	            </div>
+	            <!-- 送出 -->
+	            <button id="confirmSubmit">Reset</button>
+        	</div>
+         
+         </div>
+<!--             token有效 --> 
+
+<!--             token無效 -->   
+        <div th:if = "${token == null}"> 
+        	<div class="wrong-range">
+	            
+	            <!-- 標題 -->
+	            <label class="wrongTitle">Oops something wrong ! </label>
+	            <!-- 輸入框 -->
+	            <div class="wrong-check-div">
+	            <!-- 提示訊息 -->
+	                Sorry this link is no longer vaild.
+	            </div>
+	            <!-- 送出 -->
+	            <a th:href="@{/forgotPassword}" id="wrong-confirmSubmit">Get email again</a>
+        	</div>
+         
+         </div>
+<!--             token無效 -->           
+    
+    </div> 
+<!--     main -->
+    
+    <footer th:replace="fragments/footer::myFooter"></footer>
+
+    <script th:src="@{/forgotPwd/js/forgotPwdReset.js}"></script>
+</body>
+</html>
+
+
+
+
+
+

@@ -2,16 +2,20 @@ package com.java016.playfit.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.java016.playfit.model.ResetPasswordToken;
@@ -30,15 +34,19 @@ public class ForgotPasswordController {
 	
 	ResetPasswordTokenService resetPasswordTokenService;
 	
-	EmailTool emailTool ;
+	EmailTool emailTool;
+	
+	BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
 	public ForgotPasswordController(UserService userService, EmailService emailService,
-			ResetPasswordTokenService resetPasswordTokenService, EmailTool emailTool) {
+			ResetPasswordTokenService resetPasswordTokenService, EmailTool emailTool,
+			BCryptPasswordEncoder passwordEncoder) {
 		this.userService = userService;
 		this.emailService = emailService;
 		this.resetPasswordTokenService = resetPasswordTokenService;
 		this.emailTool = emailTool;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	// 給忘記密碼輸入Email
@@ -46,7 +54,7 @@ public class ForgotPasswordController {
 	public String forgotPasswordSendEmail() {
 		return "forgotPwdSendEmail";
 	}
-	
+
 	// 寄重設密碼信
 	@PostMapping(value = "/sendForgotPwdEmail", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -123,12 +131,89 @@ public class ForgotPasswordController {
 		return "{\"forgetEmailResult\" : \"sendSuccess\"}";
 	}
 	
+	// 給改密碼頁面
+	@GetMapping("/resetPassword")
+	public String resetPasswordPage(@RequestParam("token") String token, Model model) {
+		
+		// 找token
+		ResetPasswordToken resetPasswordToken = 
+				resetPasswordTokenService.findByResetToken(token);
+		
+		// 檢查該連結是否已使用過
+		boolean isUsed = false;
+		if (resetPasswordToken.getMailModify() != null) {
+			isUsed = true;
+		}
+		
+		// 檢查是否過期(24hr)
+		boolean isExpired = false;
+		
+		int dayMillis = 86400000;
+		// 取過期時間
+		Date createDate = resetPasswordToken.getMailCreate();
+		Date ExpiredDate = new Date(createDate.getTime() + dayMillis);
+		
+		// 現在時間
+		Date now = new Date();
+		
+		// 比較
+		if (now.after(ExpiredDate)) {
+			isExpired = true;
+		}
+		
+		// token 已失效 (ScheduledTasks 定期刪除, 已經使用過, over 24hr)
+		// 有效則傳遞給前端,processResetPassword 接回
+		if (resetPasswordToken != null && !isUsed && !isExpired) {
+			model.addAttribute("token", token);
+		}
+		
+		return "forgotPwdReset" ;
+	}
+	
+	// 處理修改密碼
+	@PostMapping("/resetPassword")
+	@ResponseBody
+	public String processResetPassword(
+			@RequestBody Map<String, String> resetPasswordInfo) {
+		
+		String token = resetPasswordInfo.get("token");
+		String newPwd = resetPasswordInfo.get("newPwd");
+		String confimPwd = resetPasswordInfo.get("confimPwd");
+		
+		// 找token
+		ResetPasswordToken resetPasswordToken = 
+				resetPasswordTokenService.findByResetToken(token);
+		
+		String originPwd = resetPasswordToken.getUser().getPassword();
+		
+		// 密碼最少7位
+		if (newPwd.length() < 7) {
+			return "{\"resetPasswordResult\" : \"passwordSizeError\"}";
+		}
+
+		// 輸入密碼與再次確認密碼不符
+		if (!(newPwd.equals(confimPwd))) {
+			return "{\"resetPasswordResult\" : \"confimPwdError\"}";
+		}
+				
+		// 新舊密碼相同(提醒不需要改)
+		if (passwordEncoder.matches(newPwd, originPwd)) {
+			return "{\"resetPasswordResult\" : \"isOriginPassword\"}";
+		}	
+		
+		// 更新密碼
+		userService.updateUserPassword(resetPasswordToken.getUser().getId(), newPwd);
+		
+		// 儲存已使用
+		Date useTime = new Date();
+		resetPasswordToken.setMailModify(useTime);
+		resetPasswordTokenService.saveResetPasswordToken(resetPasswordToken);
+		
+		return "{\"resetPasswordResult\" : \"resetPasswordSuccess\"}";
+	}
+	
+	
 }
-
-
-
-
-
 
 
 

@@ -1,6 +1,6 @@
 "use strict"
 
-// 使用者出入信箱欄
+// 使用者輸入信箱欄
 let enterEmail = document.querySelector(".enterEmail");
 
 // 結果與訊息欄
@@ -26,7 +26,7 @@ function showMessage(message){
     }
     
     // 輸入之 Email 無效
-    if(message == "notFound") result.textContent = "User not found."
+    if(message == "notFound") result.textContent = "Could not find any customer with the email."
     
     // 請求達到每日上限次數
     if(message == "requestsLimit") result.innerHTML = `The number of requests today,<br> reached the limit, please try tomorrow`

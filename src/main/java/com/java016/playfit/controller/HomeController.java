@@ -105,8 +105,10 @@ public class HomeController {
 	
 	// 給登入註冊頁
 	@RequestMapping("/login")
-	public String login_signup( Model model, RedirectAttributes ra, HttpServletRequest request,
-			                    @RequestParam(required = false, name = "logout") String rp) {
+	public String login_signup( 
+			Model model, RedirectAttributes ra, HttpServletRequest request,
+			@RequestParam(required = false, name = "logout") String rp,
+			@RequestParam(required = false, name = "resetPassword") boolean resetPassword) {
 		
 		// 給註冊 model
 		model.addAttribute("personalGoal",new PersonalGoal());
@@ -130,6 +132,12 @@ public class HomeController {
 			ra.addFlashAttribute("logout", true);
 			return "redirect:/login";		
 		}	
+		
+		// 忘記密碼重置
+		if (resetPassword) {
+			ra.addFlashAttribute("upadtePasswordOK", true);
+			return "redirect:/login";
+		}
 		
 		return "login";
 	}

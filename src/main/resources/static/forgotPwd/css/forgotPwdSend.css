@@ -27,6 +27,11 @@
   background-color: #6460ff;
 }
 
+/* 結果顯示 */
+.result{
+  width: 450px;
+}
+
 /* 顯示範圍 */
 .range {
   width: 760px;
@@ -74,7 +79,7 @@
 }
 
 h1 {
-  font-size: 15px;
+  font-size: 15.5px;
 }
 
 .inputRange {
@@ -93,6 +98,10 @@ h1 {
   
   border-radius: 20px;
   border: 3px solid  #6460ff;
+}
+
+input{
+	text-align: center;
 }
 
 /*取消輸入外框*/
@@ -120,7 +129,7 @@ input:focus {
 }
 
 .success{
-  color: green;
+  color: #1dab69;
 }
 
 
