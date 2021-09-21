@@ -31,6 +31,17 @@ public interface ResetPasswordTokenRepository extends JpaRepository<ResetPasswor
 			+ "AND rpt.user_id = :userId", nativeQuery=true)
 	public List<ResetPasswordToken> findByUserIdAndDate(
 			@Param("userId") Integer userId, @Param("date") Date date);
+	
+	/**
+	 * 找特定日期的 token
+	 * @param date
+	 * @return List<ResetPasswordToken>
+	 */
+	@Query(value = "SELECT * FROM reset_password_token rpt "
+			+ "WHERE DATE_FORMAT(mail_create, \"%Y-%m-%d\") = :date " // 日期格式化
+			, nativeQuery=true)
+	public List<ResetPasswordToken> findByDate(
+			@Param("date") Date date);
 }
 
 

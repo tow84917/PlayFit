@@ -59,7 +59,8 @@ public class ForgotPasswordController {
 	@PostMapping(value = "/sendForgotPwdEmail", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String sendForgotPwdEmail (@RequestBody String email, HttpServletRequest request) {
+	public String sendForgotPwdEmail (
+			@RequestBody String email, HttpServletRequest request) {
 		
 		// 寄給誰
 		String to = email; 

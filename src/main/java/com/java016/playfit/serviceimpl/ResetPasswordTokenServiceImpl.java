@@ -48,6 +48,27 @@ public class ResetPasswordTokenServiceImpl implements ResetPasswordTokenService 
 	public List<ResetPasswordToken> findByUserIdAndDate(Integer userId, Date date) {
 		return resetPasswordTokenRepo.findByUserIdAndDate(userId, date);
 	}
+	
+	/**
+	 * 找特定日期的 token
+	 * @param date
+	 * @return List<ResetPasswordToken>
+	 */
+	@Override
+	public List<ResetPasswordToken> findByDate(Date date) {
+		return resetPasswordTokenRepo.findByDate(date);
+	}
+	
+	/**
+	 * 刪除 Token
+	 * @param token
+	 */
+	@Override
+	public void deleteToken(ResetPasswordToken token) {
+		resetPasswordTokenRepo.delete(token);
+	}
+	
+	
 }
 
 

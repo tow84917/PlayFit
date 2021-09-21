@@ -27,6 +27,19 @@ public interface ResetPasswordTokenService {
 	 * @return List<ResetPasswordToken>
 	 */
 	List<ResetPasswordToken> findByUserIdAndDate(Integer userId, Date date);
+	
+	/**
+	 * 找特定日期的 token
+	 * @param date
+	 * @return List<ResetPasswordToken>
+	 */
+	List<ResetPasswordToken> findByDate(Date date);
+	
+	/**
+	 * 刪除 Token
+	 * @param token
+	 */
+	void deleteToken(ResetPasswordToken token);
 
 }
 
