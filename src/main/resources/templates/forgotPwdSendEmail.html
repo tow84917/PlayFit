@@ -33,10 +33,20 @@
                 <h1>We will be sending a reset password link to your email.</h1>
                 
                 <div class="inputRange">
-                    
-                    <input type="text" class="enterEmail"/> 
-                    
+                    <input type="text" class="enterEmail" placeholder="Enter your email."/> 
                 </div>
+                
+                <div class="captchaBox">
+
+<!--                     圖片 -->					                
+        			<img th:src="@{/getCaptchaImage}" id="captchaPic" alt="Captcha Code"/>
+<!--                     刷新按鈕 -->
+                    <button id="refreshCaptchaBtn">&#10227;</button><br>
+                    
+                    <input class="enterCaptcha" type="text" placeholder="Enter captcha Code ignorecase.">
+        			
+                </div>
+        			
             </div>
             <!-- 送出 -->
             <button id="confirmSubmit">Send</button>

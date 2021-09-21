@@ -1,11 +1,15 @@
 package com.java016.playfit.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,7 +21,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
+import com.google.code.kaptcha.Constants;
+import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.java016.playfit.model.ResetPasswordToken;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.EmailService;
@@ -26,6 +34,7 @@ import com.java016.playfit.service.UserService;
 import com.java016.playfit.tool.EmailTool;
 
 @Controller
+@SessionAttributes(Constants.KAPTCHA_SESSION_KEY) // default "KAPTCHA_SESSION_KEY"
 public class ForgotPasswordController {
 	
 	UserService userService;
@@ -38,15 +47,21 @@ public class ForgotPasswordController {
 	
 	BCryptPasswordEncoder passwordEncoder;
 	
+    DefaultKaptcha defaultKaptcha;
+	
 	@Autowired
-	public ForgotPasswordController(UserService userService, EmailService emailService,
-			ResetPasswordTokenService resetPasswordTokenService, EmailTool emailTool,
-			BCryptPasswordEncoder passwordEncoder) {
+	public ForgotPasswordController(
+			UserService userService, EmailService emailService,
+			ResetPasswordTokenService resetPasswordTokenService, 
+			EmailTool emailTool, BCryptPasswordEncoder passwordEncoder, 
+			DefaultKaptcha defaultKaptcha
+			) {
 		this.userService = userService;
 		this.emailService = emailService;
 		this.resetPasswordTokenService = resetPasswordTokenService;
 		this.emailTool = emailTool;
 		this.passwordEncoder = passwordEncoder;
+		this.defaultKaptcha = defaultKaptcha;
 	}
 
 	// 給忘記密碼輸入Email
@@ -55,12 +70,53 @@ public class ForgotPasswordController {
 		return "forgotPwdSendEmail";
 	}
 
+	// 給驗證碼圖片
+	@GetMapping("/getCaptchaImage")
+	public void getCaptchaImage(
+			HttpServletRequest request, HttpServletResponse response, Model model) {
+		
+		// 建立驗證碼文本(驗證碼)
+        String capText = defaultKaptcha.createText();
+        // 建立驗證碼圖片
+        BufferedImage image = defaultKaptcha.createImage(capText);
+        
+        System.out.println(capText);
+        
+        // Session 存驗證碼
+        model.addAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
+
+        // return 驗證碼圖片 ，禁止驗證碼圖片緩存(避免抓到舊的)
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+        response.setContentType("image/jpeg");
+        
+        // 寫出
+        try {
+			ImageIO.write(image, "jpg", response.getOutputStream());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}	
+	}
+
 	// 寄重設密碼信
 	@PostMapping(value = "/sendForgotPwdEmail", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String sendForgotPwdEmail (
-			@RequestBody String email, HttpServletRequest request) {
+			@RequestBody Map<String, String> sendForgotPwdEmailInfo,
+			HttpServletRequest request, Model model, SessionStatus status) {
+		
+		String email = sendForgotPwdEmailInfo.get("inputEmail");
+		String captcha = sendForgotPwdEmailInfo.get("inputCaptcha");
+		String sessionCaptcha = 
+				String.valueOf(model.getAttribute(Constants.KAPTCHA_SESSION_KEY));
+		
+		// 驗證碼錯誤或失效
+		if (sessionCaptcha == null || !captcha.equalsIgnoreCase(sessionCaptcha)) {
+			return "{\"forgetEmailResult\" : \"captchaInvaild\"}";
+		}
 		
 		// 寄給誰
 		String to = email; 
@@ -128,6 +184,9 @@ public class ForgotPasswordController {
 		resetPasswordToken.setResetToken(resetToken);
 		resetPasswordToken.setMailCreate(sendTime);
 		resetPasswordTokenService.saveResetPasswordToken(resetPasswordToken);
+		
+		// 寄出成功移除驗證碼 SessionAttributes
+		status.setComplete();
 		
 		return "{\"forgetEmailResult\" : \"sendSuccess\"}";
 	}
