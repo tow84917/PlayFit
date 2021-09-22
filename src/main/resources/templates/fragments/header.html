@@ -6,11 +6,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-<!--     網站圖示 -->
+
+    <!--     網站圖示 -->
     <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
     <link rel="bookmark" th:href="@{/favicon.ico}" type="image/x-icon">
-    
+
     <title>headerAndFooter</title>
 </head>
 
@@ -18,7 +18,7 @@
     <!-- Menu Start -->
     <header th:fragment="myHeader" class="header">
         <nav class="navbar">
-            <a href="#" class="nav-logo"><img src="/header&Footer/images/bluelogo.svg" alt=""></a>
+            <a href="/" class="nav-logo"><img src="/header&Footer/images/bluelogo.svg" alt=""></a>
             <ul class="nav-menu w800">
                 <li class="nav-item">
                     <a href="/StartFit" class="nav-link">FIT NOW</a>
@@ -33,8 +33,8 @@
                     <a href="#" class="nav-link">ABOUT US</a>
                 </li>
                 <li class="nav-item">
-         			<a href="/pay" class="nav-link">PREMIUM</a>
-      			 </li>		
+                    <a href="/pay" class="nav-link">PREMIUM</a>
+                </li>
                 <li class="nav-item">
                     <!--                 	登入=> MemberPage -->
                     <a sec:authorize="isAuthenticated()" href="/MemberPage" class="nav-icon">
