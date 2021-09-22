@@ -191,7 +191,7 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	 * 依體型變化 更新 Avatar
 	 */
 	@Override
-	@Scheduled(cron = "0 0 2 * * ?") // 指定時間執行 2時(am)
+	@Scheduled(cron = "30 03 15 * * ?") // 指定時間執行 2時(am)
 	public void upadteAvatarPicForBodyType() {
 		
 		long now = System.currentTimeMillis();
