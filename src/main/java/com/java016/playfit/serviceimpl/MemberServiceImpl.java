@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
 		java.util.Date utilDate = new java.util.Date();
 		String weekDay = utilDate.toString().split(" ")[0];
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		String today = sdf.format(utilDate) + " " + weekDay + " .";
+		String today = sdf.format(utilDate) + " " + weekDay + ".";
 		return today;
 	}
 
