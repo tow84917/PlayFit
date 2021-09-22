@@ -15,7 +15,7 @@
 #circle02{
     position: absolute;
     width: 350px;
-    bottom: -200px;
+    bottom: 500px;
     left: -20px;
     z-index: -999;
     animation: rattle1 4s infinite alternate;
@@ -24,7 +24,7 @@
 #circle03{
     position: absolute;
     width: 500px;
-    top: 50%;
+    top: 30%;
     right: -100px;
     z-index: -999;
     animation: rattle1 3s infinite alternate;
@@ -55,6 +55,8 @@ time, mark, audio, video {
 	font-size: 62.5%;
 	font-family: 'Montserrat', sans-serif;
 	vertical-align: baseline;
+    overflow: hidden;
+    position: relative;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
