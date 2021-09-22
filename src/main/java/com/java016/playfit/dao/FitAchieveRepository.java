@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.FitAchieve;
+import com.java016.playfit.model.FitActivity;
 
 public interface FitAchieveRepository extends JpaRepository<FitAchieve, Integer> {
 
@@ -24,4 +25,6 @@ public interface FitAchieveRepository extends JpaRepository<FitAchieve, Integer>
     Set<FitAchieve> findByMonthAndYear(int month, int year);
     
     List<FitAchieve> findAllByDailyRecordAndStatus(DailyRecord dailyRecord,String status);
+    
+	List<FitAchieve> findAllByDailyRecordAndFitActivityAndStatus(DailyRecord dailyRecord,FitActivity fitActivity,String status);
 }

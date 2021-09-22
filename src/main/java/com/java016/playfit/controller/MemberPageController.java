@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.java016.playfit.model.Avatar;
 import com.java016.playfit.model.DailyRecord;
+import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.FitActivity;
 import com.java016.playfit.model.HealthRecord;
 import com.java016.playfit.model.PersonalGoal;
@@ -57,15 +57,17 @@ public class MemberPageController {
 
 	// 會員頁面
 	@RequestMapping("/MemberPage") // 須同時支援GET、POST(forward:/)
-	public String showMemberPage(Model model, RedirectAttributes ra, HttpServletRequest request) {
+	public String showMemberPage(Model model, RedirectAttributes ra, 
+			HttpServletRequest request) {
 		
-		// 確認帳號是否啟用
-		boolean isEnable = userService.isLoginUserEnable();
-		
-		// 未啟用轉認證畫面
-		if (!isEnable) {
-			return "redirect:/certificationEmail";
-		}
+		// 改由攔截器 檢查
+//		// 確認帳號是否啟用
+//		boolean isEnable = userService.isLoginUserEnable();
+//		
+//		// 未啟用轉認證畫面
+//		if (!isEnable) {
+//			return "redirect:/certificationEmail";
+//		}
 		
 		// 目前登入者 + Id
 		int userId = userService.getLoginUserId();
@@ -97,9 +99,10 @@ public class MemberPageController {
 		} else {
 
 			// 今日運動項目 & 完成狀態
-			LinkedHashMap<FitActivity, String> activityStatus = memberService.getTodayActivityAndStatus(todayRecord);
+			LinkedHashMap<FitAchieve, FitActivity> activityStatus = 
+					memberService.getTodayAchieveAndActivity(todayRecord);
 			model.addAttribute("activityStatus", activityStatus);
-
+			
 			// 今日消耗
 			model.addAttribute("calLost", todayRecord.getKcalBurned());
 			model.addAttribute("calGain", todayRecord.getKcalIntake());

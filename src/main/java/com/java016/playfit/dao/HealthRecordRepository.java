@@ -57,6 +57,13 @@ public interface HealthRecordRepository extends JpaRepository<HealthRecord, Inte
 	public void updateCalorieDeficit(
 			@Param(value = "id") Integer id, 
 			@Param(value="calorieDeficit") Double calorieDeficit) ;
+	
+	/**
+	 * 找所有該日期紀錄
+	 * @param createdDate
+	 * @return List<HealthRecord>
+	 */
+	public List<HealthRecord> findByDate(Date date);
 }
 
 

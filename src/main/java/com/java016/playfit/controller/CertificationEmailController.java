@@ -6,22 +6,26 @@ import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.java016.playfit.model.User;
+import com.java016.playfit.security.CustomUserDetails;
 import com.java016.playfit.service.EmailService;
 import com.java016.playfit.service.UserService;
 import com.java016.playfit.tool.EmailTool;
 
 @RestController
 @SessionAttributes(
-		value = {"checkingUser", "verificationCode", "sendTime"} // 接收User回應確認用 
+		value = {"newMember","checkingUser", "verificationCode", "sendTime"} // 接收User回應確認用 
 		) 
 public class CertificationEmailController {
 	
@@ -40,8 +44,13 @@ public class CertificationEmailController {
 		this.emailTool = emailTool;
 	}
 
-	// 寄認證信
-	@RequestMapping(value = "/sendCertificationEmail", 
+	/**
+	 * 寄認證信
+	 * @param model
+	 * @return CertificationEmail
+	 * @throws MessagingException
+	 */
+	@GetMapping(value = "/sendCertificationEmail", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public String sendEmialTest(
 			Model model
@@ -88,6 +97,7 @@ public class CertificationEmailController {
 			// 寄信對象
 			to = checkingUser.getEmail();
 			
+			
 		}
 		
 		// 接收Email參數, 等前段請求待定
@@ -114,7 +124,13 @@ public class CertificationEmailController {
 		return "{\"emailResult\" : \"sendSuccess\"}"; // 字串JSON
 	}
 	
-	// 接收 User 回應 
+	/**
+	 * 接收 User 回應 
+	 * @param verificationCode
+	 * @param model
+	 * @param status
+	 * @return 驗證結果
+	 */
 	@PostMapping(value = "/activateAccount", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public String activateAccount(
@@ -147,6 +163,19 @@ public class CertificationEmailController {
 			userService.updateUserCertificationStatus(checkingUser.getId(), 1);
 			
 			System.out.println("Activate success!");
+			
+			// 取經經被更新後的 User
+			User userUpdated = userService.findByEmail(checkingUser.getEmail());
+			
+			// 新 UserDetails 給 authentication 
+			CustomUserDetails customUserDetails = new CustomUserDetails(userUpdated);
+			
+			// 新增 authentication 
+			Authentication authentication = 
+					new UsernamePasswordAuthenticationToken
+					(customUserDetails, customUserDetails.getPassword(), 
+							customUserDetails.getAuthorities());
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 			
 			// 啟用成功移除 Controller上指定 SessionAttributes
 			status.setComplete();

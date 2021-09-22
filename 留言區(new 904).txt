@@ -1,11 +1,14 @@
-﻿Model HealthRecord 熱量赤字欄位換成 Double , SQL int => float 
-Model User 增加 String role , SQL檔已更新, 使用前建議重跑 感恩
-2021/8/31 - SQL檔更新,新增food的serving欄位, 以及加入實際的food資料
+﻿2021/9/04 - SQL檔更新,更改測試帳號 Email: playfit1234@gmail.com
 
-2021/9/04 - SQL檔更新,更改測試帳號 Email: playfit1234@gmail.com
-Google 帳密 playfit1234@gmail.com , playfit1234team2 (收信用)
+Google (收信用)
+帳 : playfit1234@gmail.com
+密 : playfit1234team2
 
 圖片不用 refresh 方式(註冊) : 
 window -> preferences -> workplace -> (tick) refresh using native hooks or polling.
 
 network Disable cache or clean cache => 網站圖示 
+
+2021/9/09 - SQL檔更新, 新增修改Avatar 相關model, healthRecord add body shape.
+2021/9/14 - SQL檔更新, 新增了fit_activity_video的資料
+2021/9/16 - SQL檔更新, 更新了fit_activity的description欄位

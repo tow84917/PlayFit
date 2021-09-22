@@ -1,16 +1,90 @@
+/* 設定變數 ---------------------------------- */
+:root {
+  --purple3: #ccccff;
+  --purple2: #6460ff;
+  --purple1: #2e1ed3;
+  --white: #ffffff;
+  --Gy1: #e4ebf5;
+  --Gy2: #c8d0e7;
+  --Gy3: #bec8e4;
+  --greyDark: #9baacf; 
+  --navbar-background: rgba(255, 255, 255, 0.808);
+  --navbar-shadow: rgba(128, 128, 128, 0.322);
+}
+
+/* 設定變數 ---------------------------------- */
+
+
+.blank{
+	width:100%;
+	height:200px;
+}
+
+.row{
+	padding-right:15px;
+	background: var(--Gy1);
+	border-radius: 3rem;
+	box-shadow: 0.8rem 0.8rem 1.4rem #c8d0e7, -0.2rem -0.2rem 1.8rem white;
+}
+
+.card-body{
+	width: 100%;
+height: 20vh;
+object-fit: cover;
+}
+
+
+.iconEdit{
+	margin-left: auto;
+	margin-bottom: 15px;
+	width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--Gy4);
+  transition: all 0.5s ease;
+}
+
+.iconEdit:active{
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
+  color: var(--purple2);
+}
+.iconEdit:hover{
+  color: var(--purple2);
+  background-color: var(--purple3);
+}
+
 .left-main{
-    border: red 1px solid;
+	display: flex;
+  justify-content: center;
+  align-items: center;
+	color: var(--purple1);
+    font-size: 2.2rem;
     
 }
 
 .right-main{
-    border: red 1px solid;
-    
+     font-size: 1.8rem;
+}
+
+/*表格中的第一個tr : 虛擬選擇器*/
+.right-main .row:nth-child(odd){background-color:#ccccff;}
+  /*表格中的偶數對 tr*/
+.right-main .row:nth-child(even){background-color:#ffffff;}
+
+.open_line{
+	text-align:center;
+	height:px;
 }
 
 .has_children {
+	
     cursor: pointer;
-    width: 300px;
   }
   
 .ch {
@@ -25,24 +99,23 @@ input {
     height: 30px;
 }
 
-.main{
-  background-color: powderblue;
-}
-
 .add-diary{
-  border: red solid;
+  
+  
 }
 
 .food-edit{
   display: flex;
   padding: 5px;
-  background-color: #61a0f8;
+
   height: 100px;
 }
 
 .item {
+  border-radius: 1rem;
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
   flex: 1;
-  background-color: #f08bc3;
+  background-color: #ffffff;
   margin: 5px;
   overflow-y: scroll;
   overflow-x: hidden;

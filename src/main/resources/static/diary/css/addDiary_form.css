@@ -196,13 +196,23 @@ width: calc(50% - 8px);
 
 /* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  background-color: #ccccff;
   margin: auto;
   padding: 20px;
-  border: 1px solid #888;
+  width:500px;
+  height:200px;
   width: 80%;
   height:50%;
+  border-radius: 50%;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
 }
+
+form{
+	border-radius: 50%;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+  
+}
+
 
 /* The Close Button */
 .close {

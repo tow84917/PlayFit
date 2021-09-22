@@ -63,7 +63,7 @@
                             <p th:text ="${user.email}"/>
                         </div>
                         <!-- 日記連結 -->
-                        <a href="" class="dailypic">
+                        <a th:href="@{/diary_homepage/1}" class="dailypic">
                             <img th:src="@{/memberPage/img/PngItem_1145674.png}" width="42px" height="40px" alt="smallDaily_pic">
                         </a>
                     </div>
@@ -222,20 +222,29 @@
                             <!-- Thymeleaf will foreach here ; 
                                 assign background-color、src、activityName-->
 							<div class="activityBox" id="scrollbarStyle">
+<!-- 									<div th:if="${activityStatus}" th:each="task : ${activityStatus}" -->
+<!-- 										th:with="color1='#2e1ed3',color2='#6460ff'"> -->
 									<div th:if="${activityStatus}" th:each="task : ${activityStatus}"
-										th:with="color1='#2e1ed3',color2='#6460ff'">
+										th:with="color1='#ccccff',color2='#2e1ed3'">
+										
 										<!--                             		done -->
-										<div class="activity" th:if="${task.value =='done'}"
+										<div class="activity" th:if="${task.key.status != '未執行'}"
 											th:style="'background-color:'+ ${color1}">
-											<img th:src="@{${task.key.imagePath}}" alt="activity_name">
-											<p id="activityName" th:text="${task.key.name}"></p>
+											<a th:href="@{'/fit-activity/'+ ${task.key.id} }">
+												<img id="cmopletedPic" th:src="@{/images/finishl.svg}" alt="cmopleted_Pic">
+												<img id="activityPic" th:src="@{${task.value.imagePath}}" alt="activity_Pic">
+												<p id="activityName" th:text="${task.value.name}"></p>
+											</a>
 										</div>
 										<!-- 	                                undone -->
-										<div class="activity" th:if="${task.value =='undone'}"
+										<div class="activity" th:if="${task.key.status == '未執行'}"
 											th:style="'background-color:'+ ${color2}">
-											<img th:src="@{${task.key.imagePath}}" alt="activity_name">
-											<p id="activityName" th:text="${task.key.name}"></p>
+											<a th:href="@{'/fit-activity/'+ ${task.key.id} }">	
+												<img id="activityPic" th:src="@{${task.value.imagePath}}" alt="activity_Pic">
+												<p id="activityName" th:text="${task.value.name}"></p>
+											</a>
 										</div>
+									
 									</div>
 								</div>
 							<!-- 日曆連結 -->

@@ -28,7 +28,9 @@ public interface HealthRecordService {
 	
 	// 更新熱量赤字
 	void updateCalorieDeficit(Integer id, Double calorieDeficit);
-
+	
+	//找所有該日期紀錄
+	List<HealthRecord> findByDate(Date date);
 }
 
 
