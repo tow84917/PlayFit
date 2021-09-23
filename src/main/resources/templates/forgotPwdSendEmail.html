@@ -9,8 +9,8 @@
   	<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     
     <script th:src="@{/jquery-3.6.0.js}"></script>
-    <title>CertificationEmail</title>
-    <link rel="stylesheet" th:href="@{/certificationEmail/css/certificationEmail.css}">
+    <title>ForgotPassword</title>
+    <link rel="stylesheet" th:href="@{/forgotPwd/css/forgotPwdSend.css}">
 </head>
 <body>
     <div class="myHeader">
@@ -20,7 +20,7 @@
     <div class="main">
         <div class="range">
             <!-- 標題 -->
-            <label class="title">Certification Email</label>
+            <label class="title">Forgot Password</label>
             <!-- 輸入框 -->
             <div class="check-div">
             <!-- 提示訊息 -->
@@ -29,26 +29,33 @@
                         Unknown error
                     </div>
                 </div>
-                <h1>Enter verification code</h1>
-                <div class="input-div">
-                    
-                    <input type="text" class="inputItem0" data-index="0" maxlength="1" autofocus /> 
-                    <input type="text" class="inputItem1" data-index="1" maxlength="1" />
-                    <input type="text" class="inputItem2" data-index="2" maxlength="1" />
-                    <input type="text" class="inputItem3" data-index="3" maxlength="1" />
-                    <input type="text" class="inputItem4" data-index="4" maxlength="1" />
-                    <input type="text" class="inputItem5" data-index="5" maxlength="1" />
-                    
+                
+                <h1>We will be sending a reset password link to your email.</h1>
+                
+                <div class="inputRange">
+                    <input type="text" class="enterEmail" placeholder="Enter your email."/> 
                 </div>
+                
+                <div class="captchaBox">
+
+<!--                     圖片 -->					                
+        			<img th:src="@{/getCaptchaImage}" id="captchaPic" alt="Captcha Code"/>
+<!--                     刷新按鈕 -->
+                    <button id="refreshCaptchaBtn">&#10227;</button><br>
+                    
+                    <input class="enterCaptcha" type="text" placeholder="Enter captcha Code ignorecase.">
+        			
+                </div>
+        			
             </div>
             <!-- 送出 -->
-            <button id="confirmSubmit">Submit</button>
+            <button id="confirmSubmit">Send</button>
             
         </div>
     </div>
     <footer th:replace="fragments/footer::myFooter"></footer>
 
-    <script th:src="@{certificationEmail/js/certificationEmail.js}"></script>
+    <script th:src="@{/forgotPwd/js/forgotPwdSend.js}"></script>
 </body>
 </html>
 

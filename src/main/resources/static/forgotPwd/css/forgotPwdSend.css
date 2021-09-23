@@ -27,6 +27,11 @@
   background-color: #6460ff;
 }
 
+/* 結果顯示 */
+.result{
+  width: 450px;
+}
+
 /* 顯示範圍 */
 .range {
   width: 760px;
@@ -53,10 +58,10 @@
 
 .check-div {
   width: 520px;
-  height: 180px;
+  height: 280px;	
   margin: -20px auto;
 
-  /* border: 1px solid slategrey; */
+  /*border: 1px solid slategrey;*/ 
   text-align: center;
 
   display: flex;
@@ -74,25 +79,76 @@
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 15.5px;
 }
 
-.input-div {
+.inputRange {
   margin-top: -15px;
-}
-
-input {
-  margin-left: 10px;
-  text-align: center;
-  width: 65px;
-  height: 45px;
   border: none;
-  /* 這裡注意修改預設外邊框屬性,不用border*/
-  outline: 1px solid slategrey;
+  border-radius: 20px;
+  
 }
 
-input:focus {
-  outline: 2px solid #3494fe;
+.enterEmail {
+  text-align: center;
+  
+  width: 470px;
+  height: 45px;
+  
+  font-size:20px;
+  
+  border-radius: 20px;
+  border: 3px solid  #6460ff;
+}
+
+.captchaBox{
+  width: 470px;
+  /*border: 1px solid red;*/ 
+  	
+  /*display: flex;*/
+  align-items:center;
+  
+  justify-content: center;
+
+}
+
+#refreshCaptchaBtn{
+  width: 45px;
+  height: 45px;
+  
+  position:relative;
+  left:1%;
+  bottom:15%;
+  
+  font-size:22px;
+  text-align: center;
+  
+  border: none;
+}
+
+.enterCaptcha{
+  position:relative;
+	
+  text-align: center;
+  
+  width: 470px;
+  height: 45px;
+  
+  font-size:16px;
+  
+  border-radius: 20px;
+  border: 3px solid  #6460ff;
+  
+  color: black;
+}
+
+input{
+  text-align: center;
+}
+
+/*取消輸入外框*/
+.enterCaptcha, .enterEmail:focus{
+  outline: none;
 }
 
 /* 提交按鈕 */

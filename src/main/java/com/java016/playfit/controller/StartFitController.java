@@ -115,7 +115,7 @@ public class StartFitController {
 		
 		FitAchieve fitAchieve = startFitService.getFitAchieveById(fitAchieveId);
 		System.out.println(fitAchieve.getStatus());
-		if(!fitAchieve.getStatus().equals("未執行")) throw new NotFoundException("Current user try to access fitAchieve with illegal status");
+//		if(!fitAchieve.getStatus().equals("未執行")) throw new NotFoundException("Current user try to access fitAchieve with illegal status");
 		boolean isFitAchieveBelongToCurrentUser = startFitService.checkFitAchieveIdIsBelongTo(fitAchieve, user);
 		if(!isFitAchieveBelongToCurrentUser) {
 			throw new NotFoundException("Current User Try To Access Other Users FitAchieve");

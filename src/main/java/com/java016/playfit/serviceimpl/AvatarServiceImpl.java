@@ -98,8 +98,14 @@ public class AvatarServiceImpl implements AvatarService {
 		// 取基本設定檔
 		File fileInput = 
 				new File("src/main/resources/static/images/Avatar/AvatarXML_bassic.svg");
-
-		try (FileInputStream svgInputStream = new FileInputStream(fileInput);) {
+		
+		// 找User avatar
+		Avatar userAvatar = 
+				avatarRepo.getById(Integer.valueOf(saveFileName.split("_")[1]));
+		
+		try (
+				FileInputStream svgInputStream = new FileInputStream(fileInput)
+			) {
 
 			// 建立SVG Document
 			SVGDocument doc = 
@@ -150,6 +156,9 @@ public class AvatarServiceImpl implements AvatarService {
 				
 				// 依序加入身體標籤
 				plainAvatar.appendChild(path);
+				
+				// 更新AatarBody
+				userAvatar.setAvatarBody(avatarBody);
 			}
 			
 			//--------------------------------------------
@@ -198,6 +207,9 @@ public class AvatarServiceImpl implements AvatarService {
 					
 					// 依序加入帽子標籤
 					hat.appendChild(path);
+					
+					// 更新AatarHat
+					userAvatar.setAvatarHat(avatarHat);
 				}
 			}
 			
@@ -247,6 +259,10 @@ public class AvatarServiceImpl implements AvatarService {
 					
 					// 依序加入衣服配件標籤
 					body.appendChild(path);
+					
+					// 更新AatarClothes
+					userAvatar.setAvatarClothes(avatarClothes);
+					
 				}
 			}
 			
@@ -256,6 +272,9 @@ public class AvatarServiceImpl implements AvatarService {
 			
 			TranscoderInput input = new TranscoderInput(doc);
 			outputSvg(input, fileOutput);
+			
+			// 更新Aatar
+			avatarRepo.save(userAvatar);
 			
 			System.out.println("建立成功");
 		} catch (Exception e) {

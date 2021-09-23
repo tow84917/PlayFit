@@ -4,6 +4,10 @@
     font-size: 1rem;
 }
 
+.nav-link{
+	font-weight: 800;
+}
+
 body{
     margin: 0;
 }

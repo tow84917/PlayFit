@@ -23,7 +23,7 @@ var inputArr = document.getElementsByTagName("input");
 // 錯誤訊息
 let errorMessage = "";
 
-// 顯示錯誤
+// 顯示訊息
 function showMessage(message){
     result.classList.remove("hidden");
     result.classList.remove("success");
@@ -64,6 +64,9 @@ function showMessage(message){
     		window.location.replace('/MemberPage') // 成功跳轉會員頁
     	},3000)
     }
+    
+    // 寄出失敗
+    if(message == "tryLater") result.textContent = "Failed to send, try again later"
 
 }
 
