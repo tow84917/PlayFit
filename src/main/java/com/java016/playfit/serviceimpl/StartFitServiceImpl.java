@@ -135,7 +135,7 @@ public class StartFitServiceImpl implements StartFitService{
 		boolean isFitAchieveBelongToCurrentUser = checkFitAchieveIdIsBelongTo(fitAchieve, user);
 		if(!isFitAchieveBelongToCurrentUser) throw new NotFoundException("Current User Try To Modify Other Users FitAchieve");
 		
-		if(!fitAchieve.getStatus().equals("尚未執行")) throw new NotFoundException("Current User Try To Modify Unexpected Status Of FitAchiece");
+		if(!fitAchieve.getStatus().equals("未執行")) throw new NotFoundException("Current User Try To Modify Unexpected Status Of FitAchiece");
 		fitAchieve.setEndTime(timestamp);
 		fitAchieve.setStatus("按計畫執行");
 		fitAchieveRepo.save(fitAchieve);

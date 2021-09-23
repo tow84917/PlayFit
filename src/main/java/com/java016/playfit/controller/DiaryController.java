@@ -1,23 +1,33 @@
 package com.java016.playfit.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.security.Principal;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java016.playfit.dao.DailyRecordRepository;
 import com.java016.playfit.model.DailyRecord;
+import com.java016.playfit.model.DiaryPhoto;
 import com.java016.playfit.model.FitAchieve;
+import com.java016.playfit.model.FitActivity;
 import com.java016.playfit.model.Food;
 import com.java016.playfit.model.Meal;
 import com.java016.playfit.model.TimePeriod;
@@ -26,8 +36,10 @@ import com.java016.playfit.service.DailyRecordService;
 import com.java016.playfit.service.FitAchieveService;
 import com.java016.playfit.service.FoodService;
 import com.java016.playfit.service.MealService;
+import com.java016.playfit.service.MemberService;
 import com.java016.playfit.service.TimePeriodService;
 import com.java016.playfit.service.UserService;
+import com.java016.playfit.tool.FileUploadUtil;
 
 
 @Controller
@@ -47,6 +59,8 @@ public class DiaryController {
 	MealService mealService;
 	@Autowired
 	DailyRecordRepository dailyRecordRepo;
+	@Autowired
+	MemberService memberService;
 	
 	//修改或新增日記的表單頁面
 	@RequestMapping("/diary_add_update")
@@ -78,6 +92,10 @@ public class DiaryController {
 		}
 		else {
 			fitAchieves = fitAchieveService.getAllFitAchieveByDailyRecordAndStatus(todayDailyRecord, "按計畫執行");
+			// 今日運動項目 & 完成狀態
+			LinkedHashMap<FitAchieve, FitActivity> activityStatus = 
+			memberService.getTodayAchieveAndActivity(todayDailyRecord);
+			mv.addObject("activityStatus", activityStatus);
 		}
 		System.out.println(fitAchieves);
 		//此日常紀錄存在session裡面
@@ -102,7 +120,7 @@ public class DiaryController {
 	public String processDiaryUpdate(@RequestParam(required=false,name="mealHidden") String[] timePeriodIdsFoodIdsForUpdate
 									,@RequestParam(required=false,name="deleteMealHidden") String[]	mealIdsForDelete
 									,DailyRecord todayDailyRecord,HttpSession session
-									) {
+									,@RequestParam(required=false,name="image") MultipartFile multipartFile) throws IOException{
 		System.out.println("processDiaryUpdate開始");
 		DailyRecord tempTodayDailyRecord = (DailyRecord) session.getAttribute("todayDailyRecord");
 		tempTodayDailyRecord.setTitle(todayDailyRecord.getTitle());
@@ -121,7 +139,24 @@ public class DiaryController {
 		System.out.println("因為可能會新增或刪除用餐紀錄 所以要更新日常紀錄的卡路里");
 		//因為可能會新增或刪除用餐紀錄 所以要更新日常紀錄的卡路里
 		dailyRecordService.updateDailyRecordKcalIntake(tempTodayDailyRecord);
-		return "redirect:/";
+		
+		if(!multipartFile.isEmpty()) {
+	        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+	        
+	        String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+	         
+	        String uploadDir = "user-photos/" + userService.getLoginUser().getId();
+	 
+	        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+	        
+	        DiaryPhoto diaryPhoto = new DiaryPhoto();
+	        diaryPhoto.setDailyRecord(tempTodayDailyRecord);
+	        diaryPhoto.setFileName(fileName);
+	        diaryPhoto.setExtension(extension);
+	        dailyRecordService.saveDiaryPhoto(diaryPhoto);
+		}
+
+		return "redirect:/diary_homepage/1";
 	}
 	
 	//日記的首頁
@@ -143,6 +178,7 @@ public class DiaryController {
 		
 		//用戶今天的日常紀錄是否已經成為日記
 		boolean isDiary = dailyRecordService.isDailyRecordBecomeDairy(todayDailyRecord);
+		
 		//如果目前用戶沒有今天的日常紀錄
 		if(todayDailyRecord == null) {
 			//new一個日常紀錄的物件
@@ -196,6 +232,14 @@ public class DiaryController {
 		return mv;
 	}
 	
-	
+	@RequestMapping(value = "image/{id}/{imageName}")
+	@ResponseBody
+	public byte[] getImage(@PathVariable(value = "imageName") String imageName,
+							@PathVariable(value = "id") String userId) throws IOException {
+
+	    File serverFile = new File("user-photos/" + userId + "/" + imageName);
+
+	    return Files.readAllBytes(serverFile.toPath());
+	}
 	
 }

@@ -57,6 +57,10 @@ public class DailyRecord {
 	@JsonIgnore
 	@OneToMany(mappedBy = "dailyRecord")
 	private List<Meal> meals;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "dailyRecord")
+	private List<DiaryPhoto> diaryPhotos;
 
 	public DailyRecord() {
 	}
@@ -151,6 +155,17 @@ public class DailyRecord {
 		this.meals = meals;
 	}
 
+	@JsonIgnore
+	public List<DiaryPhoto> getDiaryPhotos() {
+		return diaryPhotos;
+	}
+	@JsonIgnore
+	public void setDiaryPhotos(List<DiaryPhoto> diaryPhotos) {
+		this.diaryPhotos = diaryPhotos;
+	}
+	
+	
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
