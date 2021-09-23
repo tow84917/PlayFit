@@ -199,6 +199,7 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 	@Override
 	public void updateDailyRecordKcalBurned(DailyRecord dailyRecord,FitAchieve fitAchieve) {
 		int kcal = dailyRecord.getKcalBurned();
+		System.out.println("dailyRecord.getKcalBurned() ============= " + dailyRecord.getKcalBurned());
 		kcal += fitAchieve.getTotalKcal();
 		dailyRecord.setKcalBurned(kcal);
 		dailyRecordRepo.save(dailyRecord);

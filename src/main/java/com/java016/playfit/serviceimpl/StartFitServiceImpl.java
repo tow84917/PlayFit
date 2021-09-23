@@ -109,7 +109,12 @@ public class StartFitServiceImpl implements StartFitService{
 				fitAchieveRepo.save(fitAchieve);
 			}
 			
-			dailyRecord.setKcalBurned(dailyRecord.getKcalBurned() + (int)fitActivity.getKcalBurn());
+			int tempKcalBurned = 0;
+			if(dailyRecord.getKcalBurned() != null) {
+				tempKcalBurned = dailyRecord.getKcalBurned();
+			}
+			
+			dailyRecord.setKcalBurned(tempKcalBurned + (int)fitActivity.getKcalBurn());
 			dailyRecordService.saveDailyRecord(dailyRecord);
 		}
 		
@@ -140,7 +145,11 @@ public class StartFitServiceImpl implements StartFitService{
 		fitAchieve.setStatus("按計畫執行");
 		fitAchieveRepo.save(fitAchieve);
 		DailyRecord dailyRecord = fitAchieve.getDailyRecord();
-		dailyRecord.setKcalBurned(dailyRecord.getKcalBurned() + fitAchieve.getTotalKcal());
+		int tempKcalBurned = 0;
+		if(dailyRecord.getKcalBurned() != null) {
+			tempKcalBurned = dailyRecord.getKcalBurned();
+		}
+		dailyRecord.setKcalBurned(tempKcalBurned + fitAchieve.getTotalKcal());
 		
 		fitAchieveRepo.save(fitAchieve);
 		dailyRecordService.saveDailyRecord(dailyRecord);
