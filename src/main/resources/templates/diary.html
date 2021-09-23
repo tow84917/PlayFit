@@ -60,15 +60,17 @@
 					<select id="myTimePeriod">
 						<option th:each="timePeriod : ${timePeriods}" th:value="${timePeriod.id}" th:utext="${timePeriod.name}">
 					</select>
+					<div class="food-plus" id="addFoodBtn" style="float:right;">
+							<img src="/diary/img/Icon_add.svg" alt="">
+						</div>
 					<select id="myFood">
 						<option th:each="food : ${foods}" th:value="${food.id}" th:utext="${food.name}">
 					</select>
+					
 					<div th:if="${meals}" th:each="meal: ${meals}" 
 					th:utext="${meal.timePeriod.name} + '--' + ${meal.food.name} + '  <button type=' + 'button'+ ' class=' + 'deleteClass' + ' value=' + ${meal.id} + '>Delete</button>'">
 					</div>
-					<div>
-						<button type="button" id="addFoodBtn" style="float:right;">+</button>
-					</div>
+					
 				</div>
 			</div>
 			
