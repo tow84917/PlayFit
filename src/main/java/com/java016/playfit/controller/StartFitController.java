@@ -1,11 +1,15 @@
 package com.java016.playfit.controller;
 
 import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -79,16 +83,31 @@ public class StartFitController {
 									@PathVariable("fitId") Integer fitId,
 									Principal principal,HttpSession session) throws NotFoundException {
 		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		String authority1 = "ROLE_NORMAL";
+		for (GrantedAuthority authority : authorities) {
+			authority1 = authority.getAuthority();
+			System.out.println("用戶權限" + authority1);
+		}
+		
+		
 		
 		//登入的使用者帳號(電子信箱)
 		String email = userService.getLoginUserEmail();
 		//用帳號抓出此用戶的Entity
 		User user = userService.findByEmail(email);
 		
+		
 		Integer userId = user.getId();
 
 		ModelAndView mv = new ModelAndView();
+		
 		FitActivity fitActivity = startFitService.getFitActivityById(fitId);
+		if(fitActivity.getRole() && !(authority1.equals("ROLE_PRIME") || authority1.equals("ROLE_DEF"))) {
+			throw new NotFoundException("no no no");
+		}
+		System.out.println("用戶權限");
 		FitActivityVideo fitActivityVideo = videoService.getFitActivityVideoById(fitId);
 		String path = fitActivity.getBodyPart() + "/" + fitActivityVideo.getFileName();
 		System.out.println("Session id : " + session.getId());

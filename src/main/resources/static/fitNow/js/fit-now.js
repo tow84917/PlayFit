@@ -1,5 +1,9 @@
 window.onload = function () {
 
+	var role = document.getElementById("role").getAttribute('data');
+	
+	console.log(role);
+
 	//全部的fitActivity
 	var fitActivityList = [];
     //全部的fitActivity 但是存成二維陣列 [Array(8), Array(8)]
@@ -244,11 +248,22 @@ window.onload = function () {
             newButton.className = "fit-name";
             newButton.innerText = fitActivityGrouped[currentPage-1][i].name;
             newButton.value = fitActivityGrouped[currentPage-1][i].id;
-            newButton.addEventListener("click",function(){
-                //alert(this.value);
-                window.location.href="/fit-activity/" + this.value + "/" + this.innerText;
-                console.log(contextPath);
-            });
+
+            if(fitActivityGrouped[currentPage-1][i].role == true && role == "ROLE_NORMAL"){
+                newButton.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                newButton.style.color = "rgba(255, 255, 255, 0.1)";
+                newButton.addEventListener("click",function(){
+                    //alert(this.value);
+                    window.location.href="/pay";
+                    console.log(contextPath);
+                });
+            }else{
+                newButton.addEventListener("click",function(){
+                    //alert(this.value);
+                    window.location.href="/fit-activity/" + this.value + "/" + this.innerText;
+                    console.log(contextPath);
+                });
+            }
             insertAfter(newButton, fitCategory);
         }
     }
@@ -259,10 +274,24 @@ window.onload = function () {
             newButton.className = "fit-name";
             newButton.innerText = bodyPartFitActivity[i].name;
             newButton.value = bodyPartFitActivity[i].id;
-            newButton.addEventListener("click",function(){
-                window.location.href="/fit-activity/" + this.value + "/" + this.innerText;
-                console.log(contextPath);
-            });
+
+
+
+            if(fitActivityGrouped[currentPage-1][i].role == true && role == "ROLE_NORMAL"){
+                newButton.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                newButton.style.color = "rgba(255, 255, 255, 0.1)";
+                newButton.addEventListener("click",function(){
+                    //alert(this.value);
+                    window.location.href="/pay";
+                    console.log(contextPath);
+                });
+            }else{
+                newButton.addEventListener("click",function(){
+                    //alert(this.value);
+                    window.location.href="/fit-activity/" + this.value + "/" + this.innerText;
+                    console.log(contextPath);
+                });
+            }
             insertAfter(newButton, fitCategory);
         }
     }

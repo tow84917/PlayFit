@@ -15,3 +15,4 @@ network Disable cache or clean cache => 網站圖示
 2021/9/19 - SQL檔更新, 更新了欄位ResetPasswordToken,忘記密碼用
 2021/9/23 - SQL檔更新, 新增了diary_photo表格
 		       刪除了daily_record,fit_achieve,meal,裡全部的測試資料
+2021/9/24 - SQL檔更新, 修改了fit_activity的資料
