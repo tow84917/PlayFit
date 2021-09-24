@@ -5,12 +5,16 @@ async function getCertificationEmail(){
 	
 	await fetch('/sendCertificationEmail')
     .then(response => {
-//	  console.log(response);      
       return response.json(); 
     })
     .then(data => {
-//    console.log(data["emailResult"]);
-      showMessage(data["emailResult"]);
+    	
+      let resultMessage = data["emailResult"];
+	  
+	  if(resultMessage == "tryLater") showErrorMessage(resultMessage)
+	  
+	  else showSuccessMessage(resultMessage);
+	  
     });
 }
 
@@ -20,55 +24,115 @@ var result = document.querySelector(".result");
 // 取所有input
 var inputArr = document.getElementsByTagName("input");
 
-// 錯誤訊息
-let errorMessage = "";
+// 訊息類別
+let messageType = new Map([
+	
+	["sendSuccess",
+	`Already sent the certification email <br>please enter the verification code below.`],
+	
+	["alreadySent",
+	`Already sent the certification email <br>please enter the verification code below.`],
+	
+	["activateSuccess",
+	`Activate Success ! <br>Go MemberPage 3 Seconds later.`],
+	
+	["notNum",
+	`Please enter number.`],
+	
+	["notFilled",
+	`Verification code not filled.`],
+	
+	["verificationCodeExpired",
+	`Verification code expired, <br> we will sent certification email again later.`],
+	
+	["verificationCodeFalse",
+	`Verification incorrect.`],
+	
+	["tryLater",
+	`Failed to send, try again later`]
+	
+]);
 
-// 顯示訊息
-function showMessage(message){
+// 成功訊息
+function showSuccessMessage(message){
+	
+    result.classList.remove("hidden");
+    result.classList.remove("error");
+    result.classList.add("success");
+    
+    result.innerHTML = messageType.get(message);
+	
+	if(message == "activateSuccess"){
+		setTimeout(()=>{
+	    		window.location.replace('/MemberPage') // 成功跳轉會員頁
+	    },3000)
+    }
+}
+
+// 失敗訊息
+function showErrorMessage(message){
+	
     result.classList.remove("hidden");
     result.classList.remove("success");
     result.classList.add("error");
+    
+    result.innerHTML = messageType.get(message);
 	
-	// 前端檢查
-    if(message == "notNum") result.textContent = "Please enter number."
-    if(message == "notFilled") result.textContent = "Verification code not filled."
-    
-    // -------------以下回傳結果------------
-    
-    // 驗證碼過期
-    if(message == "verificationCodeExpired") {
-    	result.innerHTML = `Verification code expired, already sent certification email again, 
-    	<br>please check your email.`
-    	
-    	// 過期再拿一次信
-    	getCertificationEmail();
+	if(message == "verificationCodeExpired"){
+		setTimeout(()=>{
+	    	getCertificationEmail();
+	    },3000)
     }
-    
-    // 驗證碼不正確
-    if(message == "verificationCodeFalse") result.textContent = "Verification incorrect."
-    
-    // 已經寄信(含間隔時間過短)
-    if(message == "alreadySent" || message == "sendSuccess") {
-    	result.classList.remove("error");
-    	result.classList.add("success");
-    	result.innerHTML = `Already sent the certification email <br>please enter the verification code below.`
-    }
-    
-    // 驗證成功
-    if(message == "activateSuccess") {
-    	result.classList.remove("error");
-    	result.classList.add("success");
-    	result.innerHTML = `Activate Success ! <br>Go MemberPage 3 Seconds later.`
-    	
-    	setTimeout(()=>{
-    		window.location.replace('/MemberPage') // 成功跳轉會員頁
-    	},3000)
-    }
-    
-    // 寄出失敗
-    if(message == "tryLater") result.textContent = "Failed to send, try again later"
-
 }
+
+//// 顯示訊息
+//function showMessage(message){
+//    result.classList.remove("hidden");
+//    result.classList.remove("success");
+//    result.classList.add("error");
+//	
+//	// 前端檢查
+//    if(message == "notNum") result.textContent = "Please enter number."
+//    if(message == "notFilled") result.textContent = "Verification code not filled."
+//    
+//    // -------------以下回傳結果------------
+//    
+//    result.innerHTML = messageType.get(message);
+//    
+//    // 驗證碼過期
+//    if(message == "verificationCodeExpired") {
+//    	result.innerHTML = `Verification code expired, already sent certification email again, 
+//    	<br>please check your email.`
+//    	
+//    	// 過期再拿一次信
+//    	getCertificationEmail();
+//    }
+//    
+//    // 驗證碼不正確
+//    if(message == "verificationCodeFalse") result.textContent = "Verification incorrect."
+//    
+//    // 已經寄信(含間隔時間過短) (O)
+//    if(message == "alreadySent" || message == "sendSuccess") {
+//    	result.classList.remove("error");
+//    	result.classList.add("success");
+//    	result.innerHTML = `Already sent the certification email <br>please enter the verification code below.`
+//    }
+//    
+//    // 驗證成功 (O)
+//    if(message == "activateSuccess") {
+//    	result.classList.remove("error");
+//    	result.classList.add("success");
+//    	result.innerHTML = `Activate Success ! <br>Go MemberPage 3 Seconds later.`
+//    	
+//    	setTimeout(()=>{
+//    		//window.location.replace('/MemberPage') // 成功跳轉會員頁
+//    	},3000)
+//    }
+//    
+//    // 寄出失敗
+//    if(message == "tryLater") result.textContent = "Failed to send, try again later"
+//
+//}
 
 // 清除錯誤
 function cleanErrorMessage(){
@@ -110,13 +174,11 @@ window.addEventListener("keyup", (e) => {
 	        return;
 	    }
 	    
-		    
 		// 輸入不是數字
 		if (isNaN(inputKey) == true && inputKey != 'Backspace') {
 		    	
 		    inputArr[curIndex].value = " ";
-		    errorMessage = "notNum";
-		    showMessage(errorMessage);
+		    showErrorMessage("notNum");
 		    return;
 		        
 		 }
@@ -127,8 +189,6 @@ window.addEventListener("keyup", (e) => {
 		     inputArr[curIndex].value = inputKey ;
 		 }
 	
-	
-	         
 	    //遍歷陣列的值接成驗證碼字串
 	    for (let i = 0; i <= 5; i ++) {
 	        // console.log(inputArr[i].value);
@@ -199,7 +259,7 @@ function doFirst(){
         // 驗證碼未填滿
         if(verificationCode.length < 6){
             console.log(verificationCode);
-            showMessage("notFilled");
+            showErrorMessage("notFilled");
             return ;
         }
         console.log("OK");
@@ -225,12 +285,14 @@ function doFirst(){
 	    .then(data => {
 		  console.log(data["emailResult"]);
 		  
+		  let resultMessage = data["emailResult"];
+		  
 		  // 失敗
-		  if(data["emailResult"] == "verificationCodeExpired") showMessage("verificationCodeExpired");
-		  if(data["emailResult"] == "verificationCodeFalse") showMessage("verificationCodeFalse");
+		  if(resultMessage == "verificationCodeExpired") showErrorMessage("verificationCodeExpired");
+		  if(resultMessage == "verificationCodeFalse") showErrorMessage("verificationCodeFalse");
 		  
 		  // 成功
-		  if(data["emailResult"] == "activateSuccess") showMessage("activateSuccess");
+		  if(resultMessage == "activateSuccess") showSuccessMessage("activateSuccess");
 		  
 	    })
 
