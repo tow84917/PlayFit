@@ -17,11 +17,13 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import com.java016.playfit.dao.DailyRecordRepository;
+import com.java016.playfit.dao.DiaryPhotoRepository;
 import com.java016.playfit.dao.FoodRepository;
 import com.java016.playfit.dao.MealRepository;
 import com.java016.playfit.dao.TimePeriodRepository;
 import com.java016.playfit.dao.UserRepository;
 import com.java016.playfit.model.DailyRecord;
+import com.java016.playfit.model.DiaryPhoto;
 import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.Food;
 import com.java016.playfit.model.Meal;
@@ -50,6 +52,8 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 	MealService mealService;
 	@Autowired
 	FitAchieveService fitAchiveService;
+	@Autowired
+	DiaryPhotoRepository diaryPhotoRepo;
 	
 	// 找特定User所有日記紀錄
 	@Override
@@ -195,6 +199,7 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 	@Override
 	public void updateDailyRecordKcalBurned(DailyRecord dailyRecord,FitAchieve fitAchieve) {
 		int kcal = dailyRecord.getKcalBurned();
+		System.out.println("dailyRecord.getKcalBurned() ============= " + dailyRecord.getKcalBurned());
 		kcal += fitAchieve.getTotalKcal();
 		dailyRecord.setKcalBurned(kcal);
 		dailyRecordRepo.save(dailyRecord);
@@ -215,6 +220,12 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 	//以上陳以文
 	//以上陳以文
 	//以上陳以文
+
+	@Override
+	public void saveDiaryPhoto(DiaryPhoto diaryPhoto) {
+		// TODO Auto-generated method stub
+		diaryPhotoRepo.save(diaryPhoto);
+	}
 }
 
 

@@ -109,7 +109,12 @@ public class StartFitServiceImpl implements StartFitService{
 				fitAchieveRepo.save(fitAchieve);
 			}
 			
-			dailyRecord.setKcalBurned(dailyRecord.getKcalBurned() + (int)fitActivity.getKcalBurn());
+			int tempKcalBurned = 0;
+			if(dailyRecord.getKcalBurned() != null) {
+				tempKcalBurned = dailyRecord.getKcalBurned();
+			}
+			
+			dailyRecord.setKcalBurned(tempKcalBurned + (int)fitActivity.getKcalBurn());
 			dailyRecordService.saveDailyRecord(dailyRecord);
 		}
 		
@@ -135,12 +140,16 @@ public class StartFitServiceImpl implements StartFitService{
 		boolean isFitAchieveBelongToCurrentUser = checkFitAchieveIdIsBelongTo(fitAchieve, user);
 		if(!isFitAchieveBelongToCurrentUser) throw new NotFoundException("Current User Try To Modify Other Users FitAchieve");
 		
-		if(!fitAchieve.getStatus().equals("尚未執行")) throw new NotFoundException("Current User Try To Modify Unexpected Status Of FitAchiece");
+		if(!fitAchieve.getStatus().equals("未執行")) throw new NotFoundException("Current User Try To Modify Unexpected Status Of FitAchiece");
 		fitAchieve.setEndTime(timestamp);
 		fitAchieve.setStatus("按計畫執行");
 		fitAchieveRepo.save(fitAchieve);
 		DailyRecord dailyRecord = fitAchieve.getDailyRecord();
-		dailyRecord.setKcalBurned(dailyRecord.getKcalBurned() + fitAchieve.getTotalKcal());
+		int tempKcalBurned = 0;
+		if(dailyRecord.getKcalBurned() != null) {
+			tempKcalBurned = dailyRecord.getKcalBurned();
+		}
+		dailyRecord.setKcalBurned(tempKcalBurned + fitAchieve.getTotalKcal());
 		
 		fitAchieveRepo.save(fitAchieve);
 		dailyRecordService.saveDailyRecord(dailyRecord);
