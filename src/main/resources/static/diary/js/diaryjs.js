@@ -19,8 +19,27 @@ $(".item").on("mouseenter mouseleave", function (moveout) { //挷定滑鼠進入
 
 
 
-
-
+	var diarys = document.querySelectorAll("div.diarys");
+	
+	diarys.forEach(function(diary) {
+	  diary.addEventListener("click", function(){ 
+		$.ajax({
+			url: "/diaryData" + "/" + this.id,
+			type: "GET", //send it through POST method
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function(response) {
+				console.log(response);
+			},
+			error: function(xhr, textStatus, error) {
+			  alert("fail");
+			  console.log(xhr.statusText);
+			  console.log(textStatus);
+			  console.log(error);
+			  }
+		 });
+	  });
+	});
 
 
 

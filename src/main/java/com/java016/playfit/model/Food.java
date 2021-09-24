@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Food {
@@ -22,6 +24,7 @@ public class Food {
 	private String type;
 
 	//bi-directional many-to-one association to Meal
+	@JsonIgnore
 	@OneToMany(mappedBy="food")
 	private List<Meal> meals;
 
@@ -59,11 +62,13 @@ public class Food {
 	public void setType(String type) {
 		this.type = type;
 	}
-
+	
+	@JsonIgnore
 	public List<Meal> getMeals() {
 		return meals;
 	}
-
+	
+	@JsonIgnore
 	public void setMeals(List<Meal> meals) {
 		this.meals = meals;
 	}

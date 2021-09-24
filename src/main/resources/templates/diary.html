@@ -55,7 +55,30 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="food-edit">
-				<div class="item"></div>
+				<div class="item">
+					<div th:if="${activityStatus}" th:each="task : ${activityStatus}"
+										th:with="color1='#ccccff',color2='#2e1ed3'">
+										
+										<!--                             		done -->
+										<div class="activity" th:if="${task.key.status != '未執行'}"
+											th:style="'background-color:'+ ${color1}">
+											
+												<img id="cmopletedPic" th:src="@{/images/finishl.svg}" alt="cmopleted_Pic">
+												<img id="activityPic" th:src="@{${task.value.imagePath}}" alt="activity_Pic">
+												<p id="activityName" th:text="${task.value.name}"></p>
+											
+										</div>
+										<!-- 	                                undone -->
+										<div class="activity" th:if="${task.key.status == '未執行'}"
+											th:style="'background-color:'+ ${color2}">
+											<a th:href="@{'/fit-activity/'+ ${task.key.id} }">	
+												<img id="activityPic" th:src="@{${task.value.imagePath}}" alt="activity_Pic">
+												<p id="activityName" th:text="${task.value.name}"></p>
+											</a>
+										</div>
+									
+									</div>
+				</div>
 				<div class="item">
 					<select id="myTimePeriod">
 						<option th:each="timePeriod : ${timePeriods}" th:value="${timePeriod.id}" th:utext="${timePeriod.name}">
@@ -129,7 +152,7 @@
 
       <div class="mb-3 row" th:each="dailyRecord : ${dailyRecords}">
   
-          <div class=" col-md-8 d-flex align-items-stretch">
+          <div class=" col-md-8 d-flex align-items-stretch diarys" th:id="${dailyRecord.id}">
             <div class="card-body">
               <h5 class="card-title" th:utext="${dailyRecord.title}">diary title</h5>              
               <p class="card-text" th:utext="${dailyRecord.content}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, ad velit! Eius at officiis quam, sed amet exercitationem voluptas? Accusamus illo</p>

@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.java016.playfit.model.Avatar;
 import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.FitActivity;
 import com.java016.playfit.model.FitActivityVideo;
 import com.java016.playfit.model.Food;
+import com.java016.playfit.model.HealthRecord;
 import com.java016.playfit.model.PersonalGoal;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.FoodService;
+import com.java016.playfit.service.HealthRecordService;
 import com.java016.playfit.service.PersonalGoalService;
 import com.java016.playfit.service.StartFitService;
 import com.java016.playfit.service.UserService;
@@ -39,6 +42,8 @@ public class StartFitController {
 	VideoService videoService;
 	@Autowired
 	PersonalGoalService personalGoalService;
+	@Autowired
+	HealthRecordService healthRecordService;
 	
 	@GetMapping("/StartFit")
 	public ModelAndView StartFitPage() {
@@ -88,6 +93,13 @@ public class StartFitController {
 		String path = fitActivity.getBodyPart() + "/" + fitActivityVideo.getFileName();
 		System.out.println("Session id : " + session.getId());
 		
+		// 會員虛擬角色
+		Avatar avatar = user.getAvatar();
+		mv.addObject("avatar", avatar);
+		
+		// 取最近健康紀錄
+		HealthRecord healthRecord = healthRecordService.findLastDateByUserId(userId);
+		mv.addObject("healthRecord", healthRecord);
 		
 		// 取最近目標紀錄
 		PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(userId);
@@ -105,6 +117,8 @@ public class StartFitController {
 	@GetMapping("/fit-activity/{fitAchieveId}")
 	public ModelAndView fitAchieveActivityClicked(@PathVariable("fitAchieveId") Integer fitAchieveId,
 									Principal principal,HttpSession session) throws NotFoundException {
+		
+		ModelAndView mv = new ModelAndView();
 		
 		//登入的使用者帳號(電子信箱)
 		String email = userService.getLoginUserEmail();
@@ -126,10 +140,17 @@ public class StartFitController {
 
 		System.out.println("Session id : " + session.getId());
 		
+		// 會員虛擬角色
+		Avatar avatar = user.getAvatar();
+		mv.addObject("avatar", avatar);
+		
+		// 取最近健康紀錄
+		HealthRecord healthRecord = healthRecordService.findLastDateByUserId(userId);
+		mv.addObject("healthRecord", healthRecord);
+		
 
 		// 取最近目標紀錄
 		PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(userId);
-		ModelAndView mv = new ModelAndView();
 		mv.addObject("personalGoal", personalGoal);
 		mv.addObject("fitActivity",fitActivity);
 		mv.addObject("fitAchieveId",fitAchieve.getId());

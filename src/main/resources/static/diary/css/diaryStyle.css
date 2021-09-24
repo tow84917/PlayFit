@@ -173,4 +173,8 @@ min-height:28px;
 	font-size:1.4rem;
 }
 
+div .diarys:hover {
+  cursor: pointer;
+}
+
 

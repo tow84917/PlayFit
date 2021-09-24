@@ -1,17 +1,26 @@
 package com.java016.playfit.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.NotAcceptableStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java016.playfit.dao.DailyRecordRepository;
@@ -37,6 +47,7 @@ import com.java016.playfit.service.FitAchieveService;
 import com.java016.playfit.service.FoodService;
 import com.java016.playfit.service.MealService;
 import com.java016.playfit.service.MemberService;
+import com.java016.playfit.service.StartFitService;
 import com.java016.playfit.service.TimePeriodService;
 import com.java016.playfit.service.UserService;
 import com.java016.playfit.tool.FileUploadUtil;
@@ -61,6 +72,11 @@ public class DiaryController {
 	DailyRecordRepository dailyRecordRepo;
 	@Autowired
 	MemberService memberService;
+	
+	
+	
+	@Autowired
+	StartFitService startFitService;
 	
 	//修改或新增日記的表單頁面
 	@RequestMapping("/diary_add_update")
@@ -92,11 +108,9 @@ public class DiaryController {
 		}
 		else {
 			fitAchieves = fitAchieveService.getAllFitAchieveByDailyRecordAndStatus(todayDailyRecord, "按計畫執行");
-			// 今日運動項目 & 完成狀態
-			LinkedHashMap<FitAchieve, FitActivity> activityStatus = 
-			memberService.getTodayAchieveAndActivity(todayDailyRecord);
-			mv.addObject("activityStatus", activityStatus);
+
 		}
+		
 		System.out.println(fitAchieves);
 		//此日常紀錄存在session裡面
 		session.setAttribute("todayDailyRecord", todayDailyRecord);
@@ -189,6 +203,12 @@ public class DiaryController {
 			todayDailyRecord.setCreatedDate(sqlDate);
 			//狀態設為0
 			todayDailyRecord.setStatus(0);
+		}else {
+			// 今日運動項目 & 完成狀態
+			LinkedHashMap<FitAchieve, FitActivity> activityStatus = 
+			memberService.getTodayAchieveAndActivity(todayDailyRecord);
+			mv.addObject("activityStatus", activityStatus);
+			System.out.println("測試拉=" + activityStatus);
 		}
 		//此日常紀錄存在session裡面
 		session.setAttribute("todayDailyRecord", todayDailyRecord);
@@ -238,8 +258,34 @@ public class DiaryController {
 							@PathVariable(value = "id") String userId) throws IOException {
 
 	    File serverFile = new File("user-photos/" + userId + "/" + imageName);
+//
+//	    return Files.readAllBytes(serverFile.toPath());
+	    
+	    InputStream in = new FileInputStream(serverFile);
+	    return IOUtils.toByteArray(in);
+	}
+	
+	@RequestMapping(value = "diaryData/{id}",produces="application/json")
+	@ResponseBody
+	public Map<String, Object> getDiaryData(@PathVariable(value = "id") int diaryId) throws IOException {
+		
+		//登入的使用者帳號(電子信箱)
+		String username = userService.getLoginUserEmail();
+		//用帳號抓出此用戶的Entity
+		User user = userService.findByEmail(username);
 
-	    return Files.readAllBytes(serverFile.toPath());
+		
+		//DailyRecord dailyRecord = dailyRecordService.getDailyRecordByIdWithUserCheck(diaryId, user.getEmail());
+		Optional<DailyRecord> optional = dailyRecordRepo.findById(diaryId);
+		DailyRecord dailyRecord = optional.get();
+		if(!(dailyRecord.getUser().getId() == user.getId())) {
+			throw new NotAcceptableStatusException("Try to access wrong user's data");
+		}
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("dailyRecord", dailyRecord);
+		result.put("fitAchieves", dailyRecord.getFitAchieves());
+		result.put("meals", dailyRecord.getMeals());
+	    return result;
 	}
 	
 }
