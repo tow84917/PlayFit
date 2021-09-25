@@ -119,6 +119,8 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 			throw new AccessDeniedException("user attempted to access another user's daily record.");
 		}
 		
+		System.out.println("檢查 getDailyRecordByIdWithUserCheck 成功!!");
+		
 		return dailyRecord;
 	}
 

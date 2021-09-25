@@ -80,7 +80,7 @@
 											</a>
 										</div> -->
 									
-									</div>
+					</div>
 				</div>
 				<div class="item">
 					<select id="myTimePeriod">
@@ -139,13 +139,32 @@
           <form th:action="@{/processDiaryUpdate}" class="add-diary" method="post" enctype="multipart/form-data">
             <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">Update today's Dairy</h5>
+              <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">Update Dairy</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="food-edit">
-              <div class="item">
+              <div class="item" id="old-diary-activity">
+                <div id="activity-color" with="color1='#ccccff',color2='#2e1ed3'">
+                
+                <!--                             		done -->
+
+                <div class="activity" style="background-color:#ccccff;">
+                 
+                  
+                </div>
+                <!-- 	                                undone -->
+
+                <!-- <div class="activity" th:if="${task.key.status == '未執行'}"
+                  th:style="'background-color:'+ ${color2}">
+                  <a th:href="@{'/fit-activity/'+ ${task.key.id} }">	
+                    <img id="activityPic" th:src="@{${task.value.imagePath}}" alt="activity_Pic">
+                    <p id="activityName" th:text="${task.value.name}"></p>
+                  </a>
+                </div> -->
+              
               </div>
-              <div class="item">
+            </div>
+              <div class="item" id="old-diary-meal">
                 <select id="myTimePeriod">
                   <option th:each="timePeriod : ${timePeriods}" th:value="${timePeriod.id}" th:utext="${timePeriod.name}">
                 </select>
@@ -155,7 +174,7 @@
                 <select id="myFood">
                   <option th:each="food : ${foods}" th:value="${food.id}" th:utext="${food.name}">
                 </select>
-              
+              <div class="meal-container"></div>
                 
               </div>
             </div>
@@ -163,9 +182,9 @@
       
             <div class="modal-body" style="text-align: left;">
               <p>Diary title:</p>
-               <input type="text" class="form__input" placeholder="Type anything..." >
+               <input type="text" class="form__input" name="diaryTitle" placeholder="Type anything..." >
               <p>DIARY:</p>
-              <textarea class="diary__input" rows="5" cols="50" ></textarea>
+              <textarea class="diary__input" name="diaryContent" rows="5" cols="50" ></textarea>
       
               <p>Date:</p>
               <input class="form__input"  type="date" id="date"  readonly/>
@@ -233,7 +252,7 @@
             <div class="card-body diarys-style"  data-bs-toggle="modal" data-bs-target="#oldModal">
               <h5 class="card-title" th:utext="${dailyRecord.title} + '  ' + ${dailyRecord.createdDate}">diary title</h5>              
               <p class="card-text" th:utext="${dailyRecord.content}"></p>
-              <p class="food" th:each="meal : ${dailyRecord.meals}" th:utext="${meal.timePeriod.name} + ': ' + ${meal.food.name}"></p>
+              <p class="food" th:each="meal : ${dailyRecord.meals}" th:utext="${meal.timePeriod.name} + ': ' + ${meal.food.name} + ' ' + ${#numbers.formatInteger(meal.food.kcal,0)} + ' cal'"></p>
               <p class="fitAchieve" th:each="fitAchieve : ${dailyRecord.fitAchieves}" th:utext="${fitAchieve.fitActivity.name} + ': ' + ${fitAchieve.status}"></p>
               <p class="card-date"><small class="text-muted" th:utext="${dailyRecord.createdDate}">2021/8/4</small></p>
             </div>

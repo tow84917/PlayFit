@@ -173,6 +173,72 @@ public class DiaryController {
 		return "redirect:/diary_homepage/1";
 	}
 	
+	
+	
+	
+	@PostMapping("/processDiaryUpdate/{diaryId}")
+	public String processDiaryUpdateWithDiaryId(@PathVariable(value = "diaryId") int id
+									,@RequestParam(required=false,name="mealHidden") String[] timePeriodIdsFoodIdsForUpdate
+									,@RequestParam(required=false,name="deleteMealHidden") String[]	mealIdsForDelete
+									,@RequestParam(required=false,name="diaryTitle") String title
+									,@RequestParam(required=false,name="diaryContent") String content
+									,@RequestParam(required=false,name="image") MultipartFile multipartFile) throws IOException{
+		
+		//登入的使用者帳號(電子信箱)
+		String email = userService.getLoginUserEmail();
+		//用帳號抓出此用戶的Entity
+		User user = userService.findByEmail(email);
+		
+		System.out.println("processDiaryUpdateWithDiaryId開始");
+		
+		DailyRecord dailyRecord = dailyRecordService.getDailyRecordByIdWithUserCheck(id, email);
+		
+		
+		System.out.println(title);
+		System.out.println(content);
+		
+		dailyRecord.setTitle(title);
+		dailyRecord.setContent(content);
+		
+		dailyRecordService.saveDailyRecord(dailyRecord);
+		
+//		DailyRecord tempTodayDailyRecord = (DailyRecord) session.getAttribute("todayDailyRecord");
+//		tempTodayDailyRecord.setTitle(todayDailyRecord.getTitle());
+//		tempTodayDailyRecord.setContent(todayDailyRecord.getContent());
+//		tempTodayDailyRecord.setStatus(1);
+//
+//		
+//		session.removeAttribute("todayDailyRecord");
+//		System.out.println("存成日記");
+//		//存成日記
+//		dailyRecordService.saveDailyRecord(tempTodayDailyRecord);
+//		System.out.println("新增或刪除用餐紀錄");
+//		//新增或刪除用餐紀錄
+//		dailyRecordService.updateDailyRecordAndMeal(tempTodayDailyRecord, timePeriodIdsFoodIdsForUpdate, mealIdsForDelete, userService.getLoginUserEmail());
+//		
+//		System.out.println("因為可能會新增或刪除用餐紀錄 所以要更新日常紀錄的卡路里");
+//		//因為可能會新增或刪除用餐紀錄 所以要更新日常紀錄的卡路里
+//		dailyRecordService.updateDailyRecordKcalIntake(tempTodayDailyRecord);
+//		
+//		if(!multipartFile.isEmpty()) {
+//	        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//	        
+//	        String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+//	         
+//	        String uploadDir = "user-photos/" + userService.getLoginUser().getId();
+//	 
+//	        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+//	        
+//	        DiaryPhoto diaryPhoto = new DiaryPhoto();
+//	        diaryPhoto.setDailyRecord(tempTodayDailyRecord);
+//	        diaryPhoto.setFileName(fileName);
+//	        diaryPhoto.setExtension(extension);
+//	        dailyRecordService.saveDiaryPhoto(diaryPhoto);
+//		}
+
+		return "redirect:/diary_homepage/1";
+	}
+	
 	//日記的首頁
 	@RequestMapping("/diary_homepage/{pageNumber}")
 	public ModelAndView diary_homepage(@PathVariable("pageNumber") int currentPage,HttpSession session) {
