@@ -32,7 +32,13 @@ public interface AvatarService {
 	 * 找 Avatar Clothes
 	 */
 	AvatarClothes getAvatarClothes(BodyType type, String name);
-
+	
+	/**
+	 * 更新Avatar 配件資料
+	 */
+	void updateAvatarAccessory(Avatar userAvatar, BodyType bodyType, 
+			String color, String clothesName, String hatName);
+	
 	/**
 	 * 儲存 Avatar "圖片"
 	 */

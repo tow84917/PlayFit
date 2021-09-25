@@ -186,6 +186,8 @@ public class HomeController {
 				
 		// 新Avatar
 		Avatar avatar = new Avatar();
+		avatar.setFileName(avatarFileName + ".svg");
+		avatar.setMimeType("image/svg+xml");
 		
 		// 路徑
 		avatar.setImagePath("/images/Avatar/" + avatarFileName + ".svg");
@@ -262,7 +264,8 @@ public class HomeController {
 	// 註冊處裡
 	@PostMapping("/process_register")
 	public String processRegister(User user, 
-			PersonalGoal personalGoal, HealthRecord healthRecord, Model model) {
+			PersonalGoal personalGoal, HealthRecord healthRecord, Model model
+			) {
 		
 		// 今天的日期
 		java.util.Date utilDate = new java.util.Date();

@@ -87,6 +87,37 @@ public class AvatarServiceImpl implements AvatarService {
 		return avatarClothesRepo.findByNameAndType(name, type.getId());
 	}
 	
+	/**
+	 * 更新Avatar 配件資料
+	 */
+	@Override
+	@Transactional
+	public void updateAvatarAccessory(Avatar userAvatar, 
+			BodyType bodyType, String color, 
+			String clothesName, String hatName) {
+		
+		// 更新AvatarBody
+		AvatarBody avatarBody = 
+				avatarBodyRepo.findByColorAndType(color, bodyType.getId());
+		userAvatar.setAvatarBody(avatarBody);
+		
+		// 更新AatarHat
+		if (hatName != null) {
+			AvatarHat avatarHat = 
+					avatarHatRepo.findByNameAndType(hatName, bodyType.getId());
+			userAvatar.setAvatarHat(avatarHat);
+		}
+		
+		// 更新AatarClothes
+		if (clothesName != null) {
+			AvatarClothes avatarClothes = 
+					avatarClothesRepo.findByNameAndType(clothesName, bodyType.getId());
+			userAvatar.setAvatarClothes(avatarClothes);
+		}
+		
+		// 更新Aatar
+		avatarRepo.save(userAvatar);
+	}
 	
 	/**
 	 * 儲存 Avatar "圖片"
@@ -98,10 +129,6 @@ public class AvatarServiceImpl implements AvatarService {
 		// 取基本設定檔
 		File fileInput = 
 				new File("src/main/resources/static/images/Avatar/AvatarXML_bassic.svg");
-		
-		// 找User avatar
-		Avatar userAvatar = 
-				avatarRepo.getById(Integer.valueOf(saveFileName.split("_")[1]));
 		
 		try (
 				FileInputStream svgInputStream = new FileInputStream(fileInput)
@@ -157,8 +184,7 @@ public class AvatarServiceImpl implements AvatarService {
 				// 依序加入身體標籤
 				plainAvatar.appendChild(path);
 				
-				// 更新AatarBody
-				userAvatar.setAvatarBody(avatarBody);
+			
 			}
 			
 			//--------------------------------------------
@@ -208,8 +234,6 @@ public class AvatarServiceImpl implements AvatarService {
 					// 依序加入帽子標籤
 					hat.appendChild(path);
 					
-					// 更新AatarHat
-					userAvatar.setAvatarHat(avatarHat);
 				}
 			}
 			
@@ -260,8 +284,6 @@ public class AvatarServiceImpl implements AvatarService {
 					// 依序加入衣服配件標籤
 					body.appendChild(path);
 					
-					// 更新AatarClothes
-					userAvatar.setAvatarClothes(avatarClothes);
 					
 				}
 			}
@@ -272,9 +294,6 @@ public class AvatarServiceImpl implements AvatarService {
 			
 			TranscoderInput input = new TranscoderInput(doc);
 			outputSvg(input, fileOutput);
-			
-			// 更新Aatar
-			avatarRepo.save(userAvatar);
 			
 			System.out.println("建立成功");
 		} catch (Exception e) {

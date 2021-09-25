@@ -191,7 +191,7 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	 * 依體型變化 更新 Avatar
 	 */
 	@Override
-	@Scheduled(cron = "10 14 18 * * ?") // 指定時間執行 2時(am)
+	@Scheduled(cron = "15 10 17 * * ?") // 指定時間執行 2時(am)
 	@Transactional
 	public void upadteAvatarPicForBodyType() {
 		
@@ -211,27 +211,31 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 		// 檢查 user Avatar & HealthRecord 的 bodyType 是否一致 
 		for(HealthRecord hr : healthRecordsYestoday) {
 			
-			Avatar userAvatear = hr.getUser().getAvatar();
+			Avatar userAvatar = hr.getUser().getAvatar();
 			
 			// 新體型 與 avatar 體型
 			BodyType healthRecordBodyType = hr.getBodyType();
 			BodyType userAvatarBodyType = 
-					userAvatear.getAvatarBody().getBodyType();
+					userAvatar.getAvatarBody().getBodyType();
 			
 			// 如果 BodyType 不相等則更新
 			if (!healthRecordBodyType.equals(userAvatarBodyType)) {
 				
-				// 找配件
-				String color = userAvatear.getAvatarBody().getColor();
-				String clothesName = userAvatear.getAvatarClothes().getName();
-				String hatName = userAvatear.getAvatarHat().getName();
+				// 找配件(名稱)
+				String color = userAvatar.getAvatarBody().getColor();
+				String clothesName = userAvatar.getAvatarClothes().getName();
+				String hatName = userAvatar.getAvatarHat().getName();
 				
 				// 存取路徑
 				String saveFileName = "Avatar_" + hr.getUser().getId(); 
 				
-				// 更新體型以依最新 healthRecord
+				// 更新(Pic), 體型以依最新 healthRecord 
 				avatarService.saveAvatarPic(
 						healthRecordBodyType, color, clothesName, hatName, saveFileName);
+				
+				// 更新(資料庫配件), 體型以依最新 healthRecord 
+				avatarService.updateAvatarAccessory(
+						userAvatar, healthRecordBodyType, color, clothesName, hatName);
 			}
 		}
 	}
