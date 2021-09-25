@@ -20,14 +20,14 @@ window.onload = function () {
     var upperPartPoint = document.getElementById("upperPartPoint");
     upperPartPoint.addEventListener("click",function(){
         if(currentPart == "UPPER"){
-            this.style.backgroundColor = "transparent";
+            this.style.backgroundColor = "";
             currentPart = "ALL TRAINING";
             fitCategory.innerHTML = currentPart;
             generateAllFitActivityBtn();
         }else{
-            corePartPoint.style.backgroundColor = 'transparent';
-            HIITPartPoint.style.backgroundColor = 'transparent';
-            lowerPartPoint.style.backgroundColor = 'transparent';
+            corePartPoint.style.backgroundColor = '';
+            HIITPartPoint.style.backgroundColor = '';
+            lowerPartPoint.style.backgroundColor = '';
             this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
             $('.fit-name').remove();
             currentPart = 1
@@ -42,14 +42,14 @@ window.onload = function () {
     var corePartPoint = document.getElementById("corePartPoint");
     corePartPoint.addEventListener("click",function(){
         if(currentPart == "CORE"){
-            this.style.backgroundColor = "transparent";
+            this.style.backgroundColor = "";
             currentPart = "ALL TRAINING";
             fitCategory.innerHTML = currentPart;
             generateAllFitActivityBtn();
         }else{
-            upperPartPoint.style.backgroundColor = 'transparent';
-            HIITPartPoint.style.backgroundColor = 'transparent';
-            lowerPartPoint.style.backgroundColor = 'transparent';
+            upperPartPoint.style.backgroundColor = '';
+            HIITPartPoint.style.backgroundColor = '';
+            lowerPartPoint.style.backgroundColor = '';
             this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
             $('.fit-name').remove();
             currentPage = 1
@@ -63,14 +63,14 @@ window.onload = function () {
     var HIITPartPoint = document.getElementById("HIITPartPoint");
     HIITPartPoint.addEventListener("click",function(){
         if(currentPart == "HIIT"){
-            this.style.backgroundColor = "transparent";
+            this.style.backgroundColor = "";
             currentPart = "ALL TRAINING";
             fitCategory.innerHTML = currentPart;
             generateAllFitActivityBtn();
         }else{
-            upperPartPoint.style.backgroundColor = 'transparent';
-            corePartPoint.style.backgroundColor = 'transparent';
-            lowerPartPoint.style.backgroundColor = 'transparent';
+            upperPartPoint.style.backgroundColor = '';
+            corePartPoint.style.backgroundColor = '';
+            lowerPartPoint.style.backgroundColor = '';
             this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
             $('.fit-name').remove();
             currentPage = 1
@@ -84,14 +84,14 @@ window.onload = function () {
     var lowerPartPoint = document.getElementById("lowerPartPoint");
     lowerPartPoint.addEventListener("click",function(){
         if(currentPart == "LOWER"){
-            this.style.backgroundColor = "transparent";
+            this.style.backgroundColor = "";
             currentPart = "ALL TRAINING";
             fitCategory.innerHTML = currentPart;
             generateAllFitActivityBtn();
         }else{
-            upperPartPoint.style.backgroundColor = 'transparent';
-            corePartPoint.style.backgroundColor = 'transparent';
-            HIITPartPoint.style.backgroundColor = 'transparent';
+            upperPartPoint.style.backgroundColor = '';
+            corePartPoint.style.backgroundColor = '';
+            HIITPartPoint.style.backgroundColor = '';
             this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
             $('.fit-name').remove();
             currentPage = 1
