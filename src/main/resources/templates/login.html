@@ -218,6 +218,12 @@
                             <input type="email" name="email" placeholder="Email*">
                             <input type="password" name="password" placeholder="password*">
                         </div>
+                        
+<!--                         忘記密碼 -->
+                        <div class="forgotPwd">
+                            <a th:href="@{/forgotPassword}" style="color:#2E1ED3; font-size:13px">Forgot your password?</a>
+                        </div>
+<!--                         忘記密碼 -->                       
                         <div th:if="${error}" style="color:#E83C3C; font-size:16px ;line-height:2rem"> 
                         Invalid username or password.<br>
                         </div> 

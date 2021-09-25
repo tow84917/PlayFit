@@ -3,7 +3,10 @@ package com.java016.playfit.serviceimpl;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.java016.playfit.dao.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -12,10 +15,12 @@ import com.java016.playfit.model.Avatar;
 import com.java016.playfit.model.BodyType;
 import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.HealthRecord;
+import com.java016.playfit.model.ResetPasswordToken;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.AvatarService;
 import com.java016.playfit.service.DailyRecordService;
 import com.java016.playfit.service.HealthRecordService;
+import com.java016.playfit.service.ResetPasswordTokenService;
 import com.java016.playfit.service.ScheduledTasksService;
 import com.java016.playfit.service.UserService;
 import com.java016.playfit.tool.BodyCalculator;
@@ -37,7 +42,10 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	
 	@Autowired
 	AvatarService avatarService;
-
+	
+	@Autowired
+	ResetPasswordTokenService resetPasswordTokenService ;
+	
 	@Autowired
 	UserRepository userRepository;
 
@@ -46,6 +54,7 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	 */
 	@Override
 	@Scheduled(cron = "0 0 0 * * ?") // 指定時間執行 0時(24)
+	@Transactional
 	public void upadteCalorieDeficit() {
 
 		long now = System.currentTimeMillis();
@@ -159,7 +168,7 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 
 	}
 
-	@Scheduled(cron = "00 13 2 * * *") // 指定時間執行 0時(24)
+	@Scheduled(cron = "00 00 00 * * *") // 指定時間執行 0時(24)
 	public void checkDateLine(){
 		List<User> userList = userRepository.findAll();
 		for (User user : userList) {
@@ -182,7 +191,8 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	 * 依體型變化 更新 Avatar
 	 */
 	@Override
-	@Scheduled(cron = "25 27 12 * * ?") // 指定時間執行 2時(am)
+	@Scheduled(cron = "15 10 17 * * ?") // 指定時間執行 2時(am)
+	@Transactional
 	public void upadteAvatarPicForBodyType() {
 		
 		long now = System.currentTimeMillis();
@@ -201,29 +211,69 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 		// 檢查 user Avatar & HealthRecord 的 bodyType 是否一致 
 		for(HealthRecord hr : healthRecordsYestoday) {
 			
-			Avatar userAvatear = hr.getUser().getAvatar();
+			Avatar userAvatar = hr.getUser().getAvatar();
 			
 			// 新體型 與 avatar 體型
 			BodyType healthRecordBodyType = hr.getBodyType();
 			BodyType userAvatarBodyType = 
-					userAvatear.getAvatarBody().getBodyType();
+					userAvatar.getAvatarBody().getBodyType();
 			
 			// 如果 BodyType 不相等則更新
 			if (!healthRecordBodyType.equals(userAvatarBodyType)) {
 				
-				// 找配件
-				String color = userAvatear.getAvatarBody().getColor();
-				String clothesName = userAvatear.getAvatarClothes().getName();
-				String hatName = userAvatear.getAvatarHat().getName();
+				// 找配件(名稱)
+				String color = userAvatar.getAvatarBody().getColor();
+				String clothesName = userAvatar.getAvatarClothes().getName();
+				String hatName = userAvatar.getAvatarHat().getName();
 				
 				// 存取路徑
 				String saveFileName = "Avatar_" + hr.getUser().getId(); 
 				
-				// 更新體型以依最新 healthRecord
+				// 更新(Pic), 體型以依最新 healthRecord 
 				avatarService.saveAvatarPic(
 						healthRecordBodyType, color, clothesName, hatName, saveFileName);
+				
+				// 更新(資料庫配件), 體型以依最新 healthRecord 
+				avatarService.updateAvatarAccessory(
+						userAvatar, healthRecordBodyType, color, clothesName, hatName);
 			}
 		}
+	}
+	
+	/**
+	 * 刪除過期Token
+	 */
+	@Scheduled(cron = "10 53 13 * * *")
+	@Override
+	@Transactional
+	public void deleteExpiredToken() {
+		
+		// 現在時間毫秒
+		Date now = new Date();
+		// 一天毫秒
+		int dayMillis = 86400000;
+
+		// 昨天的日期 util
+		java.util.Date utilYestoday = new java.util.Date(now.getTime() - dayMillis);
+		// 把日期轉成SQL型態的Date
+		java.sql.Date sqlYestoday = new java.sql.Date(utilYestoday.getTime());
+		
+		List<ResetPasswordToken> tokens = resetPasswordTokenService.findByDate(sqlYestoday);
+		
+//		tokens.forEach(System.out::println);
+		
+		for(ResetPasswordToken token : tokens) {
+			
+			// 取過期時間
+			Date createDate = token.getMailCreate();
+			Date ExpiredDate = new Date(createDate.getTime() + dayMillis);
+			
+			// 比較過期則刪
+			if (now.after(ExpiredDate)) {
+				resetPasswordTokenService.deleteToken(token);
+			}
+		}
+		
 	}
 }
 

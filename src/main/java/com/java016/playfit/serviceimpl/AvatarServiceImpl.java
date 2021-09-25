@@ -87,6 +87,37 @@ public class AvatarServiceImpl implements AvatarService {
 		return avatarClothesRepo.findByNameAndType(name, type.getId());
 	}
 	
+	/**
+	 * 更新Avatar 配件資料
+	 */
+	@Override
+	@Transactional
+	public void updateAvatarAccessory(Avatar userAvatar, 
+			BodyType bodyType, String color, 
+			String clothesName, String hatName) {
+		
+		// 更新AvatarBody
+		AvatarBody avatarBody = 
+				avatarBodyRepo.findByColorAndType(color, bodyType.getId());
+		userAvatar.setAvatarBody(avatarBody);
+		
+		// 更新AatarHat
+		if (hatName != null) {
+			AvatarHat avatarHat = 
+					avatarHatRepo.findByNameAndType(hatName, bodyType.getId());
+			userAvatar.setAvatarHat(avatarHat);
+		}
+		
+		// 更新AatarClothes
+		if (clothesName != null) {
+			AvatarClothes avatarClothes = 
+					avatarClothesRepo.findByNameAndType(clothesName, bodyType.getId());
+			userAvatar.setAvatarClothes(avatarClothes);
+		}
+		
+		// 更新Aatar
+		avatarRepo.save(userAvatar);
+	}
 	
 	/**
 	 * 儲存 Avatar "圖片"
@@ -98,8 +129,10 @@ public class AvatarServiceImpl implements AvatarService {
 		// 取基本設定檔
 		File fileInput = 
 				new File("src/main/resources/static/images/Avatar/AvatarXML_bassic.svg");
-
-		try (FileInputStream svgInputStream = new FileInputStream(fileInput);) {
+		
+		try (
+				FileInputStream svgInputStream = new FileInputStream(fileInput)
+			) {
 
 			// 建立SVG Document
 			SVGDocument doc = 
@@ -150,6 +183,8 @@ public class AvatarServiceImpl implements AvatarService {
 				
 				// 依序加入身體標籤
 				plainAvatar.appendChild(path);
+				
+			
 			}
 			
 			//--------------------------------------------
@@ -198,6 +233,7 @@ public class AvatarServiceImpl implements AvatarService {
 					
 					// 依序加入帽子標籤
 					hat.appendChild(path);
+					
 				}
 			}
 			
@@ -247,6 +283,8 @@ public class AvatarServiceImpl implements AvatarService {
 					
 					// 依序加入衣服配件標籤
 					body.appendChild(path);
+					
+					
 				}
 			}
 			

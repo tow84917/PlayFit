@@ -34,3 +34,6 @@ build/
 
 ### ignore a file type ###
 *.mp4
+
+### ignore entire directories ###
+user-photos/

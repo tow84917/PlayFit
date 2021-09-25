@@ -12,8 +12,10 @@ import com.java016.playfit.dao.FitActivityRepository;
 import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.FitActivity;
+import com.java016.playfit.model.PersonalGoal;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.DailyRecordService;
+import com.java016.playfit.service.PersonalGoalService;
 import com.java016.playfit.service.StartFitService;
 
 import javassist.NotFoundException;
@@ -27,6 +29,8 @@ public class StartFitServiceImpl implements StartFitService{
 	FitAchieveRepository fitAchieveRepo;
 	@Autowired
 	DailyRecordService dailyRecordService;
+	@Autowired
+	PersonalGoalService personalGoalService;
 	
 	
 	@Override
@@ -69,6 +73,7 @@ public class StartFitServiceImpl implements StartFitService{
 		FitActivity fitActivity = getFitActivityById(fitActivityId);
 		//
 		DailyRecord dailyRecord = dailyRecordService.getDailyRecordByUserAndDate(user, sqlDate);
+		
 
 		if(dailyRecord == null) {
 			dailyRecord = new DailyRecord();
@@ -109,8 +114,17 @@ public class StartFitServiceImpl implements StartFitService{
 				fitAchieveRepo.save(fitAchieve);
 			}
 			
-			dailyRecord.setKcalBurned(dailyRecord.getKcalBurned() + (int)fitActivity.getKcalBurn());
+			int tempKcalBurned = 0;
+			if(dailyRecord.getKcalBurned() != null) {
+				tempKcalBurned = dailyRecord.getKcalBurned();
+			}
+			
+			dailyRecord.setKcalBurned(tempKcalBurned + (int)fitActivity.getKcalBurn());
 			dailyRecordService.saveDailyRecord(dailyRecord);
+			
+			PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(user.getId());
+			personalGoal.setTotalLost(personalGoal.getTotalLost() + (int)fitActivity.getKcalBurn());
+			personalGoalService.savePersonalGoal(personalGoal);
 		}
 		
 	}
@@ -135,15 +149,23 @@ public class StartFitServiceImpl implements StartFitService{
 		boolean isFitAchieveBelongToCurrentUser = checkFitAchieveIdIsBelongTo(fitAchieve, user);
 		if(!isFitAchieveBelongToCurrentUser) throw new NotFoundException("Current User Try To Modify Other Users FitAchieve");
 		
-		if(!fitAchieve.getStatus().equals("尚未執行")) throw new NotFoundException("Current User Try To Modify Unexpected Status Of FitAchiece");
+		if(!fitAchieve.getStatus().equals("未執行")) throw new NotFoundException("Current User Try To Modify Unexpected Status Of FitAchiece");
 		fitAchieve.setEndTime(timestamp);
 		fitAchieve.setStatus("按計畫執行");
 		fitAchieveRepo.save(fitAchieve);
 		DailyRecord dailyRecord = fitAchieve.getDailyRecord();
-		dailyRecord.setKcalBurned(dailyRecord.getKcalBurned() + fitAchieve.getTotalKcal());
+		int tempKcalBurned = 0;
+		if(dailyRecord.getKcalBurned() != null) {
+			tempKcalBurned = dailyRecord.getKcalBurned();
+		}
+		dailyRecord.setKcalBurned(tempKcalBurned + fitAchieve.getTotalKcal());
 		
 		fitAchieveRepo.save(fitAchieve);
 		dailyRecordService.saveDailyRecord(dailyRecord);
+		
+		PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(user.getId());
+		personalGoal.setTotalLost(personalGoal.getTotalLost() + fitAchieve.getTotalKcal());
+		personalGoalService.savePersonalGoal(personalGoal);
 		
 	}
 

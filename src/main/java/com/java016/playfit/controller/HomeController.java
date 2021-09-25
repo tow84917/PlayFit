@@ -105,26 +105,40 @@ public class HomeController {
 	
 	// 給登入註冊頁
 	@RequestMapping("/login")
-	public String login_signup( Model model, RedirectAttributes ra, HttpServletRequest request,
-			                    @RequestParam(required = false, name = "logout") String rp) {
-//		ModelAndView mv = new ModelAndView();
+	public String login_signup( 
+			Model model, RedirectAttributes ra, HttpServletRequest request,
+			@RequestParam(required = false, name = "logout") String rp,
+			@RequestParam(required = false, name = "resetPassword") boolean resetPassword) {
+		
+		// 給註冊 model
 		model.addAttribute("personalGoal",new PersonalGoal());
 		model.addAttribute("healthRecord", new HealthRecord());
 		model.addAttribute("user",new User());
-//		mv.setViewName("login");
+		
+		// 取是否有錯誤訊息
 		Object isError = request.getAttribute("error");
-		System.out.println(rp);
-//		ra.addAttribute("error", false);
+//		System.out.println(rp);
+		
+		// 登入錯誤訊息
 		if(isError != null) {
 			if((boolean)isError) {
 				ra.addFlashAttribute("error", true);
 				return "redirect:/login";
 			}
 		}
+		
+		// 登出訊息
 		if(rp != null ) {
 			ra.addFlashAttribute("logout", true);
 			return "redirect:/login";		
 		}	
+		
+		// 忘記密碼重置
+		if (resetPassword) {
+			ra.addFlashAttribute("upadtePasswordOK", true);
+			return "redirect:/login";
+		}
+		
 		return "login";
 	}
 	
@@ -172,6 +186,8 @@ public class HomeController {
 				
 		// 新Avatar
 		Avatar avatar = new Avatar();
+		avatar.setFileName(avatarFileName + ".svg");
+		avatar.setMimeType("image/svg+xml");
 		
 		// 路徑
 		avatar.setImagePath("/images/Avatar/" + avatarFileName + ".svg");
@@ -248,7 +264,8 @@ public class HomeController {
 	// 註冊處裡
 	@PostMapping("/process_register")
 	public String processRegister(User user, 
-			PersonalGoal personalGoal, HealthRecord healthRecord, Model model) {
+			PersonalGoal personalGoal, HealthRecord healthRecord, Model model
+			) {
 		
 		// 今天的日期
 		java.util.Date utilDate = new java.util.Date();

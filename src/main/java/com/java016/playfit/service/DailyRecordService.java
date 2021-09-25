@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.java016.playfit.model.DailyRecord;
+import com.java016.playfit.model.DiaryPhoto;
 import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.User;
 
@@ -35,6 +36,7 @@ public interface DailyRecordService {
 									String[] mealIdsForDelete,String username);
 	void updateDailyRecordKcalBurned(DailyRecord dailyRecord,FitAchieve fitAchieve);
 	boolean isDailyRecordBecomeDairy(DailyRecord dailyRecord);
+	void saveDiaryPhoto(DiaryPhoto diaryPhoto);
 	//以上陳以文
 	//以上陳以文
 	//以上陳以文

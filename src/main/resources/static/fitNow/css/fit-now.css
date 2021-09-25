@@ -4,6 +4,10 @@
     font-size: 1rem;
 }
 
+.nav-link{
+	font-weight: 800;
+}
+
 body{
     margin: 0;
 }
@@ -105,7 +109,7 @@ body{
     height: 80%;
     width: 80%;
     border-radius: 15px;
-
+	border: 0px;
 }
 
 .fit-name:hover{

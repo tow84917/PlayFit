@@ -15,6 +15,7 @@
 /* 設定變數 ---------------------------------- */
 
 
+
 .blank{
 	width:100%;
 	height:200px;
@@ -25,6 +26,8 @@
 	background: var(--Gy1);
 	border-radius: 3rem;
 	box-shadow: 0.8rem 0.8rem 1.4rem #c8d0e7, -0.2rem -0.2rem 1.8rem white;
+	position: relative;
+    overflow: hidden;
 }
 
 .card-body{
@@ -99,16 +102,40 @@ input {
     height: 30px;
 }
 
-.add-diary{
-  
-  
-}
-
 .food-edit{
   display: flex;
   padding: 5px;
+  height: 150px;
+}
 
-  height: 100px;
+.food-plus{
+	margin-top:15px;
+	margin-right:26px;
+	width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--Gy2), -0.2rem -0.2rem 0.5rem var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--Gy4);
+  transition: all 0.5s ease;
+}
+
+.food-plus:active{
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
+  color: var(--purple2);
+}
+.food-plus:hover{
+  color: var(--purple2);
+  background-color: var(--purple3);
+}
+
+.food-plus img {
+	width:50%;
+	height:50%;
 }
 
 .item {
@@ -119,7 +146,58 @@ input {
   margin: 5px;
   overflow-y: scroll;
   overflow-x: hidden;
+
+}
+
+  /*滾動條樣式*/
+
+/*滾動條的寬度*/
+.item::-webkit-scrollbar {
+width:5px;
+height:3px;
+}
+
+.item::-webkit-scrollbar-thumb {
+background-color:#dddddd;
+background-clip:padding-box;
+min-height:28px;
+}
   
+
+.item select {
+	margin: 8px 0 0 8px;
+	width:60%;
+}
+
+.item div {
+	font-size:1.4rem;
+}
+
+div .diarys-style {
+	margin:8px 0;
+    flex: 0 0 auto;
+    height: 230px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/*滾動條樣式*/
+
+/*滾動條的寬度*/
+div .diarys-style::-webkit-scrollbar {
+	width:3px;
+	height:3px;
+}
+
+div .diarys-style::-webkit-scrollbar-thumb {
+	background-color:#dddddd;
+	background-clip:padding-box;
+	min-height:28px;
+}
+
+div .diarys-style {
+  cursor: pointer;
+  overflow-y: "hidden";
 }
 
 

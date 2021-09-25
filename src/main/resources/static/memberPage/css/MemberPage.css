@@ -7,6 +7,10 @@
 	font-size: 100%;
 }
 
+.nav-link{
+	font-weight: 800;
+}
+
 .myHeader {
 	width: 100%;
 	min-width: 1150px;

@@ -94,7 +94,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.permitAll()
 				.and()
 				.csrf()
-				.ignoringAntMatchers("/ajax**","/payFinish"); // 防 ajax POST 會被 csrf 擋下 
+				.ignoringAntMatchers("/ajax**","/payFinish", "/resetPassword"); // 防 ajax POST 會被 csrf 擋下 
 				// 綠界結帳後跳轉的頁面會被擋下
 //				.and()
 //				.csrf().disable();

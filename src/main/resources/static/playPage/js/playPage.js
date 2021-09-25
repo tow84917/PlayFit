@@ -71,7 +71,22 @@ video.addEventListener("ended", function(){
 	    type: "GET", //send it through POST method
 	    contentType: "text/plain",
 	    success: function(response) {
-			alert(response);
+			modal.style.display = "block";
+			finishModalContent.style.display = "flex";
+			setTimeout(function(){
+				window.location.href = '/MemberPage';
+			}, 5000);
+		
+			setTimeout(countDown,1000);
+		
+			var n = countDownValue.innerText;
+			function countDown(){
+				n--;
+				countDownValue.innerText = n;
+				if(n > 0){
+					setTimeout(countDown,1000);
+				}
+			}
         },
 	    error: function(xhr, textStatus, error) {
 	      alert("fail");
@@ -111,18 +126,26 @@ video.addEventListener("ended", function(){
 // Get the modal
 var modal = document.getElementById("myModal");
 
-
+var countDownValue = document.getElementById("countDown");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var modalCloseBtn = document.getElementsByClassName("welcome-modal-content-bottom-close")[0];
+
+var welcomeModalContent = document.getElementsByClassName("welcome-modal-content")[0];
+
+var finishModalContent = document.getElementsByClassName("finish")[0];
+
+var html = document.getElementsByTagName('html')[0];
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+modalCloseBtn.onclick = function() {
 	modal.style.display = "none";
+	welcomeModalContent.parentNode.removeChild(welcomeModalContent);
+	html.style.overflow = "visible";
   }
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-	if (event.target == modal) {
-	  modal.style.display = "none";
-	}
-  }
+// window.onclick = function(event) {
+// 	if (event.target == modal) {
+// 	  modal.style.display = "none";
+// 	}
+//   }

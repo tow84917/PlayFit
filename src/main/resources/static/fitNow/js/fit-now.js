@@ -1,5 +1,9 @@
 window.onload = function () {
 
+	var role = document.getElementById("role").getAttribute('data');
+	
+	console.log(role);
+
 	//全部的fitActivity
 	var fitActivityList = [];
     //全部的fitActivity 但是存成二維陣列 [Array(8), Array(8)]
@@ -16,14 +20,14 @@ window.onload = function () {
     var upperPartPoint = document.getElementById("upperPartPoint");
     upperPartPoint.addEventListener("click",function(){
         if(currentPart == "UPPER"){
-            this.style.backgroundColor = "transparent";
+            this.style.backgroundColor = "";
             currentPart = "ALL TRAINING";
             fitCategory.innerHTML = currentPart;
             generateAllFitActivityBtn();
         }else{
-            corePartPoint.style.backgroundColor = 'transparent';
-            HIITPartPoint.style.backgroundColor = 'transparent';
-            lowerPartPoint.style.backgroundColor = 'transparent';
+            corePartPoint.style.backgroundColor = '';
+            HIITPartPoint.style.backgroundColor = '';
+            lowerPartPoint.style.backgroundColor = '';
             this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
             $('.fit-name').remove();
             currentPart = 1
@@ -38,14 +42,14 @@ window.onload = function () {
     var corePartPoint = document.getElementById("corePartPoint");
     corePartPoint.addEventListener("click",function(){
         if(currentPart == "CORE"){
-            this.style.backgroundColor = "transparent";
+            this.style.backgroundColor = "";
             currentPart = "ALL TRAINING";
             fitCategory.innerHTML = currentPart;
             generateAllFitActivityBtn();
         }else{
-            upperPartPoint.style.backgroundColor = 'transparent';
-            HIITPartPoint.style.backgroundColor = 'transparent';
-            lowerPartPoint.style.backgroundColor = 'transparent';
+            upperPartPoint.style.backgroundColor = '';
+            HIITPartPoint.style.backgroundColor = '';
+            lowerPartPoint.style.backgroundColor = '';
             this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
             $('.fit-name').remove();
             currentPage = 1
@@ -59,14 +63,14 @@ window.onload = function () {
     var HIITPartPoint = document.getElementById("HIITPartPoint");
     HIITPartPoint.addEventListener("click",function(){
         if(currentPart == "HIIT"){
-            this.style.backgroundColor = "transparent";
+            this.style.backgroundColor = "";
             currentPart = "ALL TRAINING";
             fitCategory.innerHTML = currentPart;
             generateAllFitActivityBtn();
         }else{
-            upperPartPoint.style.backgroundColor = 'transparent';
-            corePartPoint.style.backgroundColor = 'transparent';
-            lowerPartPoint.style.backgroundColor = 'transparent';
+            upperPartPoint.style.backgroundColor = '';
+            corePartPoint.style.backgroundColor = '';
+            lowerPartPoint.style.backgroundColor = '';
             this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
             $('.fit-name').remove();
             currentPage = 1
@@ -80,14 +84,14 @@ window.onload = function () {
     var lowerPartPoint = document.getElementById("lowerPartPoint");
     lowerPartPoint.addEventListener("click",function(){
         if(currentPart == "LOWER"){
-            this.style.backgroundColor = "transparent";
+            this.style.backgroundColor = "";
             currentPart = "ALL TRAINING";
             fitCategory.innerHTML = currentPart;
             generateAllFitActivityBtn();
         }else{
-            upperPartPoint.style.backgroundColor = 'transparent';
-            corePartPoint.style.backgroundColor = 'transparent';
-            HIITPartPoint.style.backgroundColor = 'transparent';
+            upperPartPoint.style.backgroundColor = '';
+            corePartPoint.style.backgroundColor = '';
+            HIITPartPoint.style.backgroundColor = '';
             this.style.backgroundColor = 'rgb(' + 255 + ',' + 53 + ',' + 59 + ')';
             $('.fit-name').remove();
             currentPage = 1
@@ -244,11 +248,22 @@ window.onload = function () {
             newButton.className = "fit-name";
             newButton.innerText = fitActivityGrouped[currentPage-1][i].name;
             newButton.value = fitActivityGrouped[currentPage-1][i].id;
-            newButton.addEventListener("click",function(){
-                //alert(this.value);
-                window.location.href="/fit-activity/" + this.value + "/" + this.innerText;
-                console.log(contextPath);
-            });
+
+            if(fitActivityGrouped[currentPage-1][i].role == true && role == "ROLE_NORMAL"){
+                newButton.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                newButton.style.color = "rgba(255, 255, 255, 0.1)";
+                newButton.addEventListener("click",function(){
+                    //alert(this.value);
+                    window.location.href="/pay";
+                    console.log(contextPath);
+                });
+            }else{
+                newButton.addEventListener("click",function(){
+                    //alert(this.value);
+                    window.location.href="/fit-activity/" + this.value + "/" + this.innerText;
+                    console.log(contextPath);
+                });
+            }
             insertAfter(newButton, fitCategory);
         }
     }
@@ -259,10 +274,24 @@ window.onload = function () {
             newButton.className = "fit-name";
             newButton.innerText = bodyPartFitActivity[i].name;
             newButton.value = bodyPartFitActivity[i].id;
-            newButton.addEventListener("click",function(){
-                window.location.href="/fit-activity/" + this.value + "/" + this.innerText;
-                console.log(contextPath);
-            });
+
+
+
+            if(fitActivityGrouped[currentPage-1][i].role == true && role == "ROLE_NORMAL"){
+                newButton.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+                newButton.style.color = "rgba(255, 255, 255, 0.1)";
+                newButton.addEventListener("click",function(){
+                    //alert(this.value);
+                    window.location.href="/pay";
+                    console.log(contextPath);
+                });
+            }else{
+                newButton.addEventListener("click",function(){
+                    //alert(this.value);
+                    window.location.href="/fit-activity/" + this.value + "/" + this.innerText;
+                    console.log(contextPath);
+                });
+            }
             insertAfter(newButton, fitCategory);
         }
     }

@@ -230,11 +230,11 @@
 										<!--                             		done -->
 										<div class="activity" th:if="${task.key.status != '未執行'}"
 											th:style="'background-color:'+ ${color1}">
-											<a th:href="@{'/fit-activity/'+ ${task.key.id} }">
+<!-- 											<a th:href="@{'/fit-activity/'+ ${task.key.id} }"> -->
 												<img id="cmopletedPic" th:src="@{/images/finishl.svg}" alt="cmopleted_Pic">
 												<img id="activityPic" th:src="@{${task.value.imagePath}}" alt="activity_Pic">
 												<p id="activityName" th:text="${task.value.name}"></p>
-											</a>
+<!-- 											</a> -->
 										</div>
 										<!-- 	                                undone -->
 										<div class="activity" th:if="${task.key.status == '未執行'}"

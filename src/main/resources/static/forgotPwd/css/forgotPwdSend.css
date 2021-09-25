@@ -1,0 +1,183 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+}
+
+.myHeader {
+	width: 100%;
+	min-width: 1150px;
+	height: 80px;
+	/*background-color: #6460ff;*/
+	background-color: white;
+
+}
+
+.main {
+  width: 100%;
+  height: 580px;
+  background-color: white;
+}
+
+.footer {
+  width: 100%;
+  min-width: 1150px;
+  height: 80px;
+  background-color: #6460ff;
+}
+
+/* 結果顯示 */
+.result{
+  width: 450px;
+}
+
+/* 顯示範圍 */
+.range {
+  width: 760px;
+  height: 550px;
+
+  border: 3px #6460ff solid;
+  border-radius: 5%;
+  margin: 20px auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/* 標題 */
+.title {
+  position: relative;
+  top: 5%;
+
+  font-size: 50px;
+  color: #6460ff;
+}
+
+.check-div {
+  width: 520px;
+  height: 280px;	
+  margin: -20px auto;
+
+  /*border: 1px solid slategrey;*/ 
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.infoRange {
+  width: 80%;
+  height: 15%;
+
+  /* border: 1px solid red; */
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 15.5px;
+}
+
+.inputRange {
+  margin-top: -15px;
+  border: none;
+  border-radius: 20px;
+  
+}
+
+.enterEmail {
+  text-align: center;
+  
+  width: 470px;
+  height: 45px;
+  
+  font-size:20px;
+  
+  border-radius: 20px;
+  border: 3px solid  #6460ff;
+}
+
+.captchaBox{
+  width: 470px;
+  /*border: 1px solid red;*/ 
+  	
+  /*display: flex;*/
+  align-items:center;
+  
+  justify-content: center;
+
+}
+
+#refreshCaptchaBtn{
+  width: 45px;
+  height: 45px;
+  
+  position:relative;
+  left:1%;
+  bottom:15%;
+  
+  font-size:22px;
+  text-align: center;
+  
+  border: none;
+}
+
+.enterCaptcha{
+  position:relative;
+	
+  text-align: center;
+  
+  width: 470px;
+  height: 45px;
+  
+  font-size:16px;
+  
+  border-radius: 20px;
+  border: 3px solid  #6460ff;
+  
+  color: black;
+}
+
+input{
+  text-align: center;
+}
+
+/*取消輸入外框*/
+.enterCaptcha, .enterEmail:focus{
+  outline: none;
+}
+
+/* 提交按鈕 */
+#confirmSubmit {
+  width: 20%;
+  height: 40px;
+
+  background-color: white;
+  border-radius: 20px;
+
+  border: 3px solid #6460ff;
+}
+
+.hidden {
+  display: none;
+}
+
+.error {
+  color: red;
+}
+
+.success{
+  color: #1dab69;
+}
+
+
+
+
+
+
+
+

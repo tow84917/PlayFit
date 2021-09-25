@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+  	<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    
+    <script th:src="@{/jquery-3.6.0.js}"></script>
+    <title>ForgotPassword</title>
+    <link rel="stylesheet" th:href="@{/forgotPwd/css/forgotPwdSend.css}">
+</head>
+<body>
+    <div class="myHeader">
+    	<header th:replace="fragments/header::myHeader"></header>
+    </div>
+    
+    <div class="main">
+        <div class="range">
+            <!-- 標題 -->
+            <label class="title">Forgot Password</label>
+            <!-- 輸入框 -->
+            <div class="check-div">
+            <!-- 提示訊息 -->
+                <div class="infoRange">
+                    <div class="result hidden">
+                        Unknown error
+                    </div>
+                </div>
+                
+                <h1>We will be sending a reset password link to your email.</h1>
+                
+                <div class="inputRange">
+                    <input type="text" class="enterEmail" placeholder="Enter your email."/> 
+                </div>
+                
+                <div class="captchaBox">
+
+<!--                     圖片 -->					                
+        			<img th:src="@{/getCaptchaImage}" id="captchaPic" alt="Captcha Code"/>
+<!--                     刷新按鈕 -->
+                    <button id="refreshCaptchaBtn">&#10227;</button><br>
+                    
+                    <input class="enterCaptcha" type="text" placeholder="Enter captcha Code ignorecase.">
+        			
+                </div>
+        			
+            </div>
+            <!-- 送出 -->
+            <button id="confirmSubmit">Send</button>
+            
+        </div>
+    </div>
+    <footer th:replace="fragments/footer::myFooter"></footer>
+
+    <script th:src="@{/forgotPwd/js/forgotPwdSend.js}"></script>
+</body>
+</html>
+
+
+
+
+
+

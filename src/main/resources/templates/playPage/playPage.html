@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" style="overflow: hidden;">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,26 +28,26 @@
   <div class="container">
     <div class="side w800">
       <div class="character">
-        <img src="/playPage/img/avatar.png" alt="">
+        <img th:src="@{${avatar.imagePath}}" alt="">
       </div>
       <!-- synchronousData -->
       <div class="weightGoal">
         <div>
           <p>Current Weight</p>
           <div class="boxTemplate">
-            <p>75kg</p>
+            <p th:text ="${healthRecord.weight} + 'KG'">75kg</p>
           </div>
         </div>
         <div>
           <p> Start</p>
           <div class="boxTemplate">
-            <p th:utext="${personalGoal.startWeight}">75kg</p>
+            <p th:utext="${personalGoal.startWeight} + 'KG'">75kg</p>
           </div>
         </div>
         <div>
           <p>Goal</p>
           <div class="boxTemplate">
-            <p th:utext="${personalGoal.goalWeight}">75kg</p>
+            <p th:utext="${personalGoal.goalWeight} + 'KG'">75kg</p>
           </div>
         </div>
       </div>
@@ -95,10 +95,24 @@
 
 <div id="myModal" class="modal">
 
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>歡迎</p>
+  <div class="welcome-modal-content">
+<!--     <span class="close">&times;</span> -->
+    <span class="close"></span>
+    <img src="/index/images/newbieFriendly.png" alt="">
+    <div class="welcome-modal-content-title">Welcome to Follow-Along Workout </div>
+    <div class="welcome-modal-content-text">Please follow along the workout video and <span style="color:red">make sure you complete the entire video.</span></div>
+  	<div class="welcome-modal-content-bottom"><button class="welcome-modal-content-bottom-close">Get Started</button></div>
   </div>
+
+  <div class="welcome-modal-content finish">
+    <!--     <span class="close">&times;</span> -->
+        <span class="close"></span>
+        
+        <div class="welcome-modal-content-title">You have completed the challenge !</div>
+        <img src="https://cdn-icons-png.flaticon.com/512/709/709510.png" width="20%" alt="">
+        <div class="welcome-modal-content-text">Redirects to user page after <span id="countDown">5</span> seconds...</div>
+        <!-- <div class="welcome-modal-content-bottom"><button class="welcome-modal-content-bottom-close">User Page</button></div> -->
+      </div>
 
 </div>
 

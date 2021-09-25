@@ -25,6 +25,7 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -463,19 +464,64 @@ footer div ul li {
   overflow: auto; 
   background-color: rgb(0,0,0); 
   background-color: rgba(0,0,0,0.4); 
+  backdrop-filter: blur(10px);
 }
 
 
-.modal-content {
+.welcome-modal-content {
   background-color: rgba(235, 238, 248, 0.87);
   margin: auto;
   margin-top:10%;
   padding: 20px;
   border: 1px solid #888;
   width: 40%;
-  height: 50%;
+  border-radius: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
+.welcome-modal-content-title {
+  font-size: 1.8vw;
+  text-align: center;
+}
+
+.welcome-modal-content-text {
+  font-size: 1.3vw;
+  margin: 8%;
+  text-align: center;
+}
+
+.welcome-modal-content-bottom-close {
+  background-color: #2e1ed3;
+  color: white;
+  border: 0px;
+  height: 5vh;
+  width: 10vw;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.welcome-modal-content-bottom-close:hover {
+	cursor: pointer;
+  background-color: #2d1ed398;
+}
+
+.finish {
+  display: none;
+  gap: 30px;
+}
+
+.finish div {
+  margin: 0px;
+}
+
+.finish .welcome-modal-content-text {
+  margin-bottom: 5%;
+  color: rgb(194, 87, 87);
+}
 
 .close {
   color: #aaaaaa;
@@ -489,4 +535,8 @@ footer div ul li {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+html {
+  overflow: hidden;
 }

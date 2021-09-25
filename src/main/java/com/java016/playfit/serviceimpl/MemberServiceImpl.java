@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
 		java.util.Date utilDate = new java.util.Date();
 		String weekDay = utilDate.toString().split(" ")[0];
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		String today = sdf.format(utilDate) + " " + weekDay + " .";
+		String today = sdf.format(utilDate) + " " + weekDay + ".";
 		return today;
 	}
 
@@ -69,7 +69,7 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 
-		completionRate = 100 / taskNum * completeNum;
+		completionRate = 100.0 / taskNum * completeNum; // 100.0 注意 Double 修正 
 		return Math.round(completionRate * 10) / 10.0;
 	}
 	
