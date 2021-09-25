@@ -173,8 +173,31 @@ min-height:28px;
 	font-size:1.4rem;
 }
 
-div .diarys:hover {
+div .diarys-style {
+	margin:8px 0;
+    flex: 0 0 auto;
+    height: 230px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/*滾動條樣式*/
+
+/*滾動條的寬度*/
+div .diarys-style::-webkit-scrollbar {
+	width:3px;
+	height:3px;
+}
+
+div .diarys-style::-webkit-scrollbar-thumb {
+	background-color:#dddddd;
+	background-clip:padding-box;
+	min-height:28px;
+}
+
+div .diarys-style {
   cursor: pointer;
+  overflow-y: "hidden";
 }
 
 

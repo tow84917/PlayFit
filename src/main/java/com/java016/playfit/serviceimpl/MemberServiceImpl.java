@@ -69,7 +69,7 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 
-		completionRate = 100 / taskNum * completeNum;
+		completionRate = 100.0 / taskNum * completeNum;
 		return Math.round(completionRate * 10) / 10.0;
 	}
 	

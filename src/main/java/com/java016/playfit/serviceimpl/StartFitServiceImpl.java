@@ -12,8 +12,10 @@ import com.java016.playfit.dao.FitActivityRepository;
 import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.FitActivity;
+import com.java016.playfit.model.PersonalGoal;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.DailyRecordService;
+import com.java016.playfit.service.PersonalGoalService;
 import com.java016.playfit.service.StartFitService;
 
 import javassist.NotFoundException;
@@ -27,6 +29,8 @@ public class StartFitServiceImpl implements StartFitService{
 	FitAchieveRepository fitAchieveRepo;
 	@Autowired
 	DailyRecordService dailyRecordService;
+	@Autowired
+	PersonalGoalService personalGoalService;
 	
 	
 	@Override
@@ -69,6 +73,7 @@ public class StartFitServiceImpl implements StartFitService{
 		FitActivity fitActivity = getFitActivityById(fitActivityId);
 		//
 		DailyRecord dailyRecord = dailyRecordService.getDailyRecordByUserAndDate(user, sqlDate);
+		
 
 		if(dailyRecord == null) {
 			dailyRecord = new DailyRecord();
@@ -116,6 +121,10 @@ public class StartFitServiceImpl implements StartFitService{
 			
 			dailyRecord.setKcalBurned(tempKcalBurned + (int)fitActivity.getKcalBurn());
 			dailyRecordService.saveDailyRecord(dailyRecord);
+			
+			PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(user.getId());
+			personalGoal.setTotalLost(personalGoal.getTotalLost() + (int)fitActivity.getKcalBurn());
+			personalGoalService.savePersonalGoal(personalGoal);
 		}
 		
 	}
@@ -153,6 +162,10 @@ public class StartFitServiceImpl implements StartFitService{
 		
 		fitAchieveRepo.save(fitAchieve);
 		dailyRecordService.saveDailyRecord(dailyRecord);
+		
+		PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(user.getId());
+		personalGoal.setTotalLost(personalGoal.getTotalLost() + fitAchieve.getTotalKcal());
+		personalGoalService.savePersonalGoal(personalGoal);
 		
 	}
 
