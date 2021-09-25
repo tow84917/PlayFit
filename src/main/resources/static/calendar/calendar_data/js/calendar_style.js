@@ -1,8 +1,10 @@
 function dofirst() {
     todayFits = document.getElementById('today-fits');
+
     date = new Date();
     console.log('date: ', date);
     today = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    nowDate = today;
     console.log('day: ', today);
     document.getElementById('day').innerText = today;
     findToday(today);
@@ -330,8 +332,16 @@ function findToday(today) {
                 let finishIcon;
                 if (status == '未執行') {
                     a = document.createElement('a');
-                    a.href = '/fit-activity/' + id;
-                    todayCard.setAttribute('class', 'today-card div btn');
+                    // 檢查是否為當天，不是的話禁止點選
+                    if (today == nowDate) {
+                        a.href = '/fit-activity/' + id;
+                        todayCard.setAttribute('class', 'today-card div btn');
+                    }else{
+                        a.href = '#';
+                        a.setAttribute('class', 'mouse');
+                        todayCard.setAttribute('class', 'today-card div mouse');
+
+                    }
                     todayFitImg.setAttribute('class' , 'today-fit');
                 } else {
                     a = document.createElement('div');
