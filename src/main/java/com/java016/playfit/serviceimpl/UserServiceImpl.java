@@ -185,6 +185,11 @@ public class UserServiceImpl implements UserService {
 			paymentDate.set(Calendar.YEAR, year);
 		} else if (itemName.equals("月付")){
 			int month = paymentDate.get(Calendar.MONTH) + i;
+			if (month > 12) {
+				month -= 12;
+				int year = paymentDate.get(Calendar.YEAR) + 1;
+				paymentDate.set(Calendar.YEAR, year);
+			}
 			paymentDate.set(Calendar.MONTH, month);
 		}
 

@@ -18,8 +18,13 @@ function dofirst() {
     
 
     btnDay = document.getElementsByClassName('btn-day');
+
+    // 取得會員身份
+    $.post('getUserRole' , {} , function (data) {
+        console.log('role: ', data);
+    })
+
     
-    // get 月份
 }
 
 window.addEventListener('load', dofirst);
@@ -124,15 +129,15 @@ const renderCalender = (daysArray) => {
         "December"
     ];
     months = [
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
         "10",
         "11",
         "12"
@@ -316,13 +321,16 @@ function findToday(today) {
         console.log(data.length);
         for (let i = 0; i < data.length; i++) {
             const element = data[i];
-            console.log('element: ', element);
+            console.log('findtoday element: ', element);
             const path = element.fitActivity.imagePath;
-            console.log('path: ', path);
+            console.log('findtoday path: ', path);
             const fitName = element.fitActivity.name;
             const status = element.status;
-            console.log('status: ', status);
+            console.log('findtoday status: ', status);
             const id = element.id;
+            console.log('findtoday nowDate: ', nowDate);
+            console.log('findtoday today: ', today);
+            console.log('findtoday: ',today === nowDate);
 
             if (status == '直接執行') {
             } else {
@@ -333,7 +341,7 @@ function findToday(today) {
                 if (status == '未執行') {
                     a = document.createElement('a');
                     // 檢查是否為當天，不是的話禁止點選
-                    if (today == nowDate) {
+                    if (today === nowDate) {
                         a.href = '/fit-activity/' + id;
                         todayCard.setAttribute('class', 'today-card div btn');
                     }else{

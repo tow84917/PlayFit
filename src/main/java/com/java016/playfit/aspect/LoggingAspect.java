@@ -64,7 +64,7 @@ public class LoggingAspect {
 		}
 		
 		
-		myLogger.info("Calling method : " + method + ", args : (" + argString + ")");
+//		myLogger.info("Calling method : " + method + ", args : (" + argString.toString() + ")");
 //		System.out.println("Calling method : " + method + ", args : (" + argString + ")");
 	}
 	
