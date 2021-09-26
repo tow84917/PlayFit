@@ -72,11 +72,6 @@ public class StartFitController {
 		return fitActivities;
 	}
 	
-	
-	
-	
-	
-	
 	//直接點擊要健身的項目
 	@GetMapping("/fit-activity/{fitId}/{fitName}")
 	public ModelAndView fitActivityClicked(@PathVariable("fitName") String fitName,

@@ -107,13 +107,13 @@ public class MemberPageController {
 			Integer kcalIntake = todayRecord.getKcalIntake();
 			
 			// 今日消耗
-			if (kcalBurned == null) {
+			if (kcalBurned == 0) {
 				model.addAttribute("calLost", 0);
 			}else {
 				model.addAttribute("calLost", kcalBurned);
 			}
 			
-			if (kcalIntake == null) {
+			if (kcalIntake == 0) {
 				model.addAttribute("calGain", 0);
 			}else {
 				model.addAttribute("calLost", kcalIntake);
