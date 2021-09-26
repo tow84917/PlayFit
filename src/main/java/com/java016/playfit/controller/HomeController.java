@@ -350,21 +350,21 @@ public class HomeController {
 	}
 	
 	// 體型、顏色、衣服、帽子 (前端要送) 新方式後端產圖 順便存取配件 Id
-//	@RequestMapping("/createAvatar")
-//	@ResponseBody
-//	public String createAvatar() {
-//		
-//		// 找體型
-//		BodyType bodyType = bodyTypeService.findByName("OVERWEIGHT");
-//		
-//		// 體型、顏色、衣服、帽子
-//		avatarService.saveAvatarPic(
-//				bodyType, "lightpurple", "Camera", "Fishermenhat", "Avatar_999");
-//
-//		//		avatarService.saveAvatarPic(
-////				bodyType, "lightpurple", "Camera", null, "Avatar_999");
-//		
-//		return "OK" ;
-//	}
+	@RequestMapping("/createAvatar")
+	@ResponseBody
+	public String createAvatar() {
+		
+		// 找體型
+		BodyType bodyType = bodyTypeService.findByName("OVERWEIGHT");
+		
+		// 體型、顏色、衣服、帽子
+		avatarService.saveAvatarPic(
+				bodyType, "lightpurple", "Camera", "Fishermenhat", "Avatar_666");
+
+		//		avatarService.saveAvatarPic(
+//				bodyType, "lightpurple", "Camera", null, "Avatar_999");
+		
+		return "OK" ;
+	}
 	
 }
