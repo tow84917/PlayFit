@@ -209,7 +209,7 @@ public class EditPersonalInfoController {
 
 		// 驗證
 		editUserValidator.validate(modifyUser, result);
-
+		
 		// 有錯回到原頁
 		if (result.hasErrors()) {
 			
@@ -226,26 +226,26 @@ public class EditPersonalInfoController {
 		}
 
 		int userId = userService.getLoginUserId();
-		User user = userService.getUserById(userId);
-		
-		// 資料相同不更新
-		if (modifyUser.getFullName().equals(user.getFullName()) &&
-			modifyUser.getNickName().equals(user.getNickName()) &&	
-			modifyUser.getPhone().equals(user.getPhone()) 		&&
-			modifyUser.getEmail().equals(user.getEmail()) 		&&
-			modifyUser.getAddress().equals(user.getAddress()) 	&&
-			modifyUser.getGender().equals(user.getGender()) 	&&
-			modifyUser.getBirthday().equals(user.getBirthday()) 
-			
-				) {
-			return "redirect:/MemberPage";
-		}
+		User userOld = userService.getUserById(userId);
 		
 		// 儲存User
 		userService.saveUser(modifyUser);
 		
 		// 更新後的 User
 		User userUpdated = userService.getUserById(userService.getLoginUserId());
+		
+		// 新舊資料相同不顯示更新
+		if (
+			userUpdated.getFullName().equals(userOld.getFullName()) &&
+			userUpdated.getNickName().equals(userOld.getNickName()) &&	
+			userUpdated.getPhone().equals(userOld.getPhone()) 		&&
+			userUpdated.getEmail().equals(userOld.getEmail()) 		&&
+			userUpdated.getAddress().equals(userOld.getAddress()) 	&&
+			userUpdated.getGender().equals(userOld.getGender()) 	&&
+			userUpdated.getBirthday().equals(userOld.getBirthday()) 
+				) {
+			return "redirect:/MemberPage";
+		}
 
 		// 新 UserDetails 給 authentication 
 		CustomUserDetails customUserDetails = new CustomUserDetails(userUpdated);
@@ -278,12 +278,12 @@ public class EditPersonalInfoController {
 
 			// 無今日紀錄則創建
 			if (healthRecordToday == null) {
-				healthRecordService.createNewRecord(healthRecordLast, user, sqlDate);
+				healthRecordService.createNewRecord(healthRecordLast, userOld, sqlDate);
 			}
 
 			// 有今日紀錄則更新
 			if (healthRecordToday != null) {
-				healthRecordService.updateHealthRecord(user, healthRecordToday);
+				healthRecordService.updateHealthRecord(userOld, healthRecordToday);
 			}
 
 		}

@@ -49,8 +49,7 @@ public class EditUserValidator implements Validator {
 			// 判斷格式
 			if (!user.getEmail()
 					.matches(
-							"^\\w{1,63}@"
-							+ "[a-zA-Z0-9]{1,21}.[a-zA-Z0-9]{1,21}.[a-zA-Z0-9]{1,21}\\.[a-zA-Z]{1,21}(\\.[a-zA-Z]{2,63})?$")
+							"^\\w{1,63}@[a-zA-Z0-9]{1,30}\\.[a-zA-Z]{1,30}(\\.[a-zA-Z]{1,30})?(\\.[a-zA-Z]{1,30})?$")
 					) {
 				errors.rejectValue("email", "", "Email illegal.");
 			}
