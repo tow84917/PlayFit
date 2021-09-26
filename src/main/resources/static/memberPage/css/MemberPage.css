@@ -90,7 +90,6 @@
 /* 頭貼 */
 .head {
 	border-radius: 3rem;
-    box-shadow: 0.3rem 0.3rem 1rem #c8d0e7, -0.2rem -0.2rem 1.8rem white;
 	width: 270px;
 	height: 260px;
 	background-color: rgb(235, 238, 248);
@@ -123,7 +122,6 @@
 /* 個人資訊  */
 .personInfo {
 	border-radius: 3rem;
-    box-shadow: 0.3rem 0.3rem 1rem #c8d0e7;
 	width: 270px;
 	height: 360px;
 	background-color: rgb(235, 238, 248);
@@ -171,6 +169,8 @@
 
 /* 登出 */
 .logOut {
+	border: none;
+	outline:medium;
 	background-color: white;
 	height: 45px;
 	width: 120px;
@@ -192,6 +192,8 @@
 }
 /* 修改會員資料 BTN */
 .editProfile {
+	border: none;
+	outline:medium;
 	height: 45px;
 	width: 120px;
 	font-size: 14px;
@@ -214,7 +216,6 @@
 /* 任務 + 勳章  */
 .task {
 	border-radius: 3rem;
-    box-shadow: 0.3rem 0.3rem 1rem #c8d0e7, -0.2rem -0.2rem 1.8rem white;
 	width: 858px;
 	height: 142px;
 	background-color: rgb(235, 238, 248);
@@ -290,7 +291,6 @@
 /* 目標 */
 .goal {
 	border-radius: 3rem;
-    box-shadow: 0.3rem 0.3rem 1rem #c8d0e7, -0.2rem -0.2rem 1.8rem white;
 	width: 540px;
 	height: 310px;
 	background-color: rgb(235, 238, 248);
@@ -310,7 +310,7 @@
 	font-size: 38px;
 	color: #6460ff;
 	text-align: center;
-	background-color: rgb(235, 238, 248);
+	background-color: rgb(255, 255, 255);
 	width: 48px;
 	height: 48px;
 	border-radius: 50%;
@@ -392,7 +392,6 @@
 /* 長條圖 */
 .canvasBox {
 	border-radius: 3rem;
-    box-shadow: 0.3rem 0.3rem 1rem #c8d0e7, -0.2rem -0.2rem 1.8rem white;
 	width: 540px;
 	height: 235px;
 	margin-top: 15px;
@@ -422,7 +421,6 @@
 /* 訓練菜單 */
 .train {
 	border-radius: 3rem;
-    box-shadow: 0.3rem 0.3rem 1rem #c8d0e7, -0.2rem -0.2rem 1.8rem white;
 	position:relative;
 	right: 2%;
 	/*border: 1px red solid;*/ 
@@ -520,7 +518,7 @@
 	color: #6460ff;
 	display: flex;
 	margin: auto 0px;
-	background-color: rgb(235, 238, 248);
+	background-color: rgb(255, 255, 255);
 	width: 48px;
 	height: 48px;
 	border-radius: 50%;
