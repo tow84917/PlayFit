@@ -247,32 +247,32 @@ public class User {
 	}
 	
 
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("User [id=");
-		builder.append(this.id);
-		builder.append(", fullName=");
-		builder.append(this.fullName);
-		builder.append(", password=");
-		builder.append(this.password);
-		builder.append(", nickName=");
-		builder.append(this.nickName);
-		builder.append(", gender=");
-		builder.append(this.gender);
-		builder.append(", email=");
-		builder.append(this.email);
-		builder.append(", phone=");
-		builder.append(this.phone);
-		builder.append(", address=");
-		builder.append(this.address);
-		builder.append(", birthday=");
-		builder.append(this.birthday);
-		builder.append(", createdAt=");
-		builder.append(this.createdAt);
-		builder.append(", certificationStatus=");
-		builder.append(this.certificationStatus);
-		builder.append("]");
-		return builder.toString();
-	}
+//	public String toString() {
+//		StringBuilder builder = new StringBuilder();
+//		builder.append("User [id=");
+//		builder.append(this.id);
+//		builder.append(", fullName=");
+//		builder.append(this.fullName);
+//		builder.append(", password=");
+//		builder.append(this.password);
+//		builder.append(", nickName=");
+//		builder.append(this.nickName);
+//		builder.append(", gender=");
+//		builder.append(this.gender);
+//		builder.append(", email=");
+//		builder.append(this.email);
+//		builder.append(", phone=");
+//		builder.append(this.phone);
+//		builder.append(", address=");
+//		builder.append(this.address);
+//		builder.append(", birthday=");
+//		builder.append(this.birthday);
+//		builder.append(", createdAt=");
+//		builder.append(this.createdAt);
+//		builder.append(", certificationStatus=");
+//		builder.append(this.certificationStatus);
+//		builder.append("]");
+//		return builder.toString();
+//	}
 
 }
