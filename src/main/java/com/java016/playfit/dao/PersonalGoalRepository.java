@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -41,6 +42,19 @@ public interface PersonalGoalRepository extends JpaRepository<PersonalGoal, Inte
 			+ ":date AND p.user_id = :userId", nativeQuery=true)
 	public PersonalGoal findByUserIdAndDate(@Param("userId")Integer userId,
 			@Param("date")Date date);
+	
+	/**
+	 * updateTotalLost
+	 * @param id
+	 * @param password
+	 */
+	@Modifying
+	@Query(
+	  value = "update Personal_Goal pg set pg.total_lost = :totalKcalBurned where pg.id = :id"
+	, nativeQuery=true)
+	public void updateTotalLost(
+			@Param(value = "id") Integer id, 
+			@Param(value="totalKcalBurned") Integer kcalBurned) ;
 
 }
 

@@ -41,6 +41,7 @@ import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.FitActivity;
 import com.java016.playfit.model.Food;
 import com.java016.playfit.model.Meal;
+import com.java016.playfit.model.PersonalGoal;
 import com.java016.playfit.model.TimePeriod;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.DailyRecordService;
@@ -48,6 +49,7 @@ import com.java016.playfit.service.FitAchieveService;
 import com.java016.playfit.service.FoodService;
 import com.java016.playfit.service.MealService;
 import com.java016.playfit.service.MemberService;
+import com.java016.playfit.service.PersonalGoalService;
 import com.java016.playfit.service.StartFitService;
 import com.java016.playfit.service.TimePeriodService;
 import com.java016.playfit.service.UserService;
@@ -73,8 +75,8 @@ public class DiaryController {
 	DailyRecordRepository dailyRecordRepo;
 	@Autowired
 	MemberService memberService;
-	
-	
+	@Autowired
+	PersonalGoalService personalGoalService;
 	
 	@Autowired
 	StartFitService startFitService;
@@ -173,9 +175,6 @@ public class DiaryController {
 
 		return "redirect:/diary_homepage/1";
 	}
-	
-	
-	
 	
 	@PostMapping("/processDiaryUpdate/{diaryId}")
 	public String processDiaryUpdateWithDiaryId(@PathVariable(value = "diaryId") int id

@@ -23,7 +23,9 @@ public interface PersonalGoalService {
 
 	// 更新或儲存目標
 	void updatePersonalGoal(Double newGoal, User user, HealthRecord healthRecord);
-
+	
+	// 修改目標總消耗量
+	void updateTotalLost(PersonalGoal personalGoal, Integer kcalBurned);
 }
 
 

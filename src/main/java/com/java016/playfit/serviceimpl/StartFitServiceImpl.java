@@ -61,6 +61,7 @@ public class StartFitServiceImpl implements StartFitService{
 		
 	}
 	
+	@Override
 	public void saveFitAchieveWithExecuteDirectly(User user,Integer fitActivityId) throws NotFoundException {
 		
 		//抓出今天的日期
@@ -121,11 +122,12 @@ public class StartFitServiceImpl implements StartFitService{
 			
 			dailyRecord.setKcalBurned(tempKcalBurned + (int)fitActivity.getKcalBurn());
 			dailyRecordService.saveDailyRecord(dailyRecord);
-			
-			PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(user.getId());
-			personalGoal.setTotalLost(personalGoal.getTotalLost() + (int)fitActivity.getKcalBurn());
-			personalGoalService.savePersonalGoal(personalGoal);
 		}
+		
+		PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(user.getId());
+//		personalGoal.setTotalLost(personalGoal.getTotalLost() + (int)fitActivity.getKcalBurn());
+//		personalGoalService.savePersonalGoal(personalGoal);
+		personalGoalService.updateTotalLost(personalGoal, fitActivity.getKcalBurn());
 		
 	}
 	
