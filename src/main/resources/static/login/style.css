@@ -100,42 +100,45 @@
   transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-
+/* 選角色顏色 */
 .pink{
   border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   background-color: #FF9398;
 }
 
-
-/* 選角色顏色 */
 .red{
   border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   background-color: #FF353B;
 }
 
 .blue{
   border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   background-color: #23B5F3;
 }
 
 .purple{
   border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   background-color: #6460FF;
 }
 
 .lightpurple{
   border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   background-color: #CCCCFF;
+}
+
+
+#hat_blank,#clothes_blank{
+  width: 6rem;
 }
 
 #tab1-1:checked ~ .segmented-control__color{
