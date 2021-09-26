@@ -104,21 +104,13 @@ public class MemberPageController {
 					memberService.getTodayAchieveAndActivity(todayRecord);
 			model.addAttribute("activityStatus", activityStatus);
 			
+			// 今日消耗&攝取
 			Integer kcalBurned = todayRecord.getKcalBurned();
 			Integer kcalIntake = todayRecord.getKcalIntake();
 			
-			// 今日消耗
-			if (kcalBurned == 0) {
-				model.addAttribute("calLost", 0);
-			}else {
-				model.addAttribute("calLost", kcalBurned);
-			}
+			model.addAttribute("calLost", kcalBurned);
 			
-			if (kcalIntake == 0) {
-				model.addAttribute("calGain", 0);
-			}else {
-				model.addAttribute("calLost", kcalIntake);
-			}
+			model.addAttribute("calGain", kcalIntake);
 
 		}
 
