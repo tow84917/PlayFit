@@ -51,7 +51,8 @@ public class OrderController {
     @RequestMapping({"/pay"})
     public String point(HttpSession session) {
         System.out.println("pay in1");
-        session.setAttribute("userId", userService.getLoginUserId());
+//        session.setAttribute("userId", userService.getLoginUserId());
+        session.setAttribute("userId", userService.getLoginUser());
         Object userId = session.getAttribute("userId");
         System.out.println(userId);
         return "subscription";

@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
 	 * @return user id
 	 */
 	@Override
-	public int getLoginUserId() {
+	public Integer getLoginUserId() {
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		Object principal = authentication.getPrincipal();

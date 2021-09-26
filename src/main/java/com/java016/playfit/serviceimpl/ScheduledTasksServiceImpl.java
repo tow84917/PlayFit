@@ -55,9 +55,12 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	 */
 	@Override
 	@Scheduled(cron = "0 0 0 * * ?") // 指定時間執行 0時(24)
+//	@Scheduled(initialDelay = 180000, fixedRate = 180000) // 展示用 (3分鐘更新)
 	@Transactional
 	public void upadteCalorieDeficit() {
-
+		
+		System.out.println("檢查熱量赤字...");
+		
 		long now = System.currentTimeMillis();
 		int dayMillis = 86400000;
 
@@ -65,8 +68,14 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 		java.util.Date utilYestoday = new java.util.Date(now - dayMillis);
 		// 把日期轉成SQL型態的Date
 		java.sql.Date sqlYestoday = new java.sql.Date(utilYestoday.getTime());
-
+		
 		System.out.println(sqlYestoday);
+		
+//		// 展示用 日期為今天
+//		java.util.Date utilYestoday = new java.util.Date(now);
+//		// 把日期轉成SQL型態的Date
+//		java.sql.Date sqlYestoday = new java.sql.Date(utilYestoday.getTime());
+//		// 展示用 日期為今天
 
 		// 找昨天所有紀錄
 		List<DailyRecord> dailyRecords = dailyRecordService.findByCreatedDate(sqlYestoday);
@@ -193,8 +202,11 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	 */
 	@Override
 	@Scheduled(cron = "15 10 17 * * ?") // 指定時間執行 2時(am)
+//	@Scheduled(initialDelay = 210000, fixedRate = 210000) // 展示用 (3分鐘半更新)
 	@Transactional
 	public void upadteAvatarPicForBodyType() {
+		
+		System.out.println("檢查體型變化...");
 		
 		long now = System.currentTimeMillis();
 		int dayMillis = 86400000;
@@ -203,6 +215,12 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 		java.util.Date utilYestoday = new java.util.Date(now - dayMillis);
 		// 把日期轉成SQL型態的Date
 		java.sql.Date sqlYestoday = new java.sql.Date(utilYestoday.getTime());
+		
+//		// 展示用 日期為今天
+//		java.util.Date utilYestoday = new java.util.Date(now);
+//		// 把日期轉成SQL型態的Date
+//		java.sql.Date sqlYestoday = new java.sql.Date(utilYestoday.getTime());
+//		// 展示用 日期為今天
 
 		System.out.println(sqlYestoday);
 		

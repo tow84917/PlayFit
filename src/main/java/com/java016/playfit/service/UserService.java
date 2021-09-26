@@ -53,7 +53,7 @@ public interface UserService {
 	 * 
 	 * @return user id
 	 */
-	int getLoginUserId();
+	Integer getLoginUserId();
 
 	/**
 	 * 獲取登入名

@@ -50,19 +50,21 @@ public class LoggingAspect {
 		Object[] args = joinPoint.getArgs();
 		
 		String argString = "";
-		
+			
 		int count = 0 ;
 		
 		for(Object arg : args) {
-			argString += String.valueOf(arg) ;
-			count ++ ;
-			if (count < args.length) {
-				argString += ", " ;				
+				if (arg != null) {
+					argString += String.valueOf(arg) ;
+					count ++ ;
+					if (count < args.length) {
+						argString += ", " ;				
+				}
 			}
 		}
 		
 		
-		myLogger.info("Calling method : " + method + ", args : (" + argString.toString() + ")");
+		myLogger.info("Calling method : " + method + ", args : (" + argString + ")");
 //		System.out.println("Calling method : " + method + ", args : (" + argString + ")");
 	}
 	
