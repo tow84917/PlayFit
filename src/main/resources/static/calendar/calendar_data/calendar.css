@@ -128,7 +128,7 @@ div {
   margin-bottom: 1.5rem;
   /* 取消 btn 陰影 */
   filter: none;
-
+  border: 0;
   /* 固定 */
   position: relative;
 }
@@ -493,4 +493,9 @@ label {
     bottom: 0;
     opacity: 0;
   }
+}
+
+/* 不能點選 */
+.mouse {
+  cursor: default !important;
 }

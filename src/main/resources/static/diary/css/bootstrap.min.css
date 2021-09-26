@@ -1038,9 +1038,14 @@ min-height:28px;
     flex: 0 0 auto;
     width: 33.33333333%;
     height: 230px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
   }
+  
+  .col-md-4:hover {
+	overflow-y:scroll;
+	}
+	
   img{
     max-width: 100%;
     height: 100%;

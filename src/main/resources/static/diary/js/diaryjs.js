@@ -9,13 +9,7 @@ $(document).ready(function(){
       
   });
 
-$(".item").on("mouseenter mouseleave", function (moveout) { //挷定滑鼠進入及離開事件
-  if (moveout.type == "mouseenter") {
-    $(this).css({"overflow-y": "scroll"}); //滑鼠進入
-  } else {
-    $(this).scrollTop(0).css({"overflow-y": "hidden"}); //滑鼠離開
-  }
-});
+
 
 
 	var oldDiaryModal = document.getElementById("oldModal");
