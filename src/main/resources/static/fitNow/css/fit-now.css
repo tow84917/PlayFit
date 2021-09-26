@@ -108,8 +108,9 @@ body{
     place-self: center;
     height: 80%;
     width: 80%;
-    border-radius: 15px;
 	border: 0px;
+	border-radius: 2rem;
+  	box-shadow: inset 0.2rem 0.2rem 0.5rem var(--Gy2), inset -0.2rem -0.2rem 0.5rem var(--white);
 }
 
 .fit-name:hover{

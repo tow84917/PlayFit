@@ -72,4 +72,25 @@ public class PersonalGoalServiceImpl implements PersonalGoalService {
 			personalGoalRepo.save(personalGoalToday);
 		}
 	}
+
+	// 修改目標總消耗量
+	@Transactional
+	@Override
+	public void updateTotalLost(PersonalGoal personalGoal, Integer kcalBurned) {
+		
+		Integer newTotalKcalBurned = personalGoal.getTotalLost() + kcalBurned;
+		
+		personalGoalRepo.updateTotalLost(personalGoal.getId(), newTotalKcalBurned);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+

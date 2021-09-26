@@ -9,13 +9,7 @@ $(document).ready(function(){
       
   });
 
-$(".item").on("mouseenter mouseleave", function (moveout) { //挷定滑鼠進入及離開事件
-  if (moveout.type == "mouseenter") {
-    $(this).css({"overflow-y": "scroll"}); //滑鼠進入
-  } else {
-    $(this).scrollTop(0).css({"overflow-y": "hidden"}); //滑鼠離開
-  }
-});
+
 
 
 	var oldDiaryModal = document.getElementById("oldModal");
@@ -64,10 +58,35 @@ $(".item").on("mouseenter mouseleave", function (moveout) { //挷定滑鼠進入
 
 
 				$("#old-diary-meal .meal-container").empty();	
+				let oldMealConstainer = $("#old-diary-meal .meal-container")
+				
 				response.meals.forEach(function(meal){
-					$('<div>').attr({
-					  }).text(meal.timePeriod.name + "--" + meal.food.name+ "--" + meal.food.kcal + " cal").appendTo('#old-diary-meal .meal-container');
+					let div = document.createElement('div');
+					$(div).text(meal.timePeriod.name + "--" + meal.food.name+ "--" + meal.food.kcal + " cal")
+						.appendTo('#old-diary-meal .meal-container');
+
+					let btn = $('<button>').attr({
+						type: 'button',
+						class: 'deleteClass',
+						value: meal.id
+					}).text('Delete')
+						.appendTo(div);
+
+					$(btn).click(function(){
+						console.log(oldMealConstainer);
+						let hd = document.createElement("input");
+						hd.type = "hidden";
+						hd.setAttribute('name', "deleteMealHidden");
+						hd.value = this.value;
+						$(hd).appendTo(oldMealConstainer);
+						this.parentNode.parentNode.removeChild(this.parentNode);
+					});
+					// $('<div>').attr({
+					//   }).text(meal.timePeriod.name + "--" + meal.food.name+ "--" + meal.food.kcal + " cal")
+					//   .appendTo('#old-diary-meal .meal-container');
 				});
+
+
 			},
 			error: function(xhr, textStatus, error) {
 			  alert("fail");
@@ -81,9 +100,10 @@ $(".item").on("mouseenter mouseleave", function (moveout) { //挷定滑鼠進入
 	});
 
 
-
-
-
+	// var addFoodBtnForOldDiary = $("#old-diary-meal #addFoodBtn").get();
+	// addFoodBtnForOldDiary[0].addEventListener("click", function(){
+	// 	alert(" ");
+	// });
 
 	
 	var span = document.getElementsByClassName("close")[0];
@@ -93,7 +113,7 @@ $(".item").on("mouseenter mouseleave", function (moveout) { //挷定滑鼠進入
 	
   var myFood = document.getElementById("myFood");
 	
-	var addFoodBtn = document.getElementById("addFoodBtn");
+	var addFoodBtns = document.querySelectorAll(".food-plus");
 	
 	var mealHidden = document.getElementById("mealHidden");
 	
@@ -111,34 +131,64 @@ $(".item").on("mouseenter mouseleave", function (moveout) { //挷定滑鼠進入
 	  });
 	});
 	
-	
-	addFoodBtn.onclick = function() {
-		let myTimePeriod = document.getElementById("myTimePeriod");
-		let myFood = document.getElementById("myFood");
-		let el = document.createElement("div");
-		let hd = document.createElement("input");
-		hd.type = "hidden";
-		hd.setAttribute('name', "mealHidden");
-		el.innerHTML = myTimePeriod.options[myTimePeriod.selectedIndex].text 
-					 + " -- " 
-					 + myFood.options[myFood.selectedIndex].text
-					 + '  <button type="button" class="removeParent">Delete</button>';	 	
+	addFoodBtns.forEach(function(addFoodBtn){
+		addFoodBtn.addEventListener("click", function(){
+			let myTimePeriod = document.getElementById("myTimePeriod");
+			// let myFood = document.getElementById("myFood");
+			let myFood = this.nextElementSibling;
+			let el = document.createElement("div");
+			let hd = document.createElement("input");
+			hd.type = "hidden";
+			hd.setAttribute('name', "mealHidden");
+			el.innerHTML = myTimePeriod.options[myTimePeriod.selectedIndex].text 
+						 + " -- " 
+						 + myFood.options[myFood.selectedIndex].text
+						 + '  <button type="button" class="removeParent">Delete</button>';	 	
+				
+			
+			hd.value = myTimePeriod.value + ',' + myFood.value;
+			// insertAfter(myFood, el);
+			myFood.nextElementSibling.prepend(el);
+			el.appendChild(hd);
+			
+			let removeParents = document.querySelectorAll("button.removeParent");
+		
+			removeParents.forEach(function(removeParent) {
+			  removeParent.addEventListener("click", function(){ 
+				  this.parentNode.parentNode.removeChild(this.parentNode);
+			  });
+			});
+		});
+	});
+
+
+	// addFoodBtn.onclick = function() {
+	// 	let myTimePeriod = document.getElementById("myTimePeriod");
+	// 	let myFood = document.getElementById("myFood");
+	// 	let el = document.createElement("div");
+	// 	let hd = document.createElement("input");
+	// 	hd.type = "hidden";
+	// 	hd.setAttribute('name', "mealHidden");
+	// 	el.innerHTML = myTimePeriod.options[myTimePeriod.selectedIndex].text 
+	// 				 + " -- " 
+	// 				 + myFood.options[myFood.selectedIndex].text
+	// 				 + '  <button type="button" class="removeParent">Delete</button>';	 	
 			
 		
-		hd.value = myTimePeriod.value + ',' + myFood.value;
-		insertAfter(myFood, el);
-		el.appendChild(hd);
+	// 	hd.value = myTimePeriod.value + ',' + myFood.value;
+	// 	insertAfter(myFood, el);
+	// 	el.appendChild(hd);
 		
-		let removeParents = document.querySelectorAll("button.removeParent");
+	// 	let removeParents = document.querySelectorAll("button.removeParent");
 	
-		removeParents.forEach(function(removeParent) {
-		  removeParent.addEventListener("click", function(){ 
-		  	this.parentNode.parentNode.removeChild(this.parentNode);
-		  });
-		});
+	// 	removeParents.forEach(function(removeParent) {
+	// 	  removeParent.addEventListener("click", function(){ 
+	// 	  	this.parentNode.parentNode.removeChild(this.parentNode);
+	// 	  });
+	// 	});
 	    
 
-	}
+	// }
 	
 	
 	function insertAfter(referenceNode, newNode) {

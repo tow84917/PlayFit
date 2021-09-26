@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -40,6 +41,7 @@ import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.FitActivity;
 import com.java016.playfit.model.Food;
 import com.java016.playfit.model.Meal;
+import com.java016.playfit.model.PersonalGoal;
 import com.java016.playfit.model.TimePeriod;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.DailyRecordService;
@@ -47,6 +49,7 @@ import com.java016.playfit.service.FitAchieveService;
 import com.java016.playfit.service.FoodService;
 import com.java016.playfit.service.MealService;
 import com.java016.playfit.service.MemberService;
+import com.java016.playfit.service.PersonalGoalService;
 import com.java016.playfit.service.StartFitService;
 import com.java016.playfit.service.TimePeriodService;
 import com.java016.playfit.service.UserService;
@@ -72,8 +75,8 @@ public class DiaryController {
 	DailyRecordRepository dailyRecordRepo;
 	@Autowired
 	MemberService memberService;
-	
-	
+	@Autowired
+	PersonalGoalService personalGoalService;
 	
 	@Autowired
 	StartFitService startFitService;
@@ -173,9 +176,6 @@ public class DiaryController {
 		return "redirect:/diary_homepage/1";
 	}
 	
-	
-	
-	
 	@PostMapping("/processDiaryUpdate/{diaryId}")
 	public String processDiaryUpdateWithDiaryId(@PathVariable(value = "diaryId") int id
 									,@RequestParam(required=false,name="mealHidden") String[] timePeriodIdsFoodIdsForUpdate
@@ -202,23 +202,18 @@ public class DiaryController {
 		
 		dailyRecordService.saveDailyRecord(dailyRecord);
 		
-//		DailyRecord tempTodayDailyRecord = (DailyRecord) session.getAttribute("todayDailyRecord");
-//		tempTodayDailyRecord.setTitle(todayDailyRecord.getTitle());
-//		tempTodayDailyRecord.setContent(todayDailyRecord.getContent());
-//		tempTodayDailyRecord.setStatus(1);
-//
-//		
-//		session.removeAttribute("todayDailyRecord");
-//		System.out.println("存成日記");
-//		//存成日記
-//		dailyRecordService.saveDailyRecord(tempTodayDailyRecord);
-//		System.out.println("新增或刪除用餐紀錄");
-//		//新增或刪除用餐紀錄
-//		dailyRecordService.updateDailyRecordAndMeal(tempTodayDailyRecord, timePeriodIdsFoodIdsForUpdate, mealIdsForDelete, userService.getLoginUserEmail());
-//		
-//		System.out.println("因為可能會新增或刪除用餐紀錄 所以要更新日常紀錄的卡路里");
-//		//因為可能會新增或刪除用餐紀錄 所以要更新日常紀錄的卡路里
-//		dailyRecordService.updateDailyRecordKcalIntake(tempTodayDailyRecord);
+		System.out.println("timePeriodIdsFoodIdsForUpdate = " + Arrays.toString(timePeriodIdsFoodIdsForUpdate));
+		if(mealIdsForDelete != null) {
+			System.out.println("mealIdsForDelete = " +  Arrays.toString(mealIdsForDelete));
+		}
+		
+		System.out.println("新增或刪除用餐紀錄");
+		//新增或刪除用餐紀錄
+		dailyRecordService.updateDailyRecordAndMeal(dailyRecord, timePeriodIdsFoodIdsForUpdate, mealIdsForDelete, userService.getLoginUserEmail());
+		
+		System.out.println("因為可能會新增或刪除用餐紀錄 所以要更新日常紀錄的卡路里");
+		//因為可能會新增或刪除用餐紀錄 所以要更新日常紀錄的卡路里
+		dailyRecordService.updateDailyRecordKcalIntake(dailyRecord);
 //		
 //		if(!multipartFile.isEmpty()) {
 //	        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());

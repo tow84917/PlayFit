@@ -280,6 +280,10 @@ public class HomeController {
 		// 儲存 User
 		user.setCertificationStatus(0);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		// 儲存權限
+		user.setRole("ROLE_DEF");
+		
 		userService.saveUser(user);
 		
 		// 儲存後在資料庫的User
