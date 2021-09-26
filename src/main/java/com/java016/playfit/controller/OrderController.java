@@ -51,7 +51,8 @@ public class OrderController {
     @RequestMapping({"/pay"})
     public String point(HttpSession session) {
         System.out.println("pay in1");
-        session.setAttribute("userId", userService.getLoginUserId());
+//        session.setAttribute("userId", userService.getLoginUserId());
+        session.setAttribute("userId", userService.getLoginUser());
         Object userId = session.getAttribute("userId");
         System.out.println(userId);
         return "subscription";
@@ -70,10 +71,11 @@ public class OrderController {
                             HttpSession session) {
         logger.info("payFinish-------->>");
         // 從session讀取登入的userId
-        Integer userId = (Integer)session.getAttribute("userId");
-        logger.info(userId);
+//        Integer userId = (Integer)session.getAttribute("userId");
+        User logInUser = (User) session.getAttribute("userId");
+        logger.info(logInUser);
 
-        OrderRecord record = orderRecordService.saveOrderRecord(paramsMap, userId);
+        OrderRecord record = orderRecordService.saveOrderRecord(paramsMap, logInUser.getId());
 
         Integer RtnCode = Integer.parseInt((String)paramsMap.get("RtnCode"));
         logger.info(RtnCode);
