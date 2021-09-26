@@ -22,6 +22,8 @@ public class Food {
 	private String name;
 
 	private String type;
+	
+	private String serving;
 
 	//bi-directional many-to-one association to Meal
 	@JsonIgnore
@@ -71,5 +73,13 @@ public class Food {
 	@JsonIgnore
 	public void setMeals(List<Meal> meals) {
 		this.meals = meals;
+	}
+
+	public String getServing() {
+		return serving;
+	}
+
+	public void setServing(String serving) {
+		this.serving = serving;
 	}
 }
