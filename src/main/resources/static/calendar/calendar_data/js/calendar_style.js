@@ -332,8 +332,8 @@ function findToday(today) {
             console.log('findtoday today: ', today);
             console.log('findtoday: ',today === nowDate);
 
-            if (status == '直接執行') {
-            } else {
+            // if (status == '直接執行') {
+            // } else {
                 let todayCard = document.createElement('button');    
                 let todayFitImg = document.createElement('img');
                 let a ;
@@ -373,7 +373,7 @@ function findToday(today) {
                 a.appendChild(todayCard);
     
                 todayFits.appendChild(a);
-            }
+            // }
             
         }
     },'json');
