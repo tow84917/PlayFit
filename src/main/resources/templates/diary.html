@@ -90,13 +90,14 @@
 							<img src="/diary/img/Icon_add.svg" alt="">
 						</div>
 					<select id="myFood">
-						<option th:each="food : ${foods}" th:value="${food.id}" th:utext="${food.name}">
+						<option th:each="food : ${foods}" th:value="${food.id}" th:utext="${food.name} + ' ' + ${food.serving} + ' ' + ${food.kcal} + ' CAL'">
 					</select>
 					
-					<div th:if="${meals}" th:each="meal: ${meals}" 
-					th:utext="${meal.timePeriod.name} + '--' + ${meal.food.name} + '  <button type=' + 'button'+ ' class=' + 'deleteClass' + ' value=' + ${meal.id} + '>Delete</button>'">
+					<div class="meal-container">
+						<div th:if="${meals}" th:each="meal: ${meals}" 
+						th:utext="${meal.timePeriod.name} + '--' + ${meal.food.name} + '  <button type=' + 'button'+ ' class=' + 'deleteClass' + ' value=' + ${meal.id} + '>Delete</button>'">
+						</div>
 					</div>
-					
 				</div>
 			</div>
 			

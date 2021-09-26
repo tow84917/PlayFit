@@ -148,6 +148,14 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 	@Override
 	public void updateDailyRecordAndMeal(DailyRecord dailyRecord, String[] timePeriodIdsFoodIdsForUpdate,
 			String[] mealIdsForDelete, String username) {
+		
+		if(!dailyRecord.getUser().getEmail().equals(username)) {
+			throw new AccessDeniedException("user attempted to modify another user's daily record.");
+		}
+		
+		
+		
+		
 		//LinkedList才支援remove方法,就算Arrays.asList轉成List也不能用remove方法
 		List<String> timePeriodIdFoodIdList = new LinkedList<String>(Arrays.asList(timePeriodIdsFoodIdsForUpdate));
 		
