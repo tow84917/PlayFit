@@ -1,5 +1,6 @@
 package com.java016.playfit.serviceimpl;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -181,11 +182,11 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	public void checkDateLine(){
 		List<User> userList = userRepository.findAll();
 		for (User user : userList) {
-			Date dateline = user.getDateline();
+			Calendar dateline = user.getDateline();
 			if (dateline == null){
 				continue;
 			}
-			if (dateline.getTime() <= new Date().getTime()){
+			if (dateline.getTime().getTime() <= new Date().getTime()){
 				if (user.getRole() == "ROLE_DEF"){
 					System.out.println("def--->");
 					continue;

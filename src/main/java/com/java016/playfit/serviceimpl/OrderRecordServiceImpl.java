@@ -100,6 +100,7 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 //        User loginUser = userService.getLoginUser().getUser();
 
         User loginUser = userRepository.getById(userId);
+        logger.info(loginUser);
         orderRecord.setUserId(loginUser);
         logger.info(orderRecord);
         System.out.println(orderRecord);

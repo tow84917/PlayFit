@@ -1,6 +1,7 @@
 package com.java016.playfit.serviceimpl;
 
 import com.java016.playfit.dao.UserRepository;
+import com.java016.playfit.model.OrderRecord;
 import com.java016.playfit.model.User;
 import com.java016.playfit.security.CustomUserDetails;
 import com.java016.playfit.service.UserService;
@@ -11,7 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,6 +23,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepo;
+
+	@Autowired
+	UserService userService;
+
 	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
@@ -148,6 +156,39 @@ public class UserServiceImpl implements UserService {
 				(CustomUserDetails) authentication.getPrincipal();
 		
 		return customUserDetails.isEnabled();
+	}
+
+	@Override
+	public void updateUserRole(Integer userId, String role) {
+		userRepo.updateUserRole(userId, role);
+	}
+
+	@Override
+	public void updateUserDateline(HttpSession session, Integer userId, OrderRecord record) {
+		System.out.println("updateDateline ->> ");
+		String execTimes = (String) session.getAttribute("execTimes");
+		System.out.println(execTimes);
+		Integer i = Integer.parseInt(execTimes);
+		String itemName = (String) session.getAttribute("itemName");
+		System.out.println(itemName);
+		User loginUser = userService.getLoginUser();
+
+		Calendar paymentDate;
+		if (loginUser.getDateline() == null){
+			paymentDate = record.getPaymentDate();
+		}else {
+			paymentDate = loginUser.getDateline();
+		}
+
+		if (itemName.equals("年付")){
+			int year = paymentDate.get(Calendar.YEAR) + i;
+			paymentDate.set(Calendar.YEAR, year);
+		} else if (itemName.equals("月付")){
+			int month = paymentDate.get(Calendar.MONTH) + i;
+			paymentDate.set(Calendar.MONTH, month);
+		}
+
+		userRepo.updateUserDateline(userId,paymentDate);
 	}
 
 }

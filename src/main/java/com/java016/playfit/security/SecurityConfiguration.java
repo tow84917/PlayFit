@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import com.java016.playfit.security.*;
 
 @Configuration
 @EnableWebSecurity
@@ -67,8 +68,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-//				.antMatchers("/","/index", "/process_register" ,"/login/failure" ,"/process_avatar"
-//						, "/register","/**/*.js", "/**/*.css", "/**/*.svg","/payFinish").permitAll() // void not css、html 
+				.antMatchers("/","/index", "/process_register" ,"/login/failure" ,"/process_avatar"
+						, "/register","/**/*.js", "/**/*.css", "/**/*.svg","/payFinish").permitAll() // void not css、html 
 //				.anyRequest().authenticated() // 除了上行請求皆須登入
 				.antMatchers("/MemberPage","/calendar/calendar"
 						, "/StartFit", "/pay", "/diary_homepage/**").authenticated() // 特定請求須要登入
