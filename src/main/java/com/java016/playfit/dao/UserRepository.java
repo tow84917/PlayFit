@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.java016.playfit.model.User;
 
+import java.util.Calendar;
 import java.util.Date;
 
 @Repository
@@ -63,10 +64,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Transactional(rollbackFor = RuntimeException.class)
 	@Modifying
-	@Query(value = "update users u set u.dataline = :dateline " +
+	@Query(value = "update users u set u.dateline = :dateline " +
 			"where u.id = :id", nativeQuery = true)
 	public void updateUserDateline(@Param(value = "id") Integer id,
-								   @Param(value = "dateline")Date dateline);
+								   @Param(value = "dateline") Calendar dateline);
 
 	@Transactional(rollbackFor = RuntimeException.class)
 	@Modifying
@@ -74,6 +75,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 			"where u.id = :id", nativeQuery = true)
 	public void updateUserRole(@Param(value = "id") Integer id,
 								   @Param(value = "role")String role);
+
 
 
 }

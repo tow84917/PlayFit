@@ -1,26 +1,26 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>404</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>404</title>
 </head>
 <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
-    </style>
+</style>
+
 <body>
         <!--Menu Start-->
-<header th:replace="fragments/header::myHeader"></header>
+        <header th:replace="fragments/header::myHeader"></header>
         <div class="blank"></div>
-<!--Menu End-->
-<!-- Main Start -->
-      <img th:src="@{/404/img/404view.png}" alt=""
-      style="width: 100%;">
-      <!-- Main End -->
-       <footer th:replace="fragments/footer::myFooter"></footer>
+        <!--Menu End-->
+        <!-- Main Start -->
+        <img th:src="@{/404/img/404view.png}" src="../static/404/img/404view.png" alt="" style="width: 100%;">
+        <!-- Main End -->
+        <footer th:replace="fragments/footer::myFooter"></footer>
 </body>
+
 </html>

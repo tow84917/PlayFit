@@ -1,6 +1,7 @@
 package com.java016.playfit.model;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class User {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	private Date dateline;
+	private Calendar dateline;
 	
 	@Column(
 			name = "created_at",
@@ -238,11 +239,11 @@ public class User {
 		this.role = role;
 	}
 
-	public Date getDateline() {
+	public Calendar getDateline() {
 		return dateline;
 	}
 
-	public void setDateline(Date dateline) {
+	public void setDateline(Calendar dateline) {
 		this.dateline = dateline;
 	}
 	

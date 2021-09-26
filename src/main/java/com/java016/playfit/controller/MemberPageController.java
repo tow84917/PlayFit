@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,9 +58,9 @@ public class MemberPageController {
 
 	// 會員頁面
 	@RequestMapping("/MemberPage") // 須同時支援GET、POST(forward:/)
-	public String showMemberPage(Model model, RedirectAttributes ra, 
-			HttpServletRequest request) {
-		
+	public String showMemberPage(Model model, RedirectAttributes ra,
+								 HttpServletRequest request, HttpSession session) {
+		session.setAttribute("userId", userService.getLoginUserId());
 		// 改由攔截器 檢查
 //		// 確認帳號是否啟用
 //		boolean isEnable = userService.isLoginUserEnable();

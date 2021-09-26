@@ -333,7 +333,7 @@ public class ExampleAllInOne {
         obj.setExecTimes("12");    // 執行次數
 
 
-        obj.setOrderResultURL("http://localhost:8080/payFinish"); //付款完，跳轉到哪個頁面
+        obj.setOrderResultURL("/payFinish"); //付款完，跳轉到哪個頁面
         String form = all.aioCheckOut(obj, null);
         return form;
     }
