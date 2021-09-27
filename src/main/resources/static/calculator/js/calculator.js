@@ -192,13 +192,13 @@ function changTdeebtn() {
 }
 
 // 默認選擇第一個tab
-(function () {
-    if (window.location.hash) {
-        window.location.hash;
-    } else {
-        window.location.hash = '#tab1';
-    };
-})();
+//(function () {
+//    if (window.location.hash) {
+//        window.location.hash;
+//    } else {
+//        window.location.hash = '#tab1';
+//    };
+//})();
 
 // BMI計算
 function calculator() {

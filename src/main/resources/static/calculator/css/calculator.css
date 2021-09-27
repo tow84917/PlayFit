@@ -185,8 +185,8 @@
 
   .frequency{
     position: absolute;
-    right: 130px;
-    width: 35%;
+    right: 120px;
+    width: 36%;
     height: 70px;
     color: blue;
     font-size: 18px;
@@ -203,9 +203,9 @@
 
   .bmi{
     position: absolute;
-    right: 130px;
+    right: 120px;
     height: 70px;
-    width: 35%;
+    width: 36%;
     color: blue;
     font-size: 18px;
     font-weight: bolder;
@@ -376,14 +376,14 @@
     font-size: 30px;
     font-weight: bold;
     display: flex;
-    padding-left: 220px;
+    padding-left: 195px;
     color: black;
   }
 
   .word7{
     font-size: 30px;
     font-weight: bold;
-    padding-left: 320px;
+    padding-left: 310px;
   }
   .word8{
     font-size: 30px;
