@@ -16,47 +16,62 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-  display: block;
+    display: block;
 }
 
 body {
-  line-height: 1;
+    line-height: 1;
 }
 
 ol, ul {
-  list-style: none;
+    list-style: none;
 }
 
 blockquote, q {
-  quotes: none;
+    quotes: none;
 }
 
 blockquote:before, blockquote:after,
 q:before, q:after {
-  content: "";
-  content: none;
+    content: "";
+    content: none;
 }
 
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 /* css reset ---------------------------------- */
 
-html{
-	overflow-y: hidden !important;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
+
+@media screen and (max-width: 1000px) {
+    .left h1{
+        font-size: 140px;
+
+    }
+
+    .left h5{
+        font-size:25px;
+    }
+
+    .left p{
+        margin-top: 20px;
+        font-size:20px;
+    }
+
 }
 
 *{
@@ -65,62 +80,34 @@ html{
     font-size: 1rem;
 }
 
-body{
-    margin: 0;
+.content{
+    display: flex;
+    align-items: center;
+}
+.left{
+    flex: 1;
+    text-align: center;
+    color: #6f42c1;
+}
+.right{
+    flex: 1;
+    text-align: right;
 }
 
-.container{
-    /* width:100vm;
-    height: 120vh; */
-
-    display:grid;
-
-    grid-template-columns: repeat(4,1fr);
-    grid-template-rows: 0.5fr 1.5fr repeat(10,1fr);
-
-
-    gap:10px;
-
-    
-    box-sizing: border-box;
-}
-
-.container div{
-    padding:10px;
-    
-}
-
-.content-left{
-    grid-column-start: 1;
-    grid-column-end: 5;
-    grid-row-start: 3;
-    grid-row-end: 10;
-    background-color: rgb(235, 238, 248);
-    margin-left: 3%;
-    margin-right: 3%;
-    border-radius: 15px;
-    
-    display:grid;
-
-    grid-template-columns: repeat(9,minmax(0, 0.1fr)) 1fr 1fr;
-    grid-template-rows: repeat(10,1fr);
-}
-
-.content-right img{
-    grid-column-start: 1;
-    grid-column-end: 10;
-    grid-row-start: 1;
-    grid-row-end: 11;
-}
-
-.content-right{
-    
-
-
-    
-
+.left h1{
+    font-size: 180px;
 
 }
+
+.left h5{
+    font-size:30px;
+}
+
+.left p{
+    margin-top: 20px;
+    font-size:25px;
+}
+
 
 
 
