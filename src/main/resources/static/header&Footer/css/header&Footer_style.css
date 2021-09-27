@@ -185,13 +185,13 @@ html .nav-menu {
   align-items: center;
 }
 html .nav-menu .nav-item {
-  margin-top: 2.3px;
   margin-left: 2rem;
+  padding: 35px 12px;
 }
 html .nav-menu .nav-item .nav-link {
   position: relative;
   font-size: 1.4rem;
-  padding: 20px 12px;
+  padding: 55px 12px;
 }
 html .nav-menu .nav-item img {
   margin-right: 20px;

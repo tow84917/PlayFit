@@ -566,7 +566,7 @@ insert  into `health_record`(`id`,`user_id`,`age`,`height`,`weight`,`BMI`,`BMR`,
 (2,1,26,164.8,65.8,24.23,1614.66,23.2,2583.44,18.61,7235,'ModerateExercise','2021-07-16',3),
 (3,2,28,177.5,88.2,27.99,1699.62,25.3,3059.32,20.91,5347,'HeavyExercise','2021-07-25',4),
 (4,1,27,165.5,67,24.46,1627.8,19.36,2604.48,19.73,-6825,'ModerateExercise','2021-08-28',3),
-(5,1,27,165.5,66,24.1,1614.1,18.93,2582.56,19.53,-3912.6,'ModerateExercise','2021-08-29',3),
+(5,1,27,165,67,24.6,1573,19.2,2141.33,19.88,-7699,'ModerateExercise','2021-09-26',4),
 (6,4,26,164.8,66.3,24.41,1621.51,19.07,2594.42,19.76,6542,'ModerateExercise','2021-07-20',3),
 (7,5,26,164.8,65.8,24.23,1614.66,23.2,2583.44,18.61,7235,'ModerateExercise','2021-07-16',3),
 (8,6,28,177.5,88.2,27.99,1699.62,25.3,3059.32,20.91,5347,'HeavyExercise','2021-07-25',4),
@@ -678,7 +678,7 @@ INSERT INTO `Personal_Goal` VALUES
 (7,6,80,70,4256,'2021-06-01'),
 (8,7,70,60,17852,'2021-07-20'),
 (9,8,60,50,4567,'2021-07-25'),
-(10,1,68,52.5,0,'2021-08-30');
+(10,1,68,52.5,0,'2021-08-31');
 /*!40000 ALTER TABLE `Personal_Goal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -763,7 +763,7 @@ CREATE TABLE `Users` (
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
 INSERT INTO `Users` VALUES 
-(1,'Funk','$2a$10$p/lWTfRvR/vKvuPqWgKon.DN461b4UFBxahuaKNG9fPBn3dsucyl6','龐克頭','Male','playfit1234@gmail.com','832-038-1019','台中市北區中正路808號','1998-08-09','1994-09-26 08:24:29',1,0,NULL,NULL),
+(1,'Funk','$2a$10$p/lWTfRvR/vKvuPqWgKon.DN461b4UFBxahuaKNG9fPBn3dsucyl6','龐克頭','Male','playfit1234@gmail.com','832-038-1019','台中市北區中正路808號','1998-08-09','1994-09-26 08:24:29',1,1,'ROLE_DEF',NULL),
 (2,'mickey','$2a$10$p/lWTfRvR/vKvuPqWgKon.DN461b4UFBxahuaKNG9fPBn3dsucyl6','米其林','Male','mickey.rau@example.org','077-057-2468','台北市中山北路64號','1998-08-09','1998-09-24 08:24:29',2,0,NULL,NULL),
 (3,'kitty','$2a$10$p/lWTfRvR/vKvuPqWgKon.DN461b4UFBxahuaKNG9fPBn3dsucyl6','你好KK','Female','kitty.rau@example.org','256-067-1357','新竹市竹科路777號','1998-08-09','0000-00-00 00:00:00',3,0,NULL,NULL),
 (4,'Effie Waelchi','f04830307d50203c785c452e261f6690be35debd','quam','Male','claudie.mckenzie@example.net','033.877.6376','78868 Stamm Trail Suite 778\nWest Maiyachester, IA 16042','1998-08-09','1974-10-24 21:45:44',4,1,NULL,NULL),

@@ -72,15 +72,18 @@ public class OrderController {
         // 從session讀取登入的userId
         Integer userId = (Integer)session.getAttribute("userId");
         logger.info(userId);
-
+        logger.info(paramsMap);
         OrderRecord record = orderRecordService.saveOrderRecord(paramsMap, userId);
 
+        userService.updateUserDateline(session, userId , record);
+        System.out.println("updateDateline - ");
         Integer RtnCode = Integer.parseInt((String)paramsMap.get("RtnCode"));
-        logger.info(RtnCode);
 
+        logger.info("交易結果: " + RtnCode);
         if (RtnCode == 1){ // 交易成功
             logger.info("交易成功 payFinish-------->>");
             model.addAttribute("msg", "交易成功");
+            userService.updateUserRole(userId, "ROLE_PRIME");
         } else { // 交易失敗
             logger.info("交易失敗 payFinish-------->>");
             model.addAttribute("msg", "交易失敗");
@@ -116,12 +119,15 @@ public class OrderController {
     @RequestMapping({"/period"})
     @ResponseBody
     public String period(Model model,
-                         @RequestBody Map<String,Object> paramsMap) {
+                         @RequestBody Map<String,Object> paramsMap,
+                         HttpSession session) {
         System.out.println("period in -->> ");
         logger.info(paramsMap.get("execTimes"));
         logger.info(paramsMap.get("period"));
         logger.info(paramsMap.get("price"));
         logger.info(paramsMap.get("itemName"));
+        session.setAttribute("execTimes", paramsMap.get("execTimes"));
+        session.setAttribute("itemName", paramsMap.get("itemName"));
         ExampleAllInOne exampleAllInOne = new ExampleAllInOne();
         ExampleAllInOne.initial();
         String check = ExampleAllInOne.myGenAioCheckOutPeriod(paramsMap);
@@ -139,12 +145,16 @@ public class OrderController {
     @RequestMapping("/checkOut")
     @ResponseBody
     public String checkOut(Model model,
-                           @RequestBody Map<String,Object> paramsMap){
+                           @RequestBody Map<String,Object> paramsMap,
+                           HttpSession session){
         System.out.println("checkOut in -->> ");
         logger.info(paramsMap.get("execTimes"));
         logger.info(paramsMap.get("period"));
         logger.info(paramsMap.get("price"));
         logger.info(paramsMap.get("itemName"));
+        session.setAttribute("execTimes", paramsMap.get("execTimes"));
+        session.setAttribute("itemName", paramsMap.get("itemName"));
+
         ExampleAllInOne exampleAllInOne = new ExampleAllInOne();
         ExampleAllInOne.initial();
         String check = ExampleAllInOne.myGenAioCheckOutALL(paramsMap);

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -279,6 +280,10 @@ public class HomeController {
 		// 儲存 User
 		user.setCertificationStatus(0);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		// 儲存權限
+		user.setRole("ROLE_DEF");
+		
 		userService.saveUser(user);
 		
 		// 儲存後在資料庫的User
@@ -346,21 +351,21 @@ public class HomeController {
 	}
 	
 	// 體型、顏色、衣服、帽子 (前端要送) 新方式後端產圖 順便存取配件 Id
-//	@RequestMapping("/createAvatar")
-//	@ResponseBody
-//	public String createAvatar() {
-//		
-//		// 找體型
-//		BodyType bodyType = bodyTypeService.findByName("OVERWEIGHT");
-//		
-//		// 體型、顏色、衣服、帽子
-//		avatarService.saveAvatarPic(
-//				bodyType, "lightpurple", "Camera", "Fishermenhat", "Avatar_999");
-//
-//		//		avatarService.saveAvatarPic(
-////				bodyType, "lightpurple", "Camera", null, "Avatar_999");
-//		
-//		return "OK" ;
-//	}
+	@RequestMapping("/createAvatar")
+	@ResponseBody
+	public String createAvatar() {
+		
+		// 找體型
+		BodyType bodyType = bodyTypeService.findByName("OVERWEIGHT");
+		
+		// 體型、顏色、衣服、帽子
+		avatarService.saveAvatarPic(
+				bodyType, "lightpurple", "Camera", "Fishermenhat", "Avatar_666");
+
+		//		avatarService.saveAvatarPic(
+//				bodyType, "lightpurple", "Camera", null, "Avatar_999");
+		
+		return "OK" ;
+	}
 	
 }

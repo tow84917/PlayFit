@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,11 +72,6 @@ public class StartFitController {
 		
 		return fitActivities;
 	}
-	
-	
-	
-	
-	
 	
 	//直接點擊要健身的項目
 	@GetMapping("/fit-activity/{fitId}/{fitName}")
@@ -181,7 +177,8 @@ public class StartFitController {
 	
 	@GetMapping("videoEnded/{fitId}")
 	@ResponseBody
-	public String videoEnded(@PathVariable("fitId") Integer fitActivityIdFromPath,HttpSession session) throws NotFoundException {
+	public String videoEnded(@PathVariable("fitId") Integer fitActivityIdFromPath, 
+			HttpSession session) throws NotFoundException {
 		
 		System.out.println("fitActivityIdFromPath = " + fitActivityIdFromPath);
 		

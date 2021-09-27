@@ -209,7 +209,7 @@ public class EditPersonalInfoController {
 
 		// 驗證
 		editUserValidator.validate(modifyUser, result);
-
+		
 		// 有錯回到原頁
 		if (result.hasErrors()) {
 			
@@ -224,22 +224,24 @@ public class EditPersonalInfoController {
 			System.out.println(modifyUser.getFullName());
 			return "EditMemberInfo";
 		}
-
-		int userId = userService.getLoginUserId();
-		User user = userService.getUserById(userId);
 		
-		// 資料相同不更新
-		if (modifyUser.getFullName().equals(user.getFullName()) &&
-			modifyUser.getNickName().equals(user.getNickName()) &&	
-			modifyUser.getPhone().equals(user.getPhone()) 		&&
-			modifyUser.getEmail().equals(user.getEmail()) 		&&
-			modifyUser.getAddress().equals(user.getAddress()) 	&&
-			modifyUser.getGender().equals(user.getGender()) 	&&
-			modifyUser.getBirthday().equals(user.getBirthday()) 
-			
-				) {
-			return "redirect:/MemberPage";
-		}
+		// 舊的資料
+		User userOld = userService.getLoginUser();
+//		System.out.println(userOld);
+//		System.out.println(modifyUser);
+		
+		// 新舊資料相同不顯示更新
+		if (
+			modifyUser.getFullName().equals(userOld.getFullName()) &&
+			modifyUser.getNickName().equals(userOld.getNickName()) &&	
+			modifyUser.getPhone().equals(userOld.getPhone()) 		&&
+			modifyUser.getEmail().equals(userOld.getEmail()) 		&&
+			modifyUser.getAddress().equals(userOld.getAddress()) 	&&
+			modifyUser.getGender().equals(userOld.getGender()) 	&&
+			modifyUser.getBirthday().equals(userOld.getBirthday()) 
+			) {
+				return "redirect:/MemberPage";
+			}
 		
 		// 儲存User
 		userService.saveUser(modifyUser);
@@ -258,7 +260,7 @@ public class EditPersonalInfoController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		// 取最近期健康紀錄
-		HealthRecord healthRecordLast = healthRecordService.findLastDateByUserId(userId);
+		HealthRecord healthRecordLast = healthRecordService.findLastDateByUserId(userUpdated.getId());
 
 		// 檢查年紀是否改變(年紀影響 BMR、TDEE、BFP、FFMI)
 		int originAge = healthRecordLast.getAge();
@@ -274,16 +276,16 @@ public class EditPersonalInfoController {
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
 			// 取今日紀錄
-			HealthRecord healthRecordToday = healthRecordService.findByUserIdAndDate(userId, sqlDate);
+			HealthRecord healthRecordToday = healthRecordService.findByUserIdAndDate(userUpdated.getId(), sqlDate);
 
 			// 無今日紀錄則創建
 			if (healthRecordToday == null) {
-				healthRecordService.createNewRecord(healthRecordLast, user, sqlDate);
+				healthRecordService.createNewRecord(healthRecordLast, userOld, sqlDate);
 			}
 
 			// 有今日紀錄則更新
 			if (healthRecordToday != null) {
-				healthRecordService.updateHealthRecord(user, healthRecordToday);
+				healthRecordService.updateHealthRecord(userOld, healthRecordToday);
 			}
 
 		}

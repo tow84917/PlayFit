@@ -2,7 +2,10 @@ package com.java016.playfit.service;
 
 import java.util.List;
 
+import com.java016.playfit.model.OrderRecord;
 import com.java016.playfit.model.User;
+
+import javax.servlet.http.HttpSession;
 
 public interface UserService {
 
@@ -50,7 +53,7 @@ public interface UserService {
 	 * 
 	 * @return user id
 	 */
-	int getLoginUserId();
+	Integer getLoginUserId();
 
 	/**
 	 * 獲取登入名
@@ -72,6 +75,9 @@ public interface UserService {
 	 */
 	boolean isLoginUserEnable();
 
+    void updateUserRole(Integer userId, String role_prime);
+
+	void updateUserDateline(HttpSession session, Integer userId, OrderRecord record);
 }
 
 

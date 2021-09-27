@@ -1,6 +1,7 @@
 package com.java016.playfit.model;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class User {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	private Date dateline;
+	private Calendar dateline;
 	
 	@Column(
 			name = "created_at",
@@ -238,11 +239,11 @@ public class User {
 		this.role = role;
 	}
 
-	public Date getDateline() {
+	public Calendar getDateline() {
 		return dateline;
 	}
 
-	public void setDateline(Date dateline) {
+	public void setDateline(Calendar dateline) {
 		this.dateline = dateline;
 	}
 	
@@ -250,27 +251,27 @@ public class User {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("User [id=");
-		builder.append(this.id);
+		builder.append(id);
 		builder.append(", fullName=");
-		builder.append(this.fullName);
+		builder.append(fullName);
 		builder.append(", password=");
-		builder.append(this.password);
+		builder.append(password);
 		builder.append(", nickName=");
-		builder.append(this.nickName);
+		builder.append(nickName);
 		builder.append(", gender=");
-		builder.append(this.gender);
+		builder.append(gender);
 		builder.append(", email=");
-		builder.append(this.email);
+		builder.append(email);
 		builder.append(", phone=");
-		builder.append(this.phone);
+		builder.append(phone);
 		builder.append(", address=");
-		builder.append(this.address);
+		builder.append(address);
 		builder.append(", birthday=");
-		builder.append(this.birthday);
+		builder.append(birthday);
 		builder.append(", createdAt=");
-		builder.append(this.createdAt);
+		builder.append(createdAt);
 		builder.append(", certificationStatus=");
-		builder.append(this.certificationStatus);
+		builder.append(certificationStatus);
 		builder.append("]");
 		return builder.toString();
 	}
