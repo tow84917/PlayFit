@@ -236,6 +236,11 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 		// TODO Auto-generated method stub
 		diaryPhotoRepo.save(diaryPhoto);
 	}
+
+	@Override
+	public List<DailyRecord> findAllByCreatedYearAndMonthAndStatus(User user, int year, int month, int status) {
+		return dailyRecordRepo.findByCreatedYearAndMonthAndStatus(user.getId(), month, year,status);
+	}
 }
 
 

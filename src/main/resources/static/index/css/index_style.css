@@ -294,7 +294,7 @@ header .navbar .nav-menu .nav-item {
 }
 header .navbar .nav-menu .nav-item .nav-link {
   font-size: 1.4rem;
-  padding: 20px 12px;
+  padding: 22px 12px;
   color: var(--purple1);
 }
 header .navbar .nav-menu .nav-item .nav-link:hover {

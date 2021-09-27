@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.security.Principal;
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -236,8 +237,11 @@ public class DiaryController {
 	
 	//日記的首頁
 	@RequestMapping("/diary_homepage/{pageNumber}")
-	public ModelAndView diary_homepage(@PathVariable("pageNumber") int currentPage,HttpSession session) {
-
+	public ModelAndView diary_homepage(@PathVariable("pageNumber") int currentPage,
+										@RequestParam(name="year",required=false) String year,
+										@RequestParam(name="month",required=false) String month,
+										HttpSession session) {
+		
 		ModelAndView mv = new ModelAndView();
 		//登入的使用者帳號(電子信箱)
 		String email = userService.getLoginUserEmail();
@@ -248,6 +252,59 @@ public class DiaryController {
 		java.util.Date utilDate = new java.util.Date();
 		//把日期轉成SQL型態的Date
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        
+		System.out.println("year = " + year);
+		System.out.println("month = " + month);
+		
+		//取出目前用戶全部的日記
+		Page<DailyRecord> page = dailyRecordService.getAllDailyRecordByUserAndPage(user,currentPage);
+		List<DailyRecord> dailyRecords = page.getContent();
+		long totalItems = page.getTotalElements();
+		int totalPages = page.getTotalPages();
+		System.out.println("test1");
+		
+		java.sql.Date oldestDiaryDate = sqlDate;
+		//取出目前用戶最舊的日記
+		if(totalPages != 0) {
+			page = dailyRecordService.getAllDailyRecordByUserAndPage(user,totalPages);
+			List<DailyRecord> oldestDdailyRecord = page.getContent();
+
+			oldestDiaryDate = (Date) oldestDdailyRecord.get(oldestDdailyRecord.size()-1).getCreatedDate();
+		}
+
+		System.out.println("oldestDiaryDate = " + oldestDiaryDate);
+		mv.addObject("oldestDiaryDate",oldestDiaryDate);
+		mv.addObject("currentDate",sqlDate);
+		String pageState = "allDiary";
+		if(year != null && month != null) {
+			List<DailyRecord> dailyRecordsByYearAndMonth = dailyRecordService.findAllByCreatedYearAndMonthAndStatus(user, Integer.parseInt(year), Integer.parseInt(month),1);
+			dailyRecordsByYearAndMonth.forEach(v->System.out.println("dailyRecordByYearAndMonth = " + v));
+			
+			
+		
+			pageState = "byDate";
+			//取出全部的飲食時段
+			List<TimePeriod> timePeriods = timePeriodService.getAllTimePeriod();
+			//取出全部的食物品項
+			List<Food> foods = foodService.getAllFood();
+			
+			mv.addObject("timePeriods",timePeriods);
+//			mv.addObject("meals", meals);
+			mv.addObject("foods",foods);
+			mv.addObject("currentPage", currentPage);
+//			mv.addObject("totalItems", totalItems);
+//			mv.addObject("totalPages", totalPages);
+//			mv.addObject("isDiary",isDiary);
+			mv.addObject("dailyRecords",dailyRecordsByYearAndMonth);
+//			mv.addObject("todayDailyRecord",todayDailyRecord);
+			mv.addObject("pageState",pageState);
+			mv.setViewName("diary");
+			return mv;
+		}
+        
+        
+        
+        
         //取出目前用戶今天的日常紀錄
 		DailyRecord todayDailyRecord = dailyRecordService.getDailyRecordByUserAndDate(user, sqlDate);
 		
@@ -274,18 +331,14 @@ public class DiaryController {
 		//此日常紀錄存在session裡面
 		session.setAttribute("todayDailyRecord", todayDailyRecord);
 		
-		//取出目前用戶全部的日常紀錄
-		Page<DailyRecord> page = dailyRecordService.getAllDailyRecordByUserAndPage(user,currentPage);
-		List<DailyRecord> dailyRecords = page.getContent();
-		long totalItems = page.getTotalElements();
-		int totalPages = page.getTotalPages();
 		//取出全部的飲食時段
 		List<TimePeriod> timePeriods = timePeriodService.getAllTimePeriod();
 		//取出全部的食物品項
 		List<Food> foods = foodService.getAllFood();
 		//取出今天的日常紀錄裡的所有飲食紀錄
 		List<Meal> meals = todayDailyRecord.getMeals();
-		
+		System.out.println("totalItems = " + totalItems);
+		System.out.println("totalPages = " + totalPages);
 		mv.addObject("timePeriods",timePeriods);
 		mv.addObject("meals", meals);
 		mv.addObject("foods",foods);
@@ -295,6 +348,7 @@ public class DiaryController {
 		mv.addObject("isDiary",isDiary);
 		mv.addObject("dailyRecords",dailyRecords);
 		mv.addObject("todayDailyRecord",todayDailyRecord);
+		mv.addObject("pageState",pageState);
 		mv.setViewName("diary");
 		return mv;
 	}

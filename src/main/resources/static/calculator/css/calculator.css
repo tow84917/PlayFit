@@ -8,7 +8,6 @@
 	width: 100%;
 	min-width: 1150px;
 	height: 80px;
-	/*background-color: #6460ff;*/
 	background-color: white;
 
 }
@@ -32,17 +31,14 @@
     width: 1200px;
     height:800px;
     display: flex;
-    /*align-items: center;*/
     margin: 20px auto;
-    /*margin-left: 350px;  */  
-    /*margin-top: 20px;*/
+    margin-top: 50px;
     margin-bottom:100px ;
   }
 
   .content-wrap {
     width: 80%;
     margin: 0 auto;
-    /*margin-top: 100px;*/
   }
 
   .flex-row{
@@ -115,7 +111,7 @@
               inset 2px 2px 4px rgba(255, 255, 255, 0.1),
               2px 2px 8px rgba(0, 0, 0, 0.15);
     text-align: center;
-    padding: 25px;
+    padding: 30px;
   }
 
   .gender.btnVisited {
@@ -141,7 +137,7 @@
 
   .weight{
     width: 50%;
-    height: 60px;
+    height: 70px;
     color: blue;
     font-size: 18px;
     font-weight: bolder;
@@ -158,7 +154,7 @@
 
   .height{
     width: 50%;
-    height: 60px;
+    height: 70px;
     color: blue;
     font-size: 18px;
     font-weight: bolder;
@@ -172,8 +168,8 @@
   }
 
   .age{
-    width: 35%;
-    height: 60px;
+    width: 48%;
+    height: 70px;
     color: blue;
     font-size: 18px;
     font-weight: bolder;
@@ -191,7 +187,7 @@
     position: absolute;
     right: 130px;
     width: 35%;
-    height: 60px;
+    height: 70px;
     color: blue;
     font-size: 18px;
     font-weight: bolder;
@@ -206,15 +202,16 @@
   }
 
   .bmi{
-    width: 50%;
-    height: 60px;
+    position: absolute;
+    right: 130px;
+    height: 70px;
+    width: 35%;
     color: blue;
     font-size: 18px;
     font-weight: bolder;
     background-color: rgb(235, 238, 248);
     border-radius: 10px;
     border-color: transparent;
-    margin-left: 130px;
     box-shadow: inset -2px -2px 8px rgba(255, 255, 255, 1),
               inset -2px -2px 12px rgba(255, 255, 255, 0.5),
               inset 2px 2px 4px rgba(255, 255, 255, 0.1),
@@ -230,6 +227,7 @@
     background-color: #6460ff;
     border-radius: 10px;
     border-color: transparent;
+    margin-top: 30px;
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.15),
         inset -3px -3px 8px rgba(0, 0, 0, 0.15);
   }
@@ -243,6 +241,7 @@
     background-color: #6460ff;
     border-radius: 10px;
     border-color: transparent;
+    margin-top: 30px;
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.15),
         inset -3px -3px 8px rgba(0, 0, 0, 0.15);
   }
@@ -261,6 +260,7 @@
     border-radius: 10px;
     border-color: transparent;
     margin-left: 20px;
+    margin-top: 30px;
     box-shadow: -2px -2px 8px rgba(255, 255, 255, 1),
               -2px -2px 12px rgba(255, 255, 255, 0.5),
               inset 2px 2px 4px rgba(255, 255, 255, 0.1),
@@ -284,13 +284,27 @@
 
   .title{
     position:absolute;
-    bottom:650px;
+    bottom:615px;
     padding:30px;
-    font-size: 30px;
+    font-size: 45px;
+    color: blue;
+  }
+
+  .title2{
+    position:absolute;
+    bottom:615px;
+    padding:25px;
+    font-size: 40px;
     color: blue;
   }
 
   .ans1{
+    font-size: 45px;
+    font-weight: bolder;
+    color: #3c35f5;
+  }
+
+  .ans2{
     font-size: 30px;
     font-weight: bolder;
     color: #3c35f5;
@@ -298,7 +312,7 @@
 
   .base{
     position:absolute;
-    bottom:400px;
+    bottom:100px;
     padding:30px;
     font-size: 30px;
     font-weight: bolder;
@@ -306,7 +320,15 @@
 
   .base2{
     position:absolute;
-    bottom:60px;
+    bottom:100px;
+    padding:30px;
+    font-size: 30px;
+    font-weight: bolder;
+  }
+
+  .base3{
+    position:absolute;
+    bottom:50px;
     padding:30px;
     font-size: 30px;
     font-weight: bolder;
@@ -315,7 +337,7 @@
   .word1{
     font-size: 40px;
     font-weight: bolder;
-    padding-top: 40px;
+    padding-top: 60px;
     padding-left: 80px;
     display: flex;
   }
@@ -330,7 +352,7 @@
     font-size: 30px;
     font-weight: bolder;
     padding: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
   }
 
@@ -339,6 +361,7 @@
     font-weight: bold;
     display: flex;
     padding: 10px;
+    margin-top: -10px;
   }
 
   .word5{
@@ -362,7 +385,14 @@
     font-weight: bold;
     padding-left: 320px;
   }
+  .word8{
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    padding: 10px;
+  }
 
+  
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,

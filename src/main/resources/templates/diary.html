@@ -25,12 +25,14 @@
 <!--Main Start-->
 <div class="main container">
  <!-- Button  Start-->
- <div th:if="${!isDiary}" class="iconEdit" data-bs-toggle="modal" data-bs-target="#exampleModal">
-	<img src="/diary/img/Icon_add.svg" alt="">
-	</div>
- <div th:if="${isDiary}" class="iconEdit" data-bs-toggle="modal" data-bs-target="#exampleModal">
-	<img src="/diary/img/Icon_edit.svg" alt="">
-	</div>
+  <th:block th:if="${pageState == 'allDiary'}">
+    <div th:if="${!isDiary}" class="iconEdit" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <img src="/diary/img/Icon_add.svg" alt="">
+      </div>
+    <div th:if="${isDiary}" class="iconEdit" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <img src="/diary/img/Icon_edit.svg" alt="">
+      </div>
+  </th:block>
 <!--     <button th:if="${!isDiary}" type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
 <!--      ADD -->
 <!--     </button> -->
@@ -46,12 +48,13 @@
 	
 
       <!-- 今日日記編輯 -->
+    <th:block th:if="${pageState == 'allDiary'}">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 		<form th:action="@{/processDiaryUpdate}" class="add-diary" th:object="${todayDailyRecord}" method="post" enctype="multipart/form-data">
 			<div class="modal-content">
 			<div class="modal-header">
-				<h5 th:if="${!isDiary}" class="modal-title" id="exampleModalLabel" style="text-align: center;">Create a Dairy</h5>
+        <h5 th:if="${!isDiary}" class="modal-title" id="exampleModalLabel" style="text-align: center;">Create a Dairy</h5>
         <h5 th:if="${isDiary}" class="modal-title" id="exampleModalLabel" style="text-align: center;">Update today's Dairy</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
@@ -124,7 +127,7 @@
 		</form>
       </div>
     </div>
-
+    </th:block>
 
 
 
@@ -190,8 +193,8 @@
               <p>Date:</p>
               <input class="form__input"  type="date" id="date"  readonly/>
       
-              <p><Picture>Picture:</p>
-              <input type="file" name="image" accept="image/*">
+              <!-- <p><Picture>Picture:</p>
+              <input type="file" name="image" accept="image/*"> -->
             
             </div>
             <div class="modal-footer">
@@ -220,19 +223,13 @@
     <!-- Button  End-->
     <!--選單 Start--> 
     <div class="open_line"  >
-      <div class="has_children">
-        <dt>2021</dt>
+  
+      <div th:each="year: ${#numbers.sequence(#dates.year(oldestDiaryDate),#dates.year(currentDate))}" class="has_children">
+        <dt with="firstArticle=2222">[[${year}]]</dt>
         
-            <a class="ch" href="#">8</a>
-            <a class="ch" href="#">7</a>
+            <a th:each="month: ${#numbers.sequence(1,12)}" class="ch" th:href="'/diary_homepage/1?year=' + ${year} +'&month=' + ${month}">[[${month}]]</a>
       </div>
-      <div class="has_children">
-        <dt>2020</dt>
-        
-            <a class="ch" href="#">12</a>
-            <a class="ch" href="#">11</a>
-    
-      </div>
+      <a class="has_children" href="/diary_homepage/1" style="font-weight: 700;color: #2e1ed3;">ALL</a>
     </div>
    
 
@@ -267,30 +264,33 @@
       
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center mb-3">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
+          <th:block th:if="${pageState == 'allDiary'}">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
 
+        
+            <th:block th:if="${totalPages != 0}">
+                <span th:each="i: ${#numbers.sequence(1,totalPages)}">
+                <li class="normalIcon__click page-item"><a class="page-link" th:href="@{'/diary_homepage/' + ${i}}">[[${i}]]</a> </li>
+              </span>
+            </th:block>
+        
+  <!-- <div class="normalIcon__click"> -->
+  <!--           <img src="./img/normalIcon/left_click.svg" alt=""> -->
+  <!--         </div> -->
+  <!--         <div class="normalIcon__click"> -->
+  <!--           <img src="./img/right click.svg" alt=""> -->
+  <!--         </div> -->
 
-
-		  	<span th:each="i: ${#numbers.sequence(1,totalPages)}">
-				<li class="normalIcon__click page-item"><a class="page-link" th:href="@{'/diary_homepage/' + ${i}}">[[${i}]]</a> </li>
-			</span>
-
-<!-- <div class="normalIcon__click"> -->
-<!--           <img src="./img/normalIcon/left_click.svg" alt=""> -->
-<!--         </div> -->
-<!--         <div class="normalIcon__click"> -->
-<!--           <img src="./img/right click.svg" alt=""> -->
-<!--         </div> -->
-
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </th:block>
         </ul>
       </nav>
       
