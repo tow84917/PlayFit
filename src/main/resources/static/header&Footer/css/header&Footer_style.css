@@ -186,9 +186,8 @@ html .nav-menu {
 }
 html .nav-menu .nav-item {
   margin-left: 2rem;
-  padding: 35px 12px;
 }
-html .nav-menu .nav-item .nav-link {
+html .nav-menu .nav-item .nav-link-line {
   position: relative;
   font-size: 1.4rem;
   padding: 55px 12px;
@@ -223,26 +222,25 @@ html .nav-menu .nav-item img {
   }
   html .nav-menu .nav-item {
     margin: 2.5rem 0;
-    padding-top: 2rem;
   }
-  html .nav-menu .nav-item .nav-link {
+  html .nav-menu .nav-item .nav-link-line {
     position: relative;
     font-size: 1.4rem;
     padding: 20px 12px;
     color: var(--purple1);
   }
-  html .nav-menu .nav-item .nav-link:hover {
+  html .nav-menu .nav-item .nav-link-line:hover {
     color: #ffffff;
   }
-  html .nav-menu .nav-item .nav-link::before {
+  html .nav-menu .nav-item .nav-link-line::before {
     transform: scaleX(0) !important;
     transform-origin: center !important;
   }
-  html .nav-menu .nav-item .nav-link:hover::before {
+  html .nav-menu .nav-item .nav-link-line:hover::before {
     transform: scaleX(2000%) !important;
     transform-origin: center !important;
   }
-  html .nav-menu .nav-item .nav-link::before {
+  html .nav-menu .nav-item .nav-link-line::before {
     content: ' ';
     display: block;
     position: absolute;
@@ -289,7 +287,6 @@ html .nav-menu .nav-item img {
   width: 100%;
   background: rgba(255, 255, 255, 0.5);
   box-shadow: 3px 3px 12px rgba(128, 128, 128, 0.322);
-  padding: 3px;
   backdrop-filter: blur(8px);
   z-index: 99;
 }
@@ -311,25 +308,25 @@ html .nav-menu .nav-item img {
   align-items: center;
 }
 .header .navbar .nav-menu .nav-item {
-  margin-top: 2.3px;
+  padding: 23px 0;
 }
-.header .navbar .nav-menu .nav-item .nav-link {
+.header .navbar .nav-menu .nav-item .nav-link-line {
   font-size: 1.4rem;
-  padding: 20px 12px;
+  padding: 22px 12px;
   color: var(--purple1);
 }
-.header .navbar .nav-menu .nav-item .nav-link:hover {
+.header .navbar .nav-menu .nav-item .nav-link-line:hover {
   color: #ffffff;
 }
-.header .navbar .nav-menu .nav-item .nav-link::before {
+.header .navbar .nav-menu .nav-item .nav-link-line::before {
   transform: scaleX(0);
   transform-origin: bottom right;
 }
-.header .navbar .nav-menu .nav-item .nav-link:hover::before {
+.header .navbar .nav-menu .nav-item .nav-link-line:hover::before {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
-.header .navbar .nav-menu .nav-item .nav-link::before {
+.header .navbar .nav-menu .nav-item .nav-link-line::before {
   content: ' ';
   display: block;
   position: absolute;
