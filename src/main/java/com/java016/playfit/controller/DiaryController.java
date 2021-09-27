@@ -261,11 +261,17 @@ public class DiaryController {
 		List<DailyRecord> dailyRecords = page.getContent();
 		long totalItems = page.getTotalElements();
 		int totalPages = page.getTotalPages();
+		System.out.println("test1");
+		
+		java.sql.Date oldestDiaryDate = sqlDate;
 		//取出目前用戶最舊的日記
-		page = dailyRecordService.getAllDailyRecordByUserAndPage(user,totalPages);
-		List<DailyRecord> oldestDdailyRecord = page.getContent();
+		if(totalPages != 0) {
+			page = dailyRecordService.getAllDailyRecordByUserAndPage(user,totalPages);
+			List<DailyRecord> oldestDdailyRecord = page.getContent();
 
-		java.sql.Date oldestDiaryDate = (Date) oldestDdailyRecord.get(oldestDdailyRecord.size()-1).getCreatedDate();
+			oldestDiaryDate = (Date) oldestDdailyRecord.get(oldestDdailyRecord.size()-1).getCreatedDate();
+		}
+
 		System.out.println("oldestDiaryDate = " + oldestDiaryDate);
 		mv.addObject("oldestDiaryDate",oldestDiaryDate);
 		mv.addObject("currentDate",sqlDate);
