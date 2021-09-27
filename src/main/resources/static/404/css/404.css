@@ -95,15 +95,18 @@ table {
 }
 
 .left h1{
+    font-weight :700;
     font-size: 180px;
 
 }
 
 .left h5{
+    font-weight :700;
     font-size:30px;
 }
 
 .left p{
+    font-weight :600;
     margin-top: 20px;
     font-size:25px;
 }
