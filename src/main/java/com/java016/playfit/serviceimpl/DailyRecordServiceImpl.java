@@ -80,8 +80,6 @@ public class DailyRecordServiceImpl implements DailyRecordService  {
 		return dailyRecordRepo.findByCreatedDate(date);
 	}
 	
-	
-	
 	//以下陳以文
 	//以下陳以文
 	//以下陳以文

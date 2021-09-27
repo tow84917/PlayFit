@@ -258,6 +258,7 @@ public class DiaryController {
 		
 		//取出目前用戶全部的日記
 		Page<DailyRecord> page = dailyRecordService.getAllDailyRecordByUserAndPage(user,currentPage);
+		
 		List<DailyRecord> dailyRecords = page.getContent();
 		long totalItems = page.getTotalElements();
 		int totalPages = page.getTotalPages();
@@ -301,9 +302,6 @@ public class DiaryController {
 			mv.setViewName("diary");
 			return mv;
 		}
-        
-        
-        
         
         //取出目前用戶今天的日常紀錄
 		DailyRecord todayDailyRecord = dailyRecordService.getDailyRecordByUserAndDate(user, sqlDate);
@@ -388,7 +386,6 @@ public class DiaryController {
 		String username = userService.getLoginUserEmail();
 		//用帳號抓出此用戶的Entity
 		User user = userService.findByEmail(username);
-
 		
 		//DailyRecord dailyRecord = dailyRecordService.getDailyRecordByIdWithUserCheck(diaryId, user.getEmail());
 		Optional<DailyRecord> optional = dailyRecordRepo.findById(diaryId);
