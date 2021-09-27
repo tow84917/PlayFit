@@ -282,7 +282,7 @@ public class HomeController {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
 		// 儲存權限
-		user.setRole("ROLE_DEF");
+		user.setRole("ROLE_NORMAL");
 		
 		userService.saveUser(user);
 		
