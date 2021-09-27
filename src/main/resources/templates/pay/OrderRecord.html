@@ -22,18 +22,40 @@
     <link rel="stylesheet" th:href="@{/style.css}" href="../../static/style.css">
 
     <link rel="stylesheet" th:href="@{/pay/order.css}" href="../../static/pay/order.css">
+    <style>
+        .div {
+            justify-content: center;
+        }
+
+        .user {
+            padding: 20px;
+        }
+
+        .user h4 {
+            margin-bottom: 0;
+        }
+    </style>
 </head>
 
 <body>
     <header th:replace="fragments/header::myHeader"></header>
     <div class="br"></div>
 
+    <div class="container">
+        <div class="row ">
+            <div class="col-12 my-col">
+                <div class="div user">
+                    <h1 th:text="${dateline}" id="userDateline">
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container ">
         <div class="row sub1">
             <div class="col-6 my-col">
                 <div class="my-row">
-
-
                 </div>
             </div>
             <div class="col-6 my-col">

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Calendar;
 import java.util.Map;
 
 @Controller
@@ -92,10 +93,20 @@ public class OrderController {
         return "payFinish";
     }
 
+    /**
+     * 訂單查詢
+     * @param model 到期日 總訂單數
+     * @return OrderRecord
+     */
     @RequestMapping("/orderRecord")
     public String orderRecord(Model model){
         Long count = orderRecordService.findCountByUserId();
         System.out.println(count);
+        Calendar dateline = userService.getLoginUser().getDateline();
+        String s = "會員到期: " + dateline.get(Calendar.YEAR) + "/" +
+                dateline.get(Calendar.MONTH) + "/" +
+                dateline.get(Calendar.DATE) ;
+        model.addAttribute("dateline", s);
         model.addAttribute("count" , count);
         return "/pay/OrderRecord";
     }

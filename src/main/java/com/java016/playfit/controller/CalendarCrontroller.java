@@ -16,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -242,7 +243,7 @@ public class CalendarCrontroller {
 	@RequestMapping(value = {"/findAllActivities"} )
 	@ResponseBody
 	@PreAuthorize("hasRole('PRIME')")
-	public String findAllActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect) throws JsonProcessingException {
+	public String findAllActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect, Model model) throws JsonProcessingException {
 		logger.info("find All Activities in");
 		logger.info(bodyPartSelect);
 		List<FitActivity> activities = calenderService.findActivities(bodyPartSelect);
@@ -262,7 +263,7 @@ public class CalendarCrontroller {
 	 */
 	@RequestMapping({"/findOneActivities"})
 	@ResponseBody
-	public String findOneActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect) throws JsonProcessingException {
+	public String findOneActivities(@ModelAttribute("bodyPartSelect") String bodyPartSelect, Model model) throws JsonProcessingException {
 		logger.info("find One Activities in");
 		logger.info(bodyPartSelect);
 		List<FitActivity> activities = calenderService.findActivities(bodyPartSelect);
@@ -279,6 +280,15 @@ public class CalendarCrontroller {
 
 		logger.info("findActivities out");
 		return s;
+	}
+
+	@RequestMapping("/getUserRole")
+	@ResponseBody
+	public String getUserRole(){
+		String role = userService.getLoginUser().getRole();
+		logger.info(role);
+
+		return role;
 	}
 
 	/**

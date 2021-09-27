@@ -36,6 +36,7 @@
        console.log('currentPage: ', currentPage);
        findCurrentPage(onePageItems, currentPage);
 
+ 
    }
    window.addEventListener('load', dofirst());
 

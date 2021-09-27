@@ -19,10 +19,7 @@ function dofirst() {
 
     btnDay = document.getElementsByClassName('btn-day');
 
-    // 取得會員身份
-    $.post('getUserRole' , {} , function (data) {
-        console.log('role: ', data);
-    })
+
 
     
 }
@@ -460,6 +457,12 @@ bodyPart.addEventListener('click', (e) => {
     // 找部位動作
     const allActivities = document.getElementById('all-activities');
     allActivities.innerHTML = '';
+    userRole = '';
+    // 取得會員身份
+    $.post('getUserRole' , {} , function (data) {
+        console.log('role: ', data);
+        userRole = data;
+    })
     $.post('findActivities' , {"bodyPartSelect": bodyPartSelect} , function (data) {
         console.log('data: ', data);
 
@@ -470,7 +473,7 @@ bodyPart.addEventListener('click', (e) => {
             let inputId = 'cb' + i;
             let input = document.createElement('input');
        
-            if (element.role != true) {
+            if (element.role != true || userRole == 'ROLE_PRIME') {
                 
                 input.setAttribute('id', inputId);
                 input.setAttribute('type', 'checkbox');
@@ -504,9 +507,9 @@ bodyPart.addEventListener('click', (e) => {
             label.appendChild(top);
             label.appendChild(b);
             // label ------------------------------------------------------------
-
             
-            if (element.role == true) {
+            console.log('userRole: ', userRole);
+            if (element.role == true && userRole != 'ROLE_PRIME') {
                 fitImg.setAttribute('class', 'fit-activity prime-fit')
                 b.setAttribute('class', 'fit-a-button prime-fit');
                 

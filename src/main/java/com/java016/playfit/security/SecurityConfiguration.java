@@ -71,8 +71,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/","/index", "/process_register" ,"/login/failure" ,"/process_avatar"
 						, "/register","/**/*.js", "/**/*.css", "/**/*.svg","/payFinish").permitAll() // void not css、html 
 //				.anyRequest().authenticated() // 除了上行請求皆須登入
-				.antMatchers("/MemberPage","/calendar/calendar"
-						, "/StartFit", "/pay", "/diary_homepage/**").authenticated() // 特定請求須要登入
+				.antMatchers("/MemberPage","/calendar/**"
+						, "/StartFit", "/pay", "/diary_homepage/**","/orderRecord").authenticated() // 特定請求須要登入
 				.anyRequest().permitAll() // 其他不用
 				.and()
 				.formLogin()
