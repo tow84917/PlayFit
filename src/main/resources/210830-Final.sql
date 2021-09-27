@@ -763,7 +763,7 @@ CREATE TABLE `Users` (
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
 INSERT INTO `Users` VALUES 
-(1,'Funk','$2a$10$p/lWTfRvR/vKvuPqWgKon.DN461b4UFBxahuaKNG9fPBn3dsucyl6','龐克頭','Male','playfit1234@gmail.com','832-038-1019','台中市北區中正路808號','1998-08-09','1994-09-26 08:24:29',1,1,'ROLE_DEF',NULL),
+(1,'Funk','$2a$10$p/lWTfRvR/vKvuPqWgKon.DN461b4UFBxahuaKNG9fPBn3dsucyl6','龐克頭','Male','playfit1234@gmail.com','832-038-1019','台中市北區中正路808號','1998-08-09','1994-09-26 08:24:29',1,1,'ROLE_NORMAL',NULL),
 (2,'mickey','$2a$10$p/lWTfRvR/vKvuPqWgKon.DN461b4UFBxahuaKNG9fPBn3dsucyl6','米其林','Male','mickey.rau@example.org','077-057-2468','台北市中山北路64號','1998-08-09','1998-09-24 08:24:29',2,0,NULL,NULL),
 (3,'kitty','$2a$10$p/lWTfRvR/vKvuPqWgKon.DN461b4UFBxahuaKNG9fPBn3dsucyl6','你好KK','Female','kitty.rau@example.org','256-067-1357','新竹市竹科路777號','1998-08-09','0000-00-00 00:00:00',3,0,NULL,NULL),
 (4,'Effie Waelchi','f04830307d50203c785c452e261f6690be35debd','quam','Male','claudie.mckenzie@example.net','033.877.6376','78868 Stamm Trail Suite 778\nWest Maiyachester, IA 16042','1998-08-09','1974-10-24 21:45:44',4,1,NULL,NULL),
