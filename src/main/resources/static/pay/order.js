@@ -10,7 +10,12 @@
        // 所有訂單數
         onePageItems = 2;
        console.log('count: ', count);
-       let pageTotal = parseInt(count / onePageItems) + 1;
+
+       if (count <= 2) {
+           pageTotal = 1;
+       }else{
+           pageTotal = parseInt(count / onePageItems);
+       }
     //    pageTotal = 3;
        currentPage = 1;
        const item = document.querySelector('.item');
