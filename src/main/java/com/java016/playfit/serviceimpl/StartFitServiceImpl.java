@@ -1,6 +1,7 @@
 package com.java016.playfit.serviceimpl;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.java016.playfit.dao.FitAchieveRepository;
 import com.java016.playfit.dao.FitActivityRepository;
+import com.java016.playfit.dao.MonthlyRecordRepository;
 import com.java016.playfit.model.DailyRecord;
 import com.java016.playfit.model.FitAchieve;
 import com.java016.playfit.model.FitActivity;
+import com.java016.playfit.model.MonthlyRecord;
 import com.java016.playfit.model.PersonalGoal;
 import com.java016.playfit.model.User;
 import com.java016.playfit.service.DailyRecordService;
@@ -31,7 +34,8 @@ public class StartFitServiceImpl implements StartFitService{
 	DailyRecordService dailyRecordService;
 	@Autowired
 	PersonalGoalService personalGoalService;
-	
+	@Autowired
+	MonthlyRecordRepository monthlyRecordRepo;
 	
 	@Override
 	public List<FitActivity> getAllFitActivities() {
@@ -74,7 +78,7 @@ public class StartFitServiceImpl implements StartFitService{
 		//
 		DailyRecord dailyRecord = dailyRecordService.getDailyRecordByUserAndDate(user, sqlDate);
 		
-
+		
 		if(dailyRecord == null) {
 			dailyRecord = new DailyRecord();
 			dailyRecord.setUser(user);
@@ -122,9 +126,31 @@ public class StartFitServiceImpl implements StartFitService{
 			dailyRecord.setKcalBurned(tempKcalBurned + (int)fitActivity.getKcalBurn());
 			dailyRecordService.saveDailyRecord(dailyRecord);
 			
+			//更新個人目標的消耗量
 			PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(user.getId());
 			personalGoal.setTotalLost(personalGoal.getTotalLost() + (int)fitActivity.getKcalBurn());
 			personalGoalService.savePersonalGoal(personalGoal);
+			
+			//更新月紀錄
+			Calendar calender = Calendar.getInstance();
+			calender.setTime(sqlDate);
+			System.out.println("calender = " + calender.getTime());
+			
+			MonthlyRecord monthlyRecord = monthlyRecordRepo.findByUserIdAndMonthly(user.getId(), calender.get(Calendar.MONTH)+1, calender.get(Calendar.YEAR));
+			
+			if(monthlyRecord == null) {
+				monthlyRecord = new MonthlyRecord(user, calender, 0, 0, 0);
+			}
+			System.out.println("monthlyRecord = " + monthlyRecord.getMonthly());
+			monthlyRecord.setFinish(monthlyRecord.getFinish()+1);
+			monthlyRecord.setMonthlyKcal(monthlyRecord.getMonthlyKcal() + (int)fitActivity.getKcalBurn());
+			
+			Calendar activityTime = Calendar.getInstance();
+			activityTime.setTime(fitActivity.getTime());
+			monthlyRecord.setMonthlyTime(monthlyRecord.getMonthlyTime() + activityTime.get(Calendar.MINUTE));
+			System.out.println("activityTime = " + activityTime.get(Calendar.MINUTE));
+			
+			monthlyRecordRepo.save(monthlyRecord);
 		}
 		
 	}
@@ -143,6 +169,8 @@ public class StartFitServiceImpl implements StartFitService{
 		
 		//抓出今天的日期
 		java.util.Date utilDate = new java.util.Date();
+		//把日期轉成SQL型態的Date
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		//時間戳記型態的日期
 		Timestamp timestamp = new Timestamp(utilDate.getTime());
 		
@@ -163,9 +191,31 @@ public class StartFitServiceImpl implements StartFitService{
 		fitAchieveRepo.save(fitAchieve);
 		dailyRecordService.saveDailyRecord(dailyRecord);
 		
+		//更新個人目標的消耗量
 		PersonalGoal personalGoal = personalGoalService.findLastDateByUserId(user.getId());
 		personalGoal.setTotalLost(personalGoal.getTotalLost() + fitAchieve.getTotalKcal());
 		personalGoalService.savePersonalGoal(personalGoal);
+		
+		//更新月紀錄
+		Calendar calender = Calendar.getInstance();
+		calender.setTime(sqlDate);
+		System.out.println("calender = " + calender.getTime());
+		
+		MonthlyRecord monthlyRecord = monthlyRecordRepo.findByUserIdAndMonthly(user.getId(), calender.get(Calendar.MONTH)+1, calender.get(Calendar.YEAR));
+		
+		if(monthlyRecord == null) {
+			monthlyRecord = new MonthlyRecord(user, calender, 0, 0, 0);
+		}
+		System.out.println("monthlyRecord = " + monthlyRecord.getMonthly());
+		monthlyRecord.setFinish(monthlyRecord.getFinish()+1);
+		monthlyRecord.setMonthlyKcal(monthlyRecord.getMonthlyKcal() + fitAchieve.getFitActivity().getKcalBurn());
+		
+		Calendar activityTime = Calendar.getInstance();
+		activityTime.setTime(fitAchieve.getFitActivity().getTime());
+		monthlyRecord.setMonthlyTime(monthlyRecord.getMonthlyTime() + activityTime.get(Calendar.MINUTE));
+		System.out.println("activityTime = " + activityTime.get(Calendar.MINUTE));
+		
+		monthlyRecordRepo.save(monthlyRecord);
 		
 	}
 
