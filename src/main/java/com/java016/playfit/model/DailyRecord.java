@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.query.criteria.internal.BasicPathUsageException;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -63,12 +64,16 @@ public class DailyRecord {
 	private List<DiaryPhoto> diaryPhotos;
 
 	public DailyRecord() {
+		this.kcalBurned = 0;
+		this.kcalIntake = 0;
 	}
 
 	public DailyRecord(User user, Integer status, Date createdDate) {
 		this.user = user;
 		this.status = status;
 		this.createdDate = createdDate;
+		this.kcalBurned = 0;
+		this.kcalIntake = 0;
 	}
 
 	@JsonIgnore

@@ -23,7 +23,7 @@ public interface DailyRecordService {
 	
 	// 找特定日期所有日記紀錄
 	List<DailyRecord> findByCreatedDate(Date date);
-	
+	List<DailyRecord> findAllByCreatedYearAndMonthAndStatus(User user,int year,int month,int status);
 	//以下陳以文
 	//以下陳以文
 	//以下陳以文
