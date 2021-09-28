@@ -108,7 +108,7 @@ table {
     background: #EBEEF8;
     box-shadow: 3px 5px 6px 0px rgba(0, 0, 0, 0.15);
     position: relative;
-    z-index: 1;
+    
 }
 
 .leftBox,.rightBox{
@@ -197,7 +197,7 @@ form .button{
     background: #2E1ED3;
     border-radius: 30px;
     transition: 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    z-index: 3;
+    
 }
 .swiftContent{
     width: 80%;
@@ -417,10 +417,24 @@ form .button{
 }
 
 /* The Modal (background) */
-.modal {
+.modal1 {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 5; /* Sit on top */
+    z-index: 999; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  .modal2 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
     padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
