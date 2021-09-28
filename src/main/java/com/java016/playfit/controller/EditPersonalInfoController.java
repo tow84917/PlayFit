@@ -96,7 +96,10 @@ public class EditPersonalInfoController {
 		userService.updateUserPassword(userId, newPwd);
 
 		ra.addFlashAttribute("upadtePasswordOK", "Upadte password success, login again.");
-
+		
+		// 改密碼完登出
+		SecurityContextHolder.getContext().setAuthentication(null);
+		
 		// 前端字樣
 		// <div th:if="${upadtePasswordOK} style="color: green"">
 		// [[${upadtePasswordOK}]]

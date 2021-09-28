@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
 		
 		return customUserDetails.isEnabled();
 	}
-
+	
 	@Override
 	@Transactional
 	public void updateUserRole(Integer userId, String role) {
