@@ -60,7 +60,7 @@ public class MemberPageController {
 	@RequestMapping("/MemberPage") // 須同時支援GET、POST(forward:/)
 	public String showMemberPage(Model model, RedirectAttributes ra,
 								 HttpServletRequest request, HttpSession session) {
-		session.setAttribute("userId", userService.getLoginUserId());
+		session.setAttribute("userId", userService.getLoginUser());
 		// 改由攔截器 檢查
 //		// 確認帳號是否啟用
 //		boolean isEnable = userService.isLoginUserEnable();
