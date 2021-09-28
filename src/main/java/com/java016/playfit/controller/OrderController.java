@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java016.playfit.dao.OrderRecordRepository;
 import com.java016.playfit.model.OrderRecord;
 import com.java016.playfit.model.User;
+import com.java016.playfit.security.CustomUserDetails;
 import com.java016.playfit.service.OrderRecordService;
 import com.java016.playfit.service.UserService;
 import ecpay.payment.integration.AllInOne;
@@ -14,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,7 +59,7 @@ public class OrderController {
         System.out.println("pay in1");
         session.setAttribute("userId", userService.getLoginUser());
         Object userId = session.getAttribute("userId");
-        System.out.println(userId);
+        System.out.println(userService.getLoginUser());
         return "subscription";
     }
 
@@ -90,6 +94,14 @@ public class OrderController {
             logger.info("交易失敗 payFinish-------->>");
             model.addAttribute("msg", "交易失敗");
         }
+        User userById = userService.getUserById(userId.getId());
+//        CustomUserDetails customUserDetails = new CustomUserDetails(userById);
+//        Authentication authentication = 
+//        		new UsernamePasswordAuthenticationToken(customUserDetails,
+//        				customUserDetails.getPassword(),
+//        				customUserDetails.getAuthorities());
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(null);
         model.addAttribute("RenMsg" , record);
         return "payFinish";
     }
@@ -106,7 +118,7 @@ public class OrderController {
         Calendar dateline = userService.getLoginUser().getDateline();
         String role = userService.getLoginUser().getRole();
         String s ;
-        if( !role.equals("ROLE_PRIME") ){
+        if(role == null ||  !role.equals("ROLE_PRIME") ){
              s = "非付費會員";
         }else{
              s = "會員到期: " + dateline.get(Calendar.YEAR) + "/" +
