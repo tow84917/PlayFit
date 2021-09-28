@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,12 +10,13 @@
     <script type="text/javascript" src="/fitNow/js/fit-now.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
-    </style>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
+</style>
+
 <body>
-	<div id="role" sec:authorize="hasAnyRole('ROLE_PRIME','ROLE_DEF')" data="ROLE_PRIME"></div>
-	<div id="role" sec:authorize="hasRole('ROLE_NORMAL')" data="ROLE_NORMAL"></div>
+    <div id="role" sec:authorize="hasAnyRole('ROLE_PRIME')" data="ROLE_PRIME"></div>
+    <div id="role" sec:authorize="hasRole('ROLE_NORMAL')" data="ROLE_NORMAL"></div>
     <div class="container">
         <header th:replace="fragments/header::myHeader"></header>
         <div class="blank"></div>
@@ -29,35 +31,46 @@
         <div class="content-right">
             <div class="nested-grid">
                 <div class="fit-category">ALL TRAINING</div>
-	                <div class="fit-button-left">
-	                    <svg id="svg-arrow-left" width="10%" height="50%" viewBox="0 0 65 76" fill="none" xmlns="http://www.w3.org/2000/svg">
-	                        <g id="arrow-group-left">
-	                            <path id="arrow-left" d="M28.65 38.15L2.05 73.95L0.75 72.45L26.05 38.15L0.75 3.85L2.05 2.05L28.65 38.15Z" fill="white"/>
-	                            <path id="arrow-middle"
-	                                d="M46.55 38.15L19.45 74.95L17.15 71.35L41.95 38.15L17.15 4.55L19.45 1.25L46.55 38.15Z" fill="white"/>
-	                            <path id="arrow-right"
-	                                d="M64.75 38.15L36.85 75.75L33.55 70.65L57.55 38.15L33.55 5.35L36.85 0.25L64.75 38.15Z" fill="white"/>
-	                        </g>
-	                    </svg>
-	                </div>
-	                <div class="fit-button-right">
-	                    <svg id="svg-arrow-right" width="10%" height="50%" viewBox="0 0 65 76" fill="none" xmlns="http://www.w3.org/2000/svg">
-	                        <g id="arrow-group-right">
-	                            <path id="arrow-left" d="M28.65 38.15L2.05 73.95L0.75 72.45L26.05 38.15L0.75 3.85L2.05 2.05L28.65 38.15Z" fill="white"/>
-	                            <path id="arrow-middle"
-	                                d="M46.55 38.15L19.45 74.95L17.15 71.35L41.95 38.15L17.15 4.55L19.45 1.25L46.55 38.15Z" fill="white"/>
-	                            <path id="arrow-right"
-	                                d="M64.75 38.15L36.85 75.75L33.55 70.65L57.55 38.15L33.55 5.35L36.85 0.25L64.75 38.15Z" fill="white"/>
-	                        </g>
-	                    </svg>
-	
-	                </div>
+                <div class="fit-button-left">
+                    <svg id="svg-arrow-left" width="10%" height="50%" viewBox="0 0 65 76" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g id="arrow-group-left">
+                            <path id="arrow-left"
+                                d="M28.65 38.15L2.05 73.95L0.75 72.45L26.05 38.15L0.75 3.85L2.05 2.05L28.65 38.15Z"
+                                fill="white" />
+                            <path id="arrow-middle"
+                                d="M46.55 38.15L19.45 74.95L17.15 71.35L41.95 38.15L17.15 4.55L19.45 1.25L46.55 38.15Z"
+                                fill="white" />
+                            <path id="arrow-right"
+                                d="M64.75 38.15L36.85 75.75L33.55 70.65L57.55 38.15L33.55 5.35L36.85 0.25L64.75 38.15Z"
+                                fill="white" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="fit-button-right">
+                    <svg id="svg-arrow-right" width="10%" height="50%" viewBox="0 0 65 76" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g id="arrow-group-right">
+                            <path id="arrow-left"
+                                d="M28.65 38.15L2.05 73.95L0.75 72.45L26.05 38.15L0.75 3.85L2.05 2.05L28.65 38.15Z"
+                                fill="white" />
+                            <path id="arrow-middle"
+                                d="M46.55 38.15L19.45 74.95L17.15 71.35L41.95 38.15L17.15 4.55L19.45 1.25L46.55 38.15Z"
+                                fill="white" />
+                            <path id="arrow-right"
+                                d="M64.75 38.15L36.85 75.75L33.55 70.65L57.55 38.15L33.55 5.35L36.85 0.25L64.75 38.15Z"
+                                fill="white" />
+                        </g>
+                    </svg>
+
+                </div>
             </div>
         </div>
         <div class="blank"></div>
     </div>
     <footer th:replace="fragments/footer::myFooter"></footer>
 </body>
-<meta th:name="_csrf" th:content="${_csrf.token}"/>
-<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+<meta th:name="_csrf" th:content="${_csrf.token}" />
+<meta th:name="_csrf_header" th:content="${_csrf.headerName}" />
+
 </html>

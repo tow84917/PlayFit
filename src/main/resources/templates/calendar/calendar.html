@@ -39,7 +39,12 @@
 </head>
 
 <body>
+
+    <div id="role" sec:authorize="hasAnyRole('ROLE_PRIME')" data="ROLE_PRIME"></div>
+    <div id="role" sec:authorize="hasRole('ROLE_NORMAL')" data="ROLE_NORMAL"></div>
+
     <header th:replace="fragments/header::myHeader"></header>
+
     <div class="br"></div>
 
 

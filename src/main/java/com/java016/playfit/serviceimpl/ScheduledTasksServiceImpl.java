@@ -55,7 +55,8 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	 */
 	@Override
 //	@Scheduled(cron = "0 0 0 * * ?") // 指定時間執行 0時(24)
-	@Scheduled(initialDelay = 180000, fixedRate = 180000) // 展示用 (3分鐘更新)
+	@Scheduled(initialDelay = 720000, fixedRate = 150000) // 展示用 (3分鐘更新)
+//	@Scheduled(initialDelay = 10000, fixedRate = 10000) // 展示用 (3分鐘更新)
 	@Transactional
 	public void upadteCalorieDeficit() {
 		
@@ -202,7 +203,8 @@ public class ScheduledTasksServiceImpl implements ScheduledTasksService {
 	 */
 	@Override
 //	@Scheduled(cron = "15 10 17 * * ?") // 指定時間執行 2時(am)
-	@Scheduled(initialDelay = 210000, fixedRate = 210000) // 展示用 (3分鐘半更新)
+	@Scheduled(initialDelay = 720000, fixedRate = 210000) // 展示用 (3分鐘更新)
+//	@Scheduled(initialDelay = 10000, fixedRate = 10000) // 展示用 (3分鐘更新)
 	@Transactional
 	public void upadteAvatarPicForBodyType() {
 		

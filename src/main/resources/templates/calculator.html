@@ -12,305 +12,305 @@
 </head>
 
 <body>
-    <!-- 上至選單 -->
+<!-- 上至選單 -->
 
-	<div class="myHeader">
-    	<header th:replace="fragments/header::myHeader"></header>
-    </div>
+<div class="myHeader">
+    <header th:replace="fragments/header::myHeader"></header>
+</div>
 
-    <!-- 標籤框架1 -->
-    <div class="main">
+<!-- 標籤框架1 -->
+<div class="main">
 
-        <!-- 標籤框架2 -->
-        <div class="content-wrap"> 
+    <!-- 標籤框架2 -->
+    <div class="content-wrap">
 
-            <!-- 上面標籤 -->            
-            <div id="tabs" class="flex-row">
-                <div class="">
-                    <a href="#tab1" class="tab-txt bmi-id active">BMI</a>
+        <!-- 上面標籤 -->
+        <div id="tabs" class="flex-row">
+            <div class="">
+                <a href="#tab1" class="tab-txt bmi-id active">BMI</a>
+            </div>
+            <div class="">
+                <a href="#tab2" class="tab-txt bfp-id">BFP</a>
+            </div>
+            <div class="">
+                <a href="#tab3" class="tab-txt tdee-id">BMR & TDEE</a>
+            </div>
+        </div>
+
+        <!--換頁框架-->
+        <div class="position-relative">
+
+
+            <!-- BMI -->    <!--body mass index 身體質量指數-->
+            <div class="content" id="tab1">
+
+                <!-- 文字上 -->
+                <div class="num1">
+                    <div class="word1">Learn Your BMI
+                        <div class="word2">(Body Mass Index)</div>
+                    </div>
                 </div>
-                <div class="">
-                    <a href="#tab2" class="tab-txt bfp-id">BFP</a>
-                </div>
-                <div class="">
-                    <a href="#tab3" class="tab-txt tdee-id">BMR & TDEE</a>
+
+                <!-- 內表格 -->
+                <div class="section">
+
+                    <!-- 性別 -->
+                    <div class="gender-wrap">
+                        <div class="word3">About You</div>
+                        <div class="flex-row">
+                            <div class="gender male male-id">Male</div>
+                            <div class="gender feMale-id">Female</div>
+                        </div>
+                    </div>
+
+                    <!-- 身高體重 -->
+                    <div class="num1">
+                        <div class="word4">Weight
+                            <div class="word5">kg
+                                <div class="word6">Height
+                                    <div class="word5">cm</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p></p>
+
+                        <div class="flex-row">
+                            <label for="Weight"></label>
+                            <input type="text" id="Weight" class="weight" placeholder="required field"
+                                   required minlength="2" maxlength="5" >
+
+                            <label for="Height"></label>
+                            <input type="text" id="Height" class="height" placeholder="required field"
+                                   required minlength="2" maxlength="5" >
+                        </div>
+                    </div>
+
+                    <!-- 年齡 -->
+                    <div class="word8">Age</div>
+                    <p></p>
+                    <input type="text" class="age" style="background: lightgrey"
+                           required minlength="1" maxlength="3" disabled="disabled">
+
+                    <!-- 下面按鈕 -->
+                    <div class="flex-row">
+                        <button onclick="calculator()" class="start calculator1-id" id="myBtn">CALCULATE</button>
+                        <button class="recovery recovery1-id dis-none">START OVER</button>
+                        <button onclick="clear()" class="clear clearall-id">CLEAR</button>
+                    </div>
                 </div>
             </div>
 
-            <!--換頁框架-->
-            <div class="position-relative">
+            <!-- 結果 -->
+            <div class="results result1 dis-none">
+                <div class="num1">
+                    <div class="title">Your Results</div>
+                    <div class="base">
+
+                        <div id="answerbmi" class="ans1"></div>
+                        <br>
+                        <br>
+                        <p style="font-size:40px;" >Body Mass Index = weight (kg) ÷ height &sup2 (m)</p>
+                        <br>
+                        <br>
+                        <div id="answerbmi2" style="font-size: 40px;"></div>
+                    </div>
+                </div>
+            </div>
 
 
-<!-- BMI -->    <!--body mass index 身體質量指數-->
-                <div class="content" id="tab1">
+            <!-- BFP -->    <!--Body Fat Persentage 體脂率-->
+            <div class="content" id="tab2">
 
-                    <!-- 文字上 -->
-                    <div class="num1">
-                        <div class="word1">Learn Your BMI
-                            <div class="word2">(Body Mass Index)</div>
+                <!-- 文字上 -->
+                <div class="num1">
+                    <div class="word1">Learn Your BFP
+                        <div class="word2">(Body Fat Persentage)</div>
+                    </div>
+                </div>
+
+                <!-- 內表格 -->
+                <div class="section">
+
+                    <!-- 性別 -->
+                    <div class="gender-wrap">
+                        <div class="word3">About You</div>
+                        <div class="flex-row">
+                            <div class="gender male male-id">Male</div>
+                            <div class="gender feMale-id">Female</div>
                         </div>
                     </div>
-                    
-                    <!-- 內表格 -->
-                    <div class="section">
 
-                        <!-- 性別 -->
-                        <div class="gender-wrap">
-                            <div class="word3">About You</div>
-                            <div class="flex-row">
-                                <div class="gender male male-id">Male</div>
-                                <div class="gender feMale-id">Female</div>
-                            </div>
-                        </div>
-
-                        <!-- 身高體重 -->
-                        <div class="num1">
-                            <div class="word4">Weight
-                                <div class="word5">kg
-                                    <div class="word6">Height
-                                        <div class="word5">cm</div>
-                                    </div>
+                    <!-- 身高體重 -->
+                    <div class="num1">
+                        <div class="word4">Weight
+                            <div class="word5">kg
+                                <div class="word6">Height
+                                    <div class="word5">cm</div>
                                 </div>
                             </div>
-                            
-                            <p></p>
-
-                            <div class="flex-row">
-                                <label for="Weight"></label>
-                            <input type="text" id="Weight" class="weight" placeholder="required field" 
-                            required minlength="2" maxlength="5" >
-
-                            <label for="Height"></label>
-                            <input type="text" id="Height" class="height" placeholder="required field" 
-                            required minlength="2" maxlength="5" >
-                            </div>
                         </div>
 
-                        <!-- 年齡 -->
-                        <div class="word8">Age</div>
                         <p></p>
-                        <input type="text" class="age" placeholder="required field" 
-                        required minlength="1" maxlength="3" disabled="disabled">
 
-                        <!-- 下面按鈕 -->
                         <div class="flex-row">
-                            <button onclick="calculator()" class="start calculator1-id" id="myBtn">CALCULATE</button>
-                            <button class="recovery recovery1-id dis-none">START OVER</button>
-                            <button onclick="clear()" class="clear clearall-id">CLEAR</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 結果 -->
-                <div class="results result1 dis-none">
-                    <div class="num1">
-                        <div class="title">Your Results</div>
-                        <div class="base"> 
-                            
-                            <div id="answerbmi" class="ans1"></div>
-                            <br>
-                            <br>
-                            <p style="font-size:40px;" >Body Mass Index = weight (kg) ÷ height &sup2 (m)</p>
-                            <br>
-                            <br>
-                            <div id="answerbmi2" style="font-size: 40px;"></div>                           
-                        </div>
-                    </div>
-                </div>
-
-
-<!-- BFP -->    <!--Body Fat Persentage 體脂率-->
-                <div class="content" id="tab2">
-
-                    <!-- 文字上 -->
-                    <div class="num1">
-                        <div class="word1">Learn Your BFP
-                            <div class="word2">(Body Fat Persentage)</div>
-                        </div>
-                    </div>
-
-                    <!-- 內表格 -->
-                    <div class="section">
-
-                        <!-- 性別 -->
-                        <div class="gender-wrap">
-                            <div class="word3">About You</div>
-                            <div class="flex-row">    
-                                <div class="gender male male-id">Male</div>
-                                <div class="gender feMale-id">Female</div>    
-                            </div>
-                        </div>
-
-                        <!-- 身高體重 -->
-                        <div class="num1">
-                            <div class="word4">Weight
-                                <div class="word5">kg
-                                    <div class="word6">Height
-                                        <div class="word5">cm</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <p></p>
-
-                            <div class="flex-row">
-                                <label for="Weight"></label>
-                            <input type="text" id="Weight2" class="weight" placeholder="required field" 
-                            required minlength="2" maxlength="5">
+                            <label for="Weight"></label>
+                            <input type="text" id="Weight2" class="weight" placeholder="required field"
+                                   required minlength="2" maxlength="5">
 
                             <label for="Height"></label>
-                            <input type="text" id="Height2" class="height" placeholder="required field" 
-                            required minlength="2" maxlength="5">
-                            </div>
+                            <input type="text" id="Height2" class="height" placeholder="required field"
+                                   required minlength="2" maxlength="5">
+                        </div>
+                    </div>
+
+                    <!-- 年齡 & Bmi -->
+                    <div class="num1">
+                        <div class="word8">Age
+                            <div class="word7">BMI</div>
                         </div>
 
-                        <!-- 年齡 & Bmi -->
-                        <div class="num1">
-                            <div class="word8">Age
-                                <div class="word7">BMI</div>
-                            </div>
-
-                            <div class="flex-row">
-                                <input type="text" class="age" id="Age2"placeholder="required field" 
-                                required minlength="1" maxlength="3" >
-
-                                <input type="text" id="Bmi" class="bmi" placeholder="required field" 
-                                required minlength="1" maxlength="5" >
-                            </div>
-                        </div>
-                        
-
-                        <!-- 下面按鈕 -->
                         <div class="flex-row">
-                            <button onclick="calculator2()" class="start calculator2-id" id="empty">CALCULATE</button>
-                            <button class="recovery recovery2-id dis-none">START OVER</button>
-                            <button onclick="clear()" class="clear clearall-id">CLEAR</button>
+                            <input type="text" class="age" id="Age2"placeholder="required field"
+                                   required minlength="1" maxlength="3" >
+
+                            <input type="text" id="Bmi" class="bmi" placeholder="required field"
+                                   required minlength="1" maxlength="5" >
                         </div>
+                    </div>
+
+
+                    <!-- 下面按鈕 -->
+                    <div class="flex-row">
+                        <button onclick="calculator2()" class="start calculator2-id" id="empty">CALCULATE</button>
+                        <button class="recovery recovery2-id dis-none">START OVER</button>
+                        <button onclick="clear()" class="clear clearall-id">CLEAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 結果 -->
+            <div class="results result2 dis-none">
+                <div class="num1">
+                    <div class="title">Your Results</div>
+                    <div class="base2">
+                        <div id="answerbfp" class="ans1"></div>
+                        <br>
+                        <br>
+                        <p style="font-size: 40px;">Body Fat Persentage = (1.2 X BMI) + (0.23 X age -5.4) - (10.8 X gender)</p>
+                        <br>
+                        <br>
+                        <p style="font-size: 40px;">If you want to improve your body composition, you may want to aim for even lower numbers. Women who are physically fit typically have a body fat percentage of 21-24%, while men fall somewhere between 14-17%.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- BMR & TDEE -->  <!--Basal Metabolic Rate 基礎代謝率-->  <!--Total Daily Energy Expenditure 總熱量消耗 -->
+            <div class="content" id="tab3">
+
+                <!-- 文字上 -->
+                <div class="num1">
+                    <div class="word1">Learn Your BMR & TDEE
+                        <div class="word2">(Basal Metabolic Rate)</div>
                     </div>
                 </div>
 
-                 <!-- 結果 -->
-                <div class="results result2 dis-none">
-                    <div class="num1">
-                        <div class="title">Your Results</div>
-                        <div class="base2">
-                            <div id="answerbfp" class="ans1"></div>
-                            <br>
-                            <br>
-                            <p style="font-size: 40px;">Body Fat Persentage = (1.2 X BMI) + (0.23 X age -5.4) - (10.8 X gender)</p>
-                            <br>
-                            <br>
-                            <p style="font-size: 40px;">If you want to improve your body composition, you may want to aim for even lower numbers. Women who are physically fit typically have a body fat percentage of 21-24%, while men fall somewhere between 14-17%.</p>
-                        </div>
-                    </div>
-                </div>
+                <!-- 內表格 -->
+                <div class="section">
 
-
-<!-- BMR & TDEE -->  <!--Basal Metabolic Rate 基礎代謝率-->  <!--Total Daily Energy Expenditure 總熱量消耗 -->
-                <div class="content" id="tab3">
-
-                    <!-- 文字上 -->
-                    <div class="num1">
-                        <div class="word1">Learn Your BMR & TDEE
-                            <div class="word2">(Basal Metabolic Rate)</div>
+                    <!-- 性別 -->
+                    <div class="gender-wrap">
+                        <div class="word3">About You</div>
+                        <div class="flex-row">
+                            <div class="gender male male-id">Male</div>
+                            <div class="gender feMale-id">Female</div>
                         </div>
                     </div>
 
-                    <!-- 內表格 -->
-                    <div class="section">
-
-                        <!-- 性別 -->
-                        <div class="gender-wrap">
-                            <div class="word3">About You</div>
-                            <div class="flex-row">
-                                <div class="gender male male-id">Male</div>
-                                <div class="gender feMale-id">Female</div>
-                            </div>
-                        </div>
-
-                        <!-- 身高體重 -->
-                        <div class="num1">
-                            <div class="word4">Weight
-                                <div class="word5">kg
-                                    <div class="word6">Height
-                                        <div class="word5">cm</div>
-                                    </div>
+                    <!-- 身高體重 -->
+                    <div class="num1">
+                        <div class="word4">Weight
+                            <div class="word5">kg
+                                <div class="word6">Height
+                                    <div class="word5">cm</div>
                                 </div>
                             </div>
-                            
-                            <p></p>
+                        </div>
 
-                            <div class="flex-row">
-                                <label for="Weight"></label>
-                            <input type="text" id="Weight3" class="weight" placeholder="required field" 
-                            required minlength="2" maxlength="5">
+                        <p></p>
+
+                        <div class="flex-row">
+                            <label for="Weight"></label>
+                            <input type="text" id="Weight3" class="weight" placeholder="required field"
+                                   required minlength="2" maxlength="5">
 
                             <label for="Height"></label>
-                            <input type="text" id="Height3" class="height" placeholder="required field" 
-                            required minlength="2" maxlength="5">
-                            </div>
-                        </div>
-
-                        
-
-                        <!-- 年齡 -->
-                        <div class="num1">
-                            <div class="word8">Age
-                                <div class="word7">Activity</div>
-                            </div>        
-                            <div class="flex-row">
-                                <input type="text" class="age" id="Age3" placeholder="required field" 
-                                required minlength="1" maxlength="3"> 
-
-                                <select name="exercise1" id="Exercise" class="frequency" placeholder="required field">
-                                    <option value="1.2">Sedentary(office job)</option>
-                                    <option value="1.4">Light Exercise(1-2days/week)</option>
-                                    <option value="1.6">Moderate Exercise(3-5days/week)</option>
-                                    <option value="1.8">Heavy Exercise(6-7days/week)</option>
-                                    <option value="2">Athlete(2x per day)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- 下面按鈕 -->
-                        <div class="flex-row">
-                            <button onclick="calculator3()" class="start calculator3-id">CALCULATE</button>
-                            <button class="recovery recovery3-id dis-none">START OVER</button>
-                            <button onclick="clear()" class="clear clearall-id">CLEAR</button>
+                            <input type="text" id="Height3" class="height" placeholder="required field"
+                                   required minlength="2" maxlength="5">
                         </div>
                     </div>
-                </div>
 
-                 <!-- 結果 -->
-                <div class="results result3 dis-none">
+
+
+                    <!-- 年齡 -->
                     <div class="num1">
-                        <div class="title2">Your Results</div>
-                        <div class="base3"> 
-                            <div id="answerbmr1" class="ans2"></div>
-                            <div id="answerbmr2" class="ans2"></div>
-                            <br>
-                            <p style="font-size: 28px">BMR is how many calories you burn when your body is resting.</p>
-                            <br>
-                            <p style="font-size: 28px">Man BMR = 66 + (13.7 x weight) + (5 x height) - (6.8 x age)</p>
-                            <br>
-                            <p style="font-size: 28px">Woman BMR = 665 + (9.6 x weight) + (1.8 x height) - (4.7 x age)</p>
-                            <br>
-                            <div id="answertdee1" class="ans2"></div>
-                            <div id="answertdee2" class="ans2"></div>
-                            <br>
-                            <p style="font-size: 28px">(Total  Daily  Energy  Expenditure) - T.D.E.E.</p>
-                            <br>
-                            <p style="font-size: 28px">TDEE is an estimation of how many calories you burn each day , including physical activity.</p>                         
-                            <br>
-                            <p style="font-size: 28px">TDEE = BMR x Exercise frequency  (1.2 , 1.4 , 1.6 , 1.8 , 2.0)</p>     
-                                                     
+                        <div class="word8">Age
+                            <div class="word7">Activity</div>
                         </div>
+                        <div class="flex-row">
+                            <input type="text" class="age" id="Age3" placeholder="required field"
+                                   required minlength="1" maxlength="3">
+
+                            <select name="exercise1" id="Exercise" class="frequency" placeholder="required field">
+                                <option value="1.2">Sedentary(office job)</option>
+                                <option value="1.4">Light Exercise(1-2days/week)</option>
+                                <option value="1.6">Moderate Exercise(3-5days/week)</option>
+                                <option value="1.8">Heavy Exercise(6-7days/week)</option>
+                                <option value="2">Athlete(2x per day)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 下面按鈕 -->
+                    <div class="flex-row">
+                        <button onclick="calculator3()" class="start calculator3-id">CALCULATE</button>
+                        <button class="recovery recovery3-id dis-none">START OVER</button>
+                        <button onclick="clear()" class="clear clearall-id">CLEAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 結果 -->
+            <div class="results result3 dis-none">
+                <div class="num1">
+                    <div class="title2">Your Results</div>
+                    <div class="base3">
+                        <div id="answerbmr1" class="ans2"></div>
+                        <div id="answerbmr2" class="ans2"></div>
+                        <br>
+                        <p style="font-size: 28px">BMR is how many calories you burn when your body is resting.</p>
+                        <br>
+                        <p style="font-size: 28px">Man BMR = 66 + (13.7 x weight) + (5 x height) - (6.8 x age)</p>
+                        <br>
+                        <p style="font-size: 28px">Woman BMR = 665 + (9.6 x weight) + (1.8 x height) - (4.7 x age)</p>
+                        <br>
+                        <div id="answertdee1" class="ans2"></div>
+                        <div id="answertdee2" class="ans2"></div>
+                        <br>
+                        <p style="font-size: 28px">(Total  Daily  Energy  Expenditure) - T.D.E.E.</p>
+                        <br>
+                        <p style="font-size: 28px">TDEE is an estimation of how many calories you burn each day , including physical activity.</p>
+                        <br>
+                        <p style="font-size: 28px">TDEE = BMR x Exercise frequency  (1.2 , 1.4 , 1.6 , 1.8 , 2.0)</p>
+
                     </div>
                 </div>
             </div>
         </div>
-    </div> 
-    <footer th:replace="fragments/footer::myFooter"></footer>
+    </div>
+</div>
+<footer th:replace="fragments/footer::myFooter"></footer>
 </body>
 
 </html>
