@@ -275,6 +275,8 @@ public class User implements Serializable {
 		builder.append(createdAt);
 		builder.append(", certificationStatus=");
 		builder.append(certificationStatus);
+		builder.append(", role=");
+		builder.append(role);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -157,13 +157,15 @@ public class UserServiceImpl implements UserService {
 		
 		return customUserDetails.isEnabled();
 	}
-
+	
 	@Override
+	@Transactional
 	public void updateUserRole(Integer userId, String role) {
 		userRepo.updateUserRole(userId, role);
 	}
 
 	@Override
+	@Transactional
 	public void updateUserDateline(HttpSession session, Integer userId, OrderRecord record) {
 		System.out.println("updateDateline ->> ");
 		String execTimes = (String) session.getAttribute("execTimes");

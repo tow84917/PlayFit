@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java016.playfit.dao.OrderRecordRepository;
 import com.java016.playfit.model.OrderRecord;
 import com.java016.playfit.model.User;
+import com.java016.playfit.security.CustomUserDetails;
 import com.java016.playfit.service.OrderRecordService;
 import com.java016.playfit.service.UserService;
 import ecpay.payment.integration.AllInOne;
@@ -14,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -90,7 +94,23 @@ public class OrderController {
             logger.info("交易失敗 payFinish-------->>");
             model.addAttribute("msg", "交易失敗");
         }
-        model.addAttribute("RenMsg" , record);
+        
+        // 取經經被更新後的 User
+        User userUpdated = userService.getUserById(userId.getId());
+     	System.out.println("------------100-------------" + userUpdated);
+        
+     	// 新 UserDetails 給 authentication 
+     	CustomUserDetails customUserDetails = new CustomUserDetails(userUpdated);
+     			
+     	// 新增 authentication 
+     	Authentication authentication = 
+     			new UsernamePasswordAuthenticationToken
+     			(customUserDetails, customUserDetails.getPassword(), 
+     					customUserDetails.getAuthorities());
+     	SecurityContextHolder.getContext().setAuthentication(authentication);        
+        
+     	model.addAttribute("RenMsg" , record);
+        
         return "payFinish";
     }
 
