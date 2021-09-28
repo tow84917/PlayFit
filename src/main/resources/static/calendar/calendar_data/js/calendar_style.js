@@ -457,12 +457,13 @@ bodyPart.addEventListener('click', (e) => {
     // 找部位動作
     const allActivities = document.getElementById('all-activities');
     allActivities.innerHTML = '';
-    userRole = '';
+
+    userRole = document.getElementById("role").getAttribute('data');;
     // 取得會員身份
-    $.post('getUserRole' , {} , function (data) {
-        console.log('role: ', data);
-        userRole = data;
-    })
+    // $.post('getUserRole' , {} , function (data) {
+    //     console.log('role: ', data);
+    //     userRole = data;
+    // })
     $.post('findActivities' , {"bodyPartSelect": bodyPartSelect} , function (data) {
         console.log('data: ', data);
 
