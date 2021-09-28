@@ -138,7 +138,7 @@
 
 
 #hat_blank,#clothes_blank{
-  width: 6rem;
+  width: 5.5rem;
 }
 
 #tab1-1:checked ~ .segmented-control__color{

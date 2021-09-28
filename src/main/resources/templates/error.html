@@ -1,20 +1,34 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/404/css/404.css">
     <title>error</title>
 </head>
-
 <body>
-    <!--Menu Start-->
-    <header th:replace="fragments/header::myHeader"></header>
-    <div class="blank"></div>
-    <!--Menu End-->
-    <!-- Main Start -->
-    <img th:src="@{/404/img/ERRORview.png}" src="../static/404/img/404view.png" alt="" style="width: 100%;">
-    <!-- Main End -->
-    <footer th:replace="fragments/footer::myFooter"></footer>
-</body>
+<!--Menu Start-->
+<header th:replace="fragments/header::myHeader"></header>
+<div class="blank"></div>
+<!--Menu End-->
+<!-- Main Start -->
 
-</html>
+<div class="content">
+    <div class="left">
+        <h1>error</h1>
+        <h5>We can't seem to find the</h5> <br>
+        <h5>page you're looking for.</h5>
+        <p>Error</p>
+    </div>
+
+    <div class="right">
+        <img class="picture" th:src="@{/404/img/404view.png}" alt="" style="width: 100%;">
+
+    </div>
+</div>
+<!-- Main End -->
+<footer th:replace="fragments/footer::myFooter"></footer>
+</body>
