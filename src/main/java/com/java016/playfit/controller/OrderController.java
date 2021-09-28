@@ -53,7 +53,7 @@ public class OrderController {
     @RequestMapping({"/pay"})
     public String point(HttpSession session) {
         System.out.println("pay in1");
-        session.setAttribute("userId", userService.getLoginUserId());
+        session.setAttribute("userId", userService.getLoginUser());
         Object userId = session.getAttribute("userId");
         System.out.println(userId);
         return "subscription";
@@ -72,12 +72,12 @@ public class OrderController {
                             HttpSession session) {
         logger.info("payFinish-------->>");
         // 從session讀取登入的userId
-        Integer userId = (Integer)session.getAttribute("userId");
+        User userId = (User)session.getAttribute("userId");
         logger.info(userId);
         logger.info(paramsMap);
-        OrderRecord record = orderRecordService.saveOrderRecord(paramsMap, userId);
+        OrderRecord record = orderRecordService.saveOrderRecord(paramsMap, userId.getId());
 
-        userService.updateUserDateline(session, userId , record);
+        userService.updateUserDateline(session, userId.getId() , record);
         System.out.println("updateDateline - ");
         Integer RtnCode = Integer.parseInt((String)paramsMap.get("RtnCode"));
 
@@ -85,7 +85,7 @@ public class OrderController {
         if (RtnCode == 1){ // 交易成功
             logger.info("交易成功 payFinish-------->>");
             model.addAttribute("msg", "交易成功");
-            userService.updateUserRole(userId, "ROLE_PRIME");
+            userService.updateUserRole(userId.getId(), "ROLE_PRIME");
         } else { // 交易失敗
             logger.info("交易失敗 payFinish-------->>");
             model.addAttribute("msg", "交易失敗");

@@ -142,7 +142,7 @@ const renderCalender = (daysArray) => {
     const month = months[monthColl];
     
 
-    document.querySelector('.date h1').innerHTML = months[monthColl] + ' ' + year;
+    document.querySelector('.date h1').innerHTML = year + ' / ' +  months[monthColl] ;
     // document.querySelector('.date p').innerHTML = new Date().toDateString();
 
     monthDays = document.querySelector('.days');
