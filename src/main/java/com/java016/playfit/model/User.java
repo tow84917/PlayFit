@@ -1,5 +1,6 @@
 package com.java016.playfit.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,8 +26,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(
 		name = "users"
 )
-public class User {
+public class User implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(
 			strategy = GenerationType.IDENTITY
