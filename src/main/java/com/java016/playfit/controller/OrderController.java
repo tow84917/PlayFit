@@ -17,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +28,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -95,19 +100,18 @@ public class OrderController {
             model.addAttribute("msg", "交易失敗");
         }
         
-        // 取經經被更新後的 User
-        User userUpdated = userService.getUserById(userId.getId());
-     	System.out.println("------------100-------------" + userUpdated);
-        
-     	// 新 UserDetails 給 authentication 
-     	CustomUserDetails customUserDetails = new CustomUserDetails(userUpdated);
-     			
+     	
      	// 新增 authentication 
-     	Authentication authentication = 
-     			new UsernamePasswordAuthenticationToken
-     			(customUserDetails, customUserDetails.getPassword(), 
-     					customUserDetails.getAuthorities());
-     	SecurityContextHolder.getContext().setAuthentication(authentication);        
+        Authentication auth = 
+        		SecurityContextHolder.getContext().getAuthentication();
+     	
+        List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+        updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_PRIME")); 
+        
+        Authentication newAuth = 
+        		new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+        
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
         
      	model.addAttribute("RenMsg" , record);
         
